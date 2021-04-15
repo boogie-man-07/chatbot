@@ -36,6 +36,7 @@ $queryUserName = $query["from"]["first_name"];
 require ("vendor/autoload.php");
 require ("keyboards/keyboards.php");
 require ("constants/constants.php");
+require ("logs/logs.php");
 
 $json = file_get_contents('constants/localization.json');
 $data = json_decode($json, true);
@@ -78,6 +79,8 @@ switch ($text) {
         break;
       } else {
         # Обработка кейса, когда пользователя с таким chatID есть в БД и ранее он уже успешно авторизовался
+        $logs = new logs();
+        $logs->log($text, $fullname);
         $reply = "С возвращением, $fullname!\nПока я умею выполнять команды в меню ниже, но я постоянно учусь!";
         $keyboard = array(
           "keyboard" => array(
@@ -626,11 +629,15 @@ switch ($text) {
 
   default:
     $stateResult = $access->getState($chatID);
+    $user = $access->getUserByChatID($chatID);
+    $fullname = $user['fullname'];
     $state = $stateResult["dialog_state"];
 
     switch ($state) {
 
       case 'waiting for authorization':
+        $logs = new logs();
+        $logs->log($text, $fullname);
         $reply = "Ничего не понял, но я быстро учусь ".hex2bin('f09f9982').". Пожалуйста, воспользуйтесь командами в меню ниже!";
         sendMessage($chatID, $reply, null);
         break;
@@ -872,6 +879,8 @@ switch ($text) {
           }
 
       case 'authorization completed':
+        $logs = new logs();
+        $logs->log($text, $fullname);
         $reply = "Ничего не понял, но я быстро учусь ".hex2bin('f09f9982').". Пожалуйста, воспользуйтесь командами меню ниже!";
         sendMessage($chatID, $reply, null);
         break;
