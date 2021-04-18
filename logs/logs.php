@@ -17,9 +17,9 @@ class logs {
 		$logics = new logics();
 		$current_date = $logics->getCurrentDate();
 		$current_date_time = $logics->getDateForLogging();
-		$logMessage = "[".(string)$current_date_time."] ".$message."\n";
+		$logMessage = "[".(string)$current_date_time."];$message;$fullname\n";
 
-		file_put_contents('logs/result_log_'.$current_date.'.txt', $logMessage." - ".$fullname, FILE_APPEND | LOCK_EX);
+		file_put_contents('logs/result_log_'.$current_date.'.txt', $logMessage, FILE_APPEND | LOCK_EX);
 	}
 
 }

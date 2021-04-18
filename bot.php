@@ -41,9 +41,6 @@ require ("logs/logs.php");
 $json = file_get_contents('constants/localization.json');
 $data = json_decode($json, true);
 
-$json = file_get_contents('constants/localization.json');
-$data = json_decode($json, true);
-
 // include access.php to call func from access.php file
 require ("secure/access.php");
 $access = new access($host, $user, $pass, $name);
