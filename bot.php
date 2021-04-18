@@ -36,7 +36,7 @@ $queryUserName = $query["from"]["first_name"];
 require ("vendor/autoload.php");
 require ("keyboards/keyboards.php");
 require ("constants/constants.php");
-require ("logs/logs.php");
+// require ("logs/logs.php");
 
 $json = file_get_contents('constants/localization.json');
 $data = json_decode($json, true);
@@ -76,8 +76,8 @@ switch ($text) {
         break;
       } else {
         # Обработка кейса, когда пользователя с таким chatID есть в БД и ранее он уже успешно авторизовался
-        $logs = new logs();
-        $logs->log($text, $fullname);
+        // $logs = new logs();
+        // $logs->log($text, $fullname);
         $reply = "С возвращением, $fullname!\nПока я умею выполнять команды в меню ниже, но я постоянно учусь!";
         $keyboard = array(
           "keyboard" => array(
@@ -624,75 +624,110 @@ switch ($text) {
       break;
     }
 
-  default:
-    $stateResult = $access->getState($chatID);
-    $user = $access->getUserByChatID($chatID);
-    $fullname = $user['fullname'];
-    $state = $stateResult["dialog_state"];
+    default:
+        $stateResult = $access->getState($chatID);
+        $user = $access->getUserByChatID($chatID);
+        $fullname = $user['fullname'];
+        $state = $stateResult["dialog_state"];
 
-    switch ($state) {
-
-      case 'waiting for authorization':
-        $logs = new logs();
-        $logs->log($text, $fullname);
-        $reply = "Ничего не понял, но я быстро учусь ".hex2bin('f09f9982').". Пожалуйста, воспользуйтесь командами в меню ниже!";
-        sendMessage($chatID, $reply, null);
-        break;
-
-      case 'waiting for login':
-        if (preg_match('/([A-Za-z])/', mb_strtolower($text))) {
-
-          $result = $access->getUserByPersonnelNumber($text);
-          if ($result) {
-
-            $fullname = $result["fullname"];
-            $emailString = $result["email"];
-            $position = $result["position"];
-
-            $at = strpos($emailString,  "@");
-            $login = mb_strtolower(substr($emailString, 0, $at), $encoding='UTF-8');
-            $comparsion_result = strcmp(mb_strtolower($text, $encoding='UTF-8'), $login);
-
-            if ($comparsion_result == 0) {
-
-              require ("secure/email.php");
-              $email = new email();
-              $confirmationCode = $email->generateConfirmationCode(10);
-              $access->saveConfirmationCode($confirmationCode, $chatID, $emailString);
-
-              $access->setState($chatID, "waiting for confirmation code");
-              $reply = "$fullname, нажмите продолжить, для получения письма на рабочую почту с инструкциями по завершению авторизации.";
-              $keyboard = array(
-                "inline_keyboard" => array(
+        if (substr_count(trim($text), ' ') == 1) {
+            // case with check if phone required
+            $reply = "Для получения информации воспользуйтесь командами меню ниже.";
+            $keyboard = array(
+              "keyboard" => array(
+                array(
                   array(
-                    array(
-                      "text" => "Продолжить",
-                      "callback_data" => "sendMessage"
-                    )
+                    "text" => 'Карточка'
+                  ),
+                  array(
+                    "text" => "Email"
+                  )
+                ),
+                array(
+                  array(
+                      "text" => "Мобильный телефон"
+                  ),
+                  array(
+                      "text" => "Рабочий телефон"
+                  )
+                ),
+                array(
+                  array(
+                      "text" => "Назад"
                   )
                 )
-              );
-              $markup = json_encode($keyboard);
-              sendMessage($chatID, $reply, $markup);
-              break;
-
-            } else {
-              $reply = "Сотрудник с таким логином не числится в Компании. Проверьте правильность введенного логина и попробуйте снова.";
-              sendMessage($chatID, $reply, null);
-              break;
-            }
-
-          } else {
-            $reply = "Сотрудник с таким логином не числится в Компании. Проверьте правильность введенного логина и попробуйте снова.";
-            sendMessage($chatID, $reply, null);
+              ),
+              "resize_keyboard" => true,
+              "one_time_keyboard" => true
+            );
+            $markup = json_encode($keyboard);
+            sendMessage($chatID, $reply, $markup);
             break;
-          }
-
         } else {
-          $reply = "Неверный формат логина.\nЛогин может содержать латинские буквы и цифры.\nПопробуйте снова.";
-          sendMessage($chatID, $reply, null);
-          break;
-        }
+
+            switch ($state) {
+
+                case 'waiting for authorization':
+                    // $logs = new logs();
+                    // $logs->log($text, $fullname);
+                    $reply = "Ничего не понял, но я быстро учусь ".hex2bin('f09f9982').". Пожалуйста, воспользуйтесь командами в меню ниже!";
+                    sendMessage($chatID, $reply, null);
+                    break;
+
+                case 'waiting for login':
+                    if (preg_match('/([A-Za-z])/', mb_strtolower($text))) {
+
+                        $result = $access->getUserByPersonnelNumber($text);
+                        if ($result) {
+
+                            $fullname = $result["fullname"];
+                            $emailString = $result["email"];
+                            $position = $result["position"];
+
+                            $at = strpos($emailString,  "@");
+                            $login = mb_strtolower(substr($emailString, 0, $at), $encoding='UTF-8');
+                            $comparsion_result = strcmp(mb_strtolower($text, $encoding='UTF-8'), $login);
+
+                            if ($comparsion_result == 0) {
+
+                                require ("secure/email.php");
+                                $email = new email();
+                                $confirmationCode = $email->generateConfirmationCode(10);
+                                $access->saveConfirmationCode($confirmationCode, $chatID, $emailString);
+
+                                $access->setState($chatID, "waiting for confirmation code");
+                                $reply = "$fullname, нажмите продолжить, для получения письма на рабочую почту с инструкциями по завершению авторизации.";
+                                $keyboard = array(
+                                    "inline_keyboard" => array(
+                                        array(
+                                            array(
+                                                 "text" => "Продолжить",
+                                                 "callback_data" => "sendMessage"
+                                            )
+                                        )
+                                    )
+                                );
+                                $markup = json_encode($keyboard);
+                                sendMessage($chatID, $reply, $markup);
+                                break;
+
+                            } else {
+                                $reply = "Сотрудник с таким логином не числится в Компании. Проверьте правильность введенного логина и попробуйте снова.";
+                                sendMessage($chatID, $reply, null);
+                                break;
+                            }
+
+                        } else {
+                            $reply = "Сотрудник с таким логином не числится в Компании. Проверьте правильность введенного логина и попробуйте снова.";
+                            sendMessage($chatID, $reply, null);
+                            break;
+                        }
+
+                    } else {
+                        $reply = "Неверный формат логина.\nЛогин может содержать латинские буквы и цифры.\nПопробуйте снова.";
+                        sendMessage($chatID, $reply, null);
+                        break;
+                    }
 
       case 'waiting for confirmation code':
         if ((preg_match('^/[A-Za-z0-9]/', $text)) || (strlen($text) < 10)) {
@@ -799,10 +834,6 @@ switch ($text) {
           }
           sendMessage($chatID, $reply, null);
           break;
-        } else {
-          $reply = "Вероятно данный сотрудник не работает в Компании, проверьте, пожалуйста, нет ли ошибок в написании имени и фамилии и попробуйте снова.";
-          sendMessage($chatID, $reply, null);
-          break;
         }
 
       case 'waiting for feedback':
@@ -876,11 +907,13 @@ switch ($text) {
           }
 
       case 'authorization completed':
-        $logs = new logs();
-        $logs->log($text, $fullname);
+        // $logs = new logs();
+        // $logs->log($text, $fullname);
         $reply = "Ничего не понял, но я быстро учусь ".hex2bin('f09f9982').". Пожалуйста, воспользуйтесь командами меню ниже!";
         sendMessage($chatID, $reply, null);
         break;
+    }
+
     }
 }
 
