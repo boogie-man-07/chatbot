@@ -184,6 +184,59 @@ class access {
         return $returnValue;
     }
 
+    function getFindUserData($tg_chat_id) {
+
+        $returnArray = array();
+        // sql command
+        $sql = "SELECT * FROM find_data WHERE tg_chat_id='".$tg_chat_id."'";
+        // assign result we got from $sql to result var
+        $result = $this->conn->query($sql);
+
+        // if we have at least 1 result returned
+        if ($result != null && (mysqli_num_rows($result) >= 1 )) {
+
+            // assign result we got to $row as associative array
+            $row = $result->fetch_array(MYSQLI_ASSOC);
+
+            if (!empty($row)) {
+                $returnArray = $row;
+            }
+        }
+
+        return $returnArray;
+    }
+
+    function saveFindUserData($tg_chat_id, $findUserFirstname, $findUserLastname) {
+
+        $sql = "SELECT * FROM find_data WHERE tg_chat_id='".$tg_chat_id."'";
+        $result = $this->conn->query($sql);
+
+        if ($result != null && (mysqli_num_rows($result) >= 1 )) {
+            $sql = "UPDATE find_data SET find_userfirstname=?, find_userlastname=? WHERE tg_chat_id ='".$tg_chat_id."'";
+            $statement = $this->conn->prepare($sql);
+
+            if (!$statement) {
+                throw new Exception($statement->error);
+            }
+
+            $statement->bind_param("ss", $findUserFirstname, $findUserLastname);
+            $returnValue = $statement->execute();
+        } else {
+            $sql = "INSERT INTO find_data SET tg_chat_id=?, find_userfirstname=?, find_userlastname=?";
+            $statement = $this->conn->prepare($sql);
+
+            if (!$statement) {
+                throw new Exception($statement->error);
+            }
+
+            $statement->bind_param("sss", $tg_chat_id, $findUserFirstname, $findUserLastname);
+            $returnValue = $statement->execute();
+
+        }
+
+        return $returnValue;
+    }
+
     function setState($tg_chat_id, $dialog_state) {
 
         // sql command

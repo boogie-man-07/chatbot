@@ -18,6 +18,7 @@ $name = trim($file["dbname"]);
 $token = trim($file["token"]);
 
 $confirmationCode = null;
+
 $website = "https://api.telegram.org/bot".$token;
 
 $updates = file_get_contents('php://input');
@@ -624,92 +625,224 @@ switch ($text) {
       break;
     }
 
+    case 'Карточка':
+        $userForFind = $access->getFindUserData($chatID);
+        $result = $access->getUserByFirstnameAndLastName($userForFind['find_userfirstname'], $userForFind['find_userlastname']);
+        $reply = "<b>Карточка работника</b>\nФИО: ".$result["fullname"]."\nРабочий телефон: <b>".$result["office_number"]."</b>\nДобавочный номер: <b>".$result["internal_number"]."</b>\nМобильный телефон: <b>".$result["mobile_number"]."</b>\nE-mail: <b>".$result["email"]."</b>\nДолжность: <b>".$result["position"]."</b>\nКомпания: <b>".$result["company_name"]."</b>";
+        sendMessage($chatID, $reply, null);
+        break;
+
+    case 'Email':
+        $userForFind = $access->getFindUserData($chatID);
+        $result = $access->getUserByFirstnameAndLastName($userForFind['find_userfirstname'], $userForFind['find_userlastname']);
+        $reply = "<b>Email работника</b>\n".$result["email"];
+        sendMessage($chatID, $reply, null);
+        break;
+
+    case 'Мобильный телефон':
+        $userForFind = $access->getFindUserData($chatID);
+        $result = $access->getUserByFirstnameAndLastName($userForFind['find_userfirstname'], $userForFind['find_userlastname']);
+        $reply = "<b>Номер мобильного телефона работника</b>\n".$result["mobile_number"];
+        sendMessage($chatID, $reply, null);
+        break;
+
+    case 'Рабочий телефон':
+        $userForFind = $access->getFindUserData($chatID);
+        $result = $access->getUserByFirstnameAndLastName($userForFind['find_userfirstname'], $userForFind['find_userlastname']);
+        $reply = "<b>Номер рабочего телефона работника</b>\n".$result["office_number"].", доб. ".$result["internal_number"];
+        sendMessage($chatID, $reply, null);
+        break;
+
     default:
         $stateResult = $access->getState($chatID);
         $user = $access->getUserByChatID($chatID);
         $fullname = $user['fullname'];
         $state = $stateResult["dialog_state"];
+        $constants = new constants();
 
         if (substr_count(trim($text), ' ') == 1) {
             // case with check if phone required
-            $reply = "Для получения информации воспользуйтесь командами меню ниже.";
-            $keyboard = array(
-              "keyboard" => array(
-                array(
-                  array(
-                    "text" => 'Карточка'
-                  ),
-                  array(
-                    "text" => "Email"
-                  )
-                ),
-                array(
-                  array(
-                      "text" => "Мобильный телефон"
-                  ),
-                  array(
-                      "text" => "Рабочий телефон"
-                  )
-                ),
-                array(
-                  array(
-                      "text" => "Назад"
-                  )
-                )
-              ),
-              "resize_keyboard" => true,
-              "one_time_keyboard" => true
-            );
-            $markup = json_encode($keyboard);
-            sendMessage($chatID, $reply, $markup);
-            break;
-        } else {
+            $space = strpos($text,  " ");
+            $lastname = mb_strtolower(substr($text, $space + 1), $encoding='UTF-8');
+            $firstname = mb_strtolower(substr($text, 0, $space), $encoding='UTF-8');
 
-            switch ($state) {
-
-                case 'waiting for authorization':
-                    // $logs = new logs();
-                    // $logs->log($text, $fullname);
-                    $reply = "Ничего не понял, но я быстро учусь ".hex2bin('f09f9982').". Пожалуйста, воспользуйтесь командами в меню ниже!";
-                    sendMessage($chatID, $reply, null);
-                    break;
-
-                case 'waiting for login':
-                    if (preg_match('/([A-Za-z])/', mb_strtolower($text))) {
-
-                        $result = $access->getUserByPersonnelNumber($text);
-                        if ($result) {
-
-                            $fullname = $result["fullname"];
-                            $emailString = $result["email"];
-                            $position = $result["position"];
-
-                            $at = strpos($emailString,  "@");
-                            $login = mb_strtolower(substr($emailString, 0, $at), $encoding='UTF-8');
-                            $comparsion_result = strcmp(mb_strtolower($text, $encoding='UTF-8'), $login);
-
-                            if ($comparsion_result == 0) {
-
-                                require ("secure/email.php");
-                                $email = new email();
-                                $confirmationCode = $email->generateConfirmationCode(10);
-                                $access->saveConfirmationCode($confirmationCode, $chatID, $emailString);
-
-                                $access->setState($chatID, "waiting for confirmation code");
-                                $reply = "$fullname, нажмите продолжить, для получения письма на рабочую почту с инструкциями по завершению авторизации.";
+            $result = $access->getUserByFirstnameAndLastName($firstname, $lastname);
+            if ($result) {
+                switch ($result["company_id"]) {
+                    case 1:
+                        if ($user["is_sigma_available"]) {
+                            $savedData = $access->saveFindUserData($chatID, $result['firstname'], $result['lastname']);
+                            if ($savedData) {
+                                $reply = "Для получения информации о сотруднике воспользуйтесь командами меню ниже.";
                                 $keyboard = array(
-                                    "inline_keyboard" => array(
+                                    "keyboard" => array(
                                         array(
                                             array(
-                                                 "text" => "Продолжить",
-                                                 "callback_data" => "sendMessage"
+                                                "text" => 'Карточка'
+                                            ),
+                                            array(
+                                                "text" => "Email"
+                                            )
+                                        ),
+                                        array(
+                                            array(
+                                                "text" => "Мобильный телефон"
+                                            ),
+                                            array(
+                                                "text" => "Рабочий телефон"
+                                            )
+                                        ),
+                                        array(
+                                            array(
+                                                "text" => "Назад"
                                             )
                                         )
-                                    )
+                                    ),
+                                    "resize_keyboard" => true,
+                                    "one_time_keyboard" => true
                                 );
                                 $markup = json_encode($keyboard);
                                 sendMessage($chatID, $reply, $markup);
                                 break;
+                            }
+                        } else {
+                            // TODO Reply that user has no rights
+                            $constants->getPhoneCardPrivelegesError($user["firstname"]);
+                        }
+                    case 2:
+                        if ($user["is_greenhouse_available"]) {
+                            $savedData = $access->saveFindUserData($chatID, $result['firstname'], $result['lastname']);
+                            if ($savedData) {
+                                $reply = "Для получения информации о сотруднике воспользуйтесь командами меню ниже.";
+                                $keyboard = array(
+                                    "keyboard" => array(
+                                        array(
+                                            array(
+                                                "text" => 'Карточка'
+                                            ),
+                                            array(
+                                                "text" => "Email"
+                                            )
+                                        ),
+                                        array(
+                                            array(
+                                                "text" => "Мобильный телефон"
+                                            ),
+                                            array(
+                                                "text" => "Рабочий телефон"
+                                            )
+                                        ),
+                                        array(
+                                            array(
+                                                "text" => "Назад"
+                                            )
+                                        )
+                                    ),
+                                    "resize_keyboard" => true,
+                                    "one_time_keyboard" => true
+                                );
+                                $markup = json_encode($keyboard);
+                                sendMessage($chatID, $reply, $markup);
+                                break;
+                            }
+                        } else {
+                            // TODO Reply that user has no rights
+                            $constants->getPhoneCardPrivelegesError($user["firstname"]);
+                        }
+                    case 3:
+                        if ($user["is_diall_available"]) {
+                            $savedData = $access->saveFindUserData($chatID, $result['firstname'], $result['lastname']);
+                            if ($savedData) {
+                                $reply = "Для получения информации о сотруднике воспользуйтесь командами меню ниже.";
+                                $keyboard = array(
+                                    "keyboard" => array(
+                                        array(
+                                            array(
+                                                "text" => 'Карточка'
+                                            ),
+                                            array(
+                                                "text" => "Email"
+                                            )
+                                        ),
+                                        array(
+                                            array(
+                                                "text" => "Мобильный телефон"
+                                            ),
+                                            array(
+                                                "text" => "Рабочий телефон"
+                                            )
+                                        ),
+                                        array(
+                                            array(
+                                                "text" => "Назад"
+                                            )
+                                        )
+                                    ),
+                                    "resize_keyboard" => true,
+                                    "one_time_keyboard" => true
+                                );
+                                $markup = json_encode($keyboard);
+                                sendMessage($chatID, $reply, $markup);
+                                break;
+                            }
+                        } else {
+                            // TODO Reply that user has no rights
+                            $constants->getPhoneCardPrivelegesError($user["firstname"]);
+                        }
+                }
+            } else {
+                // TODO Deside what will be here
+            }
+        } else {
+            switch ($state) {
+                    case 'waiting for authorization':
+                        // $logs = new logs();
+                        // $logs->log($text, $fullname);
+                        $reply = "Ничего не понял, но я быстро учусь ".hex2bin('f09f9982').". Пожалуйста, воспользуйтесь командами в меню ниже!";
+                        sendMessage($chatID, $reply, null);
+                        break;
+
+                    case 'waiting for login':
+                        if (preg_match('/([A-Za-z])/', mb_strtolower($text))) {
+                            $result = $access->getUserByPersonnelNumber($text);
+                            if ($result) {
+
+                                $fullname = $result["fullname"];
+                                $emailString = $result["email"];
+                                $position = $result["position"];
+
+                                $at = strpos($emailString,  "@");
+                                $login = mb_strtolower(substr($emailString, 0, $at), $encoding='UTF-8');
+                                $comparsion_result = strcmp(mb_strtolower($text, $encoding='UTF-8'), $login);
+
+                                if ($comparsion_result == 0) {
+
+                                    require ("secure/email.php");
+                                    $email = new email();
+                                    $confirmationCode = $email->generateConfirmationCode(10);
+                                    $access->saveConfirmationCode($confirmationCode, $chatID, $emailString);
+
+                                    $access->setState($chatID, "waiting for confirmation code");
+                                    $reply = "$fullname, нажмите продолжить, для получения письма на рабочую почту с инструкциями по завершению авторизации.";
+                                    $keyboard = array(
+                                        "inline_keyboard" => array(
+                                            array(
+                                                array(
+                                                        "text" => "Продолжить",
+                                                        "callback_data" => "sendMessage"
+                                                )
+                                            )
+                                        )
+                                    );
+                                    $markup = json_encode($keyboard);
+                                    sendMessage($chatID, $reply, $markup);
+                                    break;
+
+                                } else {
+                                    $reply = "Сотрудник с таким логином не числится в Компании. Проверьте правильность введенного логина и попробуйте снова.";
+                                    sendMessage($chatID, $reply, null);
+                                    break;
+                                }
 
                             } else {
                                 $reply = "Сотрудник с таким логином не числится в Компании. Проверьте правильность введенного логина и попробуйте снова.";
@@ -718,203 +851,197 @@ switch ($text) {
                             }
 
                         } else {
-                            $reply = "Сотрудник с таким логином не числится в Компании. Проверьте правильность введенного логина и попробуйте снова.";
+                            $reply = "Неверный формат логина.\nЛогин может содержать латинские буквы и цифры.\nПопробуйте снова.";
                             sendMessage($chatID, $reply, null);
                             break;
                         }
 
-                    } else {
-                        $reply = "Неверный формат логина.\nЛогин может содержать латинские буквы и цифры.\nПопробуйте снова.";
+                    case 'waiting for confirmation code':
+                        if ((preg_match('^/[A-Za-z0-9]/', $text)) || (strlen($text) < 10)) {
+                            $reply = "Неверный формат кода подтверждения.\nКод может содержать латинские буквы, цифры и специальные знаки и не может быть меньше 10 символов.\nПопробуйте снова.";
+                            sendMessage($chatID, $reply, null);
+                            break;
+                        } else {
+                            $result = $access->getUserByChatID($chatID);
+                            if ($result) {
+                                $confirmation_code = $result["confirmation_code"];
+                                $fullname = $result["fullname"];
+                                $string_result = strcmp($text, $confirmation_code);
+                                if ($string_result == 0) {
+                                    $expirationDate = new DateTime($result['confirmation_code_expiration_date']);
+                                    $now = new DateTime();
+                                    if ($expirationDate > $now) {
+                                        $result = $access->updateAuthorizationFlag(1, null, $chatID);
+                                        if ($result) {
+                                            $access->setState($chatID, "authorization completed");
+                                            $reply = "Поздравляю, $fullname! Вы успешно прошли процедуру авторизации и можете использовать меня на полную катушку!\nНиже меню с командами, которые я умею выполнять.";
+                                            $keyboard = array(
+                                                "keyboard" => array(
+                                                    array(
+                                                        array(
+                                                            "text" => $data['mainKeyboard']['phones']
+                                                        ),
+                                                        array(
+                                                            "text" => "КДП и Заработная плата"
+                                                        )
+                                                    ),
+                                                    array(
+                                                        array(
+                                                            "text" => "Наши ценности"
+                                                        ),
+                                                        array(
+                                                            "text" => "Общая информация"
+                                                        )
+                                                    ),
+                                                    array(
+                                                        array(
+                                                            "text" => "Правила"
+                                                        ),
+                                                        array(
+                                                            "text" => "Выход"
+                                                        )
+                                                    )
+                                                ),
+                                                "resize_keyboard" => true,
+                                                "one_time_keyboard" => true
+                                            );
+                                            $markup = json_encode($keyboard);
+                                            sendMessage($chatID, $reply, $markup);
+                                            break;
+                                        }
+
+                                    } else {
+                                        $reply = "Время жизни кода активации истекло.\nНеобходима повторить процесс авторизации.";
+                                        $keyboard = array(
+                                            "inline_keyboard" => array(
+                                                array(
+                                                    array(
+                                                        "text" => "Авторизоваться",
+                                                        "callback_data" => "go to the start"
+                                                    )
+                                                )
+                                            )
+                                        );
+                                        $markup = json_encode($keyboard);
+                                        sendMessage($chatID, $reply, $markup);
+                                        break;
+                                    }
+                                } else {
+                                    $reply = "код неверен.\nПопробуйте снова.";
+                                    sendMessage($chatID, $reply, null);
+                                    break;
+                                }
+                            } else {
+                                $reply = "Что-то пошло не так и я не смог найти вас среди сотрудников Компании.\nПопробуйте еще раз.";
+                                sendMessage($chatID, $reply, null);
+                                break;
+                            }
+                        }
+
+                    
+                    case 'find telefone number':
+                        $constants = new constants();
+                        $space = strpos($text,  " ");
+                        $lastname = mb_strtolower(substr($text, $space + 1), $encoding='UTF-8');
+                        $firstname = mb_strtolower(substr($text, 0, $space), $encoding='UTF-8');
+
+                        $result = $access->getUserByFirstnameAndLastName($firstname, $lastname);
+                        if ($result) {
+                            $user = $access->getUserByChatID($chatID);
+                            $access->setState($chatID, "authorization completed");
+                            switch ($result["company_id"]) {
+                                case 1:
+                                    $reply = $user["is_sigma_available"] ? "<b>Карточка работника</b>\nФИО: ".$result["fullname"]."\nРабочий телефон: <b>".$result["office_number"]."</b>\nДобавочный номер: <b>".$result["internal_number"]."</b>\nМобильный телефон: <b>".$result["mobile_number"]."</b>\nE-mail: <b>".$result["email"]."</b>\nДолжность: <b>".$result["position"]."</b>\nКомпания: <b>".$result["company_name"]."</b>" : $constants->getPhoneCardPrivelegesError($user["firstname"]);
+                                    break;
+                                case 2:
+                                    $reply = $user["is_greenhouse_available"] ? "<b>Карточка работника</b>\nФИО: ".$result["fullname"]."\nРабочий телефон: <b>".$result["office_number"]."</b>\nДобавочный номер: <b>".$result["internal_number"]."</b>\nМобильный телефон: <b>".$result["mobile_number"]."</b>\nE-mail: <b>".$result["email"]."</b>\nДолжность: <b>".$result["position"]."</b>\nКомпания: <b>".$result["company_name"]."</b>" : $constants->getPhoneCardPrivelegesError($user["firstname"]);
+                                    break;
+                                case 3:
+                                    $reply = $user["is_diall_available"] ? "<b>Карточка работника</b>\nФИО: ".$result["fullname"]."\nРабочий телефон: <b>".$result["office_number"]."</b>\nДобавочный номер: <b>".$result["internal_number"]."</b>\nМобильный телефон: <b>".$result["mobile_number"]."</b>\nE-mail: <b>".$result["email"]."</b>\nДолжность: <b>".$result["position"]."</b>\nКомпания: <b>".$result["company_name"]."</b>" : $constants->getPhoneCardPrivelegesError($user["firstname"]);
+                                    break;
+                            }
+                            sendMessage($chatID, $reply, null);
+                            break;
+                        }
+
+                    case 'waiting for feedback':
+                        $user = $access->getUserByChatID($chatID);
+                        if ($user) {
+                            $fullname = $user["fullname"];
+                            $emailAddress = $user["email"];
+                            $position = $user["position"];
+
+                            require ("secure/email.php");
+                            $email = new email();
+
+                            //Данные для письма
+                            $details = array();
+                            $details["subject"] = "Жалоба/Предложение от пользователя Company HR Bot";
+                            $details["to"] = 'chernuylab@gmail.com';
+                            $details["fromName"] = "HR Team";
+                            $details["fromEmail"] = "info.chernuylabs.ru";
+                            $details["body"] = "<b>ФИО сотрудника:</b> $fullname<br><b>Должность:</b> $position<br><b>email:</b> $emailAddress<br><br><b>Сообщение:</b><br>$text";
+                            $isSended = $email->sendEmail($details);
+
+                            if ($isSended) {
+                                $access->setState($chatID, "authorization completed");
+                                $reply = "Уважаемый(ая) ".$fullname.", Ваше обращение принято и будет рассмотрено в ближайшее время!\nСпасибо за обращение!";
+                                sendMessage($chatID, $reply, null);
+                                break;
+                            } else {
+                                $reply = "Не удалось отправить письмо.\nПопробуйте немного позднее.";
+                                sendMessage($chatID, $reply, null);
+                                break;
+                            }
+                        } else {
+                            $reply = "Что-то пошло не так и я не смог найти вас среди сотрудников.\nПопробуйте еще раз.";
+                            sendMessage($chatID, $reply, null);
+                            break;
+                        }
+
+                    case 'waiting for bug report':
+                        $user = $access->getUserByChatID($chatID);
+                        if ($user) {
+                            $fullname = $user["fullname"];
+                            $emailAddress = $user["email"];
+                            $position = $user["position"];
+
+                            require ("secure/email.php");
+                            $email = new email();
+
+                            //Данные для письма
+                            $details = array();
+                            $details["subject"] = "Сообщение об ошибке от пользователя Company HR Bot";
+                            $details["to"] = 'chernuylab@gmail.com';
+                            $details["fromName"] = "HR Team";
+                            $details["fromEmail"] = "info.chernuylabs.ru";
+                            $details["body"] = "<b>ФИО сотрудника:</b> $fullname<br><b>Должность:</b> $position<br><b>email:</b> $emailAddress<br><br><b>Сообщение:</b><br>$text";
+                            $isSended = $email->sendEmail($details);
+
+                            if ($isSended) {
+                                $access->setState($chatID, "authorization completed");
+                                $reply = "Уважаемый(ая) ".$fullname.", Ваше обращение принято и будет рассмотрено в ближайшее время!\nСпасибо за обращение!";
+                                sendMessage($chatID, $reply, null);
+                                break;
+                            } else {
+                                $reply = "Не удалось отправить письмо.\nПопробуйте немного позднее.";
+                                sendMessage($chatID, $reply, null);
+                                break;
+                            }
+                        } else {
+                            $reply = "Что-то пошло не так и я не смог найти вас среди сотрудников.\nПопробуйте еще раз.";
+                            sendMessage($chatID, $reply, null);
+                            break;
+                        }
+
+                    case 'authorization completed':
+                        // $logs = new logs();
+                        // $logs->log($text, $fullname);
+                        $reply = "Ничего не понял, но я быстро учусь ".hex2bin('f09f9982').". Пожалуйста, воспользуйтесь командами меню ниже!";
                         sendMessage($chatID, $reply, null);
                         break;
-                    }
-
-      case 'waiting for confirmation code':
-        if ((preg_match('^/[A-Za-z0-9]/', $text)) || (strlen($text) < 10)) {
-          $reply = "Неверный формат кода подтверждения.\nКод может содержать латинские буквы, цифры и специальные знаки и не может быть меньше 10 символов.\nПопробуйте снова.";
-          sendMessage($chatID, $reply, null);
-          break;
-        } else {
-          $result = $access->getUserByChatID($chatID);
-          if ($result) {
-            $confirmation_code = $result["confirmation_code"];
-            $fullname = $result["fullname"];
-            $string_result = strcmp($text, $confirmation_code);
-            if ($string_result == 0) {
-              $expirationDate = new DateTime($result['confirmation_code_expiration_date']);
-              $now = new DateTime();
-              if ($expirationDate > $now) {
-                $result = $access->updateAuthorizationFlag(1, null, $chatID);
-                if ($result) {
-                  $access->setState($chatID, "authorization completed");
-                  $reply = "Поздравляю, $fullname! Вы успешно прошли процедуру авторизации и можете использовать меня на полную катушку!\nНиже меню с командами, которые я умею выполнять.";
-                  $keyboard = array(
-                    "keyboard" => array(
-                      array(
-                        array(
-                          "text" => $data['mainKeyboard']['phones']
-                        ),
-                        array(
-                          "text" => "КДП и Заработная плата"
-                        )
-                      ),
-                      array(
-                        array(
-                            "text" => "Наши ценности"
-                        ),
-                        array(
-                            "text" => "Общая информация"
-                        )
-                      ),
-                      array(
-                        array(
-                            "text" => "Правила"
-                        ),
-                        array(
-                            "text" => "Выход"
-                        )
-                      )
-                    ),
-                    "resize_keyboard" => true,
-                    "one_time_keyboard" => true
-                  );
-                  $markup = json_encode($keyboard);
-                  sendMessage($chatID, $reply, $markup);
-                  break;
                 }
-
-              } else {
-                $reply = "Время жизни кода активации истекло.\nНеобходима повторить процесс авторизации.";
-                $keyboard = array(
-                  "inline_keyboard" => array(
-                    array(
-                      array(
-                        "text" => "Авторизоваться",
-                        "callback_data" => "go to the start"
-                      )
-                    )
-                  )
-                );
-                $markup = json_encode($keyboard);
-                sendMessage($chatID, $reply, $markup);
-                break;
-              }
-            } else {
-              $reply = "код неверен.\nПопробуйте снова.";
-              sendMessage($chatID, $reply, null);
-              break;
-            }
-          } else {
-            $reply = "Что-то пошло не так и я не смог найти вас среди сотрудников Компании.\nПопробуйте еще раз.";
-            sendMessage($chatID, $reply, null);
-            break;
-          }
         }
-
-      case 'find telefone number':
-        $constants = new constants();
-        $space = strpos($text,  " ");
-        $lastname = mb_strtolower(substr($text, $space + 1), $encoding='UTF-8');
-        $firstname = mb_strtolower(substr($text, 0, $space), $encoding='UTF-8');
-
-        $result = $access->getUserByFirstnameAndLastName($firstname, $lastname);
-        if ($result) {
-          $user = $access->getUserByChatID($chatID);
-          $access->setState($chatID, "authorization completed");
-          switch ($result["company_id"]) {
-            case 1:
-              $reply = $user["is_sigma_available"] ? "<b>Карточка работника</b>\nФИО: ".$result["fullname"]."\nРабочий телефон: <b>".$result["office_number"]."</b>\nДобавочный номер: <b>".$result["internal_number"]."</b>\nМобильный телефон: <b>".$result["mobile_number"]."</b>\nE-mail: <b>".$result["email"]."</b>\nДолжность: <b>".$result["position"]."</b>\nКомпания: <b>".$result["company_name"]."</b>" : $constants->getPhoneCardPrivelegesError($user["firstname"]);
-              break;
-            case 2:
-              $reply = $user["is_greenhouse_available"] ? "<b>Карточка работника</b>\nФИО: ".$result["fullname"]."\nРабочий телефон: <b>".$result["office_number"]."</b>\nДобавочный номер: <b>".$result["internal_number"]."</b>\nМобильный телефон: <b>".$result["mobile_number"]."</b>\nE-mail: <b>".$result["email"]."</b>\nДолжность: <b>".$result["position"]."</b>\nКомпания: <b>".$result["company_name"]."</b>" : $constants->getPhoneCardPrivelegesError($user["firstname"]);
-              break;
-            case 3:
-              $reply = $user["is_diall_available"] ? "<b>Карточка работника</b>\nФИО: ".$result["fullname"]."\nРабочий телефон: <b>".$result["office_number"]."</b>\nДобавочный номер: <b>".$result["internal_number"]."</b>\nМобильный телефон: <b>".$result["mobile_number"]."</b>\nE-mail: <b>".$result["email"]."</b>\nДолжность: <b>".$result["position"]."</b>\nКомпания: <b>".$result["company_name"]."</b>" : $constants->getPhoneCardPrivelegesError($user["firstname"]);
-              break;
-          }
-          sendMessage($chatID, $reply, null);
-          break;
-        }
-
-      case 'waiting for feedback':
-        $user = $access->getUserByChatID($chatID);
-        if ($user) {
-          $fullname = $user["fullname"];
-          $emailAddress = $user["email"];
-          $position = $user["position"];
-
-          require ("secure/email.php");
-          $email = new email();
-
-          //Данные для письма
-          $details = array();
-          $details["subject"] = "Жалоба/Предложение от пользователя Company HR Bot";
-          $details["to"] = 'chernuylab@gmail.com';
-          $details["fromName"] = "HR Team";
-          $details["fromEmail"] = "info.chernuylabs.ru";
-          $details["body"] = "<b>ФИО сотрудника:</b> $fullname<br><b>Должность:</b> $position<br><b>email:</b> $emailAddress<br><br><b>Сообщение:</b><br>$text";
-          $isSended = $email->sendEmail($details);
-
-          if ($isSended) {
-            $access->setState($chatID, "authorization completed");
-            $reply = "Уважаемый(ая) ".$fullname.", Ваше обращение принято и будет рассмотрено в ближайшее время!\nСпасибо за обращение!";
-            sendMessage($chatID, $reply, null);
-            break;
-          } else {
-            $reply = "Не удалось отправить письмо.\nПопробуйте немного позднее.";
-            sendMessage($chatID, $reply, null);
-            break;
-          }
-        } else {
-          $reply = "Что-то пошло не так и я не смог найти вас среди сотрудников.\nПопробуйте еще раз.";
-          sendMessage($chatID, $reply, null);
-          break;
-        }
-
-        case 'waiting for bug report':
-          $user = $access->getUserByChatID($chatID);
-          if ($user) {
-            $fullname = $user["fullname"];
-            $emailAddress = $user["email"];
-            $position = $user["position"];
-
-            require ("secure/email.php");
-            $email = new email();
-
-            //Данные для письма
-            $details = array();
-            $details["subject"] = "Сообщение об ошибке от пользователя Company HR Bot";
-            $details["to"] = 'chernuylab@gmail.com';
-            $details["fromName"] = "HR Team";
-            $details["fromEmail"] = "info.chernuylabs.ru";
-            $details["body"] = "<b>ФИО сотрудника:</b> $fullname<br><b>Должность:</b> $position<br><b>email:</b> $emailAddress<br><br><b>Сообщение:</b><br>$text";
-            $isSended = $email->sendEmail($details);
-
-            if ($isSended) {
-              $access->setState($chatID, "authorization completed");
-              $reply = "Уважаемый(ая) ".$fullname.", Ваше обращение принято и будет рассмотрено в ближайшее время!\nСпасибо за обращение!";
-              sendMessage($chatID, $reply, null);
-              break;
-            } else {
-              $reply = "Не удалось отправить письмо.\nПопробуйте немного позднее.";
-              sendMessage($chatID, $reply, null);
-              break;
-            }
-          } else {
-            $reply = "Что-то пошло не так и я не смог найти вас среди сотрудников.\nПопробуйте еще раз.";
-            sendMessage($chatID, $reply, null);
-            break;
-          }
-
-      case 'authorization completed':
-        // $logs = new logs();
-        // $logs->log($text, $fullname);
-        $reply = "Ничего не понял, но я быстро учусь ".hex2bin('f09f9982').". Пожалуйста, воспользуйтесь командами меню ниже!";
-        sendMessage($chatID, $reply, null);
-        break;
-    }
-
-    }
 }
 
 
@@ -1119,7 +1246,7 @@ switch ($queryData) {
     }
 
   case 'getFirstRuleText':
-    #sendPhoto($queryUserID, 'https://sigmabot.ddns.net/hrbot/files/truth_and_facts.jpeg', null);
+    sendSticker($queryUserID, 'CAACAgIAAxkBAAEBMOhgfgZZYUxTcW1-7Llx88Skrw2s9wAChAsAArEpyUt4xWeiyu4u_B8E');
     $constants = new constants();
     $reply = $constants->getTruthAndFactsValueText();
     $keyboard = array(
@@ -1139,7 +1266,7 @@ switch ($queryData) {
     break;
 
   case 'getSecondRuleText':
-    #sendPhoto($queryUserID, 'https://sigmabot.ddns.net/hrbot/files/openness_and_transparency.jpeg', null);
+    sendSticker($queryUserID, 'CAACAgIAAxkBAAEBMOtgfgiQyadi3NstiKc6r1-dLbobZwAC5gsAAqo0yEvCcwitIB2H4h8E');
     $constants = new constants();
     $reply = $constants->getOpennessAndTransparencyValueText();
     $keyboard = array(
@@ -1159,7 +1286,7 @@ switch ($queryData) {
     break;
 
   case 'getThirdRuleText':
-    #sendPhoto($queryUserID, 'https://sigmabot.ddns.net/hrbot/files/work_favorite_affair.jpeg', null);
+    sendSticker($queryUserID, 'CAACAgIAAxkBAAEBMO5gfgjsp_pQ2iDmtIYmgxMCsVoE8wAC6g4AAuEkyEtHZUP58TmpEx8E');
     $constants = new constants();
     $reply = $constants->getWorkIsAFavoriteAffairValueText();
     $keyboard = array(
@@ -1179,7 +1306,7 @@ switch ($queryData) {
     break;
 
   case 'getFourthRuleText':
-    #sendPhoto($queryUserID, 'https://sigmabot.ddns.net/hrbot/files/minded_team.jpeg', null);
+    sendSticker($queryUserID, 'CAACAgIAAxkBAAEBMPFgfgj7NKf1zQuyQD0SDWNPs6V0hQAC8wkAAk59yEsPQURLZJvOCR8E');
     $constants = new constants();
     $reply = $constants->getMindedTeamValueText();
     $keyboard = array(
@@ -1280,6 +1407,11 @@ function sendMessage($chatID, $text, $keyboard) {
 
 function sendPhoto($chatID, $imageUrl, $keyboard) {
   $url = $GLOBALS[website]."/sendPhoto?chat_id=$chatID&parse_mode=HTML&photo=".$imageUrl."&reply_markup=".$keyboard;
+  file_get_contents($url);
+}
+
+function sendSticker($chatID, $sticker) {
+  $url = $GLOBALS[website]."/sendSticker?chat_id=$chatID&sticker=$sticker";
   file_get_contents($url);
 }
 
