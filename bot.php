@@ -568,6 +568,7 @@ switch ($text) {
 
   case 'Назад':
     $access->setState($chatID, "authorization completed");
+    $access->removeFindUserDataByChatID($chatID);
     $reply = "Вы в главном меню, для получения информации воспользуйтесь командами меню ниже.";
     $keyboard = array(
       "keyboard" => array(
@@ -627,31 +628,55 @@ switch ($text) {
 
     case 'Карточка':
         $userForFind = $access->getFindUserData($chatID);
-        $result = $access->getUserByFirstnameAndLastName($userForFind['find_userfirstname'], $userForFind['find_userlastname']);
-        $reply = "<b>Карточка работника</b>\nФИО: ".$result["fullname"]."\nРабочий телефон: <b>".$result["office_number"]."</b>\nДобавочный номер: <b>".$result["internal_number"]."</b>\nМобильный телефон: <b>".$result["mobile_number"]."</b>\nE-mail: <b>".$result["email"]."</b>\nДолжность: <b>".$result["position"]."</b>\nКомпания: <b>".$result["company_name"]."</b>";
-        sendMessage($chatID, $reply, null);
-        break;
+        if ($userForFind) {
+            $result = $access->getUserByFirstnameAndLastName($userForFind['find_userfirstname'], $userForFind['find_userlastname']);
+            $reply = "<b>Карточка работника</b>\nФИО: ".$result["fullname"]."\nРабочий телефон: <b>".$result["office_number"]."</b>\nДобавочный номер: <b>".$result["internal_number"]."</b>\nМобильный телефон: <b>".$result["mobile_number"]."</b>\nE-mail: <b>".$result["email"]."</b>\nДолжность: <b>".$result["position"]."</b>\nКомпания: <b>".$result["company_name"]."</b>";
+            sendMessage($chatID, $reply, null);
+            break;
+        } else {
+            $reply = "Похоже вы ищете сотрудника? Давайте я поищу, введите имя и фамилию.";
+            sendMessage($chatID, $reply, null);
+            break;
+        }
 
     case 'Email':
         $userForFind = $access->getFindUserData($chatID);
-        $result = $access->getUserByFirstnameAndLastName($userForFind['find_userfirstname'], $userForFind['find_userlastname']);
-        $reply = "<b>Email работника</b>\n".$result["email"];
-        sendMessage($chatID, $reply, null);
-        break;
+        if ($userForFind) {
+            $result = $access->getUserByFirstnameAndLastName($userForFind['find_userfirstname'], $userForFind['find_userlastname']);
+            $reply = "<b>Email работника</b>\n".$result["email"];
+            sendMessage($chatID, $reply, null);
+            break;
+        } else {
+            $reply = "Похоже вы ищете сотрудника? Давайте я поищу, введите имя и фамилию.";
+            sendMessage($chatID, $reply, null);
+            break;
+        }
 
     case 'Мобильный телефон':
         $userForFind = $access->getFindUserData($chatID);
-        $result = $access->getUserByFirstnameAndLastName($userForFind['find_userfirstname'], $userForFind['find_userlastname']);
-        $reply = "<b>Номер мобильного телефона работника</b>\n".$result["mobile_number"];
-        sendMessage($chatID, $reply, null);
-        break;
+        if ($userForFind) {
+            $result = $access->getUserByFirstnameAndLastName($userForFind['find_userfirstname'], $userForFind['find_userlastname']);
+            $reply = "<b>Номер мобильного телефона работника</b>\n".$result["mobile_number"];
+            sendMessage($chatID, $reply, null);
+            break;
+        } else {
+            $reply = "Похоже вы ищете сотрудника? Давайте я поищу, введите имя и фамилию.";
+            sendMessage($chatID, $reply, null);
+            break;
+        }
 
     case 'Рабочий телефон':
         $userForFind = $access->getFindUserData($chatID);
-        $result = $access->getUserByFirstnameAndLastName($userForFind['find_userfirstname'], $userForFind['find_userlastname']);
-        $reply = "<b>Номер рабочего телефона работника</b>\n".$result["office_number"].", доб. ".$result["internal_number"];
-        sendMessage($chatID, $reply, null);
-        break;
+        if ($userForFind) {
+            $result = $access->getUserByFirstnameAndLastName($userForFind['find_userfirstname'], $userForFind['find_userlastname']);
+            $reply = "<b>Номер рабочего телефона работника</b>\n".$result["office_number"].", доб. ".$result["internal_number"];
+            sendMessage($chatID, $reply, null);
+            break;
+        } else {
+            $reply = "Похоже вы ищете сотрудника? Давайте я поищу, введите имя и фамилию.";
+            sendMessage($chatID, $reply, null);
+            break;
+        }
 
     default:
         $stateResult = $access->getState($chatID);
@@ -666,132 +691,144 @@ switch ($text) {
             $lastname = mb_strtolower(substr($text, $space + 1), $encoding='UTF-8');
             $firstname = mb_strtolower(substr($text, 0, $space), $encoding='UTF-8');
 
-            $result = $access->getUserByFirstnameAndLastName($firstname, $lastname);
-            if ($result) {
-                switch ($result["company_id"]) {
-                    case 1:
-                        if ($user["is_sigma_available"]) {
-                            $savedData = $access->saveFindUserData($chatID, $result['firstname'], $result['lastname']);
-                            if ($savedData) {
-                                $reply = "Для получения информации о сотруднике воспользуйтесь командами меню ниже.";
-                                $keyboard = array(
-                                    "keyboard" => array(
-                                        array(
-                                            array(
-                                                "text" => 'Карточка'
-                                            ),
-                                            array(
-                                                "text" => "Email"
-                                            )
-                                        ),
-                                        array(
-                                            array(
-                                                "text" => "Мобильный телефон"
-                                            ),
-                                            array(
-                                                "text" => "Рабочий телефон"
-                                            )
-                                        ),
-                                        array(
-                                            array(
-                                                "text" => "Назад"
-                                            )
-                                        )
-                                    ),
-                                    "resize_keyboard" => true,
-                                    "one_time_keyboard" => true
-                                );
-                                $markup = json_encode($keyboard);
-                                sendMessage($chatID, $reply, $markup);
-                                break;
-                            }
-                        } else {
-                            // TODO Reply that user has no rights
-                            $constants->getPhoneCardPrivelegesError($user["firstname"]);
-                        }
-                    case 2:
-                        if ($user["is_greenhouse_available"]) {
-                            $savedData = $access->saveFindUserData($chatID, $result['firstname'], $result['lastname']);
-                            if ($savedData) {
-                                $reply = "Для получения информации о сотруднике воспользуйтесь командами меню ниже.";
-                                $keyboard = array(
-                                    "keyboard" => array(
-                                        array(
-                                            array(
-                                                "text" => 'Карточка'
-                                            ),
-                                            array(
-                                                "text" => "Email"
-                                            )
-                                        ),
-                                        array(
-                                            array(
-                                                "text" => "Мобильный телефон"
-                                            ),
-                                            array(
-                                                "text" => "Рабочий телефон"
-                                            )
-                                        ),
-                                        array(
-                                            array(
-                                                "text" => "Назад"
-                                            )
-                                        )
-                                    ),
-                                    "resize_keyboard" => true,
-                                    "one_time_keyboard" => true
-                                );
-                                $markup = json_encode($keyboard);
-                                sendMessage($chatID, $reply, $markup);
-                                break;
-                            }
-                        } else {
-                            // TODO Reply that user has no rights
-                            $constants->getPhoneCardPrivelegesError($user["firstname"]);
-                        }
-                    case 3:
-                        if ($user["is_diall_available"]) {
-                            $savedData = $access->saveFindUserData($chatID, $result['firstname'], $result['lastname']);
-                            if ($savedData) {
-                                $reply = "Для получения информации о сотруднике воспользуйтесь командами меню ниже.";
-                                $keyboard = array(
-                                    "keyboard" => array(
-                                        array(
-                                            array(
-                                                "text" => 'Карточка'
-                                            ),
-                                            array(
-                                                "text" => "Email"
-                                            )
-                                        ),
-                                        array(
-                                            array(
-                                                "text" => "Мобильный телефон"
-                                            ),
-                                            array(
-                                                "text" => "Рабочий телефон"
-                                            )
-                                        ),
-                                        array(
-                                            array(
-                                                "text" => "Назад"
-                                            )
-                                        )
-                                    ),
-                                    "resize_keyboard" => true,
-                                    "one_time_keyboard" => true
-                                );
-                                $markup = json_encode($keyboard);
-                                sendMessage($chatID, $reply, $markup);
-                                break;
-                            }
-                        } else {
-                            // TODO Reply that user has no rights
-                            $constants->getPhoneCardPrivelegesError($user["firstname"]);
-                        }
-                }
+            if (mb_strlen($firstname) < 2 || mb_strlen($lastname) < 2) {
+                $reply = "Ну не может быть имя или фамилия из одной буквы ".hex2bin('f09f9982');
+                sendMessage($chatID, $reply, null);
+                break;
             } else {
-                // TODO Deside what will be here
+                $result = $access->getUserByFirstnameAndLastName($firstname, $lastname);
+                if ($result) {
+                    switch ($result["company_id"]) {
+                        case 1:
+                            if ($user["is_sigma_available"]) {
+                                $savedData = $access->saveFindUserData($chatID, $result['firstname'], $result['lastname']);
+                                if ($savedData) {
+                                    $reply = "Для получения информации о сотруднике воспользуйтесь командами меню ниже.";
+                                    $keyboard = array(
+                                        "keyboard" => array(
+                                            array(
+                                                array(
+                                                    "text" => 'Карточка'
+                                                ),
+                                                array(
+                                                    "text" => "Email"
+                                                )
+                                            ),
+                                            array(
+                                                array(
+                                                    "text" => "Мобильный телефон"
+                                                ),
+                                                array(
+                                                    "text" => "Рабочий телефон"
+                                                )
+                                            ),
+                                            array(
+                                                array(
+                                                    "text" => "Назад"
+                                                )
+                                            )
+                                        ),
+                                        "resize_keyboard" => true,
+                                        "one_time_keyboard" => true
+                                    );
+                                    $markup = json_encode($keyboard);
+                                    sendMessage($chatID, $reply, $markup);
+                                    break;
+                                }
+                            } else {
+                                // TODO Reply that user has no rights
+                                $reply = $constants->getPhoneCardPrivelegesError($user["firstname"]);
+                                sendMessage($chatID, $reply, $markup);
+                                break;
+                            }
+                        case 2:
+                            if ($user["is_greenhouse_available"]) {
+                                $savedData = $access->saveFindUserData($chatID, $result['firstname'], $result['lastname']);
+                                if ($savedData) {
+                                    $reply = "Для получения информации о сотруднике воспользуйтесь командами меню ниже.";
+                                    $keyboard = array(
+                                        "keyboard" => array(
+                                            array(
+                                                array(
+                                                    "text" => 'Карточка'
+                                                ),
+                                                array(
+                                                    "text" => "Email"
+                                                )
+                                            ),
+                                            array(
+                                                array(
+                                                    "text" => "Мобильный телефон"
+                                                ),
+                                                array(
+                                                    "text" => "Рабочий телефон"
+                                                )
+                                            ),
+                                            array(
+                                                array(
+                                                    "text" => "Назад"
+                                                )
+                                            )
+                                        ),
+                                        "resize_keyboard" => true,
+                                        "one_time_keyboard" => true
+                                    );
+                                    $markup = json_encode($keyboard);
+                                    sendMessage($chatID, $reply, $markup);
+                                    break;
+                                }
+                            } else {
+                                // TODO Reply that user has no rights
+                                $reply = $constants->getPhoneCardPrivelegesError($user["firstname"]);
+                                sendMessage($chatID, $reply, $markup);
+                                break;
+                            }
+                        case 3:
+                            if ($user["is_diall_available"]) {
+                                $savedData = $access->saveFindUserData($chatID, $result['firstname'], $result['lastname']);
+                                if ($savedData) {
+                                    $reply = "Для получения информации о сотруднике воспользуйтесь командами меню ниже.";
+                                    $keyboard = array(
+                                        "keyboard" => array(
+                                            array(
+                                                array(
+                                                    "text" => 'Карточка'
+                                                ),
+                                                array(
+                                                    "text" => "Email"
+                                                )
+                                            ),
+                                            array(
+                                                array(
+                                                    "text" => "Мобильный телефон"
+                                                ),
+                                                array(
+                                                    "text" => "Рабочий телефон"
+                                                )
+                                            ),
+                                            array(
+                                                array(
+                                                    "text" => "Назад"
+                                                )
+                                            )
+                                        ),
+                                        "resize_keyboard" => true,
+                                        "one_time_keyboard" => true
+                                    );
+                                    $markup = json_encode($keyboard);
+                                    sendMessage($chatID, $reply, $markup);
+                                    break;
+                                }
+                            } else {
+                                // TODO Reply that user has no rights
+                                $reply = $constants->getPhoneCardPrivelegesError($user["firstname"]);
+                                sendMessage($chatID, $reply, $markup);
+                                break;
+                            }
+                    }
+                } else {
+                    // TODO Deside what will be here
+                }
             }
         } else {
             switch ($state) {
@@ -1246,8 +1283,9 @@ switch ($queryData) {
     }
 
   case 'getFirstRuleText':
-    sendSticker($queryUserID, 'CAACAgIAAxkBAAEBMOhgfgZZYUxTcW1-7Llx88Skrw2s9wAChAsAArEpyUt4xWeiyu4u_B8E');
+    $user = $access->getUserByChatID($queryUserID);
     $constants = new constants();
+    sendSticker($queryUserID, $constants->getTruthAndFactsValueSticker($user['company_id']));
     $reply = $constants->getTruthAndFactsValueText();
     $keyboard = array(
       "inline_keyboard" => array(
@@ -1266,8 +1304,9 @@ switch ($queryData) {
     break;
 
   case 'getSecondRuleText':
-    sendSticker($queryUserID, 'CAACAgIAAxkBAAEBMOtgfgiQyadi3NstiKc6r1-dLbobZwAC5gsAAqo0yEvCcwitIB2H4h8E');
+    $user = $access->getUserByChatID($queryUserID);
     $constants = new constants();
+    sendSticker($queryUserID, $constants->getOpennessAndTransparencyValueSticker($user['company_id']));
     $reply = $constants->getOpennessAndTransparencyValueText();
     $keyboard = array(
       "inline_keyboard" => array(
@@ -1286,8 +1325,9 @@ switch ($queryData) {
     break;
 
   case 'getThirdRuleText':
-    sendSticker($queryUserID, 'CAACAgIAAxkBAAEBMO5gfgjsp_pQ2iDmtIYmgxMCsVoE8wAC6g4AAuEkyEtHZUP58TmpEx8E');
+    $user = $access->getUserByChatID($queryUserID);
     $constants = new constants();
+    sendSticker($queryUserID, $constants->getWorkIsAFavoriteAffairValueSticker($user['company_id']));
     $reply = $constants->getWorkIsAFavoriteAffairValueText();
     $keyboard = array(
       "inline_keyboard" => array(
@@ -1306,8 +1346,9 @@ switch ($queryData) {
     break;
 
   case 'getFourthRuleText':
-    sendSticker($queryUserID, 'CAACAgIAAxkBAAEBMPFgfgj7NKf1zQuyQD0SDWNPs6V0hQAC8wkAAk59yEsPQURLZJvOCR8E');
+    $user = $access->getUserByChatID($queryUserID);
     $constants = new constants();
+    sendSticker($queryUserID, $constants->getMindedTeamValueSticker($user['company_id']));
     $reply = $constants->getMindedTeamValueText();
     $keyboard = array(
       "inline_keyboard" => array(

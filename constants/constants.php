@@ -34,19 +34,75 @@ class constants {
     }
 
     function getTruthAndFactsValueText() {
-        return "<b>Правда и факты</b>\n- Мы всегда говорим правду и ожидаем слышать правду от других.\n- Составляя мнение, мы основываемся только на фактах.\n- Мы стремимся понять реальную суть вещей, и не выдаём желаемое за действительное.";
+        return "- Мы всегда говорим правду и ожидаем слышать правду от других.\n- Составляя мнение, мы основываемся только на фактах.\n- Мы стремимся понять реальную суть вещей, и не выдаём желаемое за действительное.";
+    }
+
+    function getTruthAndFactsValueSticker($id) {
+        switch ($id) {
+            case 1:
+                return 'CAACAgIAAxkBAAEBMbZgfy8CinSskHVXOg8nZsQgoTfdpgACdAoAAvQI6EtmsXAM6Y84IB8E';
+                break;
+            case 2:
+                return 'CAACAgIAAxkBAAEBMZ5gfyqlDmXIhm1NofTmUtk6PbwLVgAC0AwAArFD6EuF3nv4a0AKGh8E';
+                break;
+            case 3:
+                return 'CAACAgIAAxkBAAEBMaFgfyq6ZJsFH80MGK5BHhZ5c4JKiwAChAsAArEpyUt4xWeiyu4u_B8E';
+                break;
+        }
     }
 
     function getOpennessAndTransparencyValueText() {
-        return "<b>Открытость и Прозрачность</b>\n- Мы с благодарностью воспринимаем обратную связь и считаем своим долгом предоставлять её другим.\n- Мы охотно делимся всей необходимой информацией, чтобы помочь коллегам детально погрузиться в тему или предмет.\n- Мы ценим альтернативные точки зрения.\n- Мы считаем, что мнением надо делиться прямо и открыто, а обсуждения за спиной неприемлемы.";
+        return "- Мы с благодарностью воспринимаем обратную связь и считаем своим долгом предоставлять её другим.\n- Мы охотно делимся всей необходимой информацией, чтобы помочь коллегам детально погрузиться в тему или предмет.\n- Мы ценим альтернативные точки зрения.\n- Мы считаем, что мнением надо делиться прямо и открыто, а обсуждения за спиной неприемлемы.";
+    }
+
+    function getOpennessAndTransparencyValueSticker($id) {
+        switch ($id) {
+            case 1:
+                return 'CAACAgIAAxkBAAEBMblgfy8ejQb9oxs7E8Z9O1XiCfV3IwACxw4AAmf68EtgwsOgqbLjMR8E';
+                break;
+            case 2:
+                return 'CAACAgIAAxkBAAEBMaRgfyt7kkLq78G_yOx23s9z1EqXtwACEwwAAqHX6Uvjv4F3N6K59x8E';
+                break;
+            case 3:
+                return 'CAACAgIAAxkBAAEBMa1gfyu36mdSBXDGWAnt3jOPHTNoDAAC5gsAAqo0yEvCcwitIB2H4h8E';
+                break;
+        }
     }
 
     function getWorkIsAFavoriteAffairValueText() {
-        return "<b>Работа – любимое дело</b>\n- Мы любим и гордимся тем, что мы делаем, и поэтому, чтобы получить лучший результат, мы отдаём работе больше времени и сил, чем ожидается или требуется.\n- Мы считаем, что цели Компании – это наши цели, и их достижение – личная миссия для каждого из нас.\n- Мы мыслим и действуем как собственники нашей Компании.\n- Постоянное развитие и совершенствование – часть нашей жизни.";
+        return "- Мы любим и гордимся тем, что мы делаем, и поэтому, чтобы получить лучший результат, мы отдаём работе больше времени и сил, чем ожидается или требуется.\n- Мы считаем, что цели Компании – это наши цели, и их достижение – личная миссия для каждого из нас.\n- Мы мыслим и действуем как собственники нашей Компании.\n- Постоянное развитие и совершенствование – часть нашей жизни.";
+    }
+
+    function getWorkIsAFavoriteAffairValueSticker($id) {
+        switch ($id) {
+            case 1:
+                return 'CAACAgIAAxkBAAEBMbxgfy8uiznhMaqr-kWkzGHnduYr-wAChA8AAqVX6EumUZ6cBmCYNR8E';
+                break;
+            case 2:
+                return 'CAACAgIAAxkBAAEBMadgfyuSPSLSbsDXjrz55YS7VCjJQwAC8g0AAvgi8UtWbnaI-4e_NB8E';
+                break;
+            case 3:
+                return 'CAACAgIAAxkBAAEBMbBgfyvKHBdDrirJqKHxTL383r4f3wAC6g4AAuEkyEtHZUP58TmpEx8E';
+                break;
+        }
     }
 
     function getMindedTeamValueText() {
-        return "<b>Команда единомышленников</b>\n- Наши коллеги - это команда единомышленников. Наши отношения строятся на уважении, искренности, открытости и доброжелательности.\n- Мы показываем на собственном примере то, что ожидаем от других.\n- Мы охотно делимся знаниями, вдохновляя друг друга расти и совершенствоваться.\n- Мы всегда готовы прийти на помощь, особенно в сложных ситуациях.";
+        return "- Наши коллеги - это команда единомышленников. Наши отношения строятся на уважении, искренности, открытости и доброжелательности.\n- Мы показываем на собственном примере то, что ожидаем от других.\n- Мы охотно делимся знаниями, вдохновляя друг друга расти и совершенствоваться.\n- Мы всегда готовы прийти на помощь, особенно в сложных ситуациях.";
+    }
+
+    function getMindedTeamValueSticker($id) {
+        switch ($id) {
+            case 1:
+                return 'CAACAgIAAxkBAAEBMb9gfy9CRTlmoIEmHYlFbV46nT_SYwACZwwAAgZ36Utd3rGptn8xjh8E';
+                break;
+            case 2:
+                return 'CAACAgIAAxkBAAEBMapgfyuit8l_zH4BMLhBgFq6pl1kaQACNwsAAgSV6UvkGQooTnLg4R8E';
+                break;
+            case 3:
+                return 'CAACAgIAAxkBAAEBMbNgfyvfGNxt2iwyETSj78IJNf3fSQAC8wkAAk59yEsPQURLZJvOCR8E';
+                break;
+        }
     }
 
     function getFinalValueText($firstname) {
