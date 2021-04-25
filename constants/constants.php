@@ -17,15 +17,41 @@ class constants {
         return "Привет, $username!\nЯ Ваш личный ассистент по возникающим внутренним вопросам Компании.\nПохоже вы уже заглядывали в гости, но что-то пошло не так и мы не завершили авторизацию. Готовы попробовать еще раз?\nНажмите \"Авторизация\" в меню ниже. Это не займет много времени.";
     }
 
+    function getReplyForAuthorizedUser($username) {
+        return "С возвращением, $username!\nПока я умею выполнять команды в меню ниже, но я постоянно учусь!";
+    }
+
     function getReplyForCommonMistake() {
         return "Ничего не понял, но я быстро учусь ".hex2bin('f09f9982').". Пожалуйста, воспользуйтесь командами в меню ниже!";
     }
 
-    function getReplyForCommonErrorIfNotAuthorized() {
+    function getReplyForCommonErrorIfNotAuthorized($username) {
         return "$username, для дальнейшего работы необходимо авторизоваться, для этого, нажмите \"Авторизация\" в меню ниже.";
     }
 
+    function getReplyForLoginWating() {
+        return "Пожалуйста, введите логин вашей учетной записи.\nЛогин - это часть email, расположенная до знака @";
+    }
 
+    function getReplyForCommonErrorIfLoginIncorrect() {
+        return "Неверный формат логина.\nЛогин может содержать латинские буквы и цифры.\nПопробуйте снова.";
+    }
+
+    function getReplyForCommonErrorIfLoginNotFound() {
+        return "Сотрудник с таким логином не числится в Компании. Проверьте правильность введенного логина и попробуйте снова.";
+    }
+
+    function getReplyForSendConfirmationCodeApprovalFromUser($username) {
+        return "$username, нажмите продолжить, для получения на рабочую почту письма с инструкциями по завершению авторизации.";
+    }
+
+    function getReplyForMoveToStart($username) {
+        return "$username!\nЯ Ваш личный ассистент по возникающим внутренним вопросам Компании. Для использования моих возможностей необходимо авторизироваться.";
+    }
+
+    function getReplyForEmailIsSended($username) {
+        return "$username, письмо с кодом потверждения направлено на ваш рабочий email.\nПожалуйста, введи код подтверждения!\n\nЕсли вы не получили письмо с кодом, пожалуйста, проверьте папку \"Спам\", возможно письмо там.";
+    }
 
 
 

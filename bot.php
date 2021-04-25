@@ -626,58 +626,6 @@ switch ($text) {
       break;
     }
 
-    case 'Карточка':
-        $userForFind = $access->getFindUserData($chatID);
-        if ($userForFind) {
-            $result = $access->getUserByFirstnameAndLastName($userForFind['find_userfirstname'], $userForFind['find_userlastname']);
-            $reply = "<b>Карточка работника</b>\nФИО: ".$result["fullname"]."\nРабочий телефон: <b>".$result["office_number"]."</b>\nДобавочный номер: <b>".$result["internal_number"]."</b>\nМобильный телефон: <b>".$result["mobile_number"]."</b>\nE-mail: <b>".$result["email"]."</b>\nДолжность: <b>".$result["position"]."</b>\nКомпания: <b>".$result["company_name"]."</b>";
-            sendMessage($chatID, $reply, null);
-            break;
-        } else {
-            $reply = "Похоже вы ищете сотрудника? Давайте я поищу, введите имя и фамилию.";
-            sendMessage($chatID, $reply, null);
-            break;
-        }
-
-    case 'Email':
-        $userForFind = $access->getFindUserData($chatID);
-        if ($userForFind) {
-            $result = $access->getUserByFirstnameAndLastName($userForFind['find_userfirstname'], $userForFind['find_userlastname']);
-            $reply = "<b>Email работника</b>\n".$result["email"];
-            sendMessage($chatID, $reply, null);
-            break;
-        } else {
-            $reply = "Похоже вы ищете сотрудника? Давайте я поищу, введите имя и фамилию.";
-            sendMessage($chatID, $reply, null);
-            break;
-        }
-
-    case 'Мобильный телефон':
-        $userForFind = $access->getFindUserData($chatID);
-        if ($userForFind) {
-            $result = $access->getUserByFirstnameAndLastName($userForFind['find_userfirstname'], $userForFind['find_userlastname']);
-            $reply = "<b>Номер мобильного телефона работника</b>\n".$result["mobile_number"];
-            sendMessage($chatID, $reply, null);
-            break;
-        } else {
-            $reply = "Похоже вы ищете сотрудника? Давайте я поищу, введите имя и фамилию.";
-            sendMessage($chatID, $reply, null);
-            break;
-        }
-
-    case 'Рабочий телефон':
-        $userForFind = $access->getFindUserData($chatID);
-        if ($userForFind) {
-            $result = $access->getUserByFirstnameAndLastName($userForFind['find_userfirstname'], $userForFind['find_userlastname']);
-            $reply = "<b>Номер рабочего телефона работника</b>\n".$result["office_number"].", доб. ".$result["internal_number"];
-            sendMessage($chatID, $reply, null);
-            break;
-        } else {
-            $reply = "Похоже вы ищете сотрудника? Давайте я поищу, введите имя и фамилию.";
-            sendMessage($chatID, $reply, null);
-            break;
-        }
-
     default:
         $stateResult = $access->getState($chatID);
         $user = $access->getUserByChatID($chatID);
@@ -705,26 +653,25 @@ switch ($text) {
                                 if ($savedData) {
                                     $reply = "Для получения информации о сотруднике воспользуйтесь командами меню ниже.";
                                     $keyboard = array(
-                                        "keyboard" => array(
+                                        "inline_keyboard" => array(
                                             array(
                                                 array(
-                                                    "text" => 'Карточка'
+                                                    "text" => 'Карточка',
+                                                    "callback_data" => 'getUserCard'
                                                 ),
                                                 array(
-                                                    "text" => "Email"
+                                                    "text" => "Email",
+                                                    "callback_data" => 'getUserEmail'
                                                 )
                                             ),
                                             array(
                                                 array(
-                                                    "text" => "Мобильный телефон"
+                                                    "text" => "Мобильный телефон",
+                                                    "callback_data" => 'getUserMobileNumber'
                                                 ),
                                                 array(
-                                                    "text" => "Рабочий телефон"
-                                                )
-                                            ),
-                                            array(
-                                                array(
-                                                    "text" => "Назад"
+                                                    "text" => "Рабочий телефон",
+                                                    "callback_data" => 'getUserOfficeNumber'
                                                 )
                                             )
                                         ),
@@ -747,26 +694,25 @@ switch ($text) {
                                 if ($savedData) {
                                     $reply = "Для получения информации о сотруднике воспользуйтесь командами меню ниже.";
                                     $keyboard = array(
-                                        "keyboard" => array(
+                                        "inline_keyboard" => array(
                                             array(
                                                 array(
-                                                    "text" => 'Карточка'
+                                                    "text" => 'Карточка',
+                                                    "callback_data" => 'getUserCard'
                                                 ),
                                                 array(
-                                                    "text" => "Email"
+                                                    "text" => "Email",
+                                                    "callback_data" => 'getUserEmail'
                                                 )
                                             ),
                                             array(
                                                 array(
-                                                    "text" => "Мобильный телефон"
+                                                    "text" => "Мобильный телефон",
+                                                    "callback_data" => 'getUserMobileNumber'
                                                 ),
                                                 array(
-                                                    "text" => "Рабочий телефон"
-                                                )
-                                            ),
-                                            array(
-                                                array(
-                                                    "text" => "Назад"
+                                                    "text" => "Рабочий телефон",
+                                                    "callback_data" => 'getUserOfficeNumber'
                                                 )
                                             )
                                         ),
@@ -789,26 +735,25 @@ switch ($text) {
                                 if ($savedData) {
                                     $reply = "Для получения информации о сотруднике воспользуйтесь командами меню ниже.";
                                     $keyboard = array(
-                                        "keyboard" => array(
+                                        "inline_keyboard" => array(
                                             array(
                                                 array(
-                                                    "text" => 'Карточка'
+                                                    "text" => 'Карточка',
+                                                    "callback_data" => 'getUserCard'
                                                 ),
                                                 array(
-                                                    "text" => "Email"
+                                                    "text" => "Email",
+                                                    "callback_data" => 'getUserEmail'
                                                 )
                                             ),
                                             array(
                                                 array(
-                                                    "text" => "Мобильный телефон"
+                                                    "text" => "Мобильный телефон",
+                                                    "callback_data" => 'getUserMobileNumber'
                                                 ),
                                                 array(
-                                                    "text" => "Рабочий телефон"
-                                                )
-                                            ),
-                                            array(
-                                                array(
-                                                    "text" => "Назад"
+                                                    "text" => "Рабочий телефон",
+                                                    "callback_data" => 'getUserOfficeNumber'
                                                 )
                                             )
                                         ),
@@ -1433,6 +1378,58 @@ switch ($queryData) {
     $access->setState($queryUserID, "waiting for authorization");
     sendMessage($queryUserID, $reply, $markup);
     break;
+
+    case 'getUserCard':
+        $userForFind = $access->getFindUserData($queryUserID);
+        if ($userForFind) {
+            $result = $access->getUserByFirstnameAndLastName($userForFind['find_userfirstname'], $userForFind['find_userlastname']);
+            $reply = "<b>Карточка работника</b>\nФИО: ".$result["fullname"]."\nРабочий телефон: <b>".$result["office_number"]."</b>\nДобавочный номер: <b>".$result["internal_number"]."</b>\nМобильный телефон: <b>".$result["mobile_number"]."</b>\nE-mail: <b>".$result["email"]."</b>\nДолжность: <b>".$result["position"]."</b>\nКомпания: <b>".$result["company_name"]."</b>";
+            sendMessage($queryUserID, $reply, null);
+            break;
+        } else {
+            $reply = "Похоже вы ищете сотрудника? Давайте я поищу, введите имя и фамилию.";
+            sendMessage($queryUserID, $reply, null);
+            break;
+        }
+
+    case 'getUserEmail':
+        $userForFind = $access->getFindUserData($queryUserID);
+        if ($userForFind) {
+            $result = $access->getUserByFirstnameAndLastName($userForFind['find_userfirstname'], $userForFind['find_userlastname']);
+            $reply = "<b>Email работника</b>\n".$result["email"];
+            sendMessage($queryUserID, $reply, null);
+            break;
+        } else {
+            $reply = "Похоже вы ищете сотрудника? Давайте я поищу, введите имя и фамилию.";
+            sendMessage($queryUserID, $reply, null);
+            break;
+        }
+
+    case 'getUserMobileNumber':
+        $userForFind = $access->getFindUserData($queryUserID);
+        if ($userForFind) {
+            $result = $access->getUserByFirstnameAndLastName($userForFind['find_userfirstname'], $userForFind['find_userlastname']);
+            $reply = "<b>Номер мобильного телефона работника</b>\n".$result["mobile_number"];
+            sendMessage($queryUserID, $reply, null);
+            break;
+        } else {
+            $reply = "Похоже вы ищете сотрудника? Давайте я поищу, введите имя и фамилию.";
+            sendMessage($queryUserID, $reply, null);
+            break;
+        }
+
+    case 'getUserOfficeNumber':
+        $userForFind = $access->getFindUserData($queryUserID);
+        if ($userForFind) {
+            $result = $access->getUserByFirstnameAndLastName($userForFind['find_userfirstname'], $userForFind['find_userlastname']);
+            $reply = "<b>Номер рабочего телефона работника</b>\n".$result["office_number"].", доб. ".$result["internal_number"];
+            sendMessage($queryUserID, $reply, null);
+            break;
+        } else {
+            $reply = "Похоже вы ищете сотрудника? Давайте я поищу, введите имя и фамилию.";
+            sendMessage($queryUserID, $reply, null);
+            break;
+        }
 }
 
 

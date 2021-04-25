@@ -35,15 +35,27 @@ class commonmistakeroute {
         $this->sendMessage($chatID, $reply, null);
     }
 
-    function triggerActionForCommonErrorIfNotAuthorized() {
+    function triggerActionForCommonErrorIfNotAuthorized($chatID, $username) {
         $constants = new constants();
-        $reply = $constants->getReplyForCommonErrorIfNotAuthorized();
+        $reply = $constants->getReplyForCommonErrorIfNotAuthorized($username);
         $this->sendMessage($chatID, $reply, null);
     }
 
-    function triggerActionForCommonErrorIfAuthorizationNotFinished($chatID, $firstname) {
+    function triggerActionForCommonErrorIfAuthorizationNotFinished($chatID, $username) {
         $constants = new constants();
-        $reply = $constants->getReplyForUserNotFinishedAuthorization($firstname);
+        $reply = $constants->getReplyForUserNotFinishedAuthorization($username);
+        $this->sendMessage($chatID, $reply, null);
+    }
+
+    function triggerActionForCommonErrorIfLoginIncorrect($chatID) {
+        $constants = new constants();
+        $reply = $constants->getReplyForCommonErrorIfLoginIncorrect();
+        $this->sendMessage($chatID, $reply, null);
+    }
+
+    function triggerActionForCommonErrorIfLoginNotFound($chatID) {
+        $constants = new constants();
+        $reply = $constants->getReplyForCommonErrorIfLoginNotFound();
         $this->sendMessage($chatID, $reply, null);
     }
 
