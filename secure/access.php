@@ -43,6 +43,27 @@ class access {
         }
     }
 
+    function getAllUsersFromDb() {
+        $returnArray = array();
+        //TODO just for now returns only gnhs list of users
+        $sql = "SELECT * FROM phonebook where company_id = 2";
+
+        $statement = $this->conn->prepare($sql);
+
+        if (!$statement) {
+            throw new Exception($statement->error);
+        }
+
+        $statement->execute();
+        $result = $statement->get_result();
+
+        while ($row = $result->fetch_assoc()) {
+            $returnArray[] = $row;
+        }
+
+        return $returnArray;
+    }
+
     function getUserByPersonnelNumber($email) {
 
         $returnArray = array();
@@ -87,11 +108,33 @@ class access {
         return $returnArray;
     }
 
-    function getUserByFirstnameAndLastName($firstname, $lastname) {
+    function getUserByPhoneNumber($number) {
 
         $returnArray = array();
         // sql command
-        $sql = "SELECT * FROM phonebook WHERE fullname like '%".$firstname."%' AND fullname like '%".$lastname."%'";
+        $sql = "SELECT * FROM phonebook WHERE mobile_number='".$number."' and company_id in ('22','33')";
+        // assign result we got from $sql to result var
+        $result = $this->conn->query($sql);
+
+        // if we have at least 1 result returned
+        if ($result != null && (mysqli_num_rows($result) >= 1 )) {
+
+            // assign result we got to $row as associative array
+            $row = $result->fetch_array(MYSQLI_ASSOC);
+
+            if (!empty($row)) {
+                $returnArray = $row;
+            }
+        }
+
+        return $returnArray;
+    }
+
+    function getUserByFirstnameAndLastName($firstname, $lastname, $ids) {
+
+        $returnArray = array();
+        // sql command
+        $sql = "SELECT * FROM phonebook WHERE fullname like '%".$firstname."%' AND fullname like '%".$lastname."%' and company_id in ($ids)";
         // assign result we got from $sql to result var
         $result = $this->conn->query($sql);
 
@@ -144,6 +187,24 @@ class access {
 
         // bind parameters to sql statement
         $statement->bind_param("ii", $is_authorized, $confirmation_code);
+
+        // launch/execute and store feedback to returnValue
+        $returnValue = $statement->execute();
+        return $returnValue;
+    }
+
+    function activateUser($tg_chat_id, $number) {
+        $sql = "UPDATE phonebook SET is_authorized=1, tg_chat_id=? where mobile_number=?";
+        // prepare statement to be executed
+        $statement = $this->conn->prepare($sql);
+
+        // error occurred
+        if (!$statement) {
+            throw new Exception($statement->error);
+        }
+
+        // bind parameters to sql statement
+        $statement->bind_param("is", $tg_chat_id, $number);
 
         // launch/execute and store feedback to returnValue
         $returnValue = $statement->execute();
@@ -326,57 +387,6 @@ class access {
         return $returnArray;
     }
 
-
-    function setVacationStartDate($tg_chat_id, $date) {
-
-        // sql command
-        $sql = "SELECT * FROM vacation_form_data WHERE tg_chat_id='".$tg_chat_id."'";
-        // assign result we got from $sql to result var
-        $result = $this->conn->query($sql);
-
-        // if we have at least 1 result returned
-        if ($result != null && (mysqli_num_rows($result) >= 1 )) {
-
-            // sql statement
-            $sql = "UPDATE vacation_form_data SET vacation_start_date=? WHERE tg_chat_id=?";
-            // prepare statement to be executed
-            $statement = $this->conn->prepare($sql);
-
-            // error occurred
-            if (!$statement) {
-                throw new Exception($statement->error);
-            }
-
-            // bind parameters to sql statement
-            $statement->bind_param("si", $date, $tg_chat_id);
-
-            // launch/execute and store feedback to returnValue
-            $returnValue = $statement->execute();
-
-
-        } else {
-
-            // SQL command
-            $sql = "INSERT INTO vacation_form_data SET tg_chat_id=?, vacation_start_date=?";
-
-            // store query result in $statement
-            $statement = $this->conn->prepare($sql);
-
-            // if error
-            if (!$statement) {
-                throw new Exception($statement->error);
-            }
-
-            // bind 5 params of type string to be placed in sql command
-            $statement->bind_param("is", $tg_chat_id, $date);
-            $returnValue = $statement->execute();
-
-
-        }
-        return $returnValue;
-    }
-
-
     function setVacationPostponedDate($tg_chat_id, $date) {
 
         // sql command
@@ -532,6 +542,639 @@ class access {
 
         while ($row = $result->fetch_assoc()) {
             $returnArray[] = $row;
+        }
+
+        return $returnArray;
+    }
+
+    // VACATION FUNCTIONS
+
+    function setRegualarVacationType($tg_chat_id, $type) {
+        // sql command
+        $sql = "SELECT * FROM vacations WHERE tg_chat_id='".$tg_chat_id."'";
+        // assign result we got from $sql to result var
+        $result = $this->conn->query($sql);
+
+        // if we have at least 1 result returned
+        if ($result != null && (mysqli_num_rows($result) >= 1 )) {
+
+            // sql statement
+            $sql = "UPDATE vacations SET vacation_type=? WHERE tg_chat_id=?";
+            // prepare statement to be executed
+            $statement = $this->conn->prepare($sql);
+
+            // error occurred
+            if (!$statement) {
+                throw new Exception($statement->error);
+            }
+
+            // bind parameters to sql statement
+            $statement->bind_param("si", $type, $tg_chat_id);
+
+            // launch/execute and store feedback to returnValue
+            $returnValue = $statement->execute();
+
+
+        } else {
+
+            // SQL command
+            $sql = "INSERT INTO vacations SET tg_chat_id=?, vacation_type=?";
+
+            // store query result in $statement
+            $statement = $this->conn->prepare($sql);
+
+            // if error
+            if (!$statement) {
+                throw new Exception($statement->error);
+            }
+
+            // bind 5 params of type string to be placed in sql command
+            $statement->bind_param("is", $tg_chat_id, $type);
+            $returnValue = $statement->execute();
+
+
+        }
+        return $returnValue;
+    }
+
+    function setRegularVacationStartDate($tg_chat_id, $date) {
+
+        // sql command
+        $sql = "SELECT * FROM vacations WHERE tg_chat_id='".$tg_chat_id."'";
+        // assign result we got from $sql to result var
+        $result = $this->conn->query($sql);
+
+        // if we have at least 1 result returned
+        if ($result != null && (mysqli_num_rows($result) >= 1 )) {
+
+            // sql statement
+            $sql = "UPDATE vacations SET vacation_startdate=? WHERE tg_chat_id=?";
+            // prepare statement to be executed
+            $statement = $this->conn->prepare($sql);
+
+            // error occurred
+            if (!$statement) {
+                throw new Exception($statement->error);
+            }
+
+            // bind parameters to sql statement
+            $statement->bind_param("si", $date, $tg_chat_id);
+
+            // launch/execute and store feedback to returnValue
+            $returnValue = $statement->execute();
+
+
+        } else {
+
+            // SQL command
+            $sql = "INSERT INTO vacations SET tg_chat_id=?, vacation_startdate=?";
+
+            // store query result in $statement
+            $statement = $this->conn->prepare($sql);
+
+            // if error
+            if (!$statement) {
+                throw new Exception($statement->error);
+            }
+
+            // bind 5 params of type string to be placed in sql command
+            $statement->bind_param("is", $tg_chat_id, $date);
+            $returnValue = $statement->execute();
+
+
+        }
+        return $returnValue;
+    }
+
+    function setRegularVacationDuration($tg_chat_id, $duration) {
+
+        // sql command
+        $sql = "SELECT * FROM vacations WHERE tg_chat_id='".$tg_chat_id."'";
+        // assign result we got from $sql to result var
+        $result = $this->conn->query($sql);
+
+        // if we have at least 1 result returned
+        if ($result != null && (mysqli_num_rows($result) >= 1 )) {
+
+            // sql statement
+            $sql = "UPDATE vacations SET vacation_duration=? WHERE tg_chat_id=?";
+            // prepare statement to be executed
+            $statement = $this->conn->prepare($sql);
+
+            // error occurred
+            if (!$statement) {
+                throw new Exception($statement->error);
+            }
+
+            // bind parameters to sql statement
+            $statement->bind_param("si", $duration, $tg_chat_id);
+
+            // launch/execute and store feedback to returnValue
+            $returnValue = $statement->execute();
+
+
+        } else {
+
+            // SQL command
+            $sql = "INSERT INTO vacations SET tg_chat_id=?, vacation_duration=?";
+
+            // store query result in $statement
+            $statement = $this->conn->prepare($sql);
+
+            // if error
+            if (!$statement) {
+                throw new Exception($statement->error);
+            }
+
+            // bind 5 params of type string to be placed in sql command
+            $statement->bind_param("is", $tg_chat_id, $duration);
+            $returnValue = $statement->execute();
+
+
+        }
+        return $returnValue;
+    }
+
+    function setRegularVacationAcademicReason($tg_chat_id, $reason) {
+        // sql command
+        $sql = "SELECT * FROM vacations WHERE tg_chat_id='".$tg_chat_id."'";
+        // assign result we got from $sql to result var
+        $result = $this->conn->query($sql);
+
+        // if we have at least 1 result returned
+        if ($result != null && (mysqli_num_rows($result) >= 1 )) {
+
+            // sql statement
+            $sql = "UPDATE vacations SET reason=? WHERE tg_chat_id=?";
+            // prepare statement to be executed
+            $statement = $this->conn->prepare($sql);
+
+            // error occurred
+            if (!$statement) {
+                throw new Exception($statement->error);
+            }
+
+            // bind parameters to sql statement
+            $statement->bind_param("si", $reason, $tg_chat_id);
+
+            // launch/execute and store feedback to returnValue
+            $returnValue = $statement->execute();
+
+
+        } else {
+
+            // SQL command
+            $sql = "INSERT INTO vacations SET tg_chat_id=?, reason=?";
+
+            // store query result in $statement
+            $statement = $this->conn->prepare($sql);
+
+            // if error
+            if (!$statement) {
+                throw new Exception($statement->error);
+            }
+
+            // bind 5 params of type string to be placed in sql command
+            $statement->bind_param("is", $tg_chat_id, $reason);
+            $returnValue = $statement->execute();
+
+
+        }
+        return $returnValue;
+    }
+
+    function setVacationStartDate($tg_chat_id, $date) {
+
+        // sql command
+        $sql = "SELECT * FROM vacation_form_data WHERE tg_chat_id='".$tg_chat_id."'";
+        // assign result we got from $sql to result var
+        $result = $this->conn->query($sql);
+
+        // if we have at least 1 result returned
+        if ($result != null && (mysqli_num_rows($result) >= 1 )) {
+
+            // sql statement
+            $sql = "UPDATE vacation_form_data SET vacation_start_date=? WHERE tg_chat_id=?";
+            // prepare statement to be executed
+            $statement = $this->conn->prepare($sql);
+
+            // error occurred
+            if (!$statement) {
+                throw new Exception($statement->error);
+            }
+
+            // bind parameters to sql statement
+            $statement->bind_param("si", $date, $tg_chat_id);
+
+            // launch/execute and store feedback to returnValue
+            $returnValue = $statement->execute();
+
+
+        } else {
+
+            // SQL command
+            $sql = "INSERT INTO vacation_form_data SET tg_chat_id=?, vacation_start_date=?";
+
+            // store query result in $statement
+            $statement = $this->conn->prepare($sql);
+
+            // if error
+            if (!$statement) {
+                throw new Exception($statement->error);
+            }
+
+            // bind 5 params of type string to be placed in sql command
+            $statement->bind_param("is", $tg_chat_id, $date);
+            $returnValue = $statement->execute();
+
+
+        }
+        return $returnValue;
+    }
+
+    function setVacationEndDate($tg_chat_id, $date) {
+
+        // sql command
+        $sql = "SELECT * FROM vacation_form_data WHERE tg_chat_id='".$tg_chat_id."'";
+        // assign result we got from $sql to result var
+        $result = $this->conn->query($sql);
+
+        // if we have at least 1 result returned
+        if ($result != null && (mysqli_num_rows($result) >= 1 )) {
+
+            // sql statement
+            $sql = "UPDATE vacation_form_data SET vacation_end_date=? WHERE tg_chat_id=?";
+            // prepare statement to be executed
+            $statement = $this->conn->prepare($sql);
+
+            // error occurred
+            if (!$statement) {
+                throw new Exception($statement->error);
+            }
+
+            // bind parameters to sql statement
+            $statement->bind_param("si", $date, $tg_chat_id);
+
+            // launch/execute and store feedback to returnValue
+            $returnValue = $statement->execute();
+
+
+        } else {
+
+            // SQL command
+            $sql = "INSERT INTO vacation_form_data SET tg_chat_id=?, vacation_end_date=?";
+
+            // store query result in $statement
+            $statement = $this->conn->prepare($sql);
+
+            // if error
+            if (!$statement) {
+                throw new Exception($statement->error);
+            }
+
+            // bind 5 params of type string to be placed in sql command
+            $statement->bind_param("is", $tg_chat_id, $date);
+            $returnValue = $statement->execute();
+
+
+        }
+        return $returnValue;
+    }
+
+    function setVacationNewStartDate($tg_chat_id, $date) {
+
+        // sql command
+        $sql = "SELECT * FROM vacation_form_data WHERE tg_chat_id='".$tg_chat_id."'";
+        // assign result we got from $sql to result var
+        $result = $this->conn->query($sql);
+
+        // if we have at least 1 result returned
+        if ($result != null && (mysqli_num_rows($result) >= 1 )) {
+
+            // sql statement
+            $sql = "UPDATE vacation_form_data SET postponed_vacation_start_date=? WHERE tg_chat_id=?";
+            // prepare statement to be executed
+            $statement = $this->conn->prepare($sql);
+
+            // error occurred
+            if (!$statement) {
+                throw new Exception($statement->error);
+            }
+
+            // bind parameters to sql statement
+            $statement->bind_param("si", $date, $tg_chat_id);
+
+            // launch/execute and store feedback to returnValue
+            $returnValue = $statement->execute();
+
+
+        } else {
+
+            // SQL command
+            $sql = "INSERT INTO vacation_form_data SET tg_chat_id=?, postponed_vacation_start_date=?";
+
+            // store query result in $statement
+            $statement = $this->conn->prepare($sql);
+
+            // if error
+            if (!$statement) {
+                throw new Exception($statement->error);
+            }
+
+            // bind 5 params of type string to be placed in sql command
+            $statement->bind_param("is", $tg_chat_id, $date);
+            $returnValue = $statement->execute();
+
+
+        }
+        return $returnValue;
+    }
+
+    function setVacationNewEndDate($tg_chat_id, $date) {
+
+        // sql command
+        $sql = "SELECT * FROM vacation_form_data WHERE tg_chat_id='".$tg_chat_id."'";
+        // assign result we got from $sql to result var
+        $result = $this->conn->query($sql);
+
+        // if we have at least 1 result returned
+        if ($result != null && (mysqli_num_rows($result) >= 1 )) {
+
+            // sql statement
+            $sql = "UPDATE vacation_form_data SET postponed_vacation_end_date=? WHERE tg_chat_id=?";
+            // prepare statement to be executed
+            $statement = $this->conn->prepare($sql);
+
+            // error occurred
+            if (!$statement) {
+                throw new Exception($statement->error);
+            }
+
+            // bind parameters to sql statement
+            $statement->bind_param("si", $date, $tg_chat_id);
+
+            // launch/execute and store feedback to returnValue
+            $returnValue = $statement->execute();
+
+
+        } else {
+
+            // SQL command
+            $sql = "INSERT INTO vacation_form_data SET tg_chat_id=?, postponed_vacation_end_date=?";
+
+            // store query result in $statement
+            $statement = $this->conn->prepare($sql);
+
+            // if error
+            if (!$statement) {
+                throw new Exception($statement->error);
+            }
+
+            // bind 5 params of type string to be placed in sql command
+            $statement->bind_param("is", $tg_chat_id, $date);
+            $returnValue = $statement->execute();
+
+
+        }
+        return $returnValue;
+    }
+
+    function setVacationReason($tg_chat_id, $reason) {
+
+        // sql command
+        $sql = "SELECT * FROM vacation_form_data WHERE tg_chat_id='".$tg_chat_id."'";
+        // assign result we got from $sql to result var
+        $result = $this->conn->query($sql);
+
+        // if we have at least 1 result returned
+        if ($result != null && (mysqli_num_rows($result) >= 1 )) {
+
+            // sql statement
+            $sql = "UPDATE vacation_form_data SET reason=? WHERE tg_chat_id=?";
+            // prepare statement to be executed
+            $statement = $this->conn->prepare($sql);
+
+            // error occurred
+            if (!$statement) {
+                throw new Exception($statement->error);
+            }
+
+            // bind parameters to sql statement
+            $statement->bind_param("si", $reason, $tg_chat_id);
+
+            // launch/execute and store feedback to returnValue
+            $returnValue = $statement->execute();
+
+
+        } else {
+
+            // SQL command
+            $sql = "INSERT INTO vacation_form_data SET tg_chat_id=?, reason=?";
+
+            // store query result in $statement
+            $statement = $this->conn->prepare($sql);
+
+            // if error
+            if (!$statement) {
+                throw new Exception($statement->error);
+            }
+
+            // bind 5 params of type string to be placed in sql command
+            $statement->bind_param("is", $tg_chat_id, $reason);
+            $returnValue = $statement->execute();
+
+
+        }
+        return $returnValue;
+    }
+
+    // METHODS FOR SCHEDULLER
+    function updateEmployeeByEmail($firstname, $lastname, $fullname, $position, $office_number, $internal_number, $mobile_number, $company_name, $company_id, $boss, $main_holliday_counter, $additional_holliday_counter, $email) {
+
+        // sql statement
+        $sql = "UPDATE phonebook SET firstname=?, lastname=?, fullname=?, position=?, office_number=?, internal_number=?, mobile_number=?, company_name=?, company_id=?, boss=?, main_holliday_counter=?, additional_holliday_counter=?, updated_at=CURRENT_TIMESTAMP WHERE email ='".$email."'";
+        // prepare statement to be executed
+        $statement = $this->conn->prepare($sql);
+
+        // error occurred 
+        if (!$statement) {
+            throw new Exception($statement->error);
+        }
+
+        // bind parameters to sql statement
+        $statement->bind_param("ssssssssisss", $firstname, $lastname, $fullname, $position, $office_number, $internal_number, $mobile_number, $company_name, $company_id, $boss, $main_holliday_counter, $additional_holliday_counter);
+
+        // launch/execute and store feedback to returnValue
+        $returnValue = $statement->execute();
+        return $returnValue;
+    }
+
+    function updateEmployeeByMobileNumber($firstname, $lastname, $fullname, $position, $office_number, $internal_number, $mobile_number, $company_name, $company_id, $boss, $main_holliday_counter, $additional_holliday_counter, $email) {
+
+        // sql statement
+        $sql = "UPDATE phonebook SET firstname=?, lastname=?, fullname=?, position=?, office_number=?, internal_number=?, company_name=?, company_id=?, boss=?, main_holliday_counter=?, additional_holliday_counter=?, email=?, updated_at=CURRENT_TIMESTAMP WHERE mobile_number ='".$mobile_number."'";
+        // prepare statement to be executed
+        $statement = $this->conn->prepare($sql);
+
+        // error occurred 
+        if (!$statement) {
+            throw new Exception($statement->error);
+        }
+
+        // bind parameters to sql statement
+        $statement->bind_param("sssssssissss", $firstname, $lastname, $fullname, $position, $office_number, $internal_number, $company_name, $company_id, $boss, $main_holliday_counter, $additional_holliday_counter, $email);
+
+        // launch/execute and store feedback to returnValue
+        $returnValue = $statement->execute();
+        return $returnValue;
+    }
+
+    function insertEmployee($lastname, $firstname, $fullname, $position, $email, $office_number, $internal_number, $mobile_number, $company_id, $company_name, $boss, $main_holliday_counter, $additional_holliday_counter) {
+
+        // sql statement 
+        $sql = "INSERT INTO phonebook SET lastname=?, firstname=?, fullname=?, position=?, email=?, office_number=?, internal_number=?, mobile_number=?, company_id=?, company_name=?, is_greenhouse_available=1, boss=?, main_holliday_counter=?, additional_holliday_counter=?";
+
+        // prepare statement to be executed
+        $statement = $this->conn->prepare($sql);
+
+        // error occurred 
+        if (!$statement) {
+            throw new Exception($statement->error);
+        }
+
+        // bind parameters to sql statement
+        $statement->bind_param("ssssssssissss", $lastname, $firstname, $fullname, $position, $email, $office_number, $internal_number, $mobile_number, $company_id, $company_name, $boss, $main_holliday_counter, $additional_holliday_counter);
+
+        // launch/execute and store feedback to returnValue
+        $returnValue = $statement->execute();
+        return $returnValue;
+    }
+
+    function getUserForJobByPhoneNumber($number) {
+
+        $returnArray = array();
+        // sql command
+        $sql = "SELECT * FROM phonebook WHERE mobile_number='".$number."'";
+        // assign result we got from $sql to result var
+        $result = $this->conn->query($sql);
+
+        // if we have at least 1 result returned
+        if ($result != null && (mysqli_num_rows($result) >= 1 )) {
+
+            // assign result we got to $row as associative array
+            $row = $result->fetch_array(MYSQLI_ASSOC);
+
+            if (!empty($row)) {
+                $returnArray = $row;
+            }
+        }
+
+        return $returnArray;
+    }
+
+    function removeEmpoyeeByEmail($email) {
+
+        $sql = "DELETE from phonebook WHERE email='".$email."'";
+        $statement = $this->conn->prepare($sql);
+
+        if (!$statement) {
+            throw new Exception($statement->error);
+        }
+
+        $returnValue = $statement->execute();
+        return $returnValue;
+    }
+
+    function removeEmpoyeeByMobileNumber($mobile_number) {
+        $sql = "DELETE from phonebook WHERE mobile_number='".$mobile_number."'";
+        $statement = $this->conn->prepare($sql);
+
+        if (!$statement) {
+            throw new Exception($statement->error);
+        }
+
+        $returnValue = $statement->execute();
+        return $returnValue;
+    }
+
+    function setFeedbackInfo($tg_chat_id, $feedback_text) {
+
+        // sql command
+        $sql = "SELECT * FROM feedback WHERE tg_chat_id='".$tg_chat_id."'";
+        $result = $this->conn->query($sql);
+
+        // if we have at least 1 result returned
+        if ($result != null && (mysqli_num_rows($result) >= 1 )) {
+
+            // sql statement
+            $sql = "UPDATE feedback SET feedback_text=? WHERE tg_chat_id=?";
+            $statement = $this->conn->prepare($sql);
+
+            if (!$statement) {
+                throw new Exception($statement->error);
+            }
+
+            $statement->bind_param("ss", $feedback_text, $tg_chat_id);
+            $returnValue = $statement->execute();
+
+
+        } else {
+
+            // SQL command
+            $sql = "INSERT INTO feedback SET tg_chat_id=?, feedback_text=?";
+            $statement = $this->conn->prepare($sql);
+
+            if (!$statement) {
+                throw new Exception($statement->error);
+            }
+
+            $statement->bind_param("ss", $tg_chat_id, $feedback_text);
+            $returnValue = $statement->execute();
+
+
+        }
+        return $returnValue;
+
+    }
+
+    function getFeedbackInfo($tg_chat_id) {
+
+        $returnArray = array();
+        // sql command
+        $sql = "SELECT * FROM feedback WHERE tg_chat_id='".$tg_chat_id."'";
+        // assign result we got from $sql to result var
+        $result = $this->conn->query($sql);
+
+        // if we have at least 1 result returned
+        if ($result != null && (mysqli_num_rows($result) >= 1 )) {
+
+            // assign result we got to $row as associative array
+            $row = $result->fetch_array(MYSQLI_ASSOC);
+
+            if (!empty($row)) {
+                $returnArray = $row;
+            }
+        }
+
+        return $returnArray;
+    }
+
+    function getReguarVacationFormData($tg_chat_id) {
+        $returnArray = array();
+        // sql command
+        $sql = "SELECT * FROM vacations WHERE tg_chat_id='".$tg_chat_id."'";
+        // assign result we got from $sql to result var
+        $result = $this->conn->query($sql);
+
+        // if we have at least 1 result returned
+        if ($result != null && (mysqli_num_rows($result) >= 1 )) {
+
+            // assign result we got to $row as associative array
+            $row = $result->fetch_array(MYSQLI_ASSOC);
+
+            if (!empty($row)) {
+                $returnArray = $row;
+            }
         }
 
         return $returnArray;

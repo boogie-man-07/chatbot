@@ -68,9 +68,11 @@ class constants {
             case 1:
                 return 'CAACAgIAAxkBAAEBMbZgfy8CinSskHVXOg8nZsQgoTfdpgACdAoAAvQI6EtmsXAM6Y84IB8E';
                 break;
+            case 22;
             case 2:
                 return 'CAACAgIAAxkBAAEBMZ5gfyqlDmXIhm1NofTmUtk6PbwLVgAC0AwAArFD6EuF3nv4a0AKGh8E';
                 break;
+            case 33;
             case 3:
                 return 'CAACAgIAAxkBAAEBMaFgfyq6ZJsFH80MGK5BHhZ5c4JKiwAChAsAArEpyUt4xWeiyu4u_B8E';
                 break;
@@ -86,9 +88,11 @@ class constants {
             case 1:
                 return 'CAACAgIAAxkBAAEBMblgfy8ejQb9oxs7E8Z9O1XiCfV3IwACxw4AAmf68EtgwsOgqbLjMR8E';
                 break;
+            case 22;
             case 2:
                 return 'CAACAgIAAxkBAAEBMaRgfyt7kkLq78G_yOx23s9z1EqXtwACEwwAAqHX6Uvjv4F3N6K59x8E';
                 break;
+            case 33;
             case 3:
                 return 'CAACAgIAAxkBAAEBMa1gfyu36mdSBXDGWAnt3jOPHTNoDAAC5gsAAqo0yEvCcwitIB2H4h8E';
                 break;
@@ -104,9 +108,11 @@ class constants {
             case 1:
                 return 'CAACAgIAAxkBAAEBMbxgfy8uiznhMaqr-kWkzGHnduYr-wAChA8AAqVX6EumUZ6cBmCYNR8E';
                 break;
+            case 22;
             case 2:
                 return 'CAACAgIAAxkBAAEBMadgfyuSPSLSbsDXjrz55YS7VCjJQwAC8g0AAvgi8UtWbnaI-4e_NB8E';
                 break;
+            case 33;
             case 3:
                 return 'CAACAgIAAxkBAAEBMbBgfyvKHBdDrirJqKHxTL383r4f3wAC6g4AAuEkyEtHZUP58TmpEx8E';
                 break;
@@ -122,9 +128,11 @@ class constants {
             case 1:
                 return 'CAACAgIAAxkBAAEBMb9gfy9CRTlmoIEmHYlFbV46nT_SYwACZwwAAgZ36Utd3rGptn8xjh8E';
                 break;
+            case 22;
             case 2:
                 return 'CAACAgIAAxkBAAEBMapgfyuit8l_zH4BMLhBgFq6pl1kaQACNwsAAgSV6UvkGQooTnLg4R8E';
                 break;
+            case 33;
             case 3:
                 return 'CAACAgIAAxkBAAEBMbNgfyvfGNxt2iwyETSj78IJNf3fSQAC8wkAAk59yEsPQURLZJvOCR8E';
                 break;
@@ -140,9 +148,11 @@ class constants {
             case 1:
                 return "До офиса добраться можно следующими способами:\n- доехать до ст. м. «Славянский бульвар», выход 4, сесть на автобус № 818 до ост. ЖК «Грюнвальд»;\n- Доехать до ст. м. «Славянский бульвар», выход 4, сесть на автобус SK «Сколково» до ост. «МШУ Сколково», далее пешком до ул. Весенняя 2., корп. 1.";
                 break;
+            case 22;
             case 2:
                 return "До офиса в г. Саратове добраться можно на автобусах, троллейбусах и маршрутных такси, которые проезжают через остановку \"Гостиница Олимпия\"\n- Автобусы: № 2д, 6, 53, 90;\n- Троллейбусы: № 4, 15;\n- Маршрутные такси: 21, 42, 42к, 79, 83, 99, 105, 110.\n\nДо офиса в ОСП Сколково добраться можно следующими способами:\n- доехать до ст. м. «Славянский бульвар», выход 4, сесть на автобус № 818 до ост. ЖК «Грюнвальд»;\n- Доехать до ст. м. «Славянский бульвар», выход 4, сесть на автобус SK «Сколково» до ост. «МШУ Сколково», далее пешком до ул. Весенняя 2., корп. 1.";
                 break;
+            case 33;
             case 3:
                 return "До тепличного комплекса добраться можно на автобусах:\n- Автобусы: № 115 (от ост. «Линия», остановка у ТК по требованию);\n- Автобусы: № 151 (от ост. «Линия», остановка у ТК по требованию);\n- Корпоративный транспорт.\n\nДо офиса в ОСП Сколково добраться можно следующими способами:\n- доехать до ст. м. «Славянский бульвар», выход 4, сесть на автобус № 818 до ост. ЖК «Грюнвальд»;\n- Доехать до ст. м. «Славянский бульвар», выход 4, сесть на автобус SK «Сколково» до ост. «МШУ Сколково», далее пешком до ул. Весенняя 2., корп. 1.";
                 break;
@@ -154,9 +164,11 @@ class constants {
             case 1:
                 return "Установленными днями для выплаты заработной платы являются 10-е число месяца (за период работы с 16-го по последнее число предыдущего месяца) и 25-е число (за период работы с 1-го по 15-е число текущего месяца).\nПри совпадении дня выплаты с выходным или нерабочим праздничным днем выплата заработной платы производится накануне этого дня.";
                 break;
+            case 22;
             case 2:
-                return "Установленными днями для выплаты заработной платы являются 10-е число месяца (за период работы с 16-го по последнее число предыдущего месяца) и 25-е число (за период работы с 1-го по 15-е число текущего месяца).\nПри совпадении дня выплаты с выходным или нерабочим праздничным днем выплата заработной платы производится накануне этого дня.";;
+                return "Установленными днями для выплаты заработной платы являются 10-е число месяца (за период работы с 16-го по последнее число предыдущего месяца) и 25-е число (за период работы с 1-го по 15-е число текущего месяца).\nПри совпадении дня выплаты с выходным или нерабочим праздничным днем выплата заработной платы производится накануне этого дня.";
                 break;
+            case 33;
             case 3:
                 return "Установленными днями для выплаты заработной платы являются 10-е число месяца (за период работы с 16-го по последнее число предыдущего месяца) и 25-е число (за период работы с 1-го по 15-е число текущего месяца).\nПри совпадении дня выплаты с выходным или нерабочим праздничным днем выплата заработной платы производится накануне этого дня.";
                 break;
@@ -181,5 +193,9 @@ class constants {
 
     function getPhoneCardPrivelegesError($firstname) {
         return "Извините, $firstname!\nВаши привелегии не позволяют просмотреть карточку данного сотрудника.";
+    }
+
+    function getNoPhoneCardError($firstname) {
+        return "Извините, $firstname!\nСотрудник, которого вы ищете не найден.";
     }
 }

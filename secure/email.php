@@ -47,6 +47,26 @@ class email {
       return $template;
     }
 
+    function generateNewRegularVacationForm($companyID) {
+        switch ($companyID) {
+            case 1:
+              $file = fopen("templates/sigmaRegularVacationFormTemplate.html", "r") or die("Unable to open file");
+              $template = fread($file, filesize("templates/sigmaRegularVacationFormTemplate.html"));
+              break;
+            case 2:
+              $file = fopen("templates/greenhouseRegularVacationFormTemplate.html", "r") or die("Unable to open file");
+              $template = fread($file, filesize("templates/greenhouseRegularVacationFormTemplate.html"));
+              break;
+            case 3:
+              $file = fopen("templates/diallRegularVacationFormTemplate.html", "r") or die("Unable to open file");
+              $template = fread($file, filesize("templates/diallRegularVacationFormTemplate.html"));
+              break;
+        }
+
+        fclose($file);
+        return $template;
+    }
+
     function generateRegularVacationForm($companyID) {
       switch ($companyID) {
         case 1:

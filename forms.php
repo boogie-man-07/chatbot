@@ -137,25 +137,12 @@ class Forms {
     }
 
     // функция формирует форму для переноса отпуска
-    function getPostponeVacationForm($position, $fullName, $startDate, $postponedDate, $postponedDays, $totalDuration, $bonus, $day, $month, $year, $sign) {
+    function getGreenhouseRegularVacationForm($position, $fullName, $day, $month, $year, $sign) {
+
+        $newMonth = "";
 
         require('Classes/PHPExcel.php');
-        $objPHPExcel = PHPExcel_IOFactory::load("forms/postponed_vacation_form.xlsx");
-
-        if ($bonus) {
-            if ($totalDuration == $postponedDays) {
-                $text = "Прошу перенести ежегодный оплачиваемый отпуск в количестве $totalDuration к. д. с $startDate на $postponedDate и предоставить его с единовременной выплатой 90% от оклада.";
-            } else {
-                $text = "Прошу перенести ежегодный оплачиваемый отпуск в количестве $totalDuration к. д. с $startDate на $postponedDate и предоставить отпуск в количестве $postponedDays к.д. с единовременной выплатой 90% от оклада.";
-            }
-
-        } else {
-            if ($totalDuration == $postponedDays) {
-                $text = "Прошу перенести ежегодный оплачиваемый отпуск в количестве $totalDuration календарных дней с $startDate на $postponedDate и предоставить его.";
-            } else {
-                $text = "Прошу перенести ежегодный оплачиваемый отпуск в количестве $totalDuration календарных дней с $startDate на $postponedDate и предоставить отпуск в количестве $postponedDays к.д.";
-            }
-        }
+        $objPHPExcel = PHPExcel_IOFactory::load("forms/gnhsRegularDynamicVacationForm.xlsx");
 
         switch ($month) {
             case "January":
@@ -198,14 +185,75 @@ class Forms {
 
         $date = $day." ".$newMonth." ".$year." г.";
 
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B8', "От ".$position);
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B9', $fullName);
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A16', $text);
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A22', $date);
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C22', "___________/".$sign."/");
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('E7', $position);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D13', $fullName);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('E34', $date);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C34', $sign);
 
         $objExcelWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-        $excelFilename = "forms/postponed_vacation_form.xlsx";
+        $excelFilename = "forms/gnhsRegularDynamicVacationForm.xlsx";
+        $objExcelWriter->save($excelFilename);
+    }
+
+    // функция формирует форму для переноса отпуска
+    function getGreenhousePostponeVacationForm($position, $fullName, $startDate, $endDate, $postponedStartDate, $postponedEndDate, $reason, $day, $month, $year, $sign) {
+
+        $newMonth = "";
+
+        require('Classes/PHPExcel.php');
+        $objPHPExcel = PHPExcel_IOFactory::load("forms/gnhsPostponedDynamicVacationForm.xlsx");
+
+        $text = "Прошу перенести ежегодный основной оплачиваемый отпуск, запланированный по графику отпусков в период с $startDate по $endDate на период с $postponedStartDate по $postponedEndDate по причине: $reason.";
+
+        switch ($month) {
+            case "January":
+                $newMonth = str_replace("January", "января", $month);
+                break;
+            case "February":
+                $newMonth = str_replace("February", "февраля", $month);
+                break;
+            case "March":
+                $newMonth = str_replace("March", "марта", $month);
+                break;
+            case "April":
+                $newMonth = str_replace("April", "апреля", $month);
+                break;
+            case "May":
+                $newMonth = str_replace("May", "мая", $month);
+                break;
+            case "June":
+                $newMonth = str_replace("June", "июня", $month);
+                break;
+            case "July":
+                $newMonth = str_replace("July", "июля", $month);
+                break;
+            case "August":
+                $newMonth = str_replace("August", "августа", $month);
+                break;
+            case "September":
+                $newMonth = str_replace("September", "сентября", $month);
+                break;
+            case "Oсtober":
+                $newMonth = str_replace("Oсtober", "октября", $month);
+                break;
+            case "November":
+                $newMonth = str_replace("November", "ноября", $month);
+                break;
+            case "December":
+                $newMonth = str_replace("December", "декабря", $month);
+                break;
+        }
+
+        $date = $day." ".$newMonth." ".$year." г.";
+
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D7', $position);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D13', $fullName);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A19', $text);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D22', $date);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B22', $sign);
+
+        $objExcelWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+        $excelFilename = "forms/gnhsPostponedDynamicVacationForm.xlsx";
         $objExcelWriter->save($excelFilename);
     }
 
@@ -221,6 +269,88 @@ class Forms {
         $objExcelWriter->save($excelFilename);
     }
 
+    function getGnhsNewRegularVacationForm($position, $fullname, $vacationType, $startDate, $vacationDuration, $vacationReason, $day, $month, $year, $sign) {
+
+        $newMonth = "";
+        $path = "";
+        $text = "";
+
+        switch ($vacationType) {
+            case 0:
+                $path = "forms/gnhsRegularDynamicVacationForm_main.xlsx";
+                $text = "Предоставить ежегодный оплачиваемый отпуск с $startDate в количестве ".$vacationDuration." календарных дней";
+                break;
+            case 1:
+                $path = "forms/gnhsRegularDynamicVacationForm_additional.xlsx";
+                $text = "Предоставить ежегодный дополнительный оплачиваемый отпуск с $startDate в количестве ".$vacationDuration." календарных дней";
+                break;
+            case 2:
+                $path = "forms/gnhsRegularDynamicVacationForm_nopayment.xlsx";
+                $text = "Предоставить отпуск без сохранения заработной платы с $startDate в количестве ".$vacationDuration." календарных дней";
+                break;
+            case 3:
+                $path = "forms/gnhsRegularDynamicVacationForm_academic.xlsx";
+                $text = "Предоставить учебный отпуск с $startDate в количестве ".$vacationDuration." календарных дней";
+                break;
+        }
+
+        require('Classes/PHPExcel.php');
+        $objPHPExcel = PHPExcel_IOFactory::load($path);
+
+        switch ($month) {
+            case "January":
+                $newMonth = str_replace("January", "января", $month);
+                break;
+            case "February":
+                $newMonth = str_replace("February", "февраля", $month);
+                break;
+            case "March":
+                $newMonth = str_replace("March", "марта", $month);
+                break;
+            case "April":
+                $newMonth = str_replace("April", "апреля", $month);
+                break;
+            case "May":
+                $newMonth = str_replace("May", "мая", $month);
+                break;
+            case "June":
+                $newMonth = str_replace("June", "июня", $month);
+                break;
+            case "July":
+                $newMonth = str_replace("July", "июля", $month);
+                break;
+            case "August":
+                $newMonth = str_replace("August", "августа", $month);
+                break;
+            case "September":
+                $newMonth = str_replace("September", "сентября", $month);
+                break;
+            case "Oсtober":
+                $newMonth = str_replace("Oсtober", "октября", $month);
+                break;
+            case "November":
+                $newMonth = str_replace("November", "ноября", $month);
+                break;
+            case "December":
+                $newMonth = str_replace("December", "декабря", $month);
+                break;
+        }
+
+        $date = $day." ".$newMonth." ".$year." г.";
+
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('E7', $position);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D13', $fullname);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B23', $text);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('E28', $date);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C28', $sign);
+
+        if ($vacationReason != null) {
+            $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C25', $vacationReason);
+        }
+
+        $objExcelWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+        $objExcelWriter->save($path);
+    }
 
 }
 
