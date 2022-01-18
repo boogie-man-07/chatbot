@@ -1,11 +1,18 @@
 
 {
-  "mainKeyboard": {
-    "phones": "Телефонный справочник",
-    "salary": "КПД и Заработная плата",
-    "values": "Наши ценности",
-    "generalInfo": "Общая информация",
-    "rules": "Правила",
-    "exit": "Выход"
-  }
+    "commands": {
+        "start":  "/start",
+        "emailAuthorization": "Авторизация по email",
+        "smsAuthorization": "Авторизация по SMS",
+        "toStart": "Вернуться в начало"
+    },
+
+    "mainKeyboard": {
+        "phones": "Телефонный справочник",
+        "salary": "КПД и Заработная плата",
+        "values": "Наши ценности",
+        "generalInfo": "Общая информация",
+        "rules": "Правила",
+        "exit": "Выход"
+    }
 }

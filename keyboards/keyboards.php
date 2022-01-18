@@ -7,44 +7,98 @@
  */
 
 
-$json = file_get_contents("constants/localization.json");
-$data = json_decode($json, true);
-
 class keyboards {
 
-  function mainKeyboard(): Array {
-    $keyboard = array(
-      "keyboard" => array(
-        array(
-          array(
-            "text" => $data['mainKeyboard']['phones']
-          ),
-          array(
-            "text" => $data['mainKeyboard']['salary']
-          )
-        ),
-        array(
-          array(
-              "text" => $data['mainKeyboard']['values']
-          ),
-          array(
-              "text" => $data['mainKeyboard']['generalInfo']
-          )
-        ),
-        array(
-          array(
-              "text" => $data['mainKeyboard']['rules']
-          ),
-          array(
-              "text" => $data['mainKeyboard']['exit']
-          )
-        )
-      ),
-      "resize_keyboard" => true,
-      "one_time_keyboard" => true
-    );
+    function helloKeyboard() {
+        $keyboard = array(
+            "keyboard" => array(
+                array(
+                    array(
+                    "text" => "Авторизация по email"
+                    )
+                ),
+                array(
+                    array(
+                    "text" => "Авторизация по SMS"
+                    )
+                )
+            ),
+            "resize_keyboard" => true,
+            "one_time_keyboard" => true
+        );
+        return json_encode($keyboard);
+    }
 
-    return $keyboard;
-  }
+    function backToStartKeyboard() {
+        $keyboard = array(
+            "keyboard" => array(
+                array(
+                    array(
+                    "text" => "Вернуться в начало"
+                    )
+                )
+            ),
+            "resize_keyboard" => true,
+            "one_time_keyboard" => true
+        );
+        return json_encode($keyboard);
+    }
+
+    function smsAuthorizationKeyboard() {
+        $keyboard = array(
+            "keyboard" => array(
+                array(
+                    array(
+                        "text" => "Передать мобильный номер",
+                        'request_contact'=>true
+                    )
+                ),
+                array(
+                    array(
+                        "text" => "Вернуться в начало"
+                    )
+                )
+            ),
+            "resize_keyboard" => true,
+            "one_time_keyboard" => false
+        );
+        return json_encode($keyboard);
+    }
+
+//   function mainKeyboard(): string {
+//
+//     $keyboard = array(
+//       "keyboard" => array(
+//         array(
+//           array(
+//             "text" => $data['mainKeyboard']['phones']
+//           ),
+//           array(
+//             "text" => $data['mainKeyboard']['salary']
+//           )
+//         ),
+//         array(
+//           array(
+//               "text" => $data['mainKeyboard']['values']
+//           ),
+//           array(
+//               "text" => $data['mainKeyboard']['generalInfo']
+//           )
+//         ),
+//         array(
+//           array(
+//               "text" => $data['mainKeyboard']['rules']
+//           ),
+//           array(
+//               "text" => $data['mainKeyboard']['exit']
+//           )
+//         )
+//       ),
+//       "resize_keyboard" => true,
+//       "one_time_keyboard" => true
+//     );
+//     $markup = json_encode($keyboard);
+//     return $markup;
+//   }
 
 }

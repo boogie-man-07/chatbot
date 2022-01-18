@@ -5,69 +5,42 @@
 # Time: 16:59
 
 
-$file = parse_ini_file($_SERVER['DOCUMENT_ROOT'].'/Botdb.ini');
-
-$host = trim($file["dbhost"]);
-$user = trim($file["dbuser"]);
-$pass = trim($file["dbpass"]);
-$name = trim($file["dbname"]);
-$token = trim($file["token"]);
-
-require 'constants/constants.php';
-
-require 'secure/access.php';
-$access = new access($host, $user, $pass, $name);
-$access->connect();
-
-$website = "https://api.telegram.org/bot".$token;
-
-$updates = file_get_contents('php://input');
-$updates = json_decode($updates,TRUE);
-
-//require_once ('messages.php');
-//$messages = new messages();
-
 class authroute {
 
     function triggerActionForNewUserAuthorization($chatID, $username) {
-
         $constants = new constants();
+        $keyboards = new keyboards();
         $reply = $constants->getReplyForNonAuthorizedUser($username);
-        $keyboard = array(
-            "keyboard" => array(
-                array(
-                    array(
-                        "text" => "Авторизация по email"
-                    )
-                )
-            ),
-            "resize_keyboard" => true,
-            "one_time_keyboard" => true
-        );
-        $markup = json_encode($keyboard);
-        $this->sendMessage($chatID, $reply, $markup);
+        $keyboard = $keyboards->helloKeyboard();
+        sendMessage($chatID, $reply, $keyboard);
     }
 
-    function triggerActionForStartingAuthorization($chatID) {
+    function triggerActionForStartingEmailAuthorization($chatID) {
 
         $constants = new constants();
-        $reply = $constants->getReplyForLoginWating();
-        $keyboard = array(
-            "keyboard" => array(
-                array(
-                    array(
-                        "text" => "Вернуться в начало"
-                    )
-                )
-            ),
-            "resize_keyboard" => true,
-            "one_time_keyboard" => true
-        );
-        $markup = json_encode($keyboard);
-        $this->sendMessage($chatID, $reply, $markup);
+        $keyboards = new keyboards();
+        $reply = $constants->getReplyForLoginWaiting();
+        $keyboard = $keyboards->backToStartKeyboard();
+        sendMessage($chatID, $reply, $keyboard);
     }
 
-    function triggerActionForAuthorizedUser($chatID, $username) {
+    function triggerActionForMoveToStart($chatID, $username) {
+        $constants = new constants();
+        $keyboards = new keyboards();
+        $reply = $constants->getReplyForMoveToStart($username);
+        $keyboard = $keyboards->helloKeyboard();
+        sendMessage($chatID, $reply, $keyboard);
+    }
+
+    function triggerActionForStartingSmsAuthorization($chatID, $username) {
+        $constants = new constants();
+        $keyboards = new keyboards();
+        $reply = $constants->getReplyForAllowToCheckMobileNumber($username);
+        $keyboard = $keyboards->smsAuthorizationKeyboard();
+        sendMessage($chatID, $reply, $keyboard);
+    }
+
+    /*function triggerActionForAuthorizedUser($chatID, $username) {
         $constants = new constants();
         $reply = $constants->getReplyForAuthorizedUser($username);
         $keyboard = array(
@@ -122,25 +95,6 @@ class authroute {
         $this->sendMessage($chatID, $reply, $markup);
     }
 
-    function triggerActionForMoveToStart($chatID, $username) {
-
-        $constants = new constants();
-        $reply = $constants->getReplyForMoveToStart($username);
-        $keyboard = array(
-            "keyboard" => array(
-                array(
-                    array(
-                        "text" => "Авторизация по email"
-                    )
-                )
-            ),
-            "resize_keyboard" => true,
-            "one_time_keyboard" => true
-        );
-        $markup = json_encode($keyboard);
-        $this->sendMessage($chatID, $reply, $markup);
-    }
-
     function triggerActionWithSendingConfirmationEmail($chatID, $username) {
 
         $constants = new constants();
@@ -165,7 +119,7 @@ class authroute {
         } else {
             return false;
         }
-    }
+    }*/
 
     function sendMessage($chatID, $text, $keyboard) {
         $url = $GLOBALS[website]."/sendMessage?chat_id=$chatID&parse_mode=HTML&text=".urlencode($text)."&reply_markup=".$keyboard;
