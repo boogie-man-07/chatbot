@@ -14,5 +14,29 @@
         "generalInfo": "Общая информация",
         "rules": "Правила",
         "exit": "Выход"
+    },
+
+    "states": {
+        "startAuthorizationState": "waiting for authorization",
+        "loginWaitingState": "waiting for login",
+        "mobileNumberWaitingState": "waiting for mobile number",
+        "findTelephoneNumberState": "find telefone number",
+        "salaryState": "salary",
+        "erpFeedbackWaitingState": "waiting for ERP feedback",
+        "hardwareFeedbackWaitingState": "waiting for hardware feedback",
+        "resourcesFeedbackWaitingState": "waiting for resources feedback",
+        "otherFeedbackWaitingState": "waiting for other feedback",
+        "authorizationCompletedState": "authorization completed",
+        "confirmationCodeWaitingState": "waiting for confirmation code",
+        "regularVacationStartDateWaitingState": "waiting for regular vacation startdate",
+        "regularVacationDurationWaitingState": "waiting for regular vacation duration",
+        "regularVacationFormSendingWaitingState": "waiting for regular vacation form sending",
+        "regularVacationAcademicReasonWaitingState": "waiting for regular vacation academic reason",
+        "postponedVacationStartDateWaitingState": "waiting for postponed vacation startdate",
+        "postponedVacationEndDateWaitingState": "waiting for postponed vacation enddate",
+        "postponedVacationNewStartDateWaitingState": "waiting for postponed vacation newstartdate",
+        "postponedVacationNewEndDateWaitingState": "waiting for postponed vacation newenddate",
+        "postponedVacationReasonWaitingState": "waiting for postponed vacation reason",
+        "vacationFormSendingWaitingState": "waiting for vacation form sending"
     }
 }
