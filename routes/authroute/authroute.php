@@ -40,6 +40,14 @@ class authroute {
         sendMessage($chatID, $reply, $keyboard);
     }
 
+    function triggerActionForLoginAcceptance($chatID, $username) {
+        $constants = new constants();
+        $keyboards = new keyboards();
+        $reply = $constants->getReplyForSendConfirmationCodeApprovalFromUser($username);
+        $keyboard = $keyboards->emailAuthorizationProceedKeyboard();
+        sendMessage($chatID, $reply, $keyboard);
+    }
+
     /*function triggerActionForAuthorizedUser($chatID, $username) {
         $constants = new constants();
         $reply = $constants->getReplyForAuthorizedUser($username);
@@ -75,28 +83,9 @@ class authroute {
         );
         $markup = json_encode($keyboard);
         $this->sendMessage($chatID, $reply, $markup);
-    }
-
-    function triggerActionForLoginAcceptance($chatID, $username) {
-
-        $constants = new constants();
-        $reply = $constants->getReplyForSendConfirmationCodeApprovalFromUser($username);
-        $keyboard = array(
-            "inline_keyboard" => array(
-                array(
-                    array(
-                            "text" => "Продолжить",
-                            "callback_data" => "sendMessage"
-                    )
-                )
-            )
-        );
-        $markup = json_encode($keyboard);
-        $this->sendMessage($chatID, $reply, $markup);
-    }
+    }*/
 
     function triggerActionWithSendingConfirmationEmail($chatID, $username) {
-
         $constants = new constants();
         $reply = $constants->getReplyForEmailIsSended($username);
         $this->sendMessage($chatID, $reply, null);
@@ -104,6 +93,24 @@ class authroute {
 
     function checkLogin($text) {
         if (preg_match('/([A-Za-z])/', mb_strtolower($text))) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function checkConfirmationCode($text) {
+        if ((preg_match('^/[A-Za-z0-9]/', $text)) || (strlen($text) < 10)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    function ifConfirmCodeExpired($date) {
+        $expirationDate = new DateTime($date);
+        $now = new DateTime();
+        if ($expirationDate < $now) {
             return true;
         } else {
             return false;
@@ -119,7 +126,7 @@ class authroute {
         } else {
             return false;
         }
-    }*/
+    }
 
     function sendMessage($chatID, $text, $keyboard) {
         $url = $GLOBALS[website]."/sendMessage?chat_id=$chatID&parse_mode=HTML&text=".urlencode($text)."&reply_markup=".$keyboard;

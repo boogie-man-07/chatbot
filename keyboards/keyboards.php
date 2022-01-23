@@ -60,7 +60,21 @@ class keyboards {
                 )
             ),
             "resize_keyboard" => true,
-            "one_time_keyboard" => false
+            "one_time_keyboard" => true
+        );
+        return json_encode($keyboard);
+    }
+
+    function emailAuthorizationProceedKeyboard() {
+        $keyboard = array(
+            "inline_keyboard" => array(
+                array(
+                    array(
+                            "text" => "Продолжить",
+                            "callback_data" => "sendMessage"
+                    )
+                )
+            )
         );
         return json_encode($keyboard);
     }

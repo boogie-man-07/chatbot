@@ -13,7 +13,7 @@ class commonmistakeroute {
         sendMessage($chatID, $reply, null);
     }
 
-    /*function triggerActionForCommonErrorIfNotAuthorized($chatID, $username) {
+    function triggerActionForCommonErrorIfNotAuthorized($chatID, $username) {
         $constants = new constants();
         $reply = $constants->getReplyForCommonErrorIfNotAuthorized($username);
         $this->sendMessage($chatID, $reply, null);
@@ -21,21 +21,35 @@ class commonmistakeroute {
 
     function triggerActionForCommonErrorIfAuthorizationNotFinished($chatID, $username) {
         $constants = new constants();
+        $keyboards = new keyboards();
         $reply = $constants->getReplyForUserNotFinishedAuthorization($username);
-        $this->sendMessage($chatID, $reply, null);
+        $keyboard = $keyboards->helloKeyboard();
+        $this->sendMessage($chatID, $reply, $keyboard);
     }
 
     function triggerActionForCommonErrorIfLoginIncorrect($chatID) {
         $constants = new constants();
         $reply = $constants->getReplyForCommonErrorIfLoginIncorrect();
-        $this->sendMessage($chatID, $reply, null);
+        sendMessage($chatID, $reply, null);
     }
 
     function triggerActionForCommonErrorIfLoginNotFound($chatID) {
         $constants = new constants();
         $reply = $constants->getReplyForCommonErrorIfLoginNotFound();
-        $this->sendMessage($chatID, $reply, null);
-    }*/
+        sendMessage($chatID, $reply, null);
+    }
+
+    function triggerActionForCommonErrorIfConfirmationCodeIncorrect($chatID) {
+        $constants = new constants();
+        $reply = $constants->getReplyForCommonErrorIfConfirmationCodeIsIncorrect();
+        sendMessage($chatID, $reply, null);
+    }
+
+    function triggerActionForCommonErrorIfConfirmationCodeFormatIncorrect($chatID) {
+        $constants = new constants();
+        $reply = $constants->getReplyForCommonErrorIfConfirmationCodeFormatIsIncorrect();
+        sendMessage($chatID, $reply, null);
+    }
 
     function sendMessage($chatID, $text, $keyboard) {
         $url = $GLOBALS[website]."/sendMessage?chat_id=$chatID&parse_mode=HTML&text=".urlencode($text)."&reply_markup=".$keyboard;

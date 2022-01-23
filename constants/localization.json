@@ -4,7 +4,8 @@
         "start":  "/start",
         "emailAuthorization": "Авторизация по email",
         "smsAuthorization": "Авторизация по SMS",
-        "toStart": "Вернуться в начало"
+        "toStart": "Вернуться в начало",
+        "exit": "Выход"
     },
 
     "mainKeyboard": {

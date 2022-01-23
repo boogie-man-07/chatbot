@@ -45,6 +45,14 @@ class constants {
         return "Сотрудник с таким логином не числится в Компании. Проверьте правильность введенного логина и попробуйте снова.";
     }
 
+    function getReplyForCommonErrorIfConfirmationCodeIsIncorrect() {
+        return "код неверен.\nПопробуйте снова.";
+    }
+
+    function getReplyForCommonErrorIfConfirmationCodeFormatIsIncorrect() {
+        return "Неверный формат кода подтверждения.\nКод может содержать латинские буквы, цифры и специальные знаки и не может быть меньше 10 символов.\nПопробуйте снова.";
+    }
+
     function getReplyForSendConfirmationCodeApprovalFromUser($username) {
         return "$username, нажмите продолжить, для получения на рабочую почту письма с инструкциями по завершению авторизации.";
     }
