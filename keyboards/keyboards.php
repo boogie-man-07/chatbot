@@ -70,8 +70,8 @@ class keyboards {
             "inline_keyboard" => array(
                 array(
                     array(
-                            "text" => "Продолжить",
-                            "callback_data" => "sendMessage"
+                        "text" => "Продолжить",
+                        "callback_data" => "sendConfirmationCode"
                     )
                 )
             )
@@ -79,40 +79,56 @@ class keyboards {
         return json_encode($keyboard);
     }
 
-//   function mainKeyboard(): string {
-//
-//     $keyboard = array(
-//       "keyboard" => array(
-//         array(
-//           array(
-//             "text" => $data['mainKeyboard']['phones']
-//           ),
-//           array(
-//             "text" => $data['mainKeyboard']['salary']
-//           )
-//         ),
-//         array(
-//           array(
-//               "text" => $data['mainKeyboard']['values']
-//           ),
-//           array(
-//               "text" => $data['mainKeyboard']['generalInfo']
-//           )
-//         ),
-//         array(
-//           array(
-//               "text" => $data['mainKeyboard']['rules']
-//           ),
-//           array(
-//               "text" => $data['mainKeyboard']['exit']
-//           )
-//         )
-//       ),
-//       "resize_keyboard" => true,
-//       "one_time_keyboard" => true
-//     );
-//     $markup = json_encode($keyboard);
-//     return $markup;
-//   }
+    function backToAuthorizationKeyboard() {
+        $keyboard = array(
+            "inline_keyboard" => array(
+                array(
+                    array(
+                        "text" => "Авторизоваться",
+                        "callback_data" => "goToTheStart"
+                    )
+                )
+            )
+        );
+        return json_encode($keyboard);
+    }
 
+    function mainKeyboard() {
+        $keyboard = array(
+            "keyboard" => array(
+                array(
+                    array(
+                        "text" => "Телефонный справочник"
+                    ),
+                    array(
+                        "text" => "КДП и Заработная плата"
+                    )
+                ),
+                array(
+                    array(
+                        "text" => "Наши ценности"
+                    ),
+                    array(
+                        "text" => "Общая информация"
+                    )
+                ),
+                array(
+                    array(
+                        "text" => "Правила"
+                    ),
+                    array(
+                        "text" => "Помощь ИТ специалиста"
+                    )
+                ),
+                array(
+                    array(
+                        "text" => "Выход"
+                    )
+                )
+            ),
+            "resize_keyboard" => true,
+            "one_time_keyboard" => true
+        );
+        return json_encode($keyboard);
+    }
 }

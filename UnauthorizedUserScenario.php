@@ -79,10 +79,10 @@ class UnauthorizedUserScenario {
                                 exit;
                             }
 
-                        case $states['mobileNumberWaitingState']:
-                            exit;
-                        case $states['confirmationCodeWaitingState']:
-                            exit;
+                        //case $states['mobileNumberWaitingState']:
+                            //exit;
+                        //case $states['confirmationCodeWaitingState']:
+                            //exit;
                         default:
                             $commonmistakeroute->triggerActionForCommonMistake($this->chatID);
                             exit;

@@ -79,68 +79,19 @@ class NonFinishedAuthorizationUserScenario {
                                 exit;
                             }
 
-                        case $this->states['mobileNumberWaitingState']:
-                            exit;
+                        //case $this->states['mobileNumberWaitingState']:
+                            //exit;
                         case $this->states['confirmationCodeWaitingState']:
                             if ($this->authroute->checkConfirmationCode($text)) {
                                 $string_result = strcmp($text, $this->user['confirmation_code']);
                                 if ($string_result == 0) {
                                     if($this->authroute->ifConfirmCodeExpired($this->user['confirmation_code_expiration_date'])) {
-                                        $reply = "Время жизни кода активации истекло.\nНеобходима повторить процесс авторизации.";
-                                        $keyboard = array(
-                                            "inline_keyboard" => array(
-                                                array(
-                                                    array(
-                                                        "text" => "Авторизоваться",
-                                                        "callback_data" => "go to the start"
-                                                    )
-                                                )
-                                            )
-                                        );
-                                        $markup = json_encode($keyboard);
-                                        sendMessage($this->chatID, $reply, $markup);
+                                        $this->commonmistakeroute->triggerActionForConfirmationCodeExpired($this->chatID);
                                         exit;
                                     } else {
                                         $this->access->updateAuthorizationFlag(1, null, $this->chatID);
-                                        $this->access->setState($this->chatID, "authorization completed");
-                                        $reply = "Поздравляю, ".$this->user['fullname']."! Вы успешно прошли процедуру авторизации и можете использовать меня на полную катушку!\nНиже меню с командами, которые я умею выполнять.";
-                                        $keyboard = array(
-                                            "keyboard" => array(
-                                                array(
-                                                    array(
-                                                        "text" => "Телефонный справочник"
-                                                    ),
-                                                    array(
-                                                        "text" => "КДП и Заработная плата"
-                                                    )
-                                                ),
-                                                array(
-                                                    array(
-                                                        "text" => "Наши ценности"
-                                                    ),
-                                                    array(
-                                                        "text" => "Общая информация"
-                                                    )
-                                                ),
-                                                array(
-                                                    array(
-                                                        "text" => "Правила"
-                                                    ),
-                                                    array(
-                                                        "text" => "Помощь ИТ специалиста"
-                                                    )
-                                                ),
-                                                array(
-                                                    array(
-                                                        "text" => "Выход"
-                                                    )
-                                                )
-                                            ),
-                                            "resize_keyboard" => true,
-                                            "one_time_keyboard" => true
-                                        );
-                                        $markup = json_encode($keyboard);
-                                        sendMessage($this->chatID, $reply, $markup);
+                                        $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
+                                        $this->authroute->triggerActionForSuccessfulLogin($this->chatID, $this->user['fullname']);
                                         exit;
                                     }
                                 } else {
@@ -161,7 +112,7 @@ class NonFinishedAuthorizationUserScenario {
 
     function runInline($text) {
         switch ($text) {
-            case 'sendMessage':
+            case $this->commands['sendCodeInline']:
                 $template = $this->email->confirmationTemplate($this->user['company_id']);
                 $template = str_replace("{confirmationCode}", $this->user['confirmation_code'], $template);
                 $template = str_replace("{fullname}", $this->user['fullname'], $template);
@@ -173,29 +124,12 @@ class NonFinishedAuthorizationUserScenario {
                 );
                 $this->authroute->triggerActionWithSendingConfirmationEmail($this->chatID, $this->username);
                 exit;
-            case 'go to the start':
-                $reply = $this->username."!\nЯ Ваш личный ассистент по возникающим внутренним вопросам Компании. Для использования моих возможностей необходимо авторизироваться.";
-                $keyboard = array(
-                    "keyboard" => array(
-                        array(
-                            array(
-                                "text" => "Авторизация по email"
-                            )
-                        ),
-                        array(
-                            array(
-                                "text" => "Авторизация по телефону"
-                            )
-                        )
-                    ),
-                    "resize_keyboard" => true,
-                    "one_time_keyboard" => true
-                );
-                $markup = json_encode($keyboard);
-                $this->access->setState($this->chatID, "waiting for authorization");
-                sendMessage($this->chatID, $reply, $markup);
-
+            case $this->commands['toStartInline']:
+                $this->access->setState($this->chatID, $this->states['startAuthorizationState']);
+                $this->authroute->triggerActionForGoToTheStart($this->chatID, $this->username);
+                exit;
             default:
+                sendMessage($this->chatID, "Default nonfinished inline", null);
                 exit;
         }
     }

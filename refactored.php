@@ -1,17 +1,11 @@
-<?php
-/**
- * Created by Murad Adygezalov
- * Date: 28.03.2021
- * Time: 16:59
- */
-
+<?Php
 
 define(ROOT_DIR, __DIR__);
 require_once (ROOT_DIR."/routes/authroute/authroute.php");
 require_once (ROOT_DIR.'/routes/common/commonmistakeroute.php');
-require_once ('UnauthorizedUserScenario.php');
-require_once ('NonFinishedAuthorizationUserScenario.php');
-require_once ('AuthorizedUserScenario.php');
+require_once ('./UnauthorizedUserScenario.php');
+require_once ('./NonFinishedAuthorizationUserScenario.php');
+require_once ('./AuthorizedUserScenario.php');
 
 require ("vendor/autoload.php");
 require ("keyboards/keyboards.php");
@@ -79,28 +73,29 @@ $inlineState = $inlineStateResult["dialog_state"];
 
 // Main logics
 if (!$user) {
+    //sendMessage($chatID, "UnathorizedUserScenario", null); exit;
     $unauthorizedUserScenario = new UnauthorizedUserScenario($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $commandList, $statesList, $state, $email);
     $unauthorizedUserScenario->run($text);
 } else {
     if (!$isAuthorized) {
         if ($queryData) {
-            //sendMessage($queryUserID, "Inline triggered", null); exit;
+            //sendMessage($queryUserID, "NonFinishedAuthorizationUserScenario Inline", null); exit;
             $nonFinishedAuthorizationUserScenario = new NonFinishedAuthorizationUserScenario($queryUserID, $inlineUser, $queryUserName, $access, $swiftmailer, $authroute, $commonmistakeroute, $commandList, $statesList, $inlineState, $email);
             $nonFinishedAuthorizationUserScenario->runInline($queryData);
         } else {
-            //sendMessage($chatID, "Usual triggered", null); exit;
+            //sendMessage($chatID, "NonFinishedAuthorizationUserScenario Usual", null); exit;
             $nonFinishedAuthorizationUserScenario = new NonFinishedAuthorizationUserScenario($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $commandList, $statesList, $state, $email);
             $nonFinishedAuthorizationUserScenario->run($text);
         }
 
     } else {
-        //sendMessage($chatID, "Authorized user", null); exit;
-        $authorizedUserScenario = new AuthorizedUserScenario($chatID, $user, $username, $access, $commandList);
+        //sendMessage($chatID, "AuthorizedUserScenario", null);
+        $authorizedUserScenario = new AuthorizedUserScenario($chatID, $user, $username, $access, $authroute, $commandList);
         $authorizedUserScenario->run($text);
     }
 }
 
-
+//sendMessage($chatID, $text, null);
 
 $access->disconnect();
 

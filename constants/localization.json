@@ -5,7 +5,10 @@
         "emailAuthorization": "Авторизация по email",
         "smsAuthorization": "Авторизация по SMS",
         "toStart": "Вернуться в начало",
-        "exit": "Выход"
+        "exit": "Выход",
+        "sendCodeInline": "sendConfirmationCode",
+        "toStartInline": "goToTheStart"
+
     },
 
     "mainKeyboard": {

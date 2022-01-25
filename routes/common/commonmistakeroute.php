@@ -51,6 +51,14 @@ class commonmistakeroute {
         sendMessage($chatID, $reply, null);
     }
 
+    function triggerActionForConfirmationCodeExpired($chatID) {
+        $constants = new constants();
+        $keyboards = new keyboards();
+        $reply = $constants->getReplyForConfirmationCodeExpired();
+        $keyboard = $keyboards->backToAuthorizationKeyboard();
+        sendMessage($chatID, $reply, $keyboard);
+    }
+
     function sendMessage($chatID, $text, $keyboard) {
         $url = $GLOBALS[website]."/sendMessage?chat_id=$chatID&parse_mode=HTML&text=".urlencode($text)."&reply_markup=".$keyboard;
         file_get_contents($url);

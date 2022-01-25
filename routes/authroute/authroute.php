@@ -48,47 +48,26 @@ class authroute {
         sendMessage($chatID, $reply, $keyboard);
     }
 
-    /*function triggerActionForAuthorizedUser($chatID, $username) {
+    function triggerActionForSuccessfulLogin($chatID, $username) {
         $constants = new constants();
-        $reply = $constants->getReplyForAuthorizedUser($username);
-        $keyboard = array(
-            "keyboard" => array(
-                array(
-                    array(
-                        "text" => 'Телефонный справочник'
-                    ),
-                    array(
-                        "text" => 'КДП и Заработная плата'
-                    )
-                ),
-                array(
-                    array(
-                        "text" => 'Наши ценности'
-                    ),
-                    array(
-                        "text" => 'Общая информация'
-                    )
-                ),
-                array(
-                    array(
-                        "text" => 'Правила'
-                    ),
-                    array(
-                        "text" => 'Выход'
-                    )
-                )
-            ),
-            "resize_keyboard" => true,
-            "one_time_keyboard" => true
-        );
-        $markup = json_encode($keyboard);
-        $this->sendMessage($chatID, $reply, $markup);
-    }*/
+        $keyboards = new keyboards();
+        $reply = $constants->getReplyForSuccessfulLogin($username);
+        $keyboard = $keyboards->mainKeyboard();
+        sendMessage($chatID, $reply, $keyboard);
+    }
 
     function triggerActionWithSendingConfirmationEmail($chatID, $username) {
         $constants = new constants();
         $reply = $constants->getReplyForEmailIsSended($username);
-        $this->sendMessage($chatID, $reply, null);
+        sendMessage($chatID, $reply, null);
+    }
+
+    function triggerActionForGoToTheStart($chatID, $username) {
+        $constants = new constants();
+        $keyboards = new keyboards();
+        $reply = $constants->getReplyForGoToTheStart($username);
+        $keyboard = $keyboards->helloKeyboard();
+        sendMessage($chatID, $reply, $keyboard);
     }
 
     function checkLogin($text) {
@@ -100,10 +79,14 @@ class authroute {
     }
 
     function checkConfirmationCode($text) {
-        if ((preg_match('^/[A-Za-z0-9]/', $text)) || (strlen($text) < 10)) {
+        if (preg_match('^/[A-Za-z0-9]/', $text)) {
             return false;
         } else {
-            return true;
+            if (mb_strlen($text) < 10) {
+                return false;
+            } else {
+                return true;
+            }
         }
     }
 
