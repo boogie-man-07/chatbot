@@ -25,7 +25,11 @@ error_reporting(0);
 try {
     $access->connect();
     if(count($_POST) == 0) throw new \Exception('Form is empty');
-    sendMessage('284409303', $fields, null);
+    $authorizedUsersList = $access->getListOfAuthorizedUserIds();
+    foreach ($authorizedUsersList as $value) {
+        sendMessage($value['tg_chat_id'], $fields, null);
+        sleep(5);
+    }
     $responseArray = array('type' => 'success', 'message' => $okMessage);
 } catch (\Exception $e) {
     $responseArray = array('type' => 'danger', 'message' => $errorMessage);
