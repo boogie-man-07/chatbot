@@ -4,7 +4,6 @@
 # Date: 28.03.2021
 # Time: 16:59
 
-
 class authroute {
 
     function triggerActionForNewUserAuthorization($chatID, $username) {
@@ -16,11 +15,10 @@ class authroute {
     }
 
     function triggerActionForStartingEmailAuthorization($chatID) {
-
         $constants = new constants();
         $keyboards = new keyboards();
-        $reply = $constants->getReplyForLoginWaiting();
-        $keyboard = $keyboards->backToStartKeyboard();
+        $reply = $constants::getReplyForLoginWaiting();
+        $keyboard = $keyboards::backToStartKeyboard();
         sendMessage($chatID, $reply, $keyboard);
     }
 
@@ -111,10 +109,10 @@ class authroute {
         }
     }
 
-    function sendMessage($chatID, $text, $keyboard) {
+    /*function sendMessage($chatID, $text, $keyboard) {
         $url = $GLOBALS[website]."/sendMessage?chat_id=$chatID&parse_mode=HTML&text=".urlencode($text)."&reply_markup=".$keyboard;
         file_get_contents($url);
-    }
+    }*/
 }
 
 

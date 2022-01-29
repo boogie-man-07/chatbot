@@ -59,10 +59,28 @@ class commonmistakeroute {
         sendMessage($chatID, $reply, $keyboard);
     }
 
-    function sendMessage($chatID, $text, $keyboard) {
+    function triggerActionForGetUserCardError($chatID, $username) {
+        $constants = new constants();
+        $reply = $constants->getNoPhoneCardError($username);
+        sendMessage($chatID, $reply, null);
+    }
+
+    function triggerActionForRestartFindUser($chatID) {
+        $constants = new constants();
+        $reply = $constants::getReplyForRestartFindUser();
+        sendMessage($chatID, $reply, null);
+    }
+
+    function triggerActionForIncorrectFLFormat($chatID) {
+        $constants = new constants();
+        $reply = $constants->getReplyForIncorrectFLFormatError();
+        sendMessage($chatID, $reply, null);
+    }
+
+    /*function sendMessage($chatID, $text, $keyboard) {
         $url = $GLOBALS[website]."/sendMessage?chat_id=$chatID&parse_mode=HTML&text=".urlencode($text)."&reply_markup=".$keyboard;
         file_get_contents($url);
-    }
+    }*/
 }
 
 

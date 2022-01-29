@@ -27,7 +27,7 @@ class NonFinishedAuthorizationUserScenario {
         $this->state = $state;
         $this->email = $email;
     }
-
+    // TODO first check if not authorized then return you're not authorized to do this. Same on not authorized user
     function run($text) {
         switch ($text) {
             case $this->commands['start']:
