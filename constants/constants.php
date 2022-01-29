@@ -77,6 +77,30 @@ class constants {
         return "Поздравляю, $username! Вы успешно прошли процедуру авторизации и можете использовать меня на полную катушку!\nНиже меню с командами, которые я умею выполнять.";
     }
 
+    function getReplyForFindPhoneNumber() {
+        return "Введи Имя и Фамилию сотрудника\nПример: <b>Иван Петров</b>";
+    }
+
+    function getReplyForEmployeeCardOptions() {
+        return "Для получения информации о сотруднике воспользуйтесь командами меню ниже.";
+    }
+
+    function getReplyForEmployeeCard($user) {
+        return "<b>Карточка работника</b>\nФИО: ".$user["fullname"]."\nРабочий телефон: <b>".$user["office_number"]."</b>\nДобавочный номер: <b>".$user["internal_number"]."</b>\nМобильный телефон: <b>".$user["mobile_number"]."</b>\nE-mail: <b>".$user["email"]."</b>\nДолжность: <b>".$user["position"]."</b>\nКомпания: <b>".$user["company_name"]."</b>";
+    }
+
+    function getReplyForEmployeeEmail($email) {
+        return "<b>Email работника</b>\n".$email;
+    }
+
+    function getReplyForEmployeeMobileNumber($mobileNumber) {
+        return "<b>Номер мобильного телефона работника</b>\n".$mobileNumber;
+    }
+
+    function getReplyForEmployeeOfficeNumber($officeNumber, $internalNumber) {
+        return "<b>Номер рабочего телефона работника</b>\n".$officeNumber.", доб. ".$internalNumber;
+    }
+
     function getWelcomeValueText($firstname) {
         return "$firstname!\nНаша корпоративная культура основана на ценностях – наших глубоких убеждениях, формирующих наше поведение!\nМы считаем, что каждый работник Компании – носитель этих ценностей, обязан культивировать и транслировать их на всех уровнях взаимодействия!";
     }
@@ -218,6 +242,14 @@ class constants {
     }
 
     function getNoPhoneCardError($firstname) {
-        return "Извините, $firstname!\nСотрудник, которого вы ищете не найден.";
+        return "Извините, $firstname!\nСотрудник, которого вы ищете не найден, либо ваши привелегии не позволяют просмотреть карточку данного сотрудника.";
+    }
+
+    function getReplyForIncorrectFLFormatError() {
+        return "Ну не может быть имя или фамилия из одной буквы ".hex2bin('f09f9982');
+    }
+
+    function getReplyForRestartFindUser() {
+        return "Похоже вы ищете сотрудника? Давайте я поищу, введите имя и фамилию.";
     }
 }

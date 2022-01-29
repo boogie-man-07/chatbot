@@ -24,7 +24,7 @@ class keyboards {
                 )
             ),
             "resize_keyboard" => true,
-            "one_time_keyboard" => true
+            "one_time_keyboard" => false
         );
         return json_encode($keyboard);
     }
@@ -39,7 +39,7 @@ class keyboards {
                 )
             ),
             "resize_keyboard" => true,
-            "one_time_keyboard" => true
+            "one_time_keyboard" => false
         );
         return json_encode($keyboard);
     }
@@ -60,7 +60,7 @@ class keyboards {
                 )
             ),
             "resize_keyboard" => true,
-            "one_time_keyboard" => true
+            "one_time_keyboard" => false
         );
         return json_encode($keyboard);
     }
@@ -127,8 +127,51 @@ class keyboards {
                 )
             ),
             "resize_keyboard" => true,
-            "one_time_keyboard" => true
+            "one_time_keyboard" => false
         );
         return json_encode($keyboard);
+    }
+
+    function employeeCardOptionsKeyboard() {
+        $keyboard = array(
+            "inline_keyboard" => array(
+                array(
+                    array(
+                        "text" => 'Карточка',
+                        "callback_data" => 'getUserCard'
+                    ),
+                    array(
+                        "text" => "Email",
+                        "callback_data" => 'getUserEmail'
+                    )
+                ),
+                array(
+                    array(
+                        "text" => "Мобильный телефон",
+                        "callback_data" => 'getUserMobileNumber'
+                    ),
+                    array(
+                        "text" => "Рабочий телефон",
+                        "callback_data" => 'getUserOfficeNumber'
+                    )
+                )
+            )
+        );
+        return json_encode($keyboard);
+    }
+
+    function getValueKeyboard($inlineValue) {
+        return json_encode(array(
+            "inline_keyboard" => array(
+                array(
+                    array(
+                        "text" => "Далее",
+                        "callback_data" => "$inlineValue"
+                    )
+                )
+            ),
+            "resize_keyboard" => true,
+            "one_time_keyboard" => false
+        ));
     }
 }
