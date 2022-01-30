@@ -77,6 +77,12 @@ class commonmistakeroute {
         sendMessage($chatID, $reply, null);
     }
 
+    function triggerErrorForSendFeedback($chatID) {
+        $constants = new constants();
+        $reply = $constants::gerReplyForSendFeedbackError();
+        sendMessage($chatID, $reply, null);
+    }
+
     /*function sendMessage($chatID, $text, $keyboard) {
         $url = $GLOBALS[website]."/sendMessage?chat_id=$chatID&parse_mode=HTML&text=".urlencode($text)."&reply_markup=".$keyboard;
         file_get_contents($url);

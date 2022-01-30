@@ -262,4 +262,52 @@ class keyboards {
                 ));
         }
     }
+
+    function getItHelpMenuInlineKeyboard($companyId) {
+        switch ($companyId) {
+            case 1; case 2; case 22:
+                return null;
+            case 3; case 33:
+                return json_encode(array(
+                    "keyboard" => array(
+                        array(
+                            array(
+                                "text" => "1С, ERP"
+                            ),
+                            array(
+                                "text" => "Оборудование"
+                            ),
+                        ),
+                        array(
+                            array(
+                                "text" => "Ресурсы"
+                            ),
+                            array(
+                                "text" => "Другое"
+                            ),
+                        ),
+                        array(
+                            array(
+                                "text" => "Назад"
+                            )
+                        )
+                    ),
+                    "resize_keyboard" => true,
+                    "one_time_keyboard" => false
+                ));
+        }
+    }
+
+    function getFeedbackSendingInlineKeyboard() {
+        return json_encode(array(
+            "inline_keyboard" => array(
+                array(
+                    array(
+                        "text" => "Отправить обращение",
+                        "callback_data" => "sendFeedback"
+                    )
+                )
+            )
+        ));
+    }
 }

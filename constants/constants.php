@@ -273,4 +273,29 @@ class constants {
     function getReplyForRestartFindUser() {
         return "Похоже вы ищете сотрудника? Давайте я поищу, введите имя и фамилию.";
     }
+
+    function getReplyForEnterItHelpInlineMenu($companyId) {
+        switch ($companyId) {
+            case 1; case 2; case 22:
+                return "Раздел находится в разработке";
+            case 3; case 33:
+                return "Выберите категорию:\n<b>1С, ERP</b> - вопросы по функционированию программ 1С и внедрению ERP;\n<b>Оборудование</b> - вопросы связанные с работой ИТ техники и телефонии (не включается, не показывает, не печатает и пр.);\n<b>Ресурсы</b> - вопросы по работе Интернет, электронной почты, сетевых папок и пр.;\n<b>Другое</b> - вопросы, не относящиеся к остальным категориям.";
+        }
+    }
+
+    function getFeedbackText($firstname) {
+        return "$firstname, пожалуйста, сформулируйте проблему максимально конкретно, с перечислением сложностей, с которыми вы столкнулись.";
+    }
+
+    function getReplyForFeedbackSending() {
+        return "Ваше сообщение будет направлено в поддержку";
+    }
+
+    function getReplyForFeedbackIsSent() {
+        return "Сообщение успешно отправлено, номер зарегистрированного обращения придет на почту.";
+    }
+
+    function gerReplyForSendFeedbackError() {
+        return "Не удалось отправить заявление. Повторите попытку позже.";
+    }
 }

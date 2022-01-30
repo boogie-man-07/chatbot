@@ -14,6 +14,11 @@
         "navigationSchemeSkolkovo": "Схема проезда (Сколково)",
         "navigationSchemeOskol": "Схема проезда (Ст.Оскол)",
         "navigationSchemeSaratov": "Схема проезда (Саратов)",
+        "itHelp": "Помощь ИТ специалиста",
+        "erpAnd1CFeedback": "1С, ERP",
+        "hardwareFeedback": "Оборудование",
+        "resourcesFeedback": "Ресурсы",
+        "otherFeedback": "Другое",
         "meetings": "Проведение совещаний",
         "phoneCalls": "Общение по телефону",
         "officeWork": "Работа в офисах",
@@ -29,7 +34,8 @@
         "secondRuleInline": "getSecondRuleText",
         "thirdRuleInline": "getThirdRuleText",
         "fourthRuleInline": "getFourthRuleText",
-        "lastRuleInline": "getLastRuleText"
+        "lastRuleInline": "getLastRuleText",
+        "sendFeedbackInline": "sendFeedback"
     },
 
     "mainKeyboard": {

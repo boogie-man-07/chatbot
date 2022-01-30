@@ -6,6 +6,7 @@ class AuthorizedUserScenario {
     var $user = null;
     var $username = null;
     var $access = null;
+    var $swiftmailer = null;
     var $authroute = null;
     var $commonmistakeroute = null;
     var $phonebookroute = null;
@@ -17,11 +18,12 @@ class AuthorizedUserScenario {
     var $state = null;
     var $logics = null;
 
-    function __construct($chatID, $user, $username, $access, $authroute, $commonmistakeroute, $phonebookroute, $valuesRoute, $mainRulesRoute, $mainInformationRoute, $commands, $states, $state, $logics) {
+    function __construct($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $phonebookroute, $valuesRoute, $mainRulesRoute, $mainInformationRoute, $commands, $states, $state, $logics) {
         $this->chatID = $chatID;
         $this->user = $user;
         $this->username = $username;
         $this->access = $access;
+        $this->swiftmailer = $swiftmailer;
         $this->authroute = $authroute;
         $this->commonmistakeroute = $commonmistakeroute;
         $this->phonebookroute = $phonebookroute;
@@ -68,6 +70,25 @@ class AuthorizedUserScenario {
             case $this->commands['navigationSchemeSaratov']:
                 $this->mainInformationRoute->triggerActionForShowNavigationSchemeToSaratov($this->chatID);
                 exit;
+            case $this->commands['itHelp']:
+                $this->mainInformationRoute->triggerActionForShowItHelpMenu($this->chatID, $this->user['company_id']);
+                exit;
+            case $this->commands['erpAnd1CFeedback']:
+                $this->access->setState($this->chatID, $this->states['erpFeedbackWaitingState']);
+                $this->mainInformationRoute->triggerActionForProceedErpAnd1CFeedback($this->chatID, $this->user['firstname']);
+                exit;
+            case $this->commands['hardwareFeedback']:
+                $this->access->setState($this->chatID, $this->states['hardwareFeedbackWaitingState']);
+                $this->mainInformationRoute->triggerActionForProceedHardwareFeedback($this->chatID, $this->user['firstname']);
+                exit;
+            case $this->commands['resourcesFeedback']:
+                $this->access->setState($this->chatID, $this->states['resourcesFeedbackWaitingState']);
+                $this->mainInformationRoute->triggerActionForProceedResourcesFeedback($this->chatID, $this->user['firstname']);
+                exit;
+            case $this->commands['otherFeedback']:
+                $this->access->setState($this->chatID, $this->states['otherFeedbackWaitingState']);
+                $this->mainInformationRoute->triggerActionForProceedOtherFeedback($this->chatID, $this->user['firstname']);
+                exit;
             case $this->commands['meetings']:
                 $this->mainRulesRoute->triggerActionForGetMeetingInfo($this->chatID, $this->user['firstname']);
                 exit;
@@ -109,7 +130,22 @@ class AuthorizedUserScenario {
                                     exit;
                                 }
                             }
-
+                        case $this->states['erpFeedbackWaitingState']:
+                            $this->access->setFeedbackInfo($this->chatID, $text);
+                            $this->mainInformationRoute->triggerActionForSendFeedbackConfirmation($this->chatID);
+                            exit;
+                        case $this->states['hardwareFeedbackWaitingState']:
+                            $this->access->setFeedbackInfo($this->chatID, $text);
+                            $this->mainInformationRoute->triggerActionForSendFeedbackConfirmation($this->chatID);
+                            exit;
+                        case $this->states['resourcesFeedbackWaitingState']:
+                            $this->access->setFeedbackInfo($this->chatID, $text);
+                            $this->mainInformationRoute->triggerActionForSendFeedbackConfirmation($this->chatID);
+                            exit;
+                        case $this->states['otherFeedbackWaitingState']:
+                            $this->access->setFeedbackInfo($this->chatID, $text);
+                            $this->mainInformationRoute->triggerActionForSendFeedbackConfirmation($this->chatID);
+                            exit;
                         default:
                             $this->commonmistakeroute->triggerActionForCommonMistake($this->chatID);
                             exit;
@@ -175,6 +211,52 @@ class AuthorizedUserScenario {
             case $this->commands['lastRuleInline']:
                 $this->valuesRoute->triggerActionForGetLastValue($this->chatID, $this->user['firstname']);
                 exit;
+            case $this->commands['sendFeedbackInline']:
+                $feedback = $this->access->getFeedbackInfo($this->chatID);
+                $feedbackText = $feedback['feedback_text'];
+                if ($feedback) {
+                    switch ($this->state) {
+                        case 'waiting for ERP feedback':
+                            $this->swiftmailer->sendFeedback(
+                                $this->user['company_id'],
+                                'it_help@diall.ru',
+                                "#1C &".$this->user['email']."&",
+                                $feedbackText
+                            );
+                            break;
+                        case 'waiting for hardware feedback':
+                            $this->swiftmailer->sendFeedback(
+                                $this->user['company_id'],
+                                'it_help@diall.ru',
+                                "#ADM &".$this->user['email']."&",
+                                $feedbackText
+                            );
+                            break;
+                        case 'waiting for resources feedback':
+                            $this->swiftmailer->sendFeedback(
+                                $this->user['company_id'],
+                                'it_help@diall.ru',
+                                "#ADM &".$this->user['email']."&",
+                                $feedbackText
+                            );
+                            break;
+                        case 'waiting for other feedback':
+                            $this->swiftmailer->sendFeedback(
+                                $this->user['company_id'],
+                                'it_help@diall.ru',
+                                "&".$this->user['email']."&",
+                                $feedbackText
+                            );
+                            break;
+                    }
+                    $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
+                    $this->mainInformationRoute->triggerActionForSendFeedback($this->chatID);
+                    exit;
+                } else {
+                    // TODO refactor
+                    $this->commonmistakeroute->triggerErrorForSendFeedback();
+                    exit;
+                }
             default:
                 sendMessage($this->chatID, "Default finished inline", null);
                 exit;
