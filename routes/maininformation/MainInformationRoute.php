@@ -6,81 +6,74 @@
 
 class MainInformationRoute {
 
+    var $constants = null;
+    var $keyboards = null;
+
+    function __construct($constants, $keyboards) {
+        $this->constants = $constants;
+        $this->keyboards = $keyboards;
+    }
+
     function triggerActionForEnterMainInformationMenu($chatID, $companyId) {
-        $constants = new constants();
-        $keyboards = new keyboards();
-        $reply = $constants::getReplyForEnterMainInformationMenu();
-        $keyboard = $keyboards::getMainInformationMenuKeyboard($companyId);
+        $reply = $this->constants::getReplyForEnterMainInformationMenu();
+        $keyboard = $this->keyboards::getMainInformationMenuKeyboard($companyId);
         sendMessage($chatID, $reply, $keyboard);
     }
 
     function triggerActionForShowHowToNavigateToOffice($chatID, $companyId) {
-        $constants = new constants();
-        $reply = $constants::getRouteText($companyId);
+        $reply = $this->constants::getRouteText($companyId);
         sendMessage($chatID, $reply, null);
     }
 
     function triggerActionForShowNavigationSchemeToSkolkovo($chatID) {
-        $constants = new constants();
-        $reply = $constants::getSkolkovoMapUrl();
+        $reply = $this->constants::getSkolkovoMapUrl();
         sendPhoto($chatID, $reply, null);
     }
 
     function triggerActionForShowNavigationSchemeToOskol($chatID) {
-        $constants = new constants();
-        $reply = $constants::getOskolMapUrl();
+        $reply = $this->constants::getOskolMapUrl();
         sendPhoto($chatID, $reply, null);
     }
 
     function triggerActionForShowNavigationSchemeToSaratov($chatID) {
-        $constants = new constants();
-        $reply = $constants::getSaratovMapUrl();
+        $reply = $this->constants::getSaratovMapUrl();
         sendPhoto($chatID, $reply, null);
     }
 
     function triggerActionForShowItHelpMenu($chatID, $companyId) {
-        $constants = new constants();
-        $keyboards = new keyboards();
-        $reply = $constants::getReplyForEnterItHelpInlineMenu($companyId);
-        $keyboard = $keyboards::getItHelpMenuInlineKeyboard($companyId);
+        $reply = $this->constants::getReplyForEnterItHelpInlineMenu($companyId);
+        $keyboard = $this->keyboards::getItHelpMenuInlineKeyboard($companyId);
         sendMessage($chatID, $reply, $keyboard);
     }
 
     function triggerActionForProceedErpAnd1CFeedback($chatID, $firstname) {
-        $constants = new constants();
-        $reply = $constants::getFeedbackText($firstname);
+        $reply = $this->constants::getFeedbackText($firstname);
         sendMessage($chatID, $reply, null);
     }
 
     function triggerActionForProceedHardwareFeedback($chatID, $firstname) {
-        $constants = new constants();
-        $reply = $constants::getFeedbackText($firstname);
+        $reply = $this->constants::getFeedbackText($firstname);
         sendMessage($chatID, $reply, null);
     }
 
     function triggerActionForProceedResourcesFeedback($chatID, $firstname) {
-         $constants = new constants();
-         $reply = $constants::getFeedbackText($firstname);
+         $reply = $this->constants::getFeedbackText($firstname);
          sendMessage($chatID, $reply, null);
     }
 
     function triggerActionForProceedOtherFeedback($chatID, $firstname) {
-         $constants = new constants();
-         $reply = $constants::getFeedbackText($firstname);
+         $reply = $this->constants::getFeedbackText($firstname);
          sendMessage($chatID, $reply, null);
     }
 
     function triggerActionForSendFeedbackConfirmation($chatID) {
-        $constants = new constants();
-        $keyboards = new keyboards();
-        $reply = $constants::getReplyForFeedbackSending();
-        $keyboard = $keyboards::getFeedbackSendingInlineKeyboard();
+        $reply = $this->constants::getReplyForFeedbackSending();
+        $keyboard = $this->keyboards::getFeedbackSendingInlineKeyboard();
         sendMessage($chatID, $reply, $keyboard);
     }
 
     function triggerActionForSendFeedback($chatID) {
-        $constants = new constants();
-        $reply = $constants::getReplyForFeedbackIsSent();
+        $reply = $this->constants::getReplyForFeedbackIsSent();
         sendMessage($chatID, $reply, null);
     }
 }

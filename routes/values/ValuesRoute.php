@@ -6,55 +6,51 @@
 
 class ValuesRoute {
 
+    var $constants = null;
+    var $keyboards = null;
+
+    function __construct($constants, $keyboards) {
+        $this->constants = $constants;
+        $this->keyboards = $keyboards;
+    }
+
     function triggerActionForGetWelcomeValue($chatID, $firstname, $inlineValue) {
-        $constants = new constants();
-        $keyboards = new keyboards();
-        $reply = $constants::getWelcomeValueText($firstname);
-        $keyboard = $keyboards::getValueKeyboard($inlineValue);
+        $reply = $this->constants::getWelcomeValueText($firstname);
+        $keyboard = $this->keyboards::getValueKeyboard($inlineValue);
         sendMessage($chatID, $reply, $keyboard);
     }
 
     function triggerActionForGetFirstValue($chatID, $companyId, $inlineValue) {
-        $constants = new constants();
-        $keyboards = new keyboards();
-        sendSticker($chatID, $constants::getTruthAndFactsValueSticker($companyId));
-        $reply = $constants::getTruthAndFactsValueText();
-        $keyboard = $keyboards::getValueKeyboard($inlineValue);
+        sendSticker($chatID, $this->constants::getTruthAndFactsValueSticker($companyId));
+        $reply = $this->constants::getTruthAndFactsValueText();
+        $keyboard = $this->keyboards::getValueKeyboard($inlineValue);
         sendMessage($chatID, $reply, $keyboard);
     }
 
     function triggerActionForGetSecondValue($chatID, $companyId, $inlineValue) {
-        $constants = new constants();
-        $keyboards = new keyboards();
-        sendSticker($chatID, $constants::getOpennessAndTransparencyValueSticker($companyId));
-        $reply = $constants::getOpennessAndTransparencyValueText();
-        $keyboard = $keyboards::getValueKeyboard($inlineValue);
+        sendSticker($chatID, $this->constants::getOpennessAndTransparencyValueSticker($companyId));
+        $reply = $this->constants::getOpennessAndTransparencyValueText();
+        $keyboard = $this->keyboards::getValueKeyboard($inlineValue);
         sendMessage($chatID, $reply, $keyboard);
     }
 
     function triggerActionForGetThirdValue($chatID, $companyId, $inlineValue) {
-        $constants = new constants();
-        $keyboards = new keyboards();
-        sendSticker($chatID, $constants::getWorkIsAFavoriteAffairValueSticker($companyId));
-        $reply = $constants::getWorkIsAFavoriteAffairValueText();
-        $keyboard = $keyboards::getValueKeyboard($inlineValue);
+        sendSticker($chatID, $this->constants::getWorkIsAFavoriteAffairValueSticker($companyId));
+        $reply = $this->constants::getWorkIsAFavoriteAffairValueText();
+        $keyboard = $this->keyboards::getValueKeyboard($inlineValue);
         sendMessage($chatID, $reply, $keyboard);
     }
 
     function triggerActionForGetFourthValue($chatID, $companyId, $inlineValue) {
-        $constants = new constants();
-        $keyboards = new keyboards();
-        sendSticker($chatID, $constants::getMindedTeamValueSticker($companyId));
-        $reply = $constants::getMindedTeamValueText();
-        $keyboard = $keyboards::getValueKeyboard($inlineValue);
+        sendSticker($chatID, $this->constants::getMindedTeamValueSticker($companyId));
+        $reply = $this->constants::getMindedTeamValueText();
+        $keyboard = $this->keyboards::getValueKeyboard($inlineValue);
         sendMessage($chatID, $reply, $keyboard);
     }
 
     function triggerActionForGetLastValue($chatID, $firstname) {
-        $constants = new constants();
-        $keyboards = new keyboards();
-        $reply = $constants::getFinalValueText($firstname);
-        $keyboard = $keyboards::mainKeyboard();
+        $reply = $this->constants::getFinalValueText($firstname);
+        $keyboard = $this->keyboards::mainKeyboard();
         sendMessage($chatID, $reply, $keyboard);
     }
 }

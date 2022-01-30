@@ -6,65 +6,58 @@
 
 class authroute {
 
+    var $constants = null;
+    var $keyboards = null;
+
+    function __construct($constants, $keyboards) {
+        $this->constants = $constants;
+        $this->keyboards = $keyboards;
+    }
+
     function triggerActionForNewUserAuthorization($chatID, $username) {
-        $constants = new constants();
-        $keyboards = new keyboards();
-        $reply = $constants->getReplyForNonAuthorizedUser($username);
-        $keyboard = $keyboards->helloKeyboard();
+        $reply = $this->constants->getReplyForNonAuthorizedUser($username);
+        $keyboard = $this->keyboards->helloKeyboard();
         sendMessage($chatID, $reply, $keyboard);
     }
 
     function triggerActionForStartingEmailAuthorization($chatID) {
-        $constants = new constants();
-        $keyboards = new keyboards();
-        $reply = $constants::getReplyForLoginWaiting();
-        $keyboard = $keyboards::backToStartKeyboard();
+        $reply = $this->constants::getReplyForLoginWaiting();
+        $keyboard = $this->keyboards::backToStartKeyboard();
         sendMessage($chatID, $reply, $keyboard);
     }
 
     function triggerActionForMoveToStart($chatID, $username) {
-        $constants = new constants();
-        $keyboards = new keyboards();
-        $reply = $constants->getReplyForMoveToStart($username);
-        $keyboard = $keyboards->helloKeyboard();
+        $reply = $this->constants->getReplyForMoveToStart($username);
+        $keyboard = $this->keyboards->helloKeyboard();
         sendMessage($chatID, $reply, $keyboard);
     }
 
     function triggerActionForStartingSmsAuthorization($chatID, $username) {
-        $constants = new constants();
-        $keyboards = new keyboards();
-        $reply = $constants->getReplyForAllowToCheckMobileNumber($username);
-        $keyboard = $keyboards->smsAuthorizationKeyboard();
+        $reply = $this->constants->getReplyForAllowToCheckMobileNumber($username);
+        $keyboard = $this->keyboards->smsAuthorizationKeyboard();
         sendMessage($chatID, $reply, $keyboard);
     }
 
     function triggerActionForLoginAcceptance($chatID, $username) {
-        $constants = new constants();
-        $keyboards = new keyboards();
-        $reply = $constants->getReplyForSendConfirmationCodeApprovalFromUser($username);
-        $keyboard = $keyboards->emailAuthorizationProceedKeyboard();
+        $reply = $this->constants->getReplyForSendConfirmationCodeApprovalFromUser($username);
+        $keyboard = $this->keyboards->emailAuthorizationProceedKeyboard();
         sendMessage($chatID, $reply, $keyboard);
     }
 
     function triggerActionForSuccessfulLogin($chatID, $username) {
-        $constants = new constants();
-        $keyboards = new keyboards();
-        $reply = $constants->getReplyForSuccessfulLogin($username);
-        $keyboard = $keyboards->mainKeyboard();
+        $reply = $this->constants->getReplyForSuccessfulLogin($username);
+        $keyboard = $this->keyboards->mainKeyboard();
         sendMessage($chatID, $reply, $keyboard);
     }
 
     function triggerActionWithSendingConfirmationEmail($chatID, $username) {
-        $constants = new constants();
-        $reply = $constants->getReplyForEmailIsSended($username);
+        $reply = $this->constants->getReplyForEmailIsSended($username);
         sendMessage($chatID, $reply, null);
     }
 
     function triggerActionForGoToTheStart($chatID, $username) {
-        $constants = new constants();
-        $keyboards = new keyboards();
-        $reply = $constants->getReplyForGoToTheStart($username);
-        $keyboard = $keyboards->helloKeyboard();
+        $reply = $this->constants->getReplyForGoToTheStart($username);
+        $keyboard = $this->keyboards->helloKeyboard();
         sendMessage($chatID, $reply, $keyboard);
     }
 
@@ -108,11 +101,6 @@ class authroute {
             return false;
         }
     }
-
-    /*function sendMessage($chatID, $text, $keyboard) {
-        $url = $GLOBALS[website]."/sendMessage?chat_id=$chatID&parse_mode=HTML&text=".urlencode($text)."&reply_markup=".$keyboard;
-        file_get_contents($url);
-    }*/
 }
 
 

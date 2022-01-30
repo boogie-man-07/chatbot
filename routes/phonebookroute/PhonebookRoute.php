@@ -6,41 +6,42 @@
 
 class PhonebookRoute {
 
+    var $constants = null;
+    var $keyboards = null;
+
+    function __construct($constants, $keyboards) {
+        $this->constants = $constants;
+        $this->keyboards = $keyboards;
+    }
+
     function triggerActionForFindPhoneNumber($chatID) {
-        $constants = new constants();
-        $reply = $constants::getReplyForFindPhoneNumber();
+        $reply = $this->constants::getReplyForFindPhoneNumber();
         sendMessage($chatID, $reply, null);
     }
 
     function triggerActionForGetUserCardOptions($chatID) {
-        $constants = new constants();
-        $keyboards = new keyboards();
-        $reply = $constants::getReplyForEmployeeCardOptions();
-        $keyboard = $keyboards::employeeCardOptionsKeyboard();
+        $reply = $this->constants::getReplyForEmployeeCardOptions();
+        $keyboard = $this->keyboards::employeeCardOptionsKeyboard();
         sendMessage($chatID, $reply, $keyboard);
     }
 
     function triggerActionForGetUserCard($chatID, $user) {
-        $constants = new constants();
-        $reply = $constants::getReplyForEmployeeCard($user);
+        $reply = $this->constants::getReplyForEmployeeCard($user);
         sendMessage($chatID, $reply, null);
     }
 
     function triggerActionForGetUserEmail($chatID, $email) {
-        $constants = new constants();
-        $reply = $constants::getReplyForEmployeeEmail($email);
+        $reply = $this->constants::getReplyForEmployeeEmail($email);
         sendMessage($chatID, $reply, null);
     }
 
     function triggerActionForGetUserMobileNumber($chatID, $mobileNumber) {
-        $constants = new constants();
-        $reply = $constants::getReplyForEmployeeMobileNumber($mobileNumber);
+        $reply = $this->constants::getReplyForEmployeeMobileNumber($mobileNumber);
         sendMessage($chatID, $reply, null);
     }
 
     function triggerActionForGetUserOfficeNumber($chatID, $officeNumber, $internalNumber) {
-        $constants = new constants();
-        $reply = $constants::getReplyForEmployeeOfficeNumber($officeNumber, $internalNumber);
+        $reply = $this->constants::getReplyForEmployeeOfficeNumber($officeNumber, $internalNumber);
         sendMessage($chatID, $reply, null);
     }
 

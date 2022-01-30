@@ -7,86 +7,75 @@
 
 class commonmistakeroute {
 
+    var $constants = null;
+    var $keyboards = null;
+
+    function __construct($constants, $keyboards) {
+        $this->constants = $constants;
+        $this->keyboards = $keyboards;
+    }
+
     function triggerActionForCommonMistake($chatID) {
-        $constants = new constants();
-        $reply = $constants->getReplyForCommonMistake();
+        $reply = $this->constants->getReplyForCommonMistake();
         sendMessage($chatID, $reply, null);
     }
 
     function triggerActionForCommonErrorIfNotAuthorized($chatID, $username) {
-        $constants = new constants();
-        $reply = $constants->getReplyForCommonErrorIfNotAuthorized($username);
-        $this->sendMessage($chatID, $reply, null);
+        $reply = $this->constants->getReplyForCommonErrorIfNotAuthorized($username);
+        sendMessage($chatID, $reply, null);
     }
 
     function triggerActionForCommonErrorIfAuthorizationNotFinished($chatID, $username) {
-        $constants = new constants();
-        $keyboards = new keyboards();
-        $reply = $constants->getReplyForUserNotFinishedAuthorization($username);
-        $keyboard = $keyboards->helloKeyboard();
-        $this->sendMessage($chatID, $reply, $keyboard);
+        $reply = $this->constants->getReplyForUserNotFinishedAuthorization($username);
+        $keyboard = $this->keyboards->helloKeyboard();
+        sendMessage($chatID, $reply, $keyboard);
     }
 
     function triggerActionForCommonErrorIfLoginIncorrect($chatID) {
-        $constants = new constants();
-        $reply = $constants->getReplyForCommonErrorIfLoginIncorrect();
+        $reply = $this->constants->getReplyForCommonErrorIfLoginIncorrect();
         sendMessage($chatID, $reply, null);
     }
 
     function triggerActionForCommonErrorIfLoginNotFound($chatID) {
-        $constants = new constants();
-        $reply = $constants->getReplyForCommonErrorIfLoginNotFound();
+        $reply = $this->constants->getReplyForCommonErrorIfLoginNotFound();
         sendMessage($chatID, $reply, null);
     }
 
     function triggerActionForCommonErrorIfConfirmationCodeIncorrect($chatID) {
-        $constants = new constants();
-        $reply = $constants->getReplyForCommonErrorIfConfirmationCodeIsIncorrect();
+        $reply = $this->constants->getReplyForCommonErrorIfConfirmationCodeIsIncorrect();
         sendMessage($chatID, $reply, null);
     }
 
     function triggerActionForCommonErrorIfConfirmationCodeFormatIncorrect($chatID) {
-        $constants = new constants();
-        $reply = $constants->getReplyForCommonErrorIfConfirmationCodeFormatIsIncorrect();
+        $reply = $this->constants->getReplyForCommonErrorIfConfirmationCodeFormatIsIncorrect();
         sendMessage($chatID, $reply, null);
     }
 
     function triggerActionForConfirmationCodeExpired($chatID) {
-        $constants = new constants();
-        $keyboards = new keyboards();
-        $reply = $constants->getReplyForConfirmationCodeExpired();
-        $keyboard = $keyboards->backToAuthorizationKeyboard();
+        $reply = $this->constants->getReplyForConfirmationCodeExpired();
+        $keyboard = $this->keyboards->backToAuthorizationKeyboard();
         sendMessage($chatID, $reply, $keyboard);
     }
 
     function triggerActionForGetUserCardError($chatID, $username) {
-        $constants = new constants();
-        $reply = $constants->getNoPhoneCardError($username);
+        $reply = $this->constants->getNoPhoneCardError($username);
         sendMessage($chatID, $reply, null);
     }
 
     function triggerActionForRestartFindUser($chatID) {
-        $constants = new constants();
-        $reply = $constants::getReplyForRestartFindUser();
+        $reply = $this->constants::getReplyForRestartFindUser();
         sendMessage($chatID, $reply, null);
     }
 
     function triggerActionForIncorrectFLFormat($chatID) {
-        $constants = new constants();
-        $reply = $constants->getReplyForIncorrectFLFormatError();
+        $reply = $this->constants->getReplyForIncorrectFLFormatError();
         sendMessage($chatID, $reply, null);
     }
 
     function triggerErrorForSendFeedback($chatID) {
-        $constants = new constants();
-        $reply = $constants::gerReplyForSendFeedbackError();
+        $reply = $this->constants::gerReplyForSendFeedbackError();
         sendMessage($chatID, $reply, null);
     }
-
-    /*function sendMessage($chatID, $text, $keyboard) {
-        $url = $GLOBALS[website]."/sendMessage?chat_id=$chatID&parse_mode=HTML&text=".urlencode($text)."&reply_markup=".$keyboard;
-        file_get_contents($url);
-    }*/
 }
 
 
