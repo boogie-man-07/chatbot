@@ -10,12 +10,14 @@ class AuthorizedUserScenario {
     var $commonmistakeroute = null;
     var $phonebookroute = null;
     var $valuesRoute = null;
+    var $mainRulesRoute = null;
+    var $mainInformationRoute = null;
     var $commands = null;
     var $states = null;
     var $state = null;
     var $logics = null;
 
-    function __construct($chatID, $user, $username, $access, $authroute, $commonmistakeroute, $phonebookroute, $valuesRoute, $commands, $states, $state, $logics) {
+    function __construct($chatID, $user, $username, $access, $authroute, $commonmistakeroute, $phonebookroute, $valuesRoute, $mainRulesRoute, $mainInformationRoute, $commands, $states, $state, $logics) {
         $this->chatID = $chatID;
         $this->user = $user;
         $this->username = $username;
@@ -24,6 +26,8 @@ class AuthorizedUserScenario {
         $this->commonmistakeroute = $commonmistakeroute;
         $this->phonebookroute = $phonebookroute;
         $this->valuesRoute = $valuesRoute;
+        $this->mainRulesRoute = $mainRulesRoute;
+        $this->mainInformationRoute = $mainInformationRoute;
         $this->commands = $commands;
         $this->states = $states;
         $this->state = $state;
@@ -45,6 +49,41 @@ class AuthorizedUserScenario {
                 exit;
             case $this->commands['values']:
                 $this->valuesRoute->triggerActionForGetWelcomeValue($this->chatID, $this->user['firstname'], $this->commands['firstRuleInline']);
+                exit;
+            case $this->commands['mainRules']:
+                $this->mainRulesRoute->triggerActionForEnterMainRulesMenu($this->chatID);
+                exit;
+            case $this->commands['commonInformation']:
+                $this->mainInformationRoute->triggerActionForEnterMainInformationMenu($this->chatID, $this->user['company_id']);
+                exit;
+            case $this->commands['howToNavigate']:
+                $this->mainInformationRoute->triggerActionForShowHowToNavigateToOffice($this->chatID, $this->user['company_id']);
+                exit;
+            case $this->commands['navigationSchemeSkolkovo']:
+                $this->mainInformationRoute->triggerActionForShowNavigationSchemeToSkolkovo($this->chatID);
+                exit;
+            case $this->commands['navigationSchemeOskol']:
+                $this->mainInformationRoute->triggerActionForShowNavigationSchemeToOskol($this->chatID);
+                exit;
+            case $this->commands['navigationSchemeSaratov']:
+                $this->mainInformationRoute->triggerActionForShowNavigationSchemeToSaratov($this->chatID);
+                exit;
+            case $this->commands['meetings']:
+                $this->mainRulesRoute->triggerActionForGetMeetingInfo($this->chatID, $this->user['firstname']);
+                exit;
+            case $this->commands['phoneCalls']:
+                $this->mainRulesRoute->triggerActionForGetPhoneCallsInfo($this->chatID, $this->user['firstname']);
+                exit;
+            case $this->commands['officeWork']:
+                $this->mainRulesRoute->triggerActionForGetOfficeRulesInfo($this->chatID, $this->user['firstname']);
+                exit;
+            case $this->commands['appearance']:
+                $this->mainRulesRoute->triggerActionForGetAppearanceInfo($this->chatID, $this->user['firstname']);
+                exit;
+            case $this->commands['navigateToMainScreen']:
+                $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
+                $this->access->removeFindUserDataByChatID($this->chatID);
+                $this->mainRulesRoute->triggerActionForNavigateBack($this->chatID);
                 exit;
             default:
                 if (!$this->isDialogInProgress($this->state)) {

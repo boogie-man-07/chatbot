@@ -174,4 +174,92 @@ class keyboards {
             "one_time_keyboard" => false
         ));
     }
+
+    function getMainRulesMenuKeyboard() {
+        return json_encode(array(
+            "keyboard" => array(
+                array(
+                    array(
+                        "text" => "Проведение совещаний"
+                    ),
+                    array(
+                        "text" => "Общение по телефону"
+                    ),
+                ),
+                array(
+                    array(
+                        "text" => "Работа в офисах"
+                    ),
+                    array(
+                        "text" => "Внешний вид"
+                    ),
+                ),
+                array(
+                    array(
+                        "text" => "Назад"
+                    )
+                )
+            ),
+            "resize_keyboard" => true,
+            "one_time_keyboard" => false
+        ));
+    }
+
+    function getMainInformationMenuKeyboard($companyID) {
+        switch ($companyID) {
+            case 1:
+                return json_encode(array(
+                    "keyboard" => array(
+                        array(
+                            array("text" => "Как добраться")
+                        ),
+                        array(
+                            array("text" => "Схема проезда (Сколково)")
+                        ),
+                        array(
+                            array("text" => "Назад")
+                        )
+                    ),
+                    "resize_keyboard" => true,
+                    "one_time_keyboard" => false
+                ));
+            case 22;
+            case 2:
+                return json_encode(array(
+                    "keyboard" => array(
+                        array(
+                            array("text" => "Как добраться")
+                        ),
+                        array(
+                            array("text" => "Схема проезда (Сколково)"),
+                            array("text" => "Схема проезда (Ст.Оскол)")
+                        ),
+                        array(
+                            array("text" => "Назад")
+                        )
+                    ),
+                    "resize_keyboard" => true,
+                    "one_time_keyboard" => false
+                ));
+            case 33;
+            case 3:
+                return json_encode(array(
+                    "keyboard" => array(
+                        array(
+                            array("text" => "Как добраться")
+                        ),
+                        array(
+                            array("text" => "Схема проезда (Сколково)"),
+                            array("text" => "Схема проезда (Саратов)")
+                        ),
+                        array(
+                            array("text" => "Помощь ИТ специалиста"),
+                            array("text" => "Назад")
+                        )
+                    ),
+                    "resize_keyboard" => true,
+                    "one_time_keyboard" => false
+                ));
+        }
+    }
 }

@@ -5,6 +5,8 @@ require_once (ROOT_DIR."/routes/authroute/authroute.php");
 require_once (ROOT_DIR.'/routes/common/commonmistakeroute.php');
 require_once (ROOT_DIR.'/routes/phonebookroute/PhonebookRoute.php');
 require_once (ROOT_DIR.'/routes/values/ValuesRoute.php');
+require_once (ROOT_DIR.'/routes/mainrules/MainRulesRoute.php');
+require_once (ROOT_DIR.'/routes/maininformation/MainInformationRoute.php');
 require_once ('./UnauthorizedUserScenario.php');
 require_once ('./NonFinishedAuthorizationUserScenario.php');
 require_once ('./AuthorizedUserScenario.php');
@@ -41,6 +43,8 @@ $authroute = new authroute();
 $commonmistakeroute = new commonmistakeroute();
 $phonebookroute = new PhonebookRoute();
 $valuesRoute = new ValuesRoute();
+$mainRulesRoute = new MainRulesRoute();
+$mainInformationRoute = new MainInformationRoute();
 
 $json = file_get_contents('constants/localization.json');
 $data = json_decode($json, true);
@@ -78,7 +82,7 @@ if (!$user) {
             $nonFinishedAuthorizationUserScenario->run($text);
         }
     } else {
-        $authorizedUserScenario = new AuthorizedUserScenario($chatID, $user, $username, $access, $authroute, $commonmistakeroute, $phonebookroute, $valuesRoute, $commandList, $statesList, $state, $logics);
+        $authorizedUserScenario = new AuthorizedUserScenario($chatID, $user, $username, $access, $authroute, $commonmistakeroute, $phonebookroute, $valuesRoute, $mainRulesRoute, $mainInformationRoute, $commandList, $statesList, $state, $logics);
         if ($isInline) {
             $authorizedUserScenario->runInline($text);
         } else {
