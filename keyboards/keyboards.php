@@ -310,4 +310,21 @@ class keyboards {
             )
         ));
     }
+
+    function getSalaryMenuKeyboard() {
+        return json_encode(array(
+            "keyboard" => array(
+                array(
+                    array("text" => "Общая информация"),
+                    array("text" => "Сроки выплаты"),
+                ),
+                array(
+                    array("text" => "Заявления"),
+                    array("text" => "Назад")
+                )
+            ),
+            "resize_keyboard" => true,
+            "one_time_keyboard" => false
+        ));
+    }
 }

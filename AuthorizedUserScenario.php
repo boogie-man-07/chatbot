@@ -13,12 +13,13 @@ class AuthorizedUserScenario {
     var $valuesRoute = null;
     var $mainRulesRoute = null;
     var $mainInformationRoute = null;
+    var $salaryRoute = null;
     var $commands = null;
     var $states = null;
     var $state = null;
     var $logics = null;
 
-    function __construct($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $phonebookroute, $valuesRoute, $mainRulesRoute, $mainInformationRoute, $commands, $states, $state, $logics) {
+    function __construct($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $phonebookroute, $valuesRoute, $mainRulesRoute, $mainInformationRoute, $salaryRoute, $commands, $states, $state, $logics) {
         $this->chatID = $chatID;
         $this->user = $user;
         $this->username = $username;
@@ -30,6 +31,7 @@ class AuthorizedUserScenario {
         $this->valuesRoute = $valuesRoute;
         $this->mainRulesRoute = $mainRulesRoute;
         $this->mainInformationRoute = $mainInformationRoute;
+        $this->salaryRoute = $salaryRoute;
         $this->commands = $commands;
         $this->states = $states;
         $this->state = $state;
@@ -37,121 +39,138 @@ class AuthorizedUserScenario {
     }
 
     function run($text) {
-        switch ($text) {
-            case $this->commands['exit']:
-                $isUserRemoved = $this->access->removeUserCredentialsByChatID($this->chatID);
-                $isUserStateRemoved = $this->access->removeUserStateByChatID($this->chatID);
-                if ($isUserRemoved && $isUserStateRemoved) {
-                    $this->authroute->triggerActionForGoToTheStart($this->chatID, $this->username);
+        if (substr_count(trim($text), ' ') == 1) {
+            // TODO looking for phone mode
+        } else {
+            switch ($text) {
+                case $this->commands['exit']:
+                    $isUserRemoved = $this->access->removeUserCredentialsByChatID($this->chatID);
+                    $isUserStateRemoved = $this->access->removeUserStateByChatID($this->chatID);
+                    if ($isUserRemoved && $isUserStateRemoved) {
+                        $this->authroute->triggerActionForGoToTheStart($this->chatID, $this->username);
+                        exit;
+                    }
+                case $this->commands['phones']:
+                    $this->access->setState($this->chatID, $this->states['findTelephoneNumberState']);
+                    $this->phonebookroute->triggerActionForFindPhoneNumber($this->chatID);
                     exit;
-                }
-            case $this->commands['phones']:
-                $this->access->setState($this->chatID, $this->states['findTelephoneNumberState']);
-                $this->phonebookroute->triggerActionForFindPhoneNumber($this->chatID);
-                exit;
-            case $this->commands['values']:
-                $this->valuesRoute->triggerActionForGetWelcomeValue($this->chatID, $this->user['firstname'], $this->commands['firstRuleInline']);
-                exit;
-            case $this->commands['mainRules']:
-                $this->mainRulesRoute->triggerActionForEnterMainRulesMenu($this->chatID);
-                exit;
-            case $this->commands['commonInformation']:
-                $this->mainInformationRoute->triggerActionForEnterMainInformationMenu($this->chatID, $this->user['company_id']);
-                exit;
-            case $this->commands['howToNavigate']:
-                $this->mainInformationRoute->triggerActionForShowHowToNavigateToOffice($this->chatID, $this->user['company_id']);
-                exit;
-            case $this->commands['navigationSchemeSkolkovo']:
-                $this->mainInformationRoute->triggerActionForShowNavigationSchemeToSkolkovo($this->chatID);
-                exit;
-            case $this->commands['navigationSchemeOskol']:
-                $this->mainInformationRoute->triggerActionForShowNavigationSchemeToOskol($this->chatID);
-                exit;
-            case $this->commands['navigationSchemeSaratov']:
-                $this->mainInformationRoute->triggerActionForShowNavigationSchemeToSaratov($this->chatID);
-                exit;
-            case $this->commands['itHelp']:
-                $this->mainInformationRoute->triggerActionForShowItHelpMenu($this->chatID, $this->user['company_id']);
-                exit;
-            case $this->commands['erpAnd1CFeedback']:
-                $this->access->setState($this->chatID, $this->states['erpFeedbackWaitingState']);
-                $this->mainInformationRoute->triggerActionForProceedErpAnd1CFeedback($this->chatID, $this->user['firstname']);
-                exit;
-            case $this->commands['hardwareFeedback']:
-                $this->access->setState($this->chatID, $this->states['hardwareFeedbackWaitingState']);
-                $this->mainInformationRoute->triggerActionForProceedHardwareFeedback($this->chatID, $this->user['firstname']);
-                exit;
-            case $this->commands['resourcesFeedback']:
-                $this->access->setState($this->chatID, $this->states['resourcesFeedbackWaitingState']);
-                $this->mainInformationRoute->triggerActionForProceedResourcesFeedback($this->chatID, $this->user['firstname']);
-                exit;
-            case $this->commands['otherFeedback']:
-                $this->access->setState($this->chatID, $this->states['otherFeedbackWaitingState']);
-                $this->mainInformationRoute->triggerActionForProceedOtherFeedback($this->chatID, $this->user['firstname']);
-                exit;
-            case $this->commands['meetings']:
-                $this->mainRulesRoute->triggerActionForGetMeetingInfo($this->chatID, $this->user['firstname']);
-                exit;
-            case $this->commands['phoneCalls']:
-                $this->mainRulesRoute->triggerActionForGetPhoneCallsInfo($this->chatID, $this->user['firstname']);
-                exit;
-            case $this->commands['officeWork']:
-                $this->mainRulesRoute->triggerActionForGetOfficeRulesInfo($this->chatID, $this->user['firstname']);
-                exit;
-            case $this->commands['appearance']:
-                $this->mainRulesRoute->triggerActionForGetAppearanceInfo($this->chatID, $this->user['firstname']);
-                exit;
-            case $this->commands['navigateToMainScreen']:
-                $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
-                $this->access->removeFindUserDataByChatID($this->chatID);
-                $this->mainRulesRoute->triggerActionForNavigateBack($this->chatID);
-                exit;
-            default:
-                if (!$this->isDialogInProgress($this->state)) {
-                    $this->commonmistakeroute->triggerActionForCommonMistake($this->chatID);
+                case $this->commands['values']:
+                    $this->valuesRoute->triggerActionForGetWelcomeValue($this->chatID, $this->user['firstname'], $this->commands['firstRuleInline']);
                     exit;
-                } else {
-                    switch ($this->state) {
-                        case $this->states['findTelephoneNumberState']:
-                            $lastname = $this->phonebookroute->getUserLastname($text);
-                            $firstname = $this->phonebookroute->getUserFirstname($text);
-                            if (!$this::isCorrectFLFormat($firstname, $lastname)) {
-                                $this->commonmistakeroute->triggerActionForIncorrectFLFormat($this->chatID);
-                                exit;
-                            } else {
-                                $result = $this->access->getUserByFirstnameAndLastName($firstname, $lastname, $this->logics->getUserPrivelegesForUserCards($this->user));
-                                if ($result) {
-                                    $this->access->saveFindUserData($this->chatID, $result['firstname'], $result['lastname']);
-                                    //$this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
-                                    $this->phonebookroute->triggerActionForGetUserCardOptions($this->chatID);
+                case $this->commands['mainRules']:
+                    $this->mainRulesRoute->triggerActionForEnterMainRulesMenu($this->chatID);
+                    exit;
+                case $this->commands['commonInformation']:
+                    if ($this->isSalaryMode()) {
+                        $this->salaryRoute->triggerActionForGetMainSalaryInformation($this->chatID, $this->user['company_id']);
+                        exit;
+                    } else {
+                        $this->mainInformationRoute->triggerActionForEnterMainInformationMenu($this->chatID, $this->user['company_id']);
+                        exit;
+                    }
+                case $this->commands['paymentDates']:
+                    $this->salaryRoute->triggerActionForGetPaymentDatesInformation($this->chatID, $this->user['company_id']);
+                    exit;
+                case $this->commands['howToNavigate']:
+                    $this->mainInformationRoute->triggerActionForShowHowToNavigateToOffice($this->chatID, $this->user['company_id']);
+                    exit;
+                case $this->commands['navigationSchemeSkolkovo']:
+                    $this->mainInformationRoute->triggerActionForShowNavigationSchemeToSkolkovo($this->chatID);
+                    exit;
+                case $this->commands['navigationSchemeOskol']:
+                    $this->mainInformationRoute->triggerActionForShowNavigationSchemeToOskol($this->chatID);
+                    exit;
+                case $this->commands['navigationSchemeSaratov']:
+                    $this->mainInformationRoute->triggerActionForShowNavigationSchemeToSaratov($this->chatID);
+                    exit;
+                case $this->commands['itHelp']:
+                    $this->mainInformationRoute->triggerActionForShowItHelpMenu($this->chatID, $this->user['company_id']);
+                    exit;
+                case $this->commands['erpAnd1CFeedback']:
+                    $this->access->setState($this->chatID, $this->states['erpFeedbackWaitingState']);
+                    $this->mainInformationRoute->triggerActionForProceedErpAnd1CFeedback($this->chatID, $this->user['firstname']);
+                    exit;
+                case $this->commands['hardwareFeedback']:
+                    $this->access->setState($this->chatID, $this->states['hardwareFeedbackWaitingState']);
+                    $this->mainInformationRoute->triggerActionForProceedHardwareFeedback($this->chatID, $this->user['firstname']);
+                    exit;
+                case $this->commands['resourcesFeedback']:
+                    $this->access->setState($this->chatID, $this->states['resourcesFeedbackWaitingState']);
+                    $this->mainInformationRoute->triggerActionForProceedResourcesFeedback($this->chatID, $this->user['firstname']);
+                    exit;
+                case $this->commands['otherFeedback']:
+                    $this->access->setState($this->chatID, $this->states['otherFeedbackWaitingState']);
+                    $this->mainInformationRoute->triggerActionForProceedOtherFeedback($this->chatID, $this->user['firstname']);
+                    exit;
+                case $this->commands['salaryInformation']:
+                    $this->access->setState($this->chatID, $this->states['salaryState']);
+                    $this->salaryRoute->triggerActionForShowSalaryMenu($this->chatID);
+                    exit;
+                case $this->commands['meetings']:
+                    $this->mainRulesRoute->triggerActionForGetMeetingInfo($this->chatID, $this->user['firstname']);
+                    exit;
+                case $this->commands['phoneCalls']:
+                    $this->mainRulesRoute->triggerActionForGetPhoneCallsInfo($this->chatID, $this->user['firstname']);
+                    exit;
+                case $this->commands['officeWork']:
+                    $this->mainRulesRoute->triggerActionForGetOfficeRulesInfo($this->chatID, $this->user['firstname']);
+                    exit;
+                case $this->commands['appearance']:
+                    $this->mainRulesRoute->triggerActionForGetAppearanceInfo($this->chatID, $this->user['firstname']);
+                    exit;
+                case $this->commands['navigateToMainScreen']:
+                    $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
+                    $this->access->removeFindUserDataByChatID($this->chatID);
+                    $this->mainRulesRoute->triggerActionForNavigateBack($this->chatID);
+                    exit;
+                default:
+                    if (!$this->isDialogInProgress($this->state)) {
+                        $this->commonmistakeroute->triggerActionForCommonMistake($this->chatID);
+                        exit;
+                    } else {
+                        switch ($this->state) {
+                            case $this->states['findTelephoneNumberState']:
+                                $lastname = $this->phonebookroute->getUserLastname($text);
+                                $firstname = $this->phonebookroute->getUserFirstname($text);
+                                if (!$this::isCorrectFLFormat($firstname, $lastname)) {
+                                    $this->commonmistakeroute->triggerActionForIncorrectFLFormat($this->chatID);
                                     exit;
                                 } else {
-                                    $this->commonmistakeroute->triggerActionForGetUserCardError($this->chatID, $this->user['firstname']);
-                                    exit;
+                                    $result = $this->access->getUserByFirstnameAndLastName($firstname, $lastname, $this->logics->getUserPrivelegesForUserCards($this->user));
+                                    if ($result) {
+                                        $this->access->saveFindUserData($this->chatID, $result['firstname'], $result['lastname']);
+                                        //$this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
+                                        $this->phonebookroute->triggerActionForGetUserCardOptions($this->chatID);
+                                        exit;
+                                    } else {
+                                        $this->commonmistakeroute->triggerActionForGetUserCardError($this->chatID, $this->user['firstname']);
+                                        exit;
+                                    }
                                 }
-                            }
-                        case $this->states['erpFeedbackWaitingState']:
-                            $this->access->setFeedbackInfo($this->chatID, $text);
-                            $this->mainInformationRoute->triggerActionForSendFeedbackConfirmation($this->chatID);
-                            exit;
-                        case $this->states['hardwareFeedbackWaitingState']:
-                            $this->access->setFeedbackInfo($this->chatID, $text);
-                            $this->mainInformationRoute->triggerActionForSendFeedbackConfirmation($this->chatID);
-                            exit;
-                        case $this->states['resourcesFeedbackWaitingState']:
-                            $this->access->setFeedbackInfo($this->chatID, $text);
-                            $this->mainInformationRoute->triggerActionForSendFeedbackConfirmation($this->chatID);
-                            exit;
-                        case $this->states['otherFeedbackWaitingState']:
-                            $this->access->setFeedbackInfo($this->chatID, $text);
-                            $this->mainInformationRoute->triggerActionForSendFeedbackConfirmation($this->chatID);
-                            exit;
-                        default:
-                            $this->commonmistakeroute->triggerActionForCommonMistake($this->chatID);
-                            exit;
+                            case $this->states['erpFeedbackWaitingState']:
+                                $this->access->setFeedbackInfo($this->chatID, $text);
+                                $this->mainInformationRoute->triggerActionForSendFeedbackConfirmation($this->chatID);
+                                exit;
+                            case $this->states['hardwareFeedbackWaitingState']:
+                                $this->access->setFeedbackInfo($this->chatID, $text);
+                                $this->mainInformationRoute->triggerActionForSendFeedbackConfirmation($this->chatID);
+                                exit;
+                            case $this->states['resourcesFeedbackWaitingState']:
+                                $this->access->setFeedbackInfo($this->chatID, $text);
+                                $this->mainInformationRoute->triggerActionForSendFeedbackConfirmation($this->chatID);
+                                exit;
+                            case $this->states['otherFeedbackWaitingState']:
+                                $this->access->setFeedbackInfo($this->chatID, $text);
+                                $this->mainInformationRoute->triggerActionForSendFeedbackConfirmation($this->chatID);
+                                exit;
+                            default:
+                                $this->commonmistakeroute->triggerActionForCommonMistake($this->chatID);
+                                exit;
+                        }
                     }
-                }
+            }
         }
+
     }
 
     function runInline($text) {
@@ -277,6 +296,10 @@ class AuthorizedUserScenario {
         } else {
             return true;
         }
+    }
+
+    function isSalaryMode() {
+        return $this->state == $this->states['salaryState'];
     }
 
     function isDialogInProgress($currentState) {
