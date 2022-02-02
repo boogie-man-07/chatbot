@@ -311,4 +311,30 @@ class constants {
                 return "Заработная плата в Компании конфиденциальна, руководители на всех уровнях обязаны обеспечивать ее конфиденциальность.\nРаботник может узнать грейд своей должности и базовую заработную плату только у своего руководителя и только в Департаменте по работе с персоналом.";
         }
     }
+
+    function getApplicationsText($firstname) {
+        return "$firstname,\nОбразец какого заявления Вы хотели бы получить?";
+    }
+
+    function getReplyForApplicationPreparations($firstname, $companyId) {
+        switch ($companyId) {
+            case 1; case 3:
+                return "$firstname, образец заявления на отпуск будет направлен на вашу рабочую почту. Нажмите продолжить.";
+            case 2:
+                return "$firstname, выберите тип отпуска, нажав на соответствующую кнопку ниже.";
+            case 22; case 33:
+                return "Извините, опция недоступна для Вас";
+        }
+    }
+
+    function getReplyForPostponedApplicationPreparations($firstname, $companyId) {
+        switch ($companyId) {
+            case 1; case 3:
+                return "$firstname, образец заявления на отпуск будет направлен на вашу рабочую почту. Нажмите продолжить.";
+            case 2:
+                return "$firstname, введите дату начала отпуска, на которую был запланирован отпуск изначально.\nПример: <b>01.01.2018</b>";
+            case 22; case 33:
+                return "Извините, опция недоступна для Вас";
+        }
+    }
 }

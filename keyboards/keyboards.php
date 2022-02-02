@@ -327,4 +327,84 @@ class keyboards {
             "one_time_keyboard" => false
         ));
     }
+
+    function getApplicationMenuInlineKeyboard() {
+        return json_encode(array(
+            "inline_keyboard" => array(
+                array(
+                    array(
+                        "text" => "Заявление на отпуск",
+                        "callback_data" => "regularVacationCase"
+                    )
+                ),
+                array(
+                    array(
+                        "text" => "Заявление на перенос отпуска",
+                        "callback_data" => "postponedVacationCase"
+                    )
+                )
+            )
+        ));
+    }
+
+    function getApplicationPreparationsInlineKeyboard($companyId) {
+        switch ($companyId) {
+            case 1; case 3:
+                return json_encode(array(
+                    "inline_keyboard" => array(
+                        array(
+                            array(
+                                "text" => "Продолжить",
+                                "callback_data" => "sendOldRegularVacationForm"
+                            )
+                        )
+                    )
+                ));
+            case 2:
+                return json_encode(array(
+                    "inline_keyboard" => array(
+                        array(
+                            array(
+                                "text" => "Основной",
+                                "callback_data" => "triggerMainVacation"
+                            ),
+                            array(
+                                "text" => "Дополнительный",
+                                "callback_data" => "triggerAdditionalVacation"
+                            )
+                        ),
+                        array(
+                            array(
+                                "text" => "Без сохранения",
+                                "callback_data" => "triggerNoPaymentVacation"
+                            ),
+                            array(
+                                "text" => "Учебный",
+                                "callback_data" => "triggerAcademicVacation"
+                            )
+                        )
+                    )
+                ));
+            case 22; case 33:
+                return null;
+        }
+    }
+
+    function getPostponedApplicationPreparationsInlineKeyboard($companyId) {
+        switch ($companyId) {
+            case 1; case 3:
+                return json_encode(array(
+                    "inline_keyboard" => array(
+                        array(
+                            array(
+                                "text" => "Продолжить",
+                                "callback_data" => "sendOldPostponeVacationForm"
+                            )
+                        )
+                    )
+                ));
+            case 2; case 22; case 33:
+                return null;
+        }
+    }
 }

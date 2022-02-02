@@ -29,6 +29,24 @@ class SalaryRoute {
         $reply = $this->constants->getPaymentText($companyId);
         sendMessage($chatID, $reply, null);
     }
+
+    function triggerActionForGetApplicationsInformation($chatID, $firstname) {
+        $reply = $this->constants->getApplicationsText($firstname);
+        $keyboard = $this->keyboards->getApplicationMenuInlineKeyboard();
+        sendMessage($chatID, $reply, $keyboard);
+    }
+
+    function triggerActionForRegularApplicationPreparations($chatID, $firstname, $companyId) {
+        $reply = $this->constants->getReplyForApplicationPreparations($firstname, $companyId);
+        $keyboard = $this->keyboards->getApplicationPreparationsInlineKeyboard($companyId);
+        sendMessage($chatID, $reply, $keyboard);
+    }
+
+    function triggerActionForPostponedApplicationPreparations($chatID, $firstname, $companyId) {
+        $reply = $this->constants->getReplyForPostponedApplicationPreparations($firstname, $companyId);
+        $keyboard = $this->keyboards->getPostponedApplicationPreparationsInlineKeyboard($companyId);
+        sendMessage($chatID, $reply, $keyboard);
+    }
 }
 
 ?>
