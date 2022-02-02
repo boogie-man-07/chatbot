@@ -47,6 +47,11 @@ class SalaryRoute {
         $keyboard = $this->keyboards->getPostponedApplicationPreparationsInlineKeyboard($companyId);
         sendMessage($chatID, $reply, $keyboard);
     }
+
+    function triggerActionForRegularVacationStartPreparations($chatID) {
+        $reply = $this->constants->getReplyForRegularVacationStartPreparations();
+        sendMessage($chatID, $reply, null);
+    }
 }
 
 ?>

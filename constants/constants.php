@@ -337,4 +337,8 @@ class constants {
                 return "Извините, опция недоступна для Вас";
         }
     }
+
+    function getReplyForRegularVacationStartPreparations() {
+        return "Введите желаемую дату начала отпуска.\nПример: <b>01.01.2018</b>";
+    }
 }

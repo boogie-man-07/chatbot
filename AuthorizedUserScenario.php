@@ -283,6 +283,26 @@ class AuthorizedUserScenario {
                 }
                 $this->salaryRoute->triggerActionForPostponedApplicationPreparations($this->chatID, $this->user['firstname'], $this->user['company_id']);
                 exit;
+            case $this->commands['triggerMainVacationInline']:
+                $this->access->setRegualarVacationType($this->chatID, '0');
+                $this->access->setState($this->chatID, $this->states['regularVacationStartDateWaitingState']);
+                $this->salaryRoute->triggerActionForRegularVacationStartPreparations($this->chatID);
+                exit;
+            case $this->commands['triggerAdditionalVacationInline']:
+                $this->access->setRegualarVacationType($this->chatID, '1');
+                $this->access->setState($this->chatID, $this->states['regularVacationStartDateWaitingState']);
+                $this->salaryRoute->triggerActionForRegularVacationStartPreparations($this->chatID);
+                exit;
+            case $this->commands['triggerNoPaymentVacationInline']:
+                $this->access->setRegualarVacationType($this->chatID, '2');
+                $this->access->setState($this->chatID, $this->states['regularVacationStartDateWaitingState']);
+                $this->salaryRoute->triggerActionForRegularVacationStartPreparations($this->chatID);
+                exit;
+            case $this->commands['triggerAcademicVacationInline']:
+                $this->access->setRegualarVacationType($this->chatID, '3');
+                $this->access->setState($this->chatID, $this->states['regularVacationStartDateWaitingState']);
+                $this->salaryRoute->triggerActionForRegularVacationStartPreparations($this->chatID);
+                exit;
             default:
                 sendMessage($this->chatID, "Default finished inline", null);
                 exit;
