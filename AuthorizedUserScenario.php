@@ -18,8 +18,10 @@ class AuthorizedUserScenario {
     var $states = null;
     var $state = null;
     var $logics = null;
+    var $forms = null;
+    var $email = null;
 
-    function __construct($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $phonebookroute, $valuesRoute, $mainRulesRoute, $mainInformationRoute, $salaryRoute, $commands, $states, $state, $logics) {
+    function __construct($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $phonebookroute, $valuesRoute, $mainRulesRoute, $mainInformationRoute, $salaryRoute, $commands, $states, $state, $logics, $forms, $email) {
         $this->chatID = $chatID;
         $this->user = $user;
         $this->username = $username;
@@ -36,6 +38,8 @@ class AuthorizedUserScenario {
         $this->states = $states;
         $this->state = $state;
         $this->logics = $logics;
+        $this->forms = $forms;
+        $this->email = $email;
     }
 
     function run($text) {
@@ -162,6 +166,44 @@ class AuthorizedUserScenario {
                         case $this->states['otherFeedbackWaitingState']:
                             $this->access->setFeedbackInfo($this->chatID, $text);
                             $this->mainInformationRoute->triggerActionForSendFeedbackConfirmation($this->chatID);
+                            exit;
+                        case $this->states['regularVacationStartDateWaitingState']:
+                            if ($this->salaryRoute->isCorrectDateFormat($text)) {
+                                if ($this->salaryRoute->isDateNotInPast($text)) {
+                                    $this->access->setRegularVacationStartDate($this->chatID, $text);
+                                    $this->access->setState($this->chatID, $this->states['regularVacationDurationWaitingState']);
+                                    $this->salaryRoute->triggerActionForSetRegularVacationEndDate($this->chatID);
+                                    exit;
+                                } else {
+                                    $this->commonmistakeroute->triggerActionForDateInThePastError($this->chatID);
+                                    exit;
+                                }
+                            } else {
+                                $this->commonmistakeroute->triggerActionForDateFormatError($this->chatID);
+                                exit;
+                            }
+                        case $this->states['regularVacationDurationWaitingState']:
+                            if ($this->salaryRoute->isCorrectVacationDurationFormat($text)) {
+                                $vacationFormData = $this->access->getReguarVacationFormData($this->chatID);
+                                if ($vacationFormData['vacation_type'] != '3') {
+                                    $this->access->setRegularVacationDuration($this->chatID, $text);
+                                    $this->access->setState($this->chatID, $this->states['regularVacationFormSendingWaitingState']);
+                                    $this->salaryRoute->triggerActionForSendRegularVacationForm($this->chatID);
+                                    exit;
+                                } else {
+                                    $this->access->setRegularVacationDuration($this->chatID, $text);
+                                    $this->access->setState($this->chatID, $this->states['regularVacationAcademicReasonWaitingState']);
+                                    $this->salaryRoute->triggerActionForSetRegularVacationAcademicReason($this->chatID);
+                                    exit;
+                                }
+                            } else {
+                                $this->commonmistakeroute->triggerActionAcademicVacationDurationFormatError($this->chatID);
+                                exit;
+                            }
+                        case $this->states['regularVacationAcademicReasonWaitingState']:
+                            $this->access->setRegularVacationAcademicReason($this->chatID, $text);
+                            $this->access->setState($this->chatID, $this->states['regularVacationFormSendingWaitingState']);
+                            $this->salaryRoute->triggerActionForSendRegularVacationForm($this->chatID);
                             exit;
                         default:
                             $this->commonmistakeroute->triggerActionForCommonMistake($this->chatID);
@@ -302,6 +344,32 @@ class AuthorizedUserScenario {
                 $this->access->setRegualarVacationType($this->chatID, '3');
                 $this->access->setState($this->chatID, $this->states['regularVacationStartDateWaitingState']);
                 $this->salaryRoute->triggerActionForRegularVacationStartPreparations($this->chatID);
+                exit;
+            case $this->commands['sendNewRegularVacationFormInline']:
+                $vacationFormData = $this->access->getReguarVacationFormData($this->chatID);
+                $sign = $this->salaryRoute->getSign($this->user['firstname'], $this->user['middlename'], $this->user['lastname']);
+                $date = new dateTime();
+                $day = $date->format("d");
+                $month = $date->format("F");
+                $year = $date->format("Y");
+
+                if ($vacationFormData['vacation_type'] == '3') {
+                    $this->forms->getGnhsNewRegularVacationForm($this->user["form_position"], $this->user['form_fullname'], $vacationFormData['vacation_type'], $vacationFormData["vacation_startdate"], $vacationFormData["vacation_duration"], $vacationFormData["reason"], $day, $month, $year, $sign);
+                } else {
+                    $this->forms->getGnhsNewRegularVacationForm($this->user["form_position"], $this->user['form_fullname'], $vacationFormData['vacation_type'], $vacationFormData["vacation_startdate"], $vacationFormData["vacation_duration"], null, $day, $month, $year, $sign);
+                    //$this->forms->getGnhsNewRegularVacationForm('Дворника', 'Бармалеева Бармалея Бармалеевича, '0', '01.04.2022', '8', null, '03', 'February', '2022', 'Бармалеев Б.Б.');
+                }
+                $template = $this->email->generateNewRegularVacationForm($this->user['company_id']);
+                $template = str_replace("{firstname}", $this->user['firstname'], $template);
+                $this->swiftmailer->sendNewRegularVacationMailWithAttachementViaSmtp(
+                    $vacationFormData['vacation_type'],
+                    $this->user['company_id'],
+                    $this->user['email'],
+                    "Образец заявления на отпуск",
+                    $template
+                );
+                $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
+                $this->salaryRoute->triggerActionForSendRegularVacationFormResult($this->chatID, $this->user['firstname'], $this->user['company_id']);
                 exit;
             default:
                 sendMessage($this->chatID, "Default finished inline", null);

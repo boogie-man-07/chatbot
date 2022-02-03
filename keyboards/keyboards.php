@@ -407,4 +407,17 @@ class keyboards {
                 return null;
         }
     }
+
+    function getSendRegularVacationFormInlineKeyboard() {
+        return json_encode(array(
+            "inline_keyboard" => array(
+                array(
+                    array(
+                        "text" => "Отправить заявление",
+                        "callback_data" => "sendNewRegularVacationForm"
+                    )
+                )
+            )
+        ));
+    }
 }

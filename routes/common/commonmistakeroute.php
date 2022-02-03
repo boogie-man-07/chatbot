@@ -76,6 +76,21 @@ class commonmistakeroute {
         $reply = $this->constants::gerReplyForSendFeedbackError();
         sendMessage($chatID, $reply, null);
     }
+
+    function triggerActionForDateInThePastError($chatID) {
+        $reply = $this->constants->getDateInThePastErrorText();
+        sendMessage($chatID, $reply, null);
+    }
+
+    function triggerActionForDateFormatError($chatID) {
+        $reply = $this->constants->getDateFormatErrorText();
+        sendMessage($chatID, $reply, null);
+    }
+
+    function triggerActionAcademicVacationDurationFormatError($chatID) {
+        $reply = $this->constants->getRegularAcademicVacationFormatErrorText();
+        sendMessage($chatID, $reply, null);
+    }
 }
 
 
