@@ -371,6 +371,18 @@ class AuthorizedUserScenario {
                 $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
                 $this->salaryRoute->triggerActionForSendRegularVacationFormResult($this->chatID, $this->user['firstname'], $this->user['company_id']);
                 exit;
+            case $this->commands['sendOldRegularVacationFormInline']:
+                $template = $this->email->generateRegularVacationForm($this->user['company_id']);
+                $template = str_replace("{firstname}", $this->user['firstname'], $template);
+                $this->swiftmailer->sendRegularVacationMailWithAttachementViaSmtp(
+                    $this->user['company_id'],
+                    $this->user['email'],
+                    "Образец заявления на отпуск",
+                    $template
+                );
+                $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
+                $this->salaryRoute->triggerActionForSendOldRegularVacationFormResult($this->chatID, $this->user['firstname'], $this->user['company_id']);
+                exit;
             default:
                 sendMessage($this->chatID, "Default finished inline", null);
                 exit;
