@@ -205,6 +205,71 @@ class AuthorizedUserScenario {
                             $this->access->setState($this->chatID, $this->states['regularVacationFormSendingWaitingState']);
                             $this->salaryRoute->triggerActionForSendRegularVacationForm($this->chatID);
                             exit;
+                        case $this->states['postponedVacationStartDateWaitingState']:
+                            if ($this->salaryRoute->isCorrectDateFormat($text)) {
+                                if ($this->salaryRoute->isDateNotInPast($text)) {
+                                    $this->access->setVacationStartDate($this->chatID, $text);
+                                    $this->access->setState($this->chatID, $this->states['postponedVacationEndDateWaitingState']);
+                                    $this->salaryRoute->triggerActionForSetPostponedVacationEndDate($this->chatID);
+                                    exit;
+                                } else {
+                                    $this->commonmistakeroute->triggerActionForDateInThePastError($this->chatID);
+                                    exit;
+                                }
+                            } else {
+                                $this->commonmistakeroute->triggerActionForDateFormatError($this->chatID);
+                                exit;
+                            }
+                        case $this->states['postponedVacationEndDateWaitingState']:
+                            if ($this->salaryRoute->isCorrectDateFormat($text)) {
+                                if ($this->salaryRoute->isDateNotInPast($text)) {
+                                    $this->access->setVacationEndDate($this->chatID, $text);
+                                    $this->access->setState($this->chatID, $this->states['postponedVacationNewStartDateWaitingState']);
+                                    $this->salaryRoute->triggerActionForSetPostponedVacationNewStartDate($this->chatID);
+                                    exit;
+                                } else {
+                                    $this->commonmistakeroute->triggerActionForDateInThePastError($this->chatID);
+                                    exit;
+                                }
+                            } else {
+                                $this->commonmistakeroute->triggerActionForDateFormatError($this->chatID);
+                                exit;
+                            }
+                        case $this->states['postponedVacationNewStartDateWaitingState']:
+                            if ($this->salaryRoute->isCorrectDateFormat($text)) {
+                                if ($this->salaryRoute->isDateNotInPast($text)) {
+                                    $this->access->setVacationNewStartDate($this->chatID, $text);
+                                    $this->access->setState($this->chatID, $this->states['postponedVacationNewEndDateWaitingState']);
+                                    $this->salaryRoute->triggerActionForSetPostponedVacationNewEndDate($this->chatID);
+                                    exit;
+                                } else {
+                                    $this->commonmistakeroute->triggerActionForDateInThePastError($this->chatID);
+                                    exit;
+                                }
+                            } else {
+                                $this->commonmistakeroute->triggerActionForDateFormatError($this->chatID);
+                                exit;
+                            }
+                        case $this->states['postponedVacationNewEndDateWaitingState']:
+                            if ($this->salaryRoute->isCorrectDateFormat($text)) {
+                                if ($this->salaryRoute->isDateNotInPast($text)) {
+                                    $this->access->setVacationNewEndDate($this->chatID, $text);
+                                    $this->access->setState($this->chatID, $this->states['postponedVacationReasonWaitingState']);
+                                    $this->salaryRoute->triggerActionForSetPostponedVacationReason($this->chatID);
+                                    exit;
+                                } else {
+                                    $this->commonmistakeroute->triggerActionForDateInThePastError($this->chatID);
+                                    exit;
+                                }
+                            } else {
+                                $this->commonmistakeroute->triggerActionForDateFormatError($this->chatID);
+                                exit;
+                            }
+                        case $this->states['postponedVacationReasonWaitingState']:
+                            $this->access->setVacationReason($this->chatID, $text);
+                            $this->access->setState($this->chatID, $this->states['vacationFormSendingWaitingState']);
+                            $this->salaryRoute->triggerActionForSendPostponedVacationForm($this->chatID);
+                            exit;
                         default:
                             $this->commonmistakeroute->triggerActionForCommonMistake($this->chatID);
                             exit;
@@ -352,12 +417,10 @@ class AuthorizedUserScenario {
                 $day = $date->format("d");
                 $month = $date->format("F");
                 $year = $date->format("Y");
-
                 if ($vacationFormData['vacation_type'] == '3') {
                     $this->forms->getGnhsNewRegularVacationForm($this->user["form_position"], $this->user['form_fullname'], $vacationFormData['vacation_type'], $vacationFormData["vacation_startdate"], $vacationFormData["vacation_duration"], $vacationFormData["reason"], $day, $month, $year, $sign);
                 } else {
                     $this->forms->getGnhsNewRegularVacationForm($this->user["form_position"], $this->user['form_fullname'], $vacationFormData['vacation_type'], $vacationFormData["vacation_startdate"], $vacationFormData["vacation_duration"], null, $day, $month, $year, $sign);
-                    //$this->forms->getGnhsNewRegularVacationForm('Дворника', 'Бармалеева Бармалея Бармалеевича, '0', '01.04.2022', '8', null, '03', 'February', '2022', 'Бармалеев Б.Б.');
                 }
                 $template = $this->email->generateNewRegularVacationForm($this->user['company_id']);
                 $template = str_replace("{firstname}", $this->user['firstname'], $template);
@@ -383,7 +446,27 @@ class AuthorizedUserScenario {
                 $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
                 $this->salaryRoute->triggerActionForSendOldRegularVacationFormResult($this->chatID, $this->user['firstname'], $this->user['company_id']);
                 exit;
-            case $this->commands['sendOldPostponeVacationFormInline']:
+            case $this->commands['sendPostponedVacationFormInline']:
+                $vacationFormData = $this->access->getDataForVacationForm($this->chatID);
+                $sign = $this->salaryRoute->getSign($this->user['firstname'], $this->user['middlename'], $this->user['lastname']);
+                $date = new dateTime();
+                $day = $date->format("d");
+                $month = $date->format("F");
+                $year = $date->format("Y");
+                //sendMessage($this->chatID, $sign, null); exit;
+                $this->forms->getGreenhousePostponeVacationForm($this->user['form_position'], $this->user['form_fullname'], $vacationFormData['vacation_start_date'], $vacationFormData['vacation_end_date'], $vacationFormData['postponed_vacation_start_date'], $vacationFormData['postponed_vacation_end_date'], $vacationFormData['reason'], $day, $month, $year, $sign);
+                $template = $this->email->generatePostponeVacationForm($this->user['company_id']);
+                $template = str_replace("{firstname}", $this->user['firstname'], $template);
+                $this->swiftmailer->sendPostponedVacationMailWithAttachementViaSmtp(
+                    $this->user['company_id'],
+                    $this->user['email'],
+                    "Образец заявления на перенос отпуска",
+                    $template
+                );
+                $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
+                $this->salaryRoute->triggerActionForSendPostponedVacationFormResult($this->chatID, $this->user['firstname'], $this->user['company_id']);
+                exit;
+            case $this->commands['sendOldPostponedVacationFormInline']:
                 $template = $this->email->generatePostponeVacationForm($this->user['company_id']);
                 $template = str_replace("{firstname}", $this->user['firstname'], $template);
                 $this->swiftmailer->sendPostponedVacationMailWithAttachementViaSmtp(

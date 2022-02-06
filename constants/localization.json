@@ -47,7 +47,8 @@
         "triggerAcademicVacationInline": "triggerAcademicVacation",
         "sendNewRegularVacationFormInline": "sendNewRegularVacationForm",
         "sendOldRegularVacationFormInline": "sendOldRegularVacationForm",
-        "sendOldPostponeVacationFormInline": "sendOldPostponeVacationForm"
+        "sendPostponedVacationFormInline": "sendPostponedVacationForm",
+        "sendOldPostponedVacationFormInline": "sendOldPostponeVacationForm"
     },
 
     "mainKeyboard": {

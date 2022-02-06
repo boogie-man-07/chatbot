@@ -59,7 +59,7 @@ class SalaryRoute {
     }
 
     function triggerActionForSendRegularVacationForm($chatID) {
-        $reply = $this->constants->getSendRegularVacationFormText();
+        $reply = $this->constants->getSendVacationFormText();
         $keyboard = $this->keyboards->getSendRegularVacationFormInlineKeyboard();
         sendMessage($chatID, $reply, $keyboard);
     }
@@ -70,18 +70,49 @@ class SalaryRoute {
     }
 
     function triggerActionForSendRegularVacationFormResult($chatID, $firstname, $companyId) {
-        $reply = $this->constants->getSentRegularVacationFormResultText($firstname, $companyId);
+        $reply = $this->constants->getSentVacationFormResultText($firstname, $companyId);
         sendMessage($chatID, $reply, null);
     }
 
     function triggerActionForSendOldRegularVacationFormResult($chatID, $firstname, $companyId) {
-        $reply = $this->constants->getSentOldVacationFormResultText($firstname, $companyId);
+        $reply = $this->constants->getSentVacationFormResultText($firstname, $companyId);
         sendMessage($chatID, $reply, null);
     }
 
     function triggerActionForSendOldPostponedVacationFormResult($chatID, $firstname, $companyId) {
-        $reply = $this->constants->getSentOldVacationFormResultText($firstname, $companyId);
+        $reply = $this->constants->getSentVacationFormResultText($firstname, $companyId);
         sendMessage($chatID, $reply, null);
+    }
+
+    function triggerActionForSendPostponedVacationFormResult($chatID, $firstname, $companyId) {
+        $reply = $this->constants->getSentVacationFormResultText($firstname, $companyId);
+        sendMessage($chatID, $reply, null);
+    }
+
+    function triggerActionForSetPostponedVacationEndDate($chatID) {
+        $reply = $this->constants->getSetPostponedVacationEndDateText();
+        sendMessage($chatID, $reply, null);
+    }
+
+    function triggerActionForSetPostponedVacationNewStartDate($chatID) {
+        $reply = $this->constants->getSetPostponedVacationNewStartDateText();
+        sendMessage($chatID, $reply, null);
+    }
+
+    function triggerActionForSetPostponedVacationNewEndDate($chatID) {
+        $reply = $this->constants->getSetPostponedVacationNewEndDateText();
+        sendMessage($chatID, $reply, null);
+    }
+
+    function triggerActionForSetPostponedVacationReason($chatID) {
+        $reply = $this->constants->getSetPostponedVacationReasonText();
+        sendMessage($chatID, $reply, null);
+    }
+
+    function triggerActionForSendPostponedVacationForm($chatID) {
+        $reply = $this->constants->getSendVacationFormText();
+        $keyboard = $this->keyboards->getSendPostponedVacationFormInlineKeyboard();
+        sendMessage($chatID, $reply, $keyboard);
     }
 
     function isCorrectDateFormat($text) {

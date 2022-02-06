@@ -343,7 +343,23 @@ class constants {
     }
 
     function getSetRegularVacationEndDateText() {
-        return "Введите желаемую длительно отпуска (количество дней).\nПример: <b>14</b>";
+        return "Введите желаемую длительность отпуска (количество дней).\nПример: <b>14</b>";
+    }
+
+    function getSetPostponedVacationEndDateText() {
+        return "Введи дату окончания отпуска, на которую был запланирован отпуск изначально.\nПример: <b>01.01.2018</b>";
+    }
+
+    function getSetPostponedVacationNewStartDateText() {
+        return "Введи новую дату начала отпуска.\nПример: <b>01.01.2018</b>";
+    }
+
+    function getSetPostponedVacationNewEndDateText() {
+        return "Введи новую дату окончания отпуска.\nПример: <b>01.01.2018</b>";
+    }
+
+    function getSetPostponedVacationReasonText() {
+        return "Введите причину.\nПример: <b>по личным обстоятельствам.</b>";
     }
 
     function getDateInThePastErrorText() {
@@ -354,7 +370,7 @@ class constants {
         return "Неверный формат даты. Попробуйте снова.\nПример: <b>01.01.2018</b>";
     }
 
-    function getSendRegularVacationFormText() {
+    function getSendVacationFormText() {
         return "Заявление будет отправлено на Ваш рабочий адрес электронной почты.";
     }
 
@@ -366,18 +382,7 @@ class constants {
         return "Длительность отпуска введена в неверном формате, возможны только цифры. \nПример: <b>14</b>";
     }
 
-    function getSentRegularVacationFormResultText($firstname, $companyId) {
-        switch ($companyId) {
-            case 1:
-              return "$firstname, заявление отправлено на Ваш рабочий email. Если вы не получили письмо, пожалуйста, проверьте папку \"Спам\", возможно оно там.\n\rПожалуйста, заполните заявление, подпишите и передайте в отдел по работе с персоналом ООО \"СИГМА КЭПИТАЛ\".\n\rСпасибо за обращение!";
-            case 2:
-              return "$firstname, заявление отправлено на Ваш рабочий email. Если вы не получили письмо, пожалуйста, проверьте папку \"Спам\", возможно оно там.\n\rПожалуйста, заполните заявление, подпишите и передайте в службу по работе с персоналом ООО \"Гринхаус\".\n\rСпасибо за обращение!";
-            case 3:
-              return "$firstname, заявление отправлено на Ваш рабочий email. Если вы не получили письмо, пожалуйста, проверьте папку \"Спам\", возможно оно там.\n\rПожалуйста, заполните заявление, подпишите и передайте в департамент по работе с персоналом ООО \"ДИАЛЛ АЛЬЯНС\".\n\rСпасибо за обращение!";
-        }
-    }
-
-    function getSentOldVacationFormResultText($firstname, $companyId) {
+    function getSentVacationFormResultText($firstname, $companyId) {
         switch ($companyId) {
             case 1:
               return "$firstname, заявление отправлено на Ваш рабочий email. Если вы не получили письмо, пожалуйста, проверьте папку \"Спам\", возможно оно там.\n\rПожалуйста, заполните заявление, подпишите и передайте в отдел по работе с персоналом ООО \"СИГМА КЭПИТАЛ\".\n\rСпасибо за обращение!";
