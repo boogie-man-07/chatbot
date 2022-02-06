@@ -75,7 +75,12 @@ class SalaryRoute {
     }
 
     function triggerActionForSendOldRegularVacationFormResult($chatID, $firstname, $companyId) {
-        $reply = $this->constants->getSentOldRegularVacationFormResultText($firstname, $companyId);
+        $reply = $this->constants->getSentOldVacationFormResultText($firstname, $companyId);
+        sendMessage($chatID, $reply, null);
+    }
+
+    function triggerActionForSendOldPostponedVacationFormResult($chatID, $firstname, $companyId) {
+        $reply = $this->constants->getSentOldVacationFormResultText($firstname, $companyId);
         sendMessage($chatID, $reply, null);
     }
 

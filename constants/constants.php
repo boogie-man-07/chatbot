@@ -377,7 +377,7 @@ class constants {
         }
     }
 
-    function getSentOldRegularVacationFormResultText($firstname, $companyId) {
+    function getSentOldVacationFormResultText($firstname, $companyId) {
         switch ($companyId) {
             case 1:
               return "$firstname, заявление отправлено на Ваш рабочий email. Если вы не получили письмо, пожалуйста, проверьте папку \"Спам\", возможно оно там.\n\rПожалуйста, заполните заявление, подпишите и передайте в отдел по работе с персоналом ООО \"СИГМА КЭПИТАЛ\".\n\rСпасибо за обращение!";
