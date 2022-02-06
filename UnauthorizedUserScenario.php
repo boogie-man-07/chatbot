@@ -51,7 +51,7 @@ class UnauthorizedUserScenario {
                 exit;
 
             default:
-                if (!$this->isDialogInProgress($this->state)) {
+                if (!$this->authroute->isDialogInProgress($this->state)) {
                     $this->commonmistakeroute->triggerActionForCommonMistake($this->chatID);
                     exit;
                 } else {
@@ -91,16 +91,6 @@ class UnauthorizedUserScenario {
 
         }
     }
-
-    function isDialogInProgress($currentState) {
-        $dialogState = array('waiting for login', 'waiting for mobile number', 'waiting for confirmation code');
-        if (in_array($currentState, $dialogState)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
 }
 
 ?>

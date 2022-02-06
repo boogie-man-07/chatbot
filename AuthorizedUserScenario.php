@@ -62,7 +62,7 @@ class AuthorizedUserScenario {
                 $this->mainRulesRoute->triggerActionForEnterMainRulesMenu($this->chatID);
                 exit;
             case $this->commands['commonInformation']:
-                if ($this->isSalaryMode()) {
+                if ($this->salaryRoute->isSalaryMode($this->state, $this->states)) {
                     $this->salaryRoute->triggerActionForGetMainSalaryInformation($this->chatID, $this->user['company_id']);
                     exit;
                 } else {
@@ -128,7 +128,7 @@ class AuthorizedUserScenario {
                 $this->mainRulesRoute->triggerActionForNavigateBack($this->chatID);
                 exit;
             default:
-                if (!$this->isDialogInProgress($this->state)) {
+                if (!$this->salaryRoute->isDialogInProgress($this->state)) {
                     $this->commonmistakeroute->triggerActionForCommonMistake($this->chatID);
                     exit;
                 } else {
@@ -136,7 +136,7 @@ class AuthorizedUserScenario {
                         case $this->states['findTelephoneNumberState']:
                             $lastname = $this->phonebookroute->getUserLastname($text);
                             $firstname = $this->phonebookroute->getUserFirstname($text);
-                            if (!$this::isCorrectFLFormat($firstname, $lastname)) {
+                            if (!$this->salaryRoute->isCorrectFLFormat($firstname, $lastname)) {
                                 $this->commonmistakeroute->triggerActionForIncorrectFLFormat($this->chatID);
                                 exit;
                             } else {
@@ -481,52 +481,6 @@ class AuthorizedUserScenario {
             default:
                 sendMessage($this->chatID, "Default finished inline", null);
                 exit;
-        }
-    }
-
-    // Первая буква заглавная, работает для русского языка
-    function mb_ucfirst($str, $encoding='UTF-8') {
-        $str = mb_ereg_replace('^[\ ]+', '', $str);
-        $str = mb_strtoupper(mb_substr($str, 0, 1, $encoding), $encoding).
-            mb_substr($str, 1, mb_strlen($str), $encoding);
-        return $str;
-    }
-
-    function isCorrectFLFormat($first, $last) {
-        if (mb_strlen($first) < 2 || mb_strlen($last) < 2) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    function isSalaryMode() {
-        return $this->state == $this->states['salaryState'];
-    }
-
-    function isDialogInProgress($currentState) {
-        $dialogState = array(
-            'find telefone number',
-            'salary',
-            'waiting for ERP feedback',
-            'waiting for hardware feedback',
-            'waiting for resources feedback',
-            'waiting for other feedback',
-            'waiting for regular vacation startdate',
-            'waiting for regular vacation duration',
-            'waiting for regular vacation form sending',
-            'waiting for regular vacation academic reason',
-            'waiting for postponed vacation startdate',
-            'waiting for postponed vacation enddate',
-            'waiting for postponed vacation newstartdate',
-            'waiting for postponed vacation newenddate',
-            'waiting for postponed vacation reason',
-            'waiting for vacation form sending'
-        );
-        if (in_array($currentState, $dialogState)) {
-            return true;
-        } else {
-            return false;
         }
     }
 }

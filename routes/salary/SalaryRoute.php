@@ -136,12 +136,43 @@ class SalaryRoute {
         //return $this->mb_ucfirst($nameFirstLetter, $encoding = 'UTF-8').".".$this->mb_ucfirst($middlenameFirstLetter, $encoding = 'UTF-8')."."." ".$this->mb_ucfirst($lastname, $encoding = 'UTF-8');
     }
 
-//     function mb_ucfirst($str, $encoding='UTF-8') {
-//         $str = mb_ereg_replace('^[\ ]+', '', $str);
-//         $str = mb_strtoupper(mb_substr($str, 0, 1, $encoding), $encoding).
-//             mb_substr($str, 1, mb_strlen($str), $encoding);
-//         return $str;
-//     }
+    function isCorrectFLFormat($first, $last) {
+        if (mb_strlen($first) < 2 || mb_strlen($last) < 2) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    function isSalaryMode($state, $states) {
+        return $state == $states['salaryState'];
+    }
+
+    function isDialogInProgress($currentState) {
+        $dialogState = array(
+            'find telefone number',
+            'salary',
+            'waiting for ERP feedback',
+            'waiting for hardware feedback',
+            'waiting for resources feedback',
+            'waiting for other feedback',
+            'waiting for regular vacation startdate',
+            'waiting for regular vacation duration',
+            'waiting for regular vacation form sending',
+            'waiting for regular vacation academic reason',
+            'waiting for postponed vacation startdate',
+            'waiting for postponed vacation enddate',
+            'waiting for postponed vacation newstartdate',
+            'waiting for postponed vacation newenddate',
+            'waiting for postponed vacation reason',
+            'waiting for vacation form sending'
+        );
+        if (in_array($currentState, $dialogState)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 
 ?>

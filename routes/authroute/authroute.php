@@ -101,6 +101,15 @@ class authroute {
             return false;
         }
     }
+
+    function isDialogInProgress($currentState) {
+        $dialogState = array('waiting for login', 'waiting for mobile number', 'waiting for confirmation code');
+        if (in_array($currentState, $dialogState)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 
 
