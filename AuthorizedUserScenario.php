@@ -128,6 +128,24 @@ class AuthorizedUserScenario {
                 $this->mainRulesRoute->triggerActionForNavigateBack($this->chatID);
                 exit;
             default:
+                $lastname = $this->phonebookroute->getUserLastname($text);
+                $firstname = $this->phonebookroute->getUserFirstname($text);
+                $result = $this->access->getUserByFirstnameAndLastName($firstname, $lastname, $this->logics->getUserPrivelegesForUserCards($this->user));
+                if ((substr_count(trim($text), ' ') == 1) && (!empty($result))) {
+                     if (mb_strlen($firstname) < 2 || mb_strlen($lastname) < 2) {
+                        $reply = "Ну не может быть имя или фамилия из одной буквы ".hex2bin('f09f9982');
+                        sendMessage($this->chatID, $reply, null);
+                        exit;
+                    } else {
+                        $this->access->saveFindUserData($this->chatID, $result['firstname'], $result['lastname']);
+                        //todo maybe comment below, need to check how it works
+                        $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
+                        $this->phonebookroute->triggerActionForGetUserCardOptions($this->chatID);
+                        exit;
+                    }
+                }
+
+
                 if (!$this->salaryRoute->isDialogInProgress($this->state)) {
                     $this->commonmistakeroute->triggerActionForCommonMistake($this->chatID);
                     exit;
@@ -143,7 +161,8 @@ class AuthorizedUserScenario {
                                 $result = $this->access->getUserByFirstnameAndLastName($firstname, $lastname, $this->logics->getUserPrivelegesForUserCards($this->user));
                                 if ($result) {
                                     $this->access->saveFindUserData($this->chatID, $result['firstname'], $result['lastname']);
-                                    //$this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
+                                    //todo maybe comment below, need to check how it works
+                                    $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
                                     $this->phonebookroute->triggerActionForGetUserCardOptions($this->chatID);
                                     exit;
                                 } else {
