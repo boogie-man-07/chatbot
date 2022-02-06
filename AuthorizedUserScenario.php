@@ -377,7 +377,6 @@ class AuthorizedUserScenario {
                     $this->mainInformationRoute->triggerActionForSendFeedback($this->chatID);
                     exit;
                 } else {
-                    // TODO refactor
                     $this->commonmistakeroute->triggerErrorForSendFeedback();
                     exit;
                 }

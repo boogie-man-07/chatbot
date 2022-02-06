@@ -66,7 +66,6 @@ class access {
 
     function getListOfAuthorizedUserIds() {
         $returnArray = array();
-        //TODO just for now returns only gnhs list of users
         $sql = "SELECT tg_chat_id FROM phonebook where tg_chat_id <> ''";
 
         $statement = $this->conn->prepare($sql);

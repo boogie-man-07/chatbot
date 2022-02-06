@@ -78,10 +78,7 @@ class UnauthorizedUserScenario {
                                 $this->commonmistakeroute->triggerActionForCommonErrorIfLoginIncorrect($this->chatID);
                                 exit;
                             }
-
                         //case $states['mobileNumberWaitingState']:
-                            //exit;
-                        //case $states['confirmationCodeWaitingState']:
                             //exit;
                         default:
                             $commonmistakeroute->triggerActionForCommonMistake($this->chatID);
