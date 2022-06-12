@@ -91,16 +91,16 @@ class swiftmailer {
             case 2:
                 switch ($vacationType) {
                     case 0:
-                        $path = "forms/gnhsRegularDynamicVacationForm_main.xlsx";
+                        $path = "forms/regularDynamicVacationForm_main.xlsx";
                         break;
                     case 1:
-                        $path = "forms/gnhsRegularDynamicVacationForm_additional.xlsx";
+                        $path = "forms/regularDynamicVacationForm_additional.xlsx";
                         break;
                     case 2:
-                        $path = "forms/gnhsRegularDynamicVacationForm_nopayment.xlsx";
+                        $path = "forms/regularDynamicVacationForm_nopayment.xlsx";
                         break;
                     case 3:
-                        $path = "forms/gnhsRegularDynamicVacationForm_academic.xlsx";
+                        $path = "forms/regularDynamicVacationForm_academic.xlsx";
                         break;
                 }
 
@@ -126,6 +126,22 @@ class swiftmailer {
                 break;
 
             case 3:
+
+                switch ($vacationType) {
+                    case 0:
+                        $path = "forms/regularDynamicVacationForm_main.xlsx";
+                        break;
+                    case 1:
+                        $path = "forms/regularDynamicVacationForm_additional.xlsx";
+                        break;
+                    case 2:
+                        $path = "forms/regularDynamicVacationForm_nopayment.xlsx";
+                        break;
+                    case 3:
+                        $path = "forms/regularDynamicVacationForm_academic.xlsx";
+                        break;
+                }
+
                 $transport = (new Swift_SmtpTransport('mail.diall.ru', 587))
                     ->setUsername('personalbot')
                     ->setPassword('whWRcG%Y5K')
@@ -137,7 +153,7 @@ class swiftmailer {
                     ->setFrom(['personalbot@diall.ru' => 'Personalbot'])
                     ->setTo([$to])
                     ->setBody($body, 'text/html')
-                    ->attach(Swift_Attachment::fromPath('forms/diallRegularVacationForm.docx') ->setFilename('Заявление на отпуск.docx'));
+                    ->attach(Swift_Attachment::fromPath($path) ->setFilename('Заявление на отпуск.xlsx'));
                 ;
                 $mailer->send($message);
                 echo 'Message has been sent';

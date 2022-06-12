@@ -436,9 +436,9 @@ class AuthorizedUserScenario {
                 $month = $date->format("F");
                 $year = $date->format("Y");
                 if ($vacationFormData['vacation_type'] == '3') {
-                    $this->forms->getGnhsNewRegularVacationForm($this->user["form_position"], $this->user['form_fullname'], $vacationFormData['vacation_type'], $vacationFormData["vacation_startdate"], $vacationFormData["vacation_duration"], $vacationFormData["reason"], $day, $month, $year, $sign);
+                    $this->forms->getNewRegularVacationForm($this->user["form_position"], $this->user['form_fullname'], $vacationFormData['vacation_type'], $vacationFormData["vacation_startdate"], $vacationFormData["vacation_duration"], $vacationFormData["reason"], $day, $month, $year, $sign, $this->user['company_id']);
                 } else {
-                    $this->forms->getGnhsNewRegularVacationForm($this->user["form_position"], $this->user['form_fullname'], $vacationFormData['vacation_type'], $vacationFormData["vacation_startdate"], $vacationFormData["vacation_duration"], null, $day, $month, $year, $sign);
+                    $this->forms->getNewRegularVacationForm($this->user["form_position"], $this->user['form_fullname'], $vacationFormData['vacation_type'], $vacationFormData["vacation_startdate"], $vacationFormData["vacation_duration"], null, $day, $month, $year, $sign, $this->user['company_id']);
                 }
                 $template = $this->email->generateNewRegularVacationForm($this->user['company_id']);
                 $template = str_replace("{firstname}", $this->user['firstname'], $template);
