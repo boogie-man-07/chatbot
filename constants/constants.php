@@ -329,9 +329,9 @@ class constants {
 
     function getReplyForPostponedApplicationPreparations($firstname, $companyId) {
         switch ($companyId) {
-            case 1; case 3:
+            case 1:
                 return "$firstname, образец заявления на отпуск будет направлен на вашу рабочую почту. Нажмите продолжить.";
-            case 2:
+            case 2; case 3:
                 return "$firstname, введите дату начала отпуска, на которую был запланирован отпуск изначально.\nПример: <b>01.01.2018</b>";
             case 22; case 33:
                 return "Извините, опция недоступна для Вас";

@@ -403,7 +403,7 @@ class AuthorizedUserScenario {
                 $this->salaryRoute->triggerActionForRegularApplicationPreparations($this->chatID, $this->user['firstname'], $this->user['company_id']);
                 exit;
             case $this->commands['postponedVacationCaseInline']:
-                if ($this->user['company_id'] == 2) {
+                if ($this->user['company_id'] == 2 || $this->user['company_id'] == 3) {
                     $this->access->setState($this->chatID, $this->states['postponedVacationStartDateWaitingState']);
                 }
                 $this->salaryRoute->triggerActionForPostponedApplicationPreparations($this->chatID, $this->user['firstname'], $this->user['company_id']);
@@ -472,7 +472,7 @@ class AuthorizedUserScenario {
                 $month = $date->format("F");
                 $year = $date->format("Y");
                 //sendMessage($this->chatID, $sign, null); exit;
-                $this->forms->getGreenhousePostponeVacationForm($this->user['form_position'], $this->user['form_fullname'], $vacationFormData['vacation_start_date'], $vacationFormData['vacation_end_date'], $vacationFormData['postponed_vacation_start_date'], $vacationFormData['postponed_vacation_end_date'], $vacationFormData['reason'], $day, $month, $year, $sign);
+                $this->forms->getPostponeVacationForm($this->user['form_position'], $this->user['form_fullname'], $vacationFormData['vacation_start_date'], $vacationFormData['vacation_end_date'], $vacationFormData['postponed_vacation_start_date'], $vacationFormData['postponed_vacation_end_date'], $vacationFormData['reason'], $day, $month, $year, $sign, $this->user['company_id']);
                 $template = $this->email->generatePostponeVacationForm($this->user['company_id']);
                 $template = str_replace("{firstname}", $this->user['firstname'], $template);
                 $this->swiftmailer->sendPostponedVacationMailWithAttachementViaSmtp(
