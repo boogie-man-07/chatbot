@@ -349,7 +349,7 @@ class keyboards {
 
     function getApplicationPreparationsInlineKeyboard($companyId) {
         switch ($companyId) {
-            case 1; case 3:
+            case 1:
                 return json_encode(array(
                     "inline_keyboard" => array(
                         array(
@@ -360,7 +360,7 @@ class keyboards {
                         )
                     )
                 ));
-            case 2:
+            case 2; case 3:
                 return json_encode(array(
                     "inline_keyboard" => array(
                         array(
@@ -392,7 +392,7 @@ class keyboards {
 
     function getPostponedApplicationPreparationsInlineKeyboard($companyId) {
         switch ($companyId) {
-            case 1; case 3:
+            case 1:
                 return json_encode(array(
                     "inline_keyboard" => array(
                         array(
@@ -403,7 +403,7 @@ class keyboards {
                         )
                     )
                 ));
-            case 2; case 22; case 33:
+            case 2; case 3; case 22; case 33:
                 return null;
         }
     }
