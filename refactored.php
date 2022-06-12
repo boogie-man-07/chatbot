@@ -24,7 +24,7 @@ require ("secure/swiftmailer.php");
 require ("Forms.php");
 
 // DB connection
-$file = parse_ini_file("../Testbotdb.ini");
+$file = parse_ini_file("../Botdb.ini");
 
 $host = trim($file["dbhost"]);
 $user = trim($file["dbuser"]);
