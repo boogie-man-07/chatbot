@@ -1483,14 +1483,14 @@ switch ($queryData) {
                 $firstname = $user['firstname'];
                 $reply = "$firstname, образец заявления на отпуск будет направлен на вашу рабочую почту. Нажмите продолжить.";
                 $keyboard = array(
-                "inline_keyboard" => array(
-                    array(
+                    "inline_keyboard" => array(
                         array(
-                            "text" => "Продолжить",
-                            "callback_data" => "sendOldRegularVacationForm"
+                            array(
+                                "text" => "Продолжить",
+                                "callback_data" => "sendOldRegularVacationForm"
+                            )
                         )
                     )
-                )
                 );
                 $markup = json_encode($keyboard);
                 sendMessage($queryUserID, $reply, $markup);

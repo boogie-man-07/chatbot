@@ -6,7 +6,7 @@
  */
 
 
-$file = parse_ini_file("../Botdb.ini"); // accessing the file with connection info
+$file = parse_ini_file("../Testbotdb.ini"); // accessing the file with connection info
 
 // store in php var information from ini var
 $host = trim($file["dbhost"]);

@@ -5,63 +5,91 @@
 # Time: 16:59
 
 
-$file = parse_ini_file($_SERVER['DOCUMENT_ROOT'].'/Botdb.ini');
-
-$host = trim($file["dbhost"]);
-$user = trim($file["dbuser"]);
-$pass = trim($file["dbpass"]);
-$name = trim($file["dbname"]);
-$token = trim($file["token"]);
-
-require 'constants/constants.php';
-
-require 'secure/access.php';
-$access = new access($host, $user, $pass, $name);
-$access->connect();
-
-$website = "https://api.telegram.org/bot".$token;
-
-$updates = file_get_contents('php://input');
-$updates = json_decode($updates,TRUE);
-
-//require_once ('messages.php');
-//$messages = new messages();
-
 class commonmistakeroute {
 
+    var $constants = null;
+    var $keyboards = null;
+
+    function __construct($constants, $keyboards) {
+        $this->constants = $constants;
+        $this->keyboards = $keyboards;
+    }
+
     function triggerActionForCommonMistake($chatID) {
-        $constants = new constants();
-        $reply = $constants->getReplyForCommonMistake();
-        $this->sendMessage($chatID, $reply, null);
+        $reply = $this->constants->getReplyForCommonMistake();
+        sendMessage($chatID, $reply, null);
     }
 
     function triggerActionForCommonErrorIfNotAuthorized($chatID, $username) {
-        $constants = new constants();
-        $reply = $constants->getReplyForCommonErrorIfNotAuthorized($username);
-        $this->sendMessage($chatID, $reply, null);
+        $reply = $this->constants->getReplyForCommonErrorIfNotAuthorized($username);
+        sendMessage($chatID, $reply, null);
     }
 
     function triggerActionForCommonErrorIfAuthorizationNotFinished($chatID, $username) {
-        $constants = new constants();
-        $reply = $constants->getReplyForUserNotFinishedAuthorization($username);
-        $this->sendMessage($chatID, $reply, null);
+        $reply = $this->constants->getReplyForUserNotFinishedAuthorization($username);
+        $keyboard = $this->keyboards->helloKeyboard();
+        sendMessage($chatID, $reply, $keyboard);
     }
 
     function triggerActionForCommonErrorIfLoginIncorrect($chatID) {
-        $constants = new constants();
-        $reply = $constants->getReplyForCommonErrorIfLoginIncorrect();
-        $this->sendMessage($chatID, $reply, null);
+        $reply = $this->constants->getReplyForCommonErrorIfLoginIncorrect();
+        sendMessage($chatID, $reply, null);
     }
 
     function triggerActionForCommonErrorIfLoginNotFound($chatID) {
-        $constants = new constants();
-        $reply = $constants->getReplyForCommonErrorIfLoginNotFound();
-        $this->sendMessage($chatID, $reply, null);
+        $reply = $this->constants->getReplyForCommonErrorIfLoginNotFound();
+        sendMessage($chatID, $reply, null);
     }
 
-    function sendMessage($chatID, $text, $keyboard) {
-        $url = $GLOBALS[website]."/sendMessage?chat_id=$chatID&parse_mode=HTML&text=".urlencode($text)."&reply_markup=".$keyboard;
-        file_get_contents($url);
+    function triggerActionForCommonErrorIfConfirmationCodeIncorrect($chatID) {
+        $reply = $this->constants->getReplyForCommonErrorIfConfirmationCodeIsIncorrect();
+        sendMessage($chatID, $reply, null);
+    }
+
+    function triggerActionForCommonErrorIfConfirmationCodeFormatIncorrect($chatID) {
+        $reply = $this->constants->getReplyForCommonErrorIfConfirmationCodeFormatIsIncorrect();
+        sendMessage($chatID, $reply, null);
+    }
+
+    function triggerActionForConfirmationCodeExpired($chatID) {
+        $reply = $this->constants->getReplyForConfirmationCodeExpired();
+        $keyboard = $this->keyboards->backToAuthorizationKeyboard();
+        sendMessage($chatID, $reply, $keyboard);
+    }
+
+    function triggerActionForGetUserCardError($chatID, $username) {
+        $reply = $this->constants->getNoPhoneCardError($username);
+        sendMessage($chatID, $reply, null);
+    }
+
+    function triggerActionForRestartFindUser($chatID) {
+        $reply = $this->constants::getReplyForRestartFindUser();
+        sendMessage($chatID, $reply, null);
+    }
+
+    function triggerActionForIncorrectFLFormat($chatID) {
+        $reply = $this->constants->getReplyForIncorrectFLFormatError();
+        sendMessage($chatID, $reply, null);
+    }
+
+    function triggerErrorForSendFeedback($chatID) {
+        $reply = $this->constants::gerReplyForSendFeedbackError();
+        sendMessage($chatID, $reply, null);
+    }
+
+    function triggerActionForDateInThePastError($chatID) {
+        $reply = $this->constants->getDateInThePastErrorText();
+        sendMessage($chatID, $reply, null);
+    }
+
+    function triggerActionForDateFormatError($chatID) {
+        $reply = $this->constants->getDateFormatErrorText();
+        sendMessage($chatID, $reply, null);
+    }
+
+    function triggerActionAcademicVacationDurationFormatError($chatID) {
+        $reply = $this->constants->getRegularAcademicVacationFormatErrorText();
+        sendMessage($chatID, $reply, null);
     }
 }
 

@@ -64,6 +64,26 @@ class access {
         return $returnArray;
     }
 
+    function getListOfAuthorizedUserIds() {
+        $returnArray = array();
+        $sql = "SELECT tg_chat_id FROM phonebook where tg_chat_id <> ''";
+
+        $statement = $this->conn->prepare($sql);
+
+        if (!$statement) {
+            throw new Exception($statement->error);
+        }
+
+        $statement->execute();
+        $result = $statement->get_result();
+
+        while ($row = $result->fetch_assoc()) {
+            $returnArray[] = $row;
+        }
+
+        return $returnArray;
+    }
+
     function getUserByPersonnelNumber($email) {
 
         $returnArray = array();

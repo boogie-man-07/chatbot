@@ -4,152 +4,87 @@
 # Date: 28.03.2021
 # Time: 16:59
 
-
-$file = parse_ini_file($_SERVER['DOCUMENT_ROOT'].'/Botdb.ini');
-
-$host = trim($file["dbhost"]);
-$user = trim($file["dbuser"]);
-$pass = trim($file["dbpass"]);
-$name = trim($file["dbname"]);
-$token = trim($file["token"]);
-
-require 'constants/constants.php';
-
-require 'secure/access.php';
-$access = new access($host, $user, $pass, $name);
-$access->connect();
-
-$website = "https://api.telegram.org/bot".$token;
-
-$updates = file_get_contents('php://input');
-$updates = json_decode($updates,TRUE);
-
-//require_once ('messages.php');
-//$messages = new messages();
-
 class authroute {
 
+    var $constants = null;
+    var $keyboards = null;
+
+    function __construct($constants, $keyboards) {
+        $this->constants = $constants;
+        $this->keyboards = $keyboards;
+    }
+
     function triggerActionForNewUserAuthorization($chatID, $username) {
-
-        $constants = new constants();
-        $reply = $constants->getReplyForNonAuthorizedUser($username);
-        $keyboard = array(
-            "keyboard" => array(
-                array(
-                    array(
-                        "text" => "Авторизация по email"
-                    )
-                )
-            ),
-            "resize_keyboard" => true,
-            "one_time_keyboard" => true
-        );
-        $markup = json_encode($keyboard);
-        $this->sendMessage($chatID, $reply, $markup);
+        $reply = $this->constants->getReplyForNonAuthorizedUser($username);
+        $keyboard = $this->keyboards->helloKeyboard();
+        sendMessage($chatID, $reply, $keyboard);
     }
 
-    function triggerActionForStartingAuthorization($chatID) {
-
-        $constants = new constants();
-        $reply = $constants->getReplyForLoginWating();
-        $keyboard = array(
-            "keyboard" => array(
-                array(
-                    array(
-                        "text" => "Вернуться в начало"
-                    )
-                )
-            ),
-            "resize_keyboard" => true,
-            "one_time_keyboard" => true
-        );
-        $markup = json_encode($keyboard);
-        $this->sendMessage($chatID, $reply, $markup);
-    }
-
-    function triggerActionForAuthorizedUser($chatID, $username) {
-        $constants = new constants();
-        $reply = $constants->getReplyForAuthorizedUser($username);
-        $keyboard = array(
-            "keyboard" => array(
-                array(
-                    array(
-                        "text" => 'Телефонный справочник'
-                    ),
-                    array(
-                        "text" => 'КДП и Заработная плата'
-                    )
-                ),
-                array(
-                    array(
-                        "text" => 'Наши ценности'
-                    ),
-                    array(
-                        "text" => 'Общая информация'
-                    )
-                ),
-                array(
-                    array(
-                        "text" => 'Правила'
-                    ),
-                    array(
-                        "text" => 'Выход'
-                    )
-                )
-            ),
-            "resize_keyboard" => true,
-            "one_time_keyboard" => true
-        );
-        $markup = json_encode($keyboard);
-        $this->sendMessage($chatID, $reply, $markup);
-    }
-
-    function triggerActionForLoginAcceptance($chatID, $username) {
-
-        $constants = new constants();
-        $reply = $constants->getReplyForSendConfirmationCodeApprovalFromUser($username);
-        $keyboard = array(
-            "inline_keyboard" => array(
-                array(
-                    array(
-                            "text" => "Продолжить",
-                            "callback_data" => "sendMessage"
-                    )
-                )
-            )
-        );
-        $markup = json_encode($keyboard);
-        $this->sendMessage($chatID, $reply, $markup);
+    function triggerActionForStartingEmailAuthorization($chatID) {
+        $reply = $this->constants::getReplyForLoginWaiting();
+        $keyboard = $this->keyboards::backToStartKeyboard();
+        sendMessage($chatID, $reply, $keyboard);
     }
 
     function triggerActionForMoveToStart($chatID, $username) {
+        $reply = $this->constants->getReplyForMoveToStart($username);
+        $keyboard = $this->keyboards->helloKeyboard();
+        sendMessage($chatID, $reply, $keyboard);
+    }
 
-        $constants = new constants();
-        $reply = $constants->getReplyForMoveToStart($username);
-        $keyboard = array(
-            "keyboard" => array(
-                array(
-                    array(
-                        "text" => "Авторизация по email"
-                    )
-                )
-            ),
-            "resize_keyboard" => true,
-            "one_time_keyboard" => true
-        );
-        $markup = json_encode($keyboard);
-        $this->sendMessage($chatID, $reply, $markup);
+    function triggerActionForStartingSmsAuthorization($chatID, $username) {
+        $reply = $this->constants->getReplyForAllowToCheckMobileNumber($username);
+        $keyboard = $this->keyboards->smsAuthorizationKeyboard();
+        sendMessage($chatID, $reply, $keyboard);
+    }
+
+    function triggerActionForLoginAcceptance($chatID, $username) {
+        $reply = $this->constants->getReplyForSendConfirmationCodeApprovalFromUser($username);
+        $keyboard = $this->keyboards->emailAuthorizationProceedKeyboard();
+        sendMessage($chatID, $reply, $keyboard);
+    }
+
+    function triggerActionForSuccessfulLogin($chatID, $username) {
+        $reply = $this->constants->getReplyForSuccessfulLogin($username);
+        $keyboard = $this->keyboards->mainKeyboard();
+        sendMessage($chatID, $reply, $keyboard);
     }
 
     function triggerActionWithSendingConfirmationEmail($chatID, $username) {
+        $reply = $this->constants->getReplyForEmailIsSended($username);
+        sendMessage($chatID, $reply, null);
+    }
 
-        $constants = new constants();
-        $reply = $constants->getReplyForEmailIsSended($username);
-        $this->sendMessage($chatID, $reply, null);
+    function triggerActionForGoToTheStart($chatID, $username) {
+        $reply = $this->constants->getReplyForGoToTheStart($username);
+        $keyboard = $this->keyboards->helloKeyboard();
+        sendMessage($chatID, $reply, $keyboard);
     }
 
     function checkLogin($text) {
         if (preg_match('/([A-Za-z])/', mb_strtolower($text))) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function checkConfirmationCode($text) {
+        if (preg_match('^/[A-Za-z0-9]/', $text)) {
+            return false;
+        } else {
+            if (mb_strlen($text) < 10) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+    }
+
+    function ifConfirmCodeExpired($date) {
+        $expirationDate = new DateTime($date);
+        $now = new DateTime();
+        if ($expirationDate < $now) {
             return true;
         } else {
             return false;
@@ -167,9 +102,13 @@ class authroute {
         }
     }
 
-    function sendMessage($chatID, $text, $keyboard) {
-        $url = $GLOBALS[website]."/sendMessage?chat_id=$chatID&parse_mode=HTML&text=".urlencode($text)."&reply_markup=".$keyboard;
-        file_get_contents($url);
+    function isDialogInProgress($currentState) {
+        $dialogState = array('waiting for login', 'waiting for mobile number', 'waiting for confirmation code');
+        if (in_array($currentState, $dialogState)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
 
