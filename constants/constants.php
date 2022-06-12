@@ -267,7 +267,7 @@ class constants {
     }
 
     function getReplyForIncorrectFLFormatError() {
-        return "Ну не может быть имя или фамилия из одной буквы ".hex2bin('f09f9982');
+        return "Ну не может быть такого имени или фамилии ".hex2bin('f09f9982');
     }
 
     function getReplyForRestartFindUser() {
@@ -318,9 +318,9 @@ class constants {
 
     function getReplyForApplicationPreparations($firstname, $companyId) {
         switch ($companyId) {
-            case 1; case 3:
+            case 1:
                 return "$firstname, образец заявления на отпуск будет направлен на вашу рабочую почту. Нажмите продолжить.";
-            case 2:
+            case 2; case 3:
                 return "$firstname, выберите тип отпуска, нажав на соответствующую кнопку ниже.";
             case 22; case 33:
                 return "Извините, опция недоступна для Вас";
@@ -329,9 +329,9 @@ class constants {
 
     function getReplyForPostponedApplicationPreparations($firstname, $companyId) {
         switch ($companyId) {
-            case 1; case 3:
+            case 1:
                 return "$firstname, образец заявления на отпуск будет направлен на вашу рабочую почту. Нажмите продолжить.";
-            case 2:
+            case 2; case 3:
                 return "$firstname, введите дату начала отпуска, на которую был запланирован отпуск изначально.\nПример: <b>01.01.2018</b>";
             case 22; case 33:
                 return "Извините, опция недоступна для Вас";
