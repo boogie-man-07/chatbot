@@ -10,9 +10,9 @@ require 'vendor/autoload.php';
 
 try {
   // Create the Transport
-  $transport = (new Swift_SmtpTransport('smtp.gmail.com', 465, 'ssl'))
+  $transport = (new Swift_SmtpTransport('smtp.office365.com', 587, 'tls'))
     ->setUsername('info@sigma-capital.ru')
-    ->setPassword('aqbnkhrsghffvkvp')
+    ->setPassword('F89%a*6y')
   ;
 
   // Create the Mailer using your created Transport
