@@ -22,7 +22,7 @@ try {
   $message = (new Swift_Message('Wonderful Subject'))
     ->setFrom(['info@sigma-capital.ru' => 'Personalbot'])
     ->setTo(['chernuylab@gmail.com'])
-    ->setBody('Here is the message itself')
+    ->setBody('Here is the message to check if it is')
     ;
 
   $message->attach(Swift_Attachment::fromPath('forms/sigmaRegularVacationForm.docx'));
