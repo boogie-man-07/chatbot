@@ -196,12 +196,12 @@ class Forms {
     }
 
     // функция формирует форму для переноса отпуска
-    function getGreenhousePostponeVacationForm($position, $fullName, $startDate, $endDate, $postponedStartDate, $postponedEndDate, $reason, $day, $month, $year, $sign) {
+    function getPostponeVacationForm($position, $fullName, $startDate, $endDate, $postponedStartDate, $postponedEndDate, $reason, $day, $month, $year, $sign, $companyId) {
 
         $newMonth = "";
-
-        require('Classes/PHPExcel.php');
-        $objPHPExcel = PHPExcel_IOFactory::load("forms/gnhsPostponedDynamicVacationForm.xlsx");
+        $seo = "";
+        $seoInitials = "";
+        $companyName = "";
 
         $text = "Прошу перенести ежегодный основной оплачиваемый отпуск, запланированный по графику отпусков в период с $startDate по $endDate на период с $postponedStartDate по $postponedEndDate по причине: $reason.";
 
@@ -244,16 +244,35 @@ class Forms {
                 break;
         }
 
+        switch ($companyId) {
+            case 2:
+                $seo = "Генеральному директору ООО \"Гринхаус\" Шилову Г.Ю.";
+                $seoInitials = "Г.Ю. Шилов";
+                $companyName = "ООО \"Гринхаус\"";
+                break;
+            case 3:
+                $seo = "Генеральному директору ООО \"ДИАЛЛ АЛЬЯНС\" Тагворян Т.К.";
+                $seoInitials = "Т.К. Тагворян";
+                $companyName = "ООО \"ДИАЛЛ АЛЬЯНС\"";
+                break;
+        }
+
         $date = $day." ".$newMonth." ".$year." г.";
 
+        require('Classes/PHPExcel.php');
+        $objPHPExcel = PHPExcel_IOFactory::load("forms/postponedDynamicVacationForm.xlsx");
+
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C5', $seo);
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D7', $position);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C10', $companyName);
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D13', $fullName);
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A19', $text);
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D22', $date);
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B22', $sign);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D28', $seoInitials);
 
         $objExcelWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-        $excelFilename = "forms/gnhsPostponedDynamicVacationForm.xlsx";
+        $excelFilename = "forms/postponedDynamicVacationForm.xlsx";
         $objExcelWriter->save($excelFilename);
     }
 
@@ -269,33 +288,33 @@ class Forms {
         $objExcelWriter->save($excelFilename);
     }
 
-    function getGnhsNewRegularVacationForm($position, $fullname, $vacationType, $startDate, $vacationDuration, $vacationReason, $day, $month, $year, $sign) {
+    function getNewRegularVacationForm($position, $fullname, $vacationType, $startDate, $vacationDuration, $vacationReason, $day, $month, $year, $sign, $companyId) {
 
         $newMonth = "";
         $path = "";
         $text = "";
+        $seo = "";
+        $seoInitials = "";
+        $companyName = "";
 
         switch ($vacationType) {
             case 0:
-                $path = "forms/gnhsRegularDynamicVacationForm_main.xlsx";
+                $path = "forms/regularDynamicVacationForm_main.xlsx";
                 $text = "Предоставить ежегодный оплачиваемый отпуск с $startDate в количестве ".$vacationDuration." календарных дней";
                 break;
             case 1:
-                $path = "forms/gnhsRegularDynamicVacationForm_additional.xlsx";
+                $path = "forms/regularDynamicVacationForm_additional.xlsx";
                 $text = "Предоставить ежегодный дополнительный оплачиваемый отпуск с $startDate в количестве ".$vacationDuration." календарных дней";
                 break;
             case 2:
-                $path = "forms/gnhsRegularDynamicVacationForm_nopayment.xlsx";
+                $path = "forms/regularDynamicVacationForm_nopayment.xlsx";
                 $text = "Предоставить отпуск без сохранения заработной платы с $startDate в количестве ".$vacationDuration." календарных дней";
                 break;
             case 3:
-                $path = "forms/gnhsRegularDynamicVacationForm_academic.xlsx";
+                $path = "forms/regularDynamicVacationForm_academic.xlsx";
                 $text = "Предоставить учебный отпуск с $startDate в количестве ".$vacationDuration." календарных дней";
                 break;
         }
-
-        require('Classes/PHPExcel.php');
-        $objPHPExcel = PHPExcel_IOFactory::load($path);
 
         switch ($month) {
             case "January":
@@ -336,13 +355,32 @@ class Forms {
                 break;
         }
 
+        switch ($companyId) {
+            case 2:
+                $seo = "Генеральному директору ООО \"Гринхаус\" Шилову Г.Ю.";
+                $seoInitials = "Г.Ю. Шилов";
+                $companyName = "ООО \"Гринхаус\"";
+                break;
+            case 3:
+                $seo = "Генеральному директору ООО \"ДИАЛЛ АЛЬЯНС\" Тагворян Т.К.";
+                $seoInitials = "Т.К. Тагворян";
+                $companyName = "ООО \"ДИАЛЛ АЛЬЯНС\"";
+                break;
+        }
+
         $date = $day." ".$newMonth." ".$year." г.";
 
+        require('Classes/PHPExcel.php');
+        $objPHPExcel = PHPExcel_IOFactory::load($path);
+
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D5', $seo);
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('E7', $position);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D10', $companyName);
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D13', $fullname);
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B23', $text);
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('E28', $date);
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C28', $sign);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('E34', $seoInitials);
 
         if ($vacationReason != null) {
             $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C25', $vacationReason);
