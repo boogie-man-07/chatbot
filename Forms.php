@@ -264,12 +264,12 @@ class Forms {
 
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C5', $seo);
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D7', $position);
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C10', $companyName);
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D13', $fullName);
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A19', $text);
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D22', $date);
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B22', $sign);
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D28', $seoInitials);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C11', $companyName);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C14', $fullName);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A20', $text);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D23', $date);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B23', $sign);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D29', $seoInitials);
 
         $objExcelWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
         $excelFilename = "forms/postponedDynamicVacationForm.xlsx";
@@ -375,15 +375,15 @@ class Forms {
 
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D5', $seo);
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('E7', $position);
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D10', $companyName);
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D13', $fullname);
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B23', $text);
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('E28', $date);
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C28', $sign);
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('E34', $seoInitials);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D11', $companyName);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D14', $fullname);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B24', $text);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('E29', $date);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C29', $sign);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('E35', $seoInitials);
 
         if ($vacationReason != null) {
-            $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C25', $vacationReason);
+            $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C26', $vacationReason);
         }
 
         $objExcelWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
