@@ -79,7 +79,7 @@ if ($err) {
                 'firstname' => $user['firstname'],
                 'lastname' => $user['lastname'],
                 'fullname' => $user['fullname'],
-                'form_fullname' => $nc->q($user['form_fullname'], NCL::$RODITLN),
+                'form_fullname' => $nc->q($user['fullname'], NCL::$RODITLN),
                 'position' => $user['position'],
                 'email' => $user['email'],
                 'office_number' => $user['office_number'],
