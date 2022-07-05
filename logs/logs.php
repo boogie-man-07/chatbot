@@ -7,7 +7,7 @@
  * Time: 17:30
  */
 
-include_once ("../logics/logics.php");
+include_once ("logics/logics.php");
 
 
 class logs {
