@@ -1,6 +1,6 @@
 <?php
 
-$file = parse_ini_file("../../Testbotdb.ini"); // accessing the file with connection info
+$file = parse_ini_file("../../../Testbotdb.ini"); // accessing the file with connection info
 
 $host = trim($file["dbhost"]);
 $user = trim($file["dbuser"]);
