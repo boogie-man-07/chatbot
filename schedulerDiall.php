@@ -1,6 +1,6 @@
 ﻿<?Php
 
-require './Library/NCL.NameCase.ru.php';
+require 'Library/NCL.NameCase.ru.php';
 
 // STEP 1. Build connection
 // Secure way to biuld connection
