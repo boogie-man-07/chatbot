@@ -17,9 +17,9 @@ class Forms {
         $objPHPExcel = PHPExcel_IOFactory::load("forms/vacation_form.xlsx");
 
         if ($bonus) {
-            $text = "Прошу предоставить ежегодный оплачиваемый отпуск c ".$startDate.", в количестве ".$days." к. д., с единовременной выплатой 90% от оклада.";
+            $text = "Прошу предоставить ежегодный оплачиваемый отпуск c {$startDate}г., в количестве ".$days." к. д., с единовременной выплатой 90% от оклада.";
         }  else {
-            $text = "Прошу предоставить ежегодный оплачиваемый отпуск c ".$startDate.", в количестве ".$days." к. д.";
+            $text = "Прошу предоставить ежегодный оплачиваемый отпуск c {$startDate}г., в количестве ".$days." к. д.";
         }
 
         switch ($month) {
@@ -81,7 +81,7 @@ class Forms {
         require('Classes/PHPExcel.php');
         $objPHPExcel = PHPExcel_IOFactory::load("forms/selfpayed_vacation_form.xlsx");
 
-        $text = "Прошу предоставить отпуск за свой счет c ".$startDate.", в количестве ".$days." к. д.";
+        $text = "Прошу предоставить отпуск за свой счет c {$startDate}г., в количестве ".$days." к. д.";
 
         switch ($month) {
             case "January":
@@ -203,7 +203,7 @@ class Forms {
         $seoInitials = "";
         $companyName = "";
 
-        $text = "Прошу перенести ежегодный основной оплачиваемый отпуск, запланированный по графику отпусков в период с $startDate по $endDate на период с $postponedStartDate по $postponedEndDate по причине: $reason.";
+        $text = "Прошу перенести ежегодный основной оплачиваемый отпуск, запланированный по графику отпусков в период с {$startDate}г. по {$endDate}г. на период с {$postponedStartDate}г. по {$postponedEndDate}г. по причине: $reason.";
 
         switch ($month) {
             case "January":
@@ -300,19 +300,19 @@ class Forms {
         switch ($vacationType) {
             case 0:
                 $path = "forms/regularDynamicVacationForm_main.xlsx";
-                $text = "Предоставить ежегодный оплачиваемый отпуск с $startDate в количестве ".$vacationDuration." календарных дней";
+                $text = "Предоставить ежегодный оплачиваемый отпуск с {$startDate}г. в количестве ".$vacationDuration." календарных дней.";
                 break;
             case 1:
                 $path = "forms/regularDynamicVacationForm_additional.xlsx";
-                $text = "Предоставить ежегодный дополнительный оплачиваемый отпуск с $startDate в количестве ".$vacationDuration." календарных дней";
+                $text = "Предоставить ежегодный дополнительный оплачиваемый отпуск с {$startDate}г. в количестве ".$vacationDuration." календарных дней.";
                 break;
             case 2:
                 $path = "forms/regularDynamicVacationForm_nopayment.xlsx";
-                $text = "Предоставить отпуск без сохранения заработной платы с $startDate в количестве ".$vacationDuration." календарных дней";
+                $text = "Предоставить отпуск без сохранения заработной платы с {$startDate}г. в количестве ".$vacationDuration." календарных дней.";
                 break;
             case 3:
                 $path = "forms/regularDynamicVacationForm_academic.xlsx";
-                $text = "Предоставить учебный отпуск с $startDate в количестве ".$vacationDuration." календарных дней";
+                $text = "Предоставить учебный отпуск с {$startDate}г. в количестве ".$vacationDuration." календарных дней.";
                 break;
         }
 
