@@ -1,5 +1,7 @@
 ﻿<?Php
 
+require 'Library/NCL.NameCase.ru.php';
+
 // STEP 1. Build connection
 // Secure way to biuld connection
 $file = parse_ini_file("../Testbotdb.ini"); // accessing the file with connection info
@@ -10,6 +12,7 @@ $user = trim($file["dbuser"]);
 $pass = trim($file["dbpass"]);
 $name = trim($file["dbname"]);
 $token = trim($file["token"]);
+$nc = new NCLNameCaseRu();
 
 // include access.php to call func from access.php file
 require ("secure/access.php");
@@ -76,6 +79,7 @@ if ($err) {
                 'firstname' => $user['firstname'],
                 'lastname' => $user['lastname'],
                 'fullname' => $user['fullname'],
+                'form_fullname' => $nc->q($user['form_fullname'], NCL::$RODITLN),
                 'position' => $user['position'],
                 'email' => $user['email'],
                 'office_number' => $user['office_number'],
@@ -123,6 +127,7 @@ foreach ($employeeList as $employeeValue) {
                 $employeeValue['firstname'],
                 $employeeValue['lastname'],
                 $employeeValue['fullname'],
+                $employeeValue['form_fullname'],
                 $employeeValue['position'],
                 $employeeValue['office_number'],
                 $employeeValue['internal_number'],
@@ -146,6 +151,7 @@ foreach ($employeeList as $employeeValue) {
                 $employeeValue['lastname'],
                 $employeeValue['firstname'],
                 $employeeValue['fullname'],
+                $employeeValue['form_fullname'],
                 $employeeValue['position'],
                 $employeeValue['email'],
                 $employeeValue['office_number'],
@@ -253,6 +259,7 @@ foreach ($employeeList as $employeeValue) {
             $employeeValue['firstname'],
             $employeeValue['lastname'],
             $employeeValue['fullname'],
+            $employeeValue['form_fullname'],
             $employeeValue['position'],
             $employeeValue['email'],
             $employeeValue['office_number'],
