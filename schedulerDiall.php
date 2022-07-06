@@ -25,6 +25,10 @@ $result = Array();
 $employeeList = Array();
 $userFromDbResult = Array();
 
+$is_sigma_available = 0;
+$is_greenhouse_available = 0;
+$is_diall_available = 0;
+
 $curl = curl_init();
 curl_setopt_array($curl, array(
     CURLOPT_PORT => "9081",
@@ -111,6 +115,10 @@ $logs = new logs();
 
 foreach ($employeeList as $employeeValue) {
 
+    $is_sigma_available = $employeeValue['company_id'] == 1 ? 1 : 0;
+    $is_greenhouse_available = $employeeValue['company_id'] == 2 ? 1 : 0;
+    $is_diall_available = $employeeValue['company_id'] == 3 ? 1 : 0;
+
     echo json_encode($employeeValue, true);
 
     // Проверяем активных сотрудников офиса
@@ -134,6 +142,9 @@ foreach ($employeeList as $employeeValue) {
                 $employeeValue['mobile_number'],
                 $employeeValue['company_name'],
                 $employeeValue['company_id'],
+                $is_sigma_available,
+                $is_greenhouse_available,
+                $is_diall_available,
                 $employeeValue['boss'],
                 $employeeValue['main_holliday_counter'],
                 $employeeValue['additional_holliday_counter'],
@@ -157,8 +168,11 @@ foreach ($employeeList as $employeeValue) {
                 $employeeValue['office_number'],
                 $employeeValue['internal_number'],
                 $employeeValue['mobile_number'],
-                $employeeValue['company_id'],
                 $employeeValue['company_name'],
+                $employeeValue['company_id'],
+                $is_sigma_available,
+                $is_greenhouse_available,
+                $is_diall_available,
                 $employeeValue['boss'],
                 $employeeValue['main_holliday_counter'],
                 $employeeValue['additional_holliday_counter']
