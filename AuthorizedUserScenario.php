@@ -430,7 +430,8 @@ class AuthorizedUserScenario {
                 exit;
             case $this->commands['sendNewRegularVacationFormInline']:
                 $vacationFormData = $this->access->getReguarVacationFormData($this->chatID);
-                $sign = $this->salaryRoute->getSign($this->user['firstname'], $this->user['middlename'], $this->user['lastname']);
+                //$sign = $this->salaryRoute->getSign($this->user['firstname'], $this->user['middlename'], $this->user['lastname']);
+                $sign = $this->salaryRoute->getSign($this->user['fullname']);
                 $date = new dateTime();
                 $day = $date->format("d");
                 $month = $date->format("F");
