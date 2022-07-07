@@ -129,11 +129,17 @@ class SalaryRoute {
         return $date > $now;
     }
 
-    function getSign($firstname, $middlename, $lastname) {
-        $nameFirstLetter = substr($firstname, 0, 2);
-        $middlenameFirstLetter = substr($middlename, 0, 2);
-        return $nameFirstLetter.".".$middlenameFirstLetter."."." ".$lastname;
-        //return $this->mb_ucfirst($nameFirstLetter, $encoding = 'UTF-8').".".$this->mb_ucfirst($middlenameFirstLetter, $encoding = 'UTF-8')."."." ".$this->mb_ucfirst($lastname, $encoding = 'UTF-8');
+//     function getSign($firstname, $middlename, $lastname) {
+//         $nameFirstLetter = substr($firstname, 0, 2);
+//         $middlenameFirstLetter = substr($middlename, 0, 2);
+//         return $nameFirstLetter.".".$middlenameFirstLetter."."." ".$lastname;
+//     }
+
+    function getSign($fullname) {
+        $nArray = explode(' ', $fullname);
+        $nameFirstLetter = substr($nArray[1], 0, 2);
+        $middlenameFirstLetter = substr($nArray[2], 0, 2);
+        return $nameFirstLetter.".".$middlenameFirstLetter."."." ".$nArray[0];
     }
 
     function isCorrectFLFormat($first, $last) {
