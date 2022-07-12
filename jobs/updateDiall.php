@@ -49,8 +49,8 @@ if ($err) {
 
 } else {
 
-    $result = json_decode($response, true);
-    echo $result;
+    //$result = json_decode($response, true);
+    echo $response;
 
 
 }
