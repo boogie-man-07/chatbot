@@ -1,6 +1,6 @@
 ﻿<?Php
 
-require 'Library/NCLNameCaseRu.php';
+require '../Library/NCLNameCaseRu.php';
 
 // STEP 1. Build connection
 // Secure way to biuld connection
@@ -15,19 +15,11 @@ $token = trim($file["token"]);
 $nc = new NCLNameCaseRu();
 
 // include access.php to call func from access.php file
-require ("secure/access.php");
+require ("../secure/access.php");
 $access = new access($host, $user, $pass, $name);
 $access->connect();
 
-require ("logs/logs.php");
-
-$result = Array();
-$employeeList = Array();
-$userFromDbResult = Array();
-
-$is_sigma_available = 0;
-$is_greenhouse_available = 0;
-$is_diall_available = 0;
+require ("../logs/logs.php");
 
 $curl = curl_init();
 curl_setopt_array($curl, array(
