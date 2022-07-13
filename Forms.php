@@ -374,7 +374,7 @@ class Forms {
         $objPHPExcel = PHPExcel_IOFactory::load($path);
 
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D5', $seo);
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('E7', $position);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('E7', substr($position, strpos($position, '/')));
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D11', $companyName);
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D14', $fullname);
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B24', $text);
