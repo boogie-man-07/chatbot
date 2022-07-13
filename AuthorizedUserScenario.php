@@ -473,7 +473,7 @@ class AuthorizedUserScenario {
                 $month = $date->format("F");
                 $year = $date->format("Y");
                 //sendMessage($this->chatID, $sign, null); exit;
-                $this->forms->getPostponeVacationForm($this->user['form_position'], $this->user['form_fullname'], $vacationFormData['vacation_start_date'], $vacationFormData['vacation_end_date'], $vacationFormData['postponed_vacation_start_date'], $vacationFormData['postponed_vacation_end_date'], $vacationFormData['reason'], $day, $month, $year, $sign, $this->user['company_id']);
+                $this->forms->getPostponeVacationForm($this->user['position'], $this->user['form_fullname'], $vacationFormData['vacation_start_date'], $vacationFormData['vacation_end_date'], $vacationFormData['postponed_vacation_start_date'], $vacationFormData['postponed_vacation_end_date'], $vacationFormData['reason'], $day, $month, $year, $sign, $this->user['company_id']);
                 $template = $this->email->generatePostponeVacationForm($this->user['company_id']);
                 $template = str_replace("{firstname}", $this->user['firstname'], $template);
                 $this->swiftmailer->sendPostponedVacationMailWithAttachementViaSmtp(
