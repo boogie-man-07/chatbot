@@ -263,7 +263,7 @@ class Forms {
         $objPHPExcel = PHPExcel_IOFactory::load("forms/postponedDynamicVacationForm.xlsx");
 
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C5', $seo);
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D7', $position);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D7', strstr($position, '/', true));
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C11', $companyName);
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C14', $fullName);
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A20', $text);
