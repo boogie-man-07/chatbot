@@ -139,7 +139,7 @@ class SalaryRoute {
         $nArray = explode(' ', $fullname);
         $nameFirstLetter = substr($nArray[1], 0, 2);
         $middlenameFirstLetter = substr($nArray[2], 0, 2);
-        return $nameFirstLetter.".".$middlenameFirstLetter."."." ".$nArray[0];
+        return $nArray[0]." ".$nameFirstLetter.$middlenameFirstLetter;
     }
 
     function isCorrectFLFormat($first, $last) {
