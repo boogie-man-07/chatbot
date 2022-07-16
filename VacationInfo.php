@@ -2,13 +2,7 @@
 
 class VacationInfo {
 
-    var email = null;
-
-    function __construct($email) {
-        $this->email = $email;
-    }
-
-    function getVacationInfo() {
+    function getVacationInfo($email) {
 
         $curl = curl_init();
         curl_setopt_array($curl, array(

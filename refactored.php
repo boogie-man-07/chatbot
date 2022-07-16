@@ -22,6 +22,7 @@ require ("secure/access.php");
 require ("secure/email.php");
 require ("secure/swiftmailer.php");
 require ("Forms.php");
+require ("VacationInfo.php");
 
 // DB connection
 $file = parse_ini_file("../../Testbotdb.ini");
@@ -42,6 +43,7 @@ $keyboards = new keyboards();
 $email = new email();
 $swiftmailer = new swiftmailer();
 $forms = new Forms();
+$vacationInfo = new VacationInfo();
 $authroute = new authroute($constants, $keyboards);
 $commonmistakeroute = new commonmistakeroute($constants, $keyboards);
 $phonebookroute = new PhonebookRoute($constants, $keyboards);
@@ -86,7 +88,7 @@ if (!$user) {
             $nonFinishedAuthorizationUserScenario->run($text);
         }
     } else {
-        $authorizedUserScenario = new AuthorizedUserScenario($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $phonebookroute, $valuesRoute, $mainRulesRoute, $mainInformationRoute, $salaryRoute, $commandList, $statesList, $state, $logics, $forms, $email);
+        $authorizedUserScenario = new AuthorizedUserScenario($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $phonebookroute, $valuesRoute, $mainRulesRoute, $mainInformationRoute, $salaryRoute, $commandList, $statesList, $state, $logics, $forms, $email, $vacationInfo);
         if ($isInline) {
             $authorizedUserScenario->runInline($text);
         } else {
