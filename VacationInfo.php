@@ -28,13 +28,15 @@ class VacationInfo {
 
         if ($err) {
             //echo "cURL Error #: ".$err;
-            return "Извините, информация по количеству оставшегося отпуска недоступна, попробуйте запросить позднее";
+            return "Извините, но что-то пошло не так, попробуйте повторить позднее.";
         } else {
-
-            $result = json_decode($response, true);
-            //echo $response;
-            return (string) ((int) $result['holiday_main'] + (int) $result['holiday_more']);
-
+            if (json_last_error() === JSON_ERROR_NONE) {
+                $result = json_decode($response, true);
+                $restVacation = (string) ((float) $result['holiday_main'] + (float) $result['holiday_more']);
+                return "Количество оставшихся дней отпуска: $restVacation.";
+            } else {
+                return "Извините, информация по количеству оставшихся дней отпуска недоступна, попробуйте запросить позднее.";
+            }
         }
     }
 }
