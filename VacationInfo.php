@@ -7,7 +7,7 @@ class VacationInfo {
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_PORT => "80",
-            CURLOPT_URL => "http://192.168.1.20/DA_ERP/hs/Staff/StaffData?EMAIL=kirilovoi@diall.ru&DATA=bot",
+            CURLOPT_URL => "http://192.168.1.20/DA_ERP/hs/Staff/StaffData?EMAIL=adygezalovma@diall.ru&DATA=bot",
             CURLOPT_USERPWD => "Web1C:67z%Cc#2",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
