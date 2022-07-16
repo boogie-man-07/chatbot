@@ -79,7 +79,7 @@ class AuthorizedUserScenario {
                 exit;
             case $this->commands['myVacation']:
                 $data = $this->vacationInfo->getVacationInfo($this->user['email']);
-                sendMessage($this->chatID, "ок", null);
+                sendMessage($this->chatID, $data, null);
                 exit;
             case $this->commands['howToNavigate']:
                 $this->mainInformationRoute->triggerActionForShowHowToNavigateToOffice($this->chatID, $this->user['company_id']);
