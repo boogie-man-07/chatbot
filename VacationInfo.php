@@ -31,9 +31,9 @@ class VacationInfo {
             return "Извините, информация по количеству оставшегося отпуска недоступна, попробуйте запросить позднее";
         } else {
 
-            //$result = json_decode($response, true);
+            $result = json_decode($response, true);
             //echo $response;
-            return (string) $response;
+            return (string) ($response['holiday_main']+$response['holiday_more']);
 
         }
     }
