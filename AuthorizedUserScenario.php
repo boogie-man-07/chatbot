@@ -77,7 +77,7 @@ class AuthorizedUserScenario {
                 exit;
             case $this->commands['myVacation']:
                 require 'VacationInfo.php';
-                $vacationInfo = new VacationInfo($this->email);
+                //$vacationInfo = new VacationInfo($this->email);
                 sendMessage($this->chatID, "ок", null);
                 exit;
             case $this->commands['howToNavigate']:
