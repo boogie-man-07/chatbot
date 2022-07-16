@@ -41,7 +41,7 @@ class VacationInfo {
     }
 
     function fixComma($text) {
-        return str_replace(",", ".", $text);
+        return strstr($text, array (',' => '.'));
     }
 }
 
