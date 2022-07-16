@@ -33,7 +33,7 @@ class VacationInfo {
 
             $result = json_decode($response, true);
             //echo $response;
-            return (string) ($response['holiday_main']+$response['holiday_more']);
+            return (string) ((int) $response['holiday_main'] + (int) $response['holiday_more']);
 
         }
     }
