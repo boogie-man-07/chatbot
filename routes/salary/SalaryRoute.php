@@ -129,12 +129,6 @@ class SalaryRoute {
         return $date > $now;
     }
 
-//     function getSign($firstname, $middlename, $lastname) {
-//         $nameFirstLetter = substr($firstname, 0, 2);
-//         $middlenameFirstLetter = substr($middlename, 0, 2);
-//         return $nameFirstLetter.".".$middlenameFirstLetter."."." ".$lastname;
-//     }
-
     function getSign($fullname) {
         $nArray = explode(' ', $fullname);
         $nameFirstLetter = substr($nArray[1], 0, 2);

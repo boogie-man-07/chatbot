@@ -320,6 +320,9 @@ class keyboards {
                 ),
                 array(
                     array("text" => "Заявления"),
+                    array("text" => "Мой отпуск")
+                ),
+                array(
                     array("text" => "Назад")
                 )
             ),
