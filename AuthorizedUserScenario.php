@@ -20,8 +20,9 @@ class AuthorizedUserScenario {
     var $logics = null;
     var $forms = null;
     var $email = null;
+    var $vacationInfo = null;
 
-    function __construct($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $phonebookroute, $valuesRoute, $mainRulesRoute, $mainInformationRoute, $salaryRoute, $commands, $states, $state, $logics, $forms, $email) {
+    function __construct($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $phonebookroute, $valuesRoute, $mainRulesRoute, $mainInformationRoute, $salaryRoute, $commands, $states, $state, $logics, $forms, $email, $vacationInfo) {
         $this->chatID = $chatID;
         $this->user = $user;
         $this->username = $username;
@@ -40,6 +41,7 @@ class AuthorizedUserScenario {
         $this->logics = $logics;
         $this->forms = $forms;
         $this->email = $email;
+        $this->vacationInfo = $vacationInfo;
     }
 
     function run($text) {
@@ -76,8 +78,7 @@ class AuthorizedUserScenario {
                 $this->salaryRoute->triggerActionForGetApplicationsInformation($this->chatID, $this->user['firstname']);
                 exit;
             case $this->commands['myVacation']:
-                require("VacationInfo.php");
-                //$vacationInfo = new VacationInfo($this->email);
+                $data = $vacationInfo->getVacationInfo($this->user['email']);
                 sendMessage($this->chatID, "ок", null);
                 exit;
             case $this->commands['howToNavigate']:
