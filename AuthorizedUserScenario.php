@@ -76,6 +76,7 @@ class AuthorizedUserScenario {
                 $this->salaryRoute->triggerActionForGetApplicationsInformation($this->chatID, $this->user['firstname']);
                 exit;
             case $this->commands['myVacation']:
+                require 'VacationInfo.php';
                 $vacationInfo = new VacationInfo($this->email);
                 sendMessage($this->chatID, $vacationInfo, null);
                 exit;
