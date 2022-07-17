@@ -411,7 +411,7 @@ class AuthorizedUserScenario {
                 if ($this->user['company_id'] == 2 || $this->user['company_id'] == 3) {
                     $this->access->setState($this->chatID, $this->states['postponedVacationChooseVacationState']);
                 }
-                $this->salaryRoute->triggerActionForChooseVacationToPostpone($this->chatID, $this->vacationInfo, $this->user['email']);
+                $this->salaryRoute->triggerActionForChooseVacationToPostpone($this->chatID, $this->vacationInfo, $this->user['firstname'], $this->user['email']);
                 //if ($this->user['company_id'] == 2 || $this->user['company_id'] == 3) {
                     //$this->access->setState($this->chatID, $this->states['postponedVacationStartDateWaitingState']);
                 //}
