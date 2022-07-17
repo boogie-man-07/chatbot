@@ -30,12 +30,15 @@ class VacationInfo {
             //echo "cURL Error #: ".$err;
             return "Извините, но что-то пошло не так, попробуйте повторить позднее.";
         } else {
-            if ($result['holiday_main'] != null) {
-                $result = json_decode($response, true);
-                $main = $this->fixComma($result['holiday_main']);
-                $additional = $this->fixComma($result['holiday_more']);
-                $restVacation = bcadd($main, $additional, 2);
-                return "Количество оставшихся дней отпуска: $restVacation.";
+            $result = json_decode($response, true);
+            $main = $this->fixComma($result['holiday_main']);
+            $additional = $this->fixComma($result['holiday_more']);
+            $restVacation = bcadd($main, $additional, 2);
+            return $restVacation;
+
+
+            if (json_last_error() === JSON_ERROR_NONE) {
+
             } else {
                 return "Извините, информация по количеству оставшихся дней отпуска недоступна, попробуйте запросить позднее.";
             }
