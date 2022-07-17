@@ -30,7 +30,7 @@ class VacationInfo {
             //echo "cURL Error #: ".$err;
             return "Извините, но что-то пошло не так, попробуйте повторить позднее.";
         } else {
-            if (json_last_error() === JSON_ERROR_NONE) {
+            if ($result['holiday_main'] != null) {
                 $result = json_decode($response, true);
                 $main = $this->fixComma($result['holiday_main']);
                 $additional = $this->fixComma($result['holiday_more']);
