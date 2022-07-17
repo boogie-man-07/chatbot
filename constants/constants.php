@@ -316,6 +316,14 @@ class constants {
         return "$firstname,\nОбразец какого заявления Вы хотели бы получить?";
     }
 
+    function getRestVacationInfoText($data) {
+        if ($data == 0.00) {
+            return "Извините, информация по количеству оставшихся дней отпуска недоступна, попробуйте запросить позднее.";
+        } else {
+            return "Общее количество оставшихся дней отпуска: $data";
+        }
+    }
+
     function getReplyForApplicationPreparations($firstname, $companyId) {
         switch ($companyId) {
             case 1:
