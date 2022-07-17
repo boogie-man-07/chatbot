@@ -32,7 +32,9 @@ class VacationInfo {
         } else {
             if (json_last_error() === JSON_ERROR_NONE) {
                 $result = json_decode($response, true);
-                $restVacation = bcadd(fixComma($result['holiday_main']), fixComma($result['holiday_more']), 2);
+                $main = $this->fixComma($result['holiday_main']);
+                $additional = $this->fixComma($result['holiday_more']);
+                $restVacation = bcadd($main, $additional, 2);
                 return "Количество оставшихся дней отпуска: $restVacation.";
             } else {
                 return "Извините, информация по количеству оставшихся дней отпуска недоступна, попробуйте запросить позднее.";
