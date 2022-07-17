@@ -82,6 +82,7 @@
         "postponedVacationNewStartDateWaitingState": "waiting for postponed vacation newstartdate",
         "postponedVacationNewEndDateWaitingState": "waiting for postponed vacation newenddate",
         "postponedVacationReasonWaitingState": "waiting for postponed vacation reason",
+        "postponedVacationChooseVacationState": "waiting for choose vacation to postpone",
         "vacationFormSendingWaitingState": "waiting for vacation form sending"
     }
 }

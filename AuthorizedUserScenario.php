@@ -409,9 +409,13 @@ class AuthorizedUserScenario {
                 exit;
             case $this->commands['postponedVacationCaseInline']:
                 if ($this->user['company_id'] == 2 || $this->user['company_id'] == 3) {
-                    $this->access->setState($this->chatID, $this->states['postponedVacationStartDateWaitingState']);
+                    $this->access->setState($this->chatID, $this->states['postponedVacationChooseVacationState']);
                 }
-                $this->salaryRoute->triggerActionForPostponedApplicationPreparations($this->chatID, $this->user['firstname'], $this->user['company_id']);
+                $this->salaryRoute->triggerActionForChooseVacationToPostpone($this->chatID, $this->vacationInfo, $this->user['email']);
+                //if ($this->user['company_id'] == 2 || $this->user['company_id'] == 3) {
+                    //$this->access->setState($this->chatID, $this->states['postponedVacationStartDateWaitingState']);
+                //}
+                //$this->salaryRoute->triggerActionForPostponedApplicationPreparations($this->chatID, $this->user['firstname'], $this->user['company_id']);
                 exit;
             case $this->commands['triggerMainVacationInline']:
                 $this->access->setRegualarVacationType($this->chatID, '0');

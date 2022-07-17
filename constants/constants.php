@@ -324,6 +324,14 @@ class constants {
         }
     }
 
+    function getRestVacationInfoToChooseText($firstname, $listCount) {
+        if (!$listCount) {
+            return "$firstname, к сожалению, у Вас не осталось отпусков для переноса в этом году.";
+        } else {
+            return "$firstname, выберите отпуск, который вы хотите перенести";
+        }
+    }
+
     function getReplyForApplicationPreparations($firstname, $companyId) {
         switch ($companyId) {
             case 1:
