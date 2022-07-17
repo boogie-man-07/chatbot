@@ -350,6 +350,21 @@ class keyboards {
         ));
     }
 
+    function getChooseVacationToPostponeInlineKeyboard($data) {
+        $vacation = array();
+        foreach($data as $item) {
+            $vacationItem = array(array(
+                "text" => $item['date1'],
+                "callback_data" => $item['date1']
+            ));
+            array_push($vacation, $vacationItem);
+        }
+
+        return json_encode(array(
+            "inline_keyboard" => $vacation
+        ));
+    }
+
     function getApplicationPreparationsInlineKeyboard($companyId) {
         switch ($companyId) {
             case 1:

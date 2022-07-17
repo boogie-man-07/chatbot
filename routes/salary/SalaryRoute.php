@@ -46,10 +46,12 @@ class SalaryRoute {
         $data = $vacationInfo->getVacationsList($email);
         if (!$data) {
             $reply = $this->constants->getRestVacationInfoToChooseText($firstname, false);
+            $keyboard = null;
         } else {
             $reply = $this->constants->getRestVacationInfoToChooseText($firstname, true);
+            $keyboard = $this->keyboards->getChooseVacationToPostponeInlineKeyboard($data);
         }
-        sendMessage($chatID, $reply, null);
+        sendMessage($chatID, $reply, $keyboard);
     }
 
     function triggerActionForRegularApplicationPreparations($chatID, $firstname, $companyId) {
