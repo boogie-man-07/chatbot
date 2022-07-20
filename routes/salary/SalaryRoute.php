@@ -42,8 +42,7 @@ class SalaryRoute {
         sendMessage($chatID, $reply, null);
     }
 
-    function triggerActionForChooseVacationToPostpone($chatID, $vacationInfo, $firstname, $email) {
-        $data = $vacationInfo->getVacationsList($email);
+    function triggerActionForChooseVacationToPostpone($chatID, $data, $firstname, $email) {
         if (!$data) {
             $reply = $this->constants->getRestVacationInfoToChooseText($firstname, false);
             $keyboard = null;
