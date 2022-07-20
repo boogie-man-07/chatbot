@@ -1072,7 +1072,7 @@ class access {
 
     function saveUserVacations($chatID, $data) {
         foreach ($data as $item) {
-            $sql = "INSERT INTO user_vacations SET id=\"123\", tg_chat_id=$chatID, startdate=${$data['date1']}, enddate=${$data['date2']}, description=${$data['type']}, amount=${$data['amount']}, callback_data=${$chatID+"_"+$data['amount']}";
+            $sql = "INSERT INTO user_vacations SET id=\"123\", tg_chat_id=$chatID, startdate=${$data['date1']}, enddate=${$data['date2']}, vacation_description=${$data['type']}, amount=${$data['amount']}, callback_data=${$chatID+"_"+$data['amount']}";
             $statement = $this->conn->prepare($sql);
             if (!$statement) {
                 throw new Exception($statement->error);
