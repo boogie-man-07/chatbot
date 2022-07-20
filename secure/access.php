@@ -1071,7 +1071,7 @@ class access {
     }
 
     function saveUserVacations($chatID, $data) {
-        foreach ($data as $item) {
+        foreach($data as $item) {
             $sql = "INSERT INTO user_vacations SET id=?, tg_chat_id=?, startdate=?, enddate=?, vacation_description=?, amount=?, callback_data=?";
             $statement = $this->conn->prepare($sql);
             if (!$statement) {
