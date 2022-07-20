@@ -411,11 +411,10 @@ class AuthorizedUserScenario {
                 if ($this->user['company_id'] == 2 || $this->user['company_id'] == 3) {
                     $data = $this->vacationInfo->getVacationsList($this->user['email']);
                     if ($data) {
-                        $this->salaryRoute->triggerActionForChooseVacationToPostpone($this->chatID, $data, $this->user['firstname']);
-                        //$this->access->saveUserVacations($this->chatID, $data);
+                        $this->access->saveUserVacations($this->chatID, $data);
                         $this->access->setState($this->chatID, $this->states['postponedVacationChooseVacationState']);
                     }
-                    //$this->salaryRoute->triggerActionForChooseVacationToPostpone($this->chatID, $data, $this->user['firstname']);
+                    $this->salaryRoute->triggerActionForChooseVacationToPostpone($this->chatID, $data, $this->user['firstname']);
                 }
 
                 //if ($this->user['company_id'] == 2 || $this->user['company_id'] == 3) {
