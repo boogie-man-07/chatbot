@@ -1072,15 +1072,14 @@ class access {
 
     function saveUserVacations($chatID, $data) {
         foreach ($data as $item) {
-            $sql = "INSERT INTO user_vacations SET id=\"123\", tg_chat_id=$chatID, startdate=${$data['date1']}, enddate=${$data['date2']}, vacation_description=${$data['type']}, amount=${$data['amount']}, callback_data=${$chatID+"_"+$data['amount']}";
+            $sql = "INSERT INTO user_vacations SET id=?, tg_chat_id=?, startdate=?, enddate=?, vacation_description=?, amount=?, callback_data=?";
             $statement = $this->conn->prepare($sql);
             if (!$statement) {
                 throw new Exception($statement->error);
             }
-            $returnValue = $statement->execute();
+            $statement->bind_param("sssssss", "123", $chatID, $item['date1'], $item['date2'], $item['type'], $item['amount'], $chatID+"_"+$item['amount']);
+            $statement->execute();
         }
-
-        return $returnValue;
     }
 
     function getUserForJobByPhoneNumber($number) {

@@ -48,7 +48,7 @@ class SalaryRoute {
             $keyboard = null;
         } else {
             $reply = $this->constants->getRestVacationInfoToChooseText($firstname, true);
-            $keyboard = $this->keyboards->getChooseVacationToPostponeInlineKeyboard($data);
+            $keyboard = $this->keyboards->getChooseVacationToPostponeInlineKeyboard($chatID, $data);
         }
         sendMessage($chatID, $reply, $keyboard);
     }

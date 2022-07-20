@@ -350,7 +350,7 @@ class keyboards {
         ));
     }
 
-    function getChooseVacationToPostponeInlineKeyboard($data) {
+    function getChooseVacationToPostponeInlineKeyboard($chatID, $data) {
         $vacation = array();
         foreach($data as $item) {
             $vacationItem = array(array(
