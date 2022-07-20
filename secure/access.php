@@ -1086,7 +1086,7 @@ class access {
             if (!$statement) {
                 throw new Exception($statement->error);
             }
-            $statement->bind_param("sssssss", (string)$key, $chatID, $value['date1'], $value['date2'], $value['type'], $value['amount'], (string)$key);
+            $statement->bind_param("sssssss", $key, $chatID, $value['date1'], $value['date2'], $value['type'], $value['amount'], $key);
             $statement->execute();
         }
     }
