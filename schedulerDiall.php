@@ -80,6 +80,7 @@ if ($err) {
             }
 
             $userItem = array(
+                'userId' => $user['guid'],
                 'firstname' => $user['firstname'],
                 'lastname' => $user['lastname'],
                 'fullname' => $user['fullname'],
@@ -132,6 +133,7 @@ foreach ($employeeList as $employeeValue) {
             echo $employeeValue['email']." сотрудник офиса существует и в файле, и в БД, обновляем в БД<br>";
 
             $access->updateEmployeeByEmail(
+                $employeeValue['userId'],
                 $employeeValue['firstname'],
                 $employeeValue['lastname'],
                 $employeeValue['fullname'],
@@ -159,6 +161,7 @@ foreach ($employeeList as $employeeValue) {
             echo $employeeValue['email']." существует в файле, но отсутствует в БД, добавляем в БД<br>";
 
             $access->insertEmployee(
+                $employeeValue['userId'],
                 $employeeValue['lastname'],
                 $employeeValue['firstname'],
                 $employeeValue['fullname'],
@@ -270,6 +273,7 @@ foreach ($employeeList as $employeeValue) {
 
         // Складываем в отдельный файл для доработки 
         $logs->logEmptyUser(
+            $employeeValue['userId'],
             $employeeValue['firstname'],
             $employeeValue['lastname'],
             $employeeValue['fullname'],

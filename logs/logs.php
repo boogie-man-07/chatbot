@@ -32,12 +32,12 @@ class logs {
 		file_put_contents('logs/upload_log_'.$current_date.'.txt', $logMessage, FILE_APPEND | LOCK_EX);
 	}
 
-	function logEmptyUser($firstname, $lastname, $fullname, $form_fullname, $position, $email, $office_number, $internal_number, $mobile_number, $company_name, $company_id, $boss, $main_holliday_counter, $additional_holliday_counter, $activity) {
+	function logEmptyUser($userId, $firstname, $lastname, $fullname, $form_fullname, $position, $email, $office_number, $internal_number, $mobile_number, $company_name, $company_id, $boss, $main_holliday_counter, $additional_holliday_counter, $activity) {
 
 		$logics = new logics();
 		$current_date = $logics->getCurrentDate();
 		$current_date_time = $logics->getDateForLogging();
-		$logMessage = "[".(string)$current_date_time."];$firstname;$lastname;$fullname;$form_fullname;$position;$email;$office_number;$internal_number;$mobile_number;$company_name;$company_id;$boss;$main_holliday_counter;$additional_holliday_counter;$activity\n";
+		$logMessage = "[".(string)$current_date_time."];$userId;$firstname;$lastname;$fullname;$form_fullname;$position;$email;$office_number;$internal_number;$mobile_number;$company_name;$company_id;$boss;$main_holliday_counter;$additional_holliday_counter;$activity\n";
 
 		file_put_contents('logs/empty_user_log_'.$current_date.'.txt', $logMessage, FILE_APPEND | LOCK_EX);
 	}
