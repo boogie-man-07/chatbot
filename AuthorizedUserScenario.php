@@ -512,9 +512,9 @@ class AuthorizedUserScenario {
                     case $this->states['postponedVacationChooseVacationState']:
                         if ($this->user['company_id'] == 2 || $this->user['company_id'] == 3) {
                             $this->access->setState($this->chatID, $this->states['postponedVacationNewStartDateWaitingState']);
+                            $this->salaryRoute->triggerActionForSetPostponedVacationNewStartDate($this->chatID);
+                            exit;
                         }
-                        $this->salaryRoute->triggerActionForPostponedApplicationPreparations($this->chatID, $this->user['firstname'], $this->user['company_id']);
-                        exit;
                     default:
                         sendMessage($this->chatID, "Default finished inline", null);
                         exit;
