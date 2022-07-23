@@ -70,7 +70,11 @@ class VacationInfo {
             foreach ($result['holiday'] as $item) {
                 array_push($vacationsList, $item);
             }
-            return $vacationsList;
+            $vacationInfo = Array(
+                'guid' => $response['guid'],
+                'vacations' => $vacationsList
+            );
+            return $vacationInfo;
         }
     }
 

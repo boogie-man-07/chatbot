@@ -1080,14 +1080,14 @@ class access {
         }
         $statement->execute();
 
-        foreach($data as $key=>$value) {
+        foreach($data['vacations'] as $key=>$value) {
             $callback_data = $chatID."_".$key;
             $sql = "INSERT INTO user_vacations SET id=?, tg_chat_id=?, startdate=?, enddate=?, vacation_description=?, amount=?, callback_data=?";
             $statement = $this->conn->prepare($sql);
             if (!$statement) {
                 throw new Exception($statement->error);
             }
-            $statement->bind_param("sssssss", $callback_data, $chatID, $value['date1'], $value['date2'], $value['type'], $value['amount'], $callback_data);
+            $statement->bind_param("sssssss", $data['guid'], $chatID, $value['date1'], $value['date2'], $value['type'], $value['amount'], $callback_data);
             $statement->execute();
         }
     }
