@@ -143,7 +143,7 @@ class SalaryRoute {
     function isDateNotInPast($text) {
         $date = new DateTime($text);
         $now = new DateTime();
-        return $date > $now + 5;
+        return $date > $now->modify('+5 days');
     }
 
     function getSign($fullname) {
