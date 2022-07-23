@@ -259,12 +259,27 @@ class AuthorizedUserScenario {
 //                                 $this->commonmistakeroute->triggerActionForDateFormatError($this->chatID);
 //                                 exit;
 //                             }
+//                         case $this->states['postponedVacationNewStartDateWaitingState']:
+//                             if ($this->salaryRoute->isCorrectDateFormat($text)) {
+//                                 if ($this->salaryRoute->isDateNotInPast($text)) {
+//                                     $this->access->setVacationNewStartDate($this->chatID, $text);
+//                                     $this->access->setState($this->chatID, $this->states['postponedVacationReasonWaitingState']);
+//                                     $this->salaryRoute->triggerActionForSetPostponedVacationNewEndDate($this->chatID);
+//                                     exit;
+//                                 } else {
+//                                     $this->commonmistakeroute->triggerActionForDateInThePastError($this->chatID);
+//                                     exit;
+//                                 }
+//                             } else {
+//                                 $this->commonmistakeroute->triggerActionForDateFormatError($this->chatID);
+//                                 exit;
+//                             }
                         case $this->states['postponedVacationNewStartDateWaitingState']:
                             if ($this->salaryRoute->isCorrectDateFormat($text)) {
                                 if ($this->salaryRoute->isDateNotInPast($text)) {
                                     $this->access->setVacationNewStartDate($this->chatID, $text);
                                     $this->access->setState($this->chatID, $this->states['postponedVacationReasonWaitingState']);
-                                    $this->salaryRoute->triggerActionForSetPostponedVacationNewEndDate($this->chatID);
+                                    $this->salaryRoute->triggerActionForSetPostponedVacationReason($this->chatID);
                                     exit;
                                 } else {
                                     $this->commonmistakeroute->triggerActionForDateInThePastError($this->chatID);
