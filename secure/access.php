@@ -1082,7 +1082,7 @@ class access {
 
         foreach($data['vacations'] as $key=>$value) {
             $callback_data = $chatID."_".$key;
-            $sql = "INSERT INTO user_vacations SET id=?, tg_chat_id=?, startdate=?, enddate=?, vacation_description=?, amount=?, callback_data=?";
+            $sql = "INSERT INTO user_vacations SET pid=?, tg_chat_id=?, startdate=?, enddate=?, vacation_description=?, amount=?, callback_data=?";
             $statement = $this->conn->prepare($sql);
             if (!$statement) {
                 throw new Exception($statement->error);
