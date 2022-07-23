@@ -415,12 +415,8 @@ class AuthorizedUserScenario {
                         $this->access->setState($this->chatID, $this->states['postponedVacationChooseVacationState']);
                     }
                     $this->salaryRoute->triggerActionForChooseVacationToPostpone($this->chatID, $data['vacations'], $this->user['firstname']);
+                    exit;
                 }
-
-                //if ($this->user['company_id'] == 2 || $this->user['company_id'] == 3) {
-                    //$this->access->setState($this->chatID, $this->states['postponedVacationStartDateWaitingState']);
-                //}
-                //$this->salaryRoute->triggerActionForPostponedApplicationPreparations($this->chatID, $this->user['firstname'], $this->user['company_id']);
                 exit;
             case $this->commands['triggerMainVacationInline']:
                 $this->access->setRegualarVacationType($this->chatID, '0');
@@ -514,7 +510,10 @@ class AuthorizedUserScenario {
             default:
                 switch ($this->state) {
                     case $this->states['postponedVacationChooseVacationState']:
-                        sendMessage($this->chatID, $text, null);
+                        if ($this->user['company_id'] == 2 || $this->user['company_id'] == 3) {
+                            $this->access->setState($this->chatID, $this->states['postponedVacationStartDateWaitingState']);
+                        }
+                        $this->salaryRoute->triggerActionForPostponedApplicationPreparations($this->chatID, $this->user['firstname'], $this->user['company_id']);
                         exit;
                     default:
                         sendMessage($this->chatID, "Default finished inline", null);
