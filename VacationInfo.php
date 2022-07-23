@@ -71,7 +71,7 @@ class VacationInfo {
                 array_push($vacationsList, $item);
             }
             $vacationInfo = Array(
-                'guid' => $response['guid'],
+                'guid' => $result['guid'],
                 'vacations' => $vacationsList
             );
             return $vacationInfo;
