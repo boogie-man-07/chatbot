@@ -512,8 +512,14 @@ class AuthorizedUserScenario {
                 $this->salaryRoute->triggerActionForSendOldPostponedVacationFormResult($this->chatID, $this->user['firstname'], $this->user['company_id']);
                 exit;
             default:
-                sendMessage($this->chatID, "Default finished inline", null);
-                exit;
+                switch ($this->state) {
+                    case $this->states['postponedVacationChooseVacationState']:
+                        sendMessage($this->chatID, $text, null);
+                        exit;
+                    default:
+                        sendMessage($this->chatID, "Default finished inline", null);
+                        exit;
+                }
         }
     }
 }
