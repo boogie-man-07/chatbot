@@ -901,6 +901,17 @@ class access {
         $statement->execute();
     }
 
+    function setSelectedVacationReason($tg_chat_id, $reason) {
+        $sql = "UPDATE user_vacations SET reason=? WHERE tg_chat_id=? and is_selected=1";
+        $statement = $this->conn->prepare($sql);
+
+        if (!$statement) {
+            throw new Exception($statement->error);
+        }
+        $statement->bind_param("ss", $reason, $tg_chat_id);
+        $statement->execute();
+    }
+
     function setVacationNewStartDate($tg_chat_id, $date) {
 
         // sql command
