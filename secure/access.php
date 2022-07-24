@@ -913,14 +913,7 @@ class access {
         }
         $statement->bind_param("s", $tg_chat_id);
         $result = $statement->execute();
-
-        if ($result != null && (mysqli_num_rows($result) >= 1 )) {
-            $row = $result->fetch_array(MYSQLI_ASSOC);
-            if (!empty($row)) {
-                $returnArray = $row;
-            }
-        }
-        return $returnArray;
+        return $result;
     }
 
     function setVacationNewStartDate($tg_chat_id, $date) {
