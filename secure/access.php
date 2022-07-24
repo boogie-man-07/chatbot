@@ -906,14 +906,21 @@ class access {
 
     function getSelectedVacationInfo($tg_chat_id) {
         $returnArray = array();
-        $sql = "SELECT * FROM user_vacations WHERE tg_chat_id=? and is_selected=1";
-        $statement = $this->conn->prepare($sql);
-        if (!$statement) {
-            throw new Exception($statement->error);
+        $sql = "SELECT * FROM user_vacations WHERE is_selected=1 and tg_chat_id='".$tg_chat_id."'";
+        $result = $this->conn->query($sql);
+
+        // if we have at least 1 result returned
+        if ($result != null && (mysqli_num_rows($result) >= 1 )) {
+
+            // assign result we got to $row as associative array
+            $row = $result->fetch_array(MYSQLI_ASSOC);
+
+            if (!empty($row)) {
+                $returnArray = $row;
+            }
         }
-        $statement->bind_param("s", $tg_chat_id);
-        $result = $statement->execute();
-        return $result;
+
+        return $returnArray;
     }
 
     function setVacationNewStartDate($tg_chat_id, $date) {
