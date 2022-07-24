@@ -1155,15 +1155,15 @@ class access {
     }
 
     function saveSeparatedUserVacations($chatID, $data) {
-        $startDateRaw = strtotime($data['startdate']);
-        $startDate = date('d.m.Y', $startDateRaw);
-        $endDate = $startDate->modify('+5 days');
+        //$startDateRaw = strtotime($data['startdate']);
+        //$startDate = date('d.m.Y', $startDateRaw);
+        //$endDate = $startDate->modify('+5 days');
         $sql = "INSERT INTO user_vacations SET pid=?, tg_chat_id=?, startdate=?, enddate=?, amount=?, reason=?";
         $statement = $this->conn->prepare($sql);
         if (!$statement) {
             throw new Exception($statement->error);
         }
-        $statement->bind_param("ssssss", $data['guid'], $chatID, $data['startdate'], $endDate, $data['amount'], $data['reason']);
+        $statement->bind_param("ssssss", $data['guid'], $chatID, $data['startdate'], $data['enddate'], $data['amount'], $data['reason']);
         $statement->execute();
     }
 
