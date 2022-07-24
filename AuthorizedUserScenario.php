@@ -277,7 +277,8 @@ class AuthorizedUserScenario {
                         case $this->states['postponedVacationNewStartDateWaitingState']:
                             if ($this->salaryRoute->isCorrectDateFormat($text)) {
                                 if ($this->salaryRoute->isDateNotInPast($text)) {
-                                    $this->access->setSelectedVacationNewStartDate($this->chatID, $text);
+                                    $result = $this->access->setSelectedVacationNewStartDate($this->chatID, $text);
+                                    sendMessage($this->chatID, (string)$result);
                                     $this->access->setState($this->chatID, $this->states['postponedVacationReasonWaitingState']);
                                     $this->salaryRoute->triggerActionForSetPostponedVacationReason($this->chatID);
                                     exit;
