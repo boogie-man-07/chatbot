@@ -278,7 +278,7 @@ class AuthorizedUserScenario {
                             if ($this->salaryRoute->isCorrectDateFormat($text)) {
                                 if ($this->salaryRoute->isDateNotInPast($text)) {
                                     $result = $this->access->setSelectedVacationNewStartDate($this->chatID, $text);
-                                    $this->access->setState($this->chatID, $this->states['postponedVacationReasonWaitingState']);
+                                    $this->access->setState($this->chatID, $this->states['postponedVacationDurationWaitingState']);
                                     $this->salaryRoute->triggerActionForSetPostponedVacationReason($this->chatID);
                                     exit;
                                 } else {
@@ -287,6 +287,16 @@ class AuthorizedUserScenario {
                                 }
                             } else {
                                 $this->commonmistakeroute->triggerActionForDateFormatError($this->chatID);
+                                exit;
+                            }
+                        case $this->states['postponedVacationDurationWaitingState']:
+                            if ($this->salaryRoute->isCorrectVacationDurationFormat($text)) {
+                                $result = $this->access->setSelectedVacationNewDuration($this->chatID, $text);
+                                $this->access->setState($this->chatID, $this->states['postponedVacationReasonWaitingState']);
+                                $this->salaryRoute->triggerActionForSetPostponedVacationReason($this->chatID);
+                                exit;
+                            } else {
+                                $this->commonmistakeroute->triggerActionForVacationDurationFormatError($this->chatID);
                                 exit;
                             }
 //                         case $this->states['postponedVacationNewEndDateWaitingState']:
