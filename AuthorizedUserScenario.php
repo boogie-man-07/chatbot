@@ -292,9 +292,15 @@ class AuthorizedUserScenario {
                         case $this->states['postponedVacationDurationWaitingState']:
                             if ($this->salaryRoute->isCorrectVacationDurationFormat($text)) {
                                 $this->access->setSelectedVacationNewDuration($this->chatID, $text);
-                                $this->access->setState($this->chatID, $this->states['postponedVacationReasonWaitingState']);
-                                $this->salaryRoute->triggerActionForSetPostponedVacationReason($this->chatID);
-                                exit;
+                                $vacationInfo = $this->access->getSelectedVacationInfo($this->chatID);
+                                if ($text == $vacationInfo['new_amount']) {
+                                    $this->access->setState($this->chatID, $this->states['postponedVacationReasonWaitingState']);
+                                    $this->salaryRoute->triggerActionForSetPostponedVacationReason($this->chatID);
+                                    exit;
+                                } else {
+                                    sendMessage($this->chatID, "Меньше чем надо", null);
+                                    exit;
+                                }
                             } else {
                                 $this->commonmistakeroute->triggerActionForVacationDurationFormatError($this->chatID);
                                 exit;
@@ -434,7 +440,7 @@ class AuthorizedUserScenario {
                 exit;
             case $this->commands['postponedVacationCaseInline']:
                 if ($this->user['company_id'] == 2 || $this->user['company_id'] == 3) {
-                    $data = $this->vacationInfo->getVacationsList($this->user['email']);
+                    $data = $this->vacationInfo->getVacationsInfo($this->user['email']);
                     if ($data) {
                         $this->access->saveUserVacations($this->chatID, $data);
                         $this->access->setState($this->chatID, $this->states['postponedVacationChooseVacationState']);
