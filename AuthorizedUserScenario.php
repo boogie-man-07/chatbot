@@ -291,7 +291,7 @@ class AuthorizedUserScenario {
                             }
                         case $this->states['postponedVacationDurationWaitingState']:
                             if ($this->salaryRoute->isCorrectVacationDurationFormat($text)) {
-                                $result = $this->access->setSelectedVacationNewDuration($this->chatID, $text);
+                                $this->access->setSelectedVacationNewDuration($this->chatID, $text);
                                 $this->access->setState($this->chatID, $this->states['postponedVacationReasonWaitingState']);
                                 $this->salaryRoute->triggerActionForSetPostponedVacationReason($this->chatID);
                                 exit;
