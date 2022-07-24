@@ -924,7 +924,7 @@ class access {
         return $returnArray;
     }
 
-    function getSumOfVacationParts($chatID) {
+    function getSumOfVacationParts($tg_chat_id) {
         $sql = "SELECT SUM(AMOUNT) FROM separated_user_vacations WHERE tg_chat_id='".$tg_chat_id."'";
         $result = $this->conn->query($sql);
         return $result;
