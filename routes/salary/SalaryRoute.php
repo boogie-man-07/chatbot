@@ -53,6 +53,11 @@ class SalaryRoute {
         sendMessage($chatID, $reply, $keyboard);
     }
 
+    function triggerActionForCheckPostponedVacationDuration($chatID, $restDuration) {
+        $reply = $this->constants->getReplyCheckPostponedVacationDuration($restDuration);
+        sendMessage($chatID, $reply, null);
+    }
+
     function triggerActionForRegularApplicationPreparations($chatID, $firstname, $companyId) {
         $reply = $this->constants->getReplyForApplicationPreparations($firstname, $companyId);
         $keyboard = $this->keyboards->getApplicationPreparationsInlineKeyboard($companyId);

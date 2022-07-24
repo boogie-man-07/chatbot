@@ -924,6 +924,12 @@ class access {
         return $returnArray;
     }
 
+    function getSumOfVacationParts($chatID) {
+        $sql = "SELECT SUM(AMOUNT) FROM separated_user_vacations WHERE tg_chat_id='".$tg_chat_id."'";
+        $result = $this->conn->query($sql);
+        return $result;
+    }
+
     function setVacationNewStartDate($tg_chat_id, $date) {
 
         // sql command
