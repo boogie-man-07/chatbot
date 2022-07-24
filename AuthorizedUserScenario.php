@@ -301,13 +301,21 @@ class AuthorizedUserScenario {
                                     $this->commonmistakeroute->triggerActionForVacationDurationError($this->chatID, $vacationInfo['amount']);
                                     exit;
                                 } else {
-                                    sendMessage($this->chatID, "Меньше или больше чем надо", null);
+                                    $response = $this->access->getSelectedVacationInfo($this->chatID);
+                                    $this->access->saveSeparatedUserVacations($this->chatID, $response);
+                                    $this->access->setState($this->chatID, $this->states['postponedSeparateVacationStartDateWaitingState']);
                                     exit;
                                 }
                             } else {
                                 $this->commonmistakeroute->triggerActionForVacationDurationFormatError($this->chatID);
                                 exit;
                             }
+                        case $this->states['postponedSeparateVacationStartDateWaitingState']:
+                            sendMessage($this->chatID, "Введите дату начала оставшегося отпуска", null);
+                            exit;
+                        case $this->states['postponedSeparateVacationDurationWaitingState']:
+                            sendMessage($this->chatID, "Меньше или больше чем надо", null);
+                            exit;
 //                         case $this->states['postponedVacationNewEndDateWaitingState']:
 //                             if ($this->salaryRoute->isCorrectDateFormat($text)) {
 //                                 if ($this->salaryRoute->isDateNotInPast($text)) {
