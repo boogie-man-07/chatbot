@@ -926,8 +926,13 @@ class access {
 
     function getSumOfVacationParts($tg_chat_id) {
         $sql = "SELECT SUM(AMOUNT) FROM separated_user_vacations WHERE tg_chat_id='".$tg_chat_id."'";
-        $result = $this->conn->query($sql);
-        return $result;
+        $statement = $this->conn->prepare($sql);
+        if (!$statement) {
+            throw new Exception($statement->error);
+        }
+        $statement->execute();
+        $result = $statement->fetch();
+        $return $result;
     }
 
     function setVacationNewStartDate($tg_chat_id, $date) {
