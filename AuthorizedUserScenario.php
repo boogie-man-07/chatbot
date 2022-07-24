@@ -304,8 +304,6 @@ class AuthorizedUserScenario {
                                     $this->access->saveSeparatedUserVacations($this->chatID, $vacationInfo);
                                     $totalVacationsDuration = $this->access->getSumOfVacationParts($this->chatID);
                                     $restVacationsDuration =  (int)$vacationInfo['amount'] - (int)$totalVacationsDuration;
-                                    sendMessage($this->chatID, (string)$totalVacationsDuration, null);
-                                    sendMessage($this->chatID, (string)$restVacationsDuration, null); exit;
                                     if ($restVacationsDuration > 0) {
                                         $this->access->setState($this->chatID, $this->states['postponedSeparateVacationStartDateWaitingState']);
                                         $this->salaryRoute->triggerActionForCheckPostponedVacationDuration($this->chatID, $restVacationsDuration);
