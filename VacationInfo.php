@@ -38,7 +38,7 @@ class VacationInfo {
         }
     }
 
-    function getVacationsList($email) {
+    function getVacationsInfo($email) {
         $vacationsList = Array();
         $curl = curl_init();
         curl_setopt_array($curl, array(

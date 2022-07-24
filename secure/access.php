@@ -912,6 +912,20 @@ class access {
         $statement->execute();
     }
 
+    function getSelectedVacationInfo($tg_chat_id) {
+        $returnArray = array();
+        // sql command
+        $sql = "SELECT * FROM user_vacations WHERE tg_chat_id='".$tg_chat_id."'";
+        $result = $this->conn->query($sql);
+        if ($result != null && (mysqli_num_rows($result) >= 1 )) {
+            $row = $result->fetch_array(MYSQLI_ASSOC);
+            if (!empty($row)) {
+                $returnArray = $row;
+            }
+        }
+        return $returnArray;
+    }
+
     function setVacationNewStartDate($tg_chat_id, $date) {
 
         // sql command
