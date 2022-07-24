@@ -301,6 +301,7 @@ class AuthorizedUserScenario {
                                     $this->commonmistakeroute->triggerActionForVacationDurationError($this->chatID, $vacationInfo['amount']);
                                     exit;
                                 } else {
+                                    sendMessage($this->chatID, (string)$vacationInfo['amount'], null); exit;
                                     $this->access->saveSeparatedUserVacations($this->chatID, $vacationInfo);
                                     $totalVacationsDuration = $this->access->getSumOfVacationParts($this->chatID);
                                     $restVacationsDuration = (int)$vacationInfo['amount'] - $totalVacationsDuration;
