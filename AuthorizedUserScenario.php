@@ -302,7 +302,7 @@ class AuthorizedUserScenario {
                                     exit;
                                 } else {
                                     $response = $this->access->getSelectedVacationInfo($this->chatID);
-                                    sendMessage($this->chatID, (string)$response, null); exit;
+                                    sendMessage($this->chatID, $response['description'], null); exit;
                                     $this->access->saveSeparatedUserVacations($this->chatID, $response);
                                     $this->access->setState($this->chatID, $this->states['postponedSeparateVacationStartDateWaitingState']);
                                     exit;
