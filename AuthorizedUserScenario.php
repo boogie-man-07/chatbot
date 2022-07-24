@@ -297,6 +297,9 @@ class AuthorizedUserScenario {
                                     $this->access->setState($this->chatID, $this->states['postponedVacationReasonWaitingState']);
                                     $this->salaryRoute->triggerActionForSetPostponedVacationReason($this->chatID);
                                     exit;
+                                } else if ((int)$text > (int)$vacationInfo['amount']) {
+                                    $this->commonmistakeroute->triggerActionForVacationDurationError($this->chatID, $vacationInfo['amount']);
+                                    exit;
                                 } else {
                                     sendMessage($this->chatID, "Меньше или больше чем надо", null);
                                     exit;
