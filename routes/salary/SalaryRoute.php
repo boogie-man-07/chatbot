@@ -189,6 +189,8 @@ class SalaryRoute {
             'waiting for postponed vacation reason',
             'waiting for choose vacation to postpone',
             'waiting for postponed vacation duration',
+            'waiting for postponed separate vacation startdate',
+            'waiting for postponed separate vacation duration',
             'waiting for vacation form sending'
         );
         if (in_array($currentState, $dialogState)) {
