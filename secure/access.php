@@ -876,17 +876,17 @@ class access {
         $statement->bind_param("ss", $tg_chat_id, $callback_data);
 
         // launch/execute and store feedback to returnValue
-        $returnValue = $statement->execute();
+        $statement->execute();
     }
 
     function setSelectedVacationNewStartDate($tg_chat_id, $date) {
-        $sql = "UPDATE user_vacations SET new_start_date=? WHERE tg_chat_id=? and is_selected=true";
+        $sql = "UPDATE user_vacations SET new_start_date=? WHERE tg_chat_id=? and is_selected=1";
         $statement = $this->conn->prepare($sql);
 
         if (!$statement) {
             throw new Exception($statement->error);
         }
-        $statement->bind_param("ss", $tg_chat_id, $date);
+        $statement->bind_param("ss", $date, $tg_chat_id);
         $returnValue = $statement->execute();
         return $returnValue;
     }
