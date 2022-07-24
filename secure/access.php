@@ -906,9 +906,14 @@ class access {
 
     function getSelectedVacationInfo($tg_chat_id) {
         $returnArray = array();
-        // sql command
-        $sql = "SELECT * FROM user_vacations WHERE tg_chat_id='".$tg_chat_id."' and is_selected=1";
-        $result = $this->conn->query($sql);
+        $sql = "SELECT * FROM user_vacations WHERE tg_chat_id=? and is_selected=1";
+        $statement = $this->conn->prepare($sql);
+        if (!$statement) {
+            throw new Exception($statement->error);
+        }
+        $statement->bind_param("s", $tg_chat_id);
+        $result = $statement->execute();
+
         if ($result != null && (mysqli_num_rows($result) >= 1 )) {
             $row = $result->fetch_array(MYSQLI_ASSOC);
             if (!empty($row)) {
