@@ -305,8 +305,8 @@ class AuthorizedUserScenario {
                                     $totalVacationsDuration = $this->access->getSumOfVacationParts($this->chatID);
                                     $restVacationsDuration = (int)$vacationInfo['amount'] - (int)$totalVacationsDuration;
                                     if ($restVacationsDuration > 0) {
-                                        sendMessage($this->chatID, "Total: ".(string)$totalVacationsDuration, null);
-                                        sendMessage($this->chatID, "Rest: ".(string)$restVacationsDuration, null); exit;
+                                        sendMessage($this->chatID, "Total: $totalVacationsDuration", null);
+                                        sendMessage($this->chatID, "Rest: $restVacationsDuration", null); exit;
                                         $this->access->setState($this->chatID, $this->states['postponedSeparateVacationStartDateWaitingState']);
                                         $this->salaryRoute->triggerActionForCheckPostponedVacationDuration($this->chatID, $restVacationsDuration);
                                         exit;
