@@ -420,4 +420,8 @@ class constants {
     function getVacationDurationErrorText($realDuration) {
         return "К сожалению, максимальное количество дней, которые Вы можете перенести в этом отпуске: $realDuration";
     }
+
+    function getReplyCheckPostponedVacationDuration($restDuration) {
+        return "У Вас еще остались дни в данном отпуске, которые необходимо перенесети. Количество оставшихся дней: $restDuration.Пожалуйста, укажите дату начала отпуска.\nПример: <b>01.01.2018</b>";
+    }
 }

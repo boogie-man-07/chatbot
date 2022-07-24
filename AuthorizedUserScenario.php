@@ -301,10 +301,18 @@ class AuthorizedUserScenario {
                                     $this->commonmistakeroute->triggerActionForVacationDurationError($this->chatID, $vacationInfo['amount']);
                                     exit;
                                 } else {
-                                    $response = $this->access->getSelectedVacationInfo($this->chatID);
-                                    $this->access->saveSeparatedUserVacations($this->chatID, $response);
-                                    $this->access->setState($this->chatID, $this->states['postponedSeparateVacationStartDateWaitingState']);
-                                    exit;
+                                    $this->access->saveSeparatedUserVacations($this->chatID, $vacationInfo);
+                                    $totalVacationsDuration = $this->access->getSumOfVacationParts($this->chatID);
+                                    $restVacationsDuration = (int)$vacationInfo['amount'] - (int)$totalVacationsDuration;
+                                    if ($restVacationsDuration > 0) {
+                                        $this->access->setState($this->chatID, $this->states['postponedSeparateVacationStartDateWaitingState']);
+                                        $this->salaryRoute->triggerActionForCheckPostponedVacationDuration($this->chatID, $restVacationsDuration);
+                                        exit;
+                                    } else {
+                                        $this->access->setState($this->chatID, $this->states['postponedVacationReasonWaitingState']);
+                                        $this->salaryRoute->triggerActionForSetPostponedVacationReason($this->chatID);
+                                        exit;
+                                    }
                                 }
                             } else {
                                 $this->commonmistakeroute->triggerActionForVacationDurationFormatError($this->chatID);
