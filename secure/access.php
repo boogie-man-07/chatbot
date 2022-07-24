@@ -863,7 +863,7 @@ class access {
 
     function setSelectedVacation($tg_chat_id, $callback_data) {
         // sql statement
-        $sql = "UPDATE user_vacations SET is_selected=1 WHERE callback_data=?";
+        $sql = "UPDATE user_vacations SET is_selected=1 WHERE tg_chat_id=? and callback_data=?";
         // prepare statement to be executed
         $statement = $this->conn->prepare($sql);
 
@@ -873,11 +873,29 @@ class access {
         }
 
         // bind parameters to sql statement
-        $statement->bind_param("s", $callback_data);
+        $statement->bind_param("ss", $tg_chat_id, $callback_data);
 
         // launch/execute and store feedback to returnValue
         $returnValue = $statement->execute();
     }
+
+    function setSelectedVacationNewStartDate($tg_chat_id, $date) {
+            // sql statement
+            $sql = "UPDATE user_vacations SET new_start_date=? WHERE tg_chat_id=? and is_selected=1";
+            // prepare statement to be executed
+            $statement = $this->conn->prepare($sql);
+
+            // error occurred
+            if (!$statement) {
+                throw new Exception($statement->error);
+            }
+
+            // bind parameters to sql statement
+            $statement->bind_param("ss", $tg_chat_id, $date);
+
+            // launch/execute and store feedback to returnValue
+            $returnValue = $statement->execute();
+        }
 
     function setVacationNewStartDate($tg_chat_id, $date) {
 
