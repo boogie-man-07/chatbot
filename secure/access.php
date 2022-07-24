@@ -887,8 +887,7 @@ class access {
             throw new Exception($statement->error);
         }
         $statement->bind_param("ss", $date, $tg_chat_id);
-        $returnValue = $statement->execute();
-        return $returnValue;
+        $statement->execute();
     }
 
     function setVacationNewStartDate($tg_chat_id, $date) {

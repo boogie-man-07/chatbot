@@ -278,7 +278,6 @@ class AuthorizedUserScenario {
                             if ($this->salaryRoute->isCorrectDateFormat($text)) {
                                 if ($this->salaryRoute->isDateNotInPast($text)) {
                                     $result = $this->access->setSelectedVacationNewStartDate($this->chatID, $text);
-                                    sendMessage($this->chatID, $result, null); exit;
                                     $this->access->setState($this->chatID, $this->states['postponedVacationReasonWaitingState']);
                                     $this->salaryRoute->triggerActionForSetPostponedVacationReason($this->chatID);
                                     exit;
