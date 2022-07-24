@@ -1133,7 +1133,6 @@ class access {
     }
 
     function saveUserVacations($chatID, $data) {
-
         $sql = "DELETE from user_vacations WHERE tg_chat_id=$chatID";
         $statement = $this->conn->prepare($sql);
 
@@ -1143,13 +1142,15 @@ class access {
         $statement->execute();
 
         foreach($data['vacations'] as $key=>$value) {
+            $startDate = date('d.m.Y', $value['date1']);
+            $endDate = date('d.m.Y', $value['date2']);
             $callback_data = $chatID."_".$key;
             $sql = "INSERT INTO user_vacations SET pid=?, tg_chat_id=?, startdate=?, enddate=?, vacation_description=?, amount=?, callback_data=?";
             $statement = $this->conn->prepare($sql);
             if (!$statement) {
                 throw new Exception($statement->error);
             }
-            $statement->bind_param("sssssss", $data['guid'], $chatID, $value['date1'], $value['date2'], $value['type'], $value['amount'], $callback_data);
+            $statement->bind_param("sssssss", $data['guid'], $chatID, $startDate, $endDate, $value['type'], $value['amount'], $callback_data);
             $statement->execute();
         }
     }
