@@ -293,13 +293,12 @@ class AuthorizedUserScenario {
                             if ($this->salaryRoute->isCorrectVacationDurationFormat($text)) {
                                 $this->access->setSelectedVacationNewDuration($this->chatID, $text);
                                 $vacationInfo = $this->access->getSelectedVacationInfo($this->chatID);
-                                sendMessage($this->chatID, $vacationInfo['new_amount'], null); exit;
-                                if ($text == $vacationInfo['new_amount']) {
+                                if ($text == $vacationInfo['amount']) {
                                     $this->access->setState($this->chatID, $this->states['postponedVacationReasonWaitingState']);
                                     $this->salaryRoute->triggerActionForSetPostponedVacationReason($this->chatID);
                                     exit;
                                 } else {
-                                    sendMessage($this->chatID, "Меньше чем надо", null);
+                                    sendMessage($this->chatID, "Меньше или больше чем надо", null);
                                     exit;
                                 }
                             } else {
