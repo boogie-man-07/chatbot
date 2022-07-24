@@ -121,6 +121,11 @@ class SalaryRoute {
         sendMessage($chatID, $reply, null);
     }
 
+    function triggerActionForSetPostponedVacationDuration($chatID) {
+        $reply = $this->constants->getPostponedVacationDurationText();
+        sendMessage($chatID, $reply, null);
+    }
+
     function triggerActionForSetPostponedVacationReason($chatID) {
         $reply = $this->constants->getSetPostponedVacationReasonText();
         sendMessage($chatID, $reply, null);
@@ -182,6 +187,8 @@ class SalaryRoute {
             'waiting for postponed vacation newstartdate',
             'waiting for postponed vacation newenddate',
             'waiting for postponed vacation reason',
+            'waiting for choose vacation to postpone',
+            'waiting for postponed vacation duration',
             'waiting for vacation form sending'
         );
         if (in_array($currentState, $dialogState)) {

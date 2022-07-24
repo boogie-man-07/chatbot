@@ -362,6 +362,10 @@ class constants {
         return "Введите желаемую длительность отпуска (количество дней).\nПример: <b>14</b>";
     }
 
+    function getPostponedVacationDurationText() {
+        return "Введите желаемую длительность отпуска (количество дней).\nПример: <b>14</b>";
+    }
+
     function getSetPostponedVacationEndDateText() {
         return "Введи дату окончания отпуска, на которую был запланирован отпуск изначально.\nПример: <b>01.01.2018</b>";
     }
