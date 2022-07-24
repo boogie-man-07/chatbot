@@ -278,8 +278,7 @@ class AuthorizedUserScenario {
                             if ($this->salaryRoute->isCorrectDateFormat($text)) {
                                 if ($this->salaryRoute->isDateNotInPast($text)) {
                                     $result = $this->access->setSelectedVacationNewStartDate($this->chatID, $text);
-                                    sendMessage($this->chatID, $result, null); exit;
-                                    $this->access->setState($this->chatID, $this->states['postponedVacationReasonWaitingState']);
+                                    $this->access->setState($this->chatID, $this->states['postponedVacationDurationWaitingState']);
                                     $this->salaryRoute->triggerActionForSetPostponedVacationReason($this->chatID);
                                     exit;
                                 } else {
@@ -288,6 +287,16 @@ class AuthorizedUserScenario {
                                 }
                             } else {
                                 $this->commonmistakeroute->triggerActionForDateFormatError($this->chatID);
+                                exit;
+                            }
+                        case $this->states['postponedVacationDurationWaitingState']:
+                            if ($this->salaryRoute->isCorrectVacationDurationFormat($text)) {
+                                $result = $this->access->setSelectedVacationNewDuration($this->chatID, $text);
+                                $this->access->setState($this->chatID, $this->states['postponedVacationReasonWaitingState']);
+                                $this->salaryRoute->triggerActionForSetPostponedVacationReason($this->chatID);
+                                exit;
+                            } else {
+                                $this->commonmistakeroute->triggerActionForVacationDurationFormatError($this->chatID);
                                 exit;
                             }
 //                         case $this->states['postponedVacationNewEndDateWaitingState']:
@@ -498,7 +507,6 @@ class AuthorizedUserScenario {
                 $day = $date->format("d");
                 $month = $date->format("F");
                 $year = $date->format("Y");
-                //sendMessage($this->chatID, $sign, null); exit;
                 $this->forms->getPostponeVacationForm($this->user['position'], $this->user['form_fullname'], $vacationFormData['vacation_start_date'], $vacationFormData['vacation_end_date'], $vacationFormData['postponed_vacation_start_date'], $vacationFormData['postponed_vacation_end_date'], $vacationFormData['reason'], $day, $month, $year, $sign, $this->user['company_id']);
                 $template = $this->email->generatePostponeVacationForm($this->user['company_id']);
                 $template = str_replace("{firstname}", $this->user['firstname'], $template);

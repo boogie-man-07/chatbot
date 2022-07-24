@@ -398,6 +398,10 @@ class constants {
         return "Длительность отпуска введена в неверном формате, возможны только цифры. \nПример: <b>14</b>";
     }
 
+    function getVacationDurationFormatErrorText() {
+        return "Длительность отпуска введена в неверном формате, возможны только цифры. \nПример: <b>14</b>";
+    }
+
     function getSentVacationFormResultText($firstname, $companyId) {
         switch ($companyId) {
             case 1:

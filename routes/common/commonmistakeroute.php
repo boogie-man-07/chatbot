@@ -91,6 +91,11 @@ class commonmistakeroute {
         $reply = $this->constants->getRegularAcademicVacationFormatErrorText();
         sendMessage($chatID, $reply, null);
     }
+
+    function triggerActionForVacationDurationFormatError($chatID) {
+       $reply = $this->constants->getVacationDurationFormatErrorText();
+       sendMessage($chatID, $reply, null);
+   }
 }
 
 
