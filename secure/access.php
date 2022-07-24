@@ -1159,8 +1159,7 @@ class access {
     function saveSeparatedUserVacations($chatID, $data) {
         $startDateRaw = strtotime($data['new_start_date']);
         $startDate = date('d.m.Y', $startDateRaw);
-        $endDateRaw = strtotime($data['new_start_date'], '+2 days');
-        $endDate = date('d.m.Y', $endDateRaw);
+        $endDate = date('d.m.Y', strtotime($startDateRaw . ' +1 day'));
         $sql = "INSERT INTO separated_user_vacations SET pid=?, tg_chat_id=?, startdate=?, enddate=?, amount=?, reason=?";
         $statement = $this->conn->prepare($sql);
         if (!$statement) {
