@@ -1142,8 +1142,8 @@ class access {
         $statement->execute();
 
         foreach($data['vacations'] as $key=>$value) {
-            $startDate = date('d.m.Y', $value['date1']);
-            $endDate = date('d.m.Y', $value['date2']);
+            $startDate = date('d.m.Y', strtotime($value['date1']));
+            $endDate = date('d.m.Y', strtotime($value['date2']));
             $callback_data = $chatID."_".$key;
             $sql = "INSERT INTO user_vacations SET pid=?, tg_chat_id=?, startdate=?, enddate=?, vacation_description=?, amount=?, callback_data=?";
             $statement = $this->conn->prepare($sql);
