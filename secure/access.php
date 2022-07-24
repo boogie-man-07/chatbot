@@ -880,7 +880,7 @@ class access {
     }
 
     function setSelectedVacationNewStartDate($tg_chat_id, $date) {
-        $sql = "UPDATE user_vacations SET new_start_date=? WHERE tg_chat_id=? and is_selected=1";
+        $sql = "UPDATE user_vacations SET new_start_date=? WHERE tg_chat_id=? and is_selected=true";
         $statement = $this->conn->prepare($sql);
 
         if (!$statement) {
