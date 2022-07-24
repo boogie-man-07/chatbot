@@ -303,7 +303,7 @@ class AuthorizedUserScenario {
                                 } else {
                                     $this->access->saveSeparatedUserVacations($this->chatID, $vacationInfo);
                                     $totalVacationsDuration = $this->access->getSumOfVacationParts($this->chatID);
-                                    $restVacationsDuration = $totalVacationsDuration - (int)$vacationInfo['amount'];
+                                    $restVacationsDuration =  (int)$vacationInfo['amount'] - (int)$totalVacationsDuration;
                                     sendMessage($this->chatID, (string)$totalVacationsDuration, null);
                                     sendMessage($this->chatID, (string)$restVacationsDuration, null); exit;
                                     if ($restVacationsDuration > 0) {
