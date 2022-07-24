@@ -931,8 +931,8 @@ class access {
             throw new Exception($statement->error);
         }
         $statement->execute();
-        $result = $statement->fetch();
-        $return $result;
+        $result = $statement->fetch_row();
+        $return $result[0];
     }
 
     function setVacationNewStartDate($tg_chat_id, $date) {
