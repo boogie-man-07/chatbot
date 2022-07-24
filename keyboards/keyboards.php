@@ -353,7 +353,7 @@ class keyboards {
     function getChooseVacationToPostponeInlineKeyboard($chatID, $data) {
         $vacation = array();
         foreach($data['vacations'] as $key=>$value) {
-            $data = $value['date1'];
+            $newDate = $value['date1'];
             $itemTitle = "$newDate (дней: ".$value['amount'].")";
             $callback_data = $chatID."_".$key;
             $vacationItem = array(array(
