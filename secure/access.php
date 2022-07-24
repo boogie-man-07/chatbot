@@ -926,13 +926,20 @@ class access {
 
     function getSumOfVacationParts($tg_chat_id) {
         $sql = "SELECT SUM(AMOUNT) FROM separated_user_vacations WHERE tg_chat_id='".$tg_chat_id."'";
-        $statement = $this->conn->prepare($sql);
-        if (!$statement) {
-            throw new Exception($statement->error);
+        $result = $this->conn->query($sql);
+
+        // if we have at least 1 result returned
+        if ($result != null && (mysqli_num_rows($result) >= 1 )) {
+
+            // assign result we got to $row as associative array
+            $row = $result->fetch_row();
+
+            if (!empty($row)) {
+                $returnValue = $row[0];
+            }
         }
-        $statement->execute();
-        $result = $statement->fetch();
-        $return $result;
+
+        return $returnValue;
     }
 
     function setVacationNewStartDate($tg_chat_id, $date) {
