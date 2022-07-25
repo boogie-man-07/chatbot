@@ -1214,8 +1214,8 @@ class access {
 
         $realAmount = (int)$amount - 1;
         $endDate = date('d.m.Y', strtotime($startDate . " +$realAmount days"));
-        $sql = "INSERT INTO separated_user_vacations SET amount=?, enddate=? where tg_chat_id=? and enddate is null";
-        $statement = $this->conn->prepare($sql);
+        $sql2 = "INSERT INTO separated_user_vacations SET amount=?, enddate=? where tg_chat_id=? and enddate is null";
+        $statement = $this->conn->prepare($sql2);
         if (!$statement) {
             throw new Exception($statement->error);
         }
