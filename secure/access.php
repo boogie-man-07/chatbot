@@ -1200,7 +1200,7 @@ class access {
     }
 
     function saveSeparatedUserVacationDuration($chatID, $amount) {
-        $sql = "SELECT startdate FROM separated_user_vacations where tg_chat_id=? and enddate is null";
+        $sql = "SELECT startdate FROM separated_user_vacations where enddate is null and tg_chat_id='".$chatID."'";
         $result = $this->conn->query($sql);
         if ($result != null && (mysqli_num_rows($result) >= 1 )) {
 
