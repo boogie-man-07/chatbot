@@ -319,10 +319,23 @@ class AuthorizedUserScenario {
                                 exit;
                             }
                         case $this->states['postponedSeparateVacationStartDateWaitingState']:
-                            $this->access->setState($this->chatID, $this->states['postponedSeparateVacationDurationWaitingState']);
-                            sendMessage($this->chatID, "Введите дату начала оставшегося отпуска", null);
-                            exit;
+                            if ($this->salaryRoute->isCorrectDateFormat($text)) {
+                                if ($this->salaryRoute->isDateNotInPast($text)) {
+                                    $vacationInfo = $this->access->getSelectedVacationInfo($this->chatID);
+                                    $this->access->saveSeparatedUserVacationStartDate($this->chatID, $text, $vacationInfo);
+                                    $this->access->setState($this->chatID, $this->states['postponedSeparateVacationDurationWaitingState']);
+                                    $this->salaryRoute->triggerActionForSetPostponedVacationDuration($this->chatID);
+                                    exit;
+                                } else {
+                                    $this->commonmistakeroute->triggerActionForDateInThePastError($this->chatID);
+                                    exit;
+                                }
+                            } else {
+                                $this->commonmistakeroute->triggerActionForDateFormatError($this->chatID);
+                                exit;
+                            }
                         case $this->states['postponedSeparateVacationDurationWaitingState']:
+
                             sendMessage($this->chatID, "Меньше или больше чем надо", null);
                             exit;
 //                         case $this->states['postponedVacationNewEndDateWaitingState']:
