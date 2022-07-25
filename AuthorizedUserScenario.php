@@ -319,6 +319,7 @@ class AuthorizedUserScenario {
                                 exit;
                             }
                         case $this->states['postponedSeparateVacationStartDateWaitingState']:
+                            $this->access->setState($this->chatID, $this->states['postponedSeparateVacationDurationWaitingState']);
                             sendMessage($this->chatID, "Введите дату начала оставшегося отпуска", null);
                             exit;
                         case $this->states['postponedSeparateVacationDurationWaitingState']:
