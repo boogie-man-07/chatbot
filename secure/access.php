@@ -1199,6 +1199,30 @@ class access {
         $statement->execute();
     }
 
+    function saveSeparatedUserVacationDuration($chatID, $startDate, $amount) {
+        $sql = "SELECT startdate FROM separated_user_vacations where tg_chat_id=? and enddate is null";
+        $result = $this->conn->query($sql);
+        if ($result != null && (mysqli_num_rows($result) >= 1 )) {
+
+            // assign result we got to $row as associative array
+            $row = $result->fetch_row();
+
+            if (!empty($row)) {
+                $startDate = $row[0];
+            }
+        }
+
+        $realAmount = (int)$amount - 1;
+        $endDate = date('d.m.Y', strtotime($startDate . " +$realAmount days"));
+        $sql = "INSERT INTO separated_user_vacations SET amount=?, enddate=? where tg_chat_id=? and enddate is null";
+        $statement = $this->conn->prepare($sql);
+        if (!$statement) {
+            throw new Exception($statement->error);
+        }
+        $statement->bind_param("sss", $amount, $endDate, $chatID);
+        $statement->execute();
+    }
+
     function getUserForJobByPhoneNumber($number) {
 
         $returnArray = array();

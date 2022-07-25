@@ -335,9 +335,15 @@ class AuthorizedUserScenario {
                                 exit;
                             }
                         case $this->states['postponedSeparateVacationDurationWaitingState']:
-
-                            sendMessage($this->chatID, "Меньше или больше чем надо", null);
-                            exit;
+                            if ($this->salaryRoute->isCorrectVacationDurationFormat($text)) {
+                                $this->access->saveSeparatedUserVacationDuration($this->chatID, $text);
+                                //$this->access->setState($this->chatID, $this->states['postponedSeparateVacationDurationWaitingState']);
+                                //$this->salaryRoute->triggerActionForSetPostponedVacationDuration($this->chatID);
+                                exit;
+                            } else {
+                                $this->commonmistakeroute->triggerActionForVacationDurationFormatError($this->chatID);
+                                exit;
+                            }
 //                         case $this->states['postponedVacationNewEndDateWaitingState']:
 //                             if ($this->salaryRoute->isCorrectDateFormat($text)) {
 //                                 if ($this->salaryRoute->isDateNotInPast($text)) {
