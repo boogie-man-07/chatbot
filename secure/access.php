@@ -1189,6 +1189,16 @@ class access {
         $statement->execute();
     }
 
+    function saveSeparatedUserVacationStartDate($chatID, $newStartDate, $data) {
+        $sql = "INSERT INTO separated_user_vacations SET pid=?, tg_chat_id=?, startdate=?, reason=?";
+        $statement = $this->conn->prepare($sql);
+        if (!$statement) {
+            throw new Exception($statement->error);
+        }
+        $statement->bind_param("ssss", $data['pid'], $chatID, $newStartDate, $data['reason']);
+        $statement->execute();
+    }
+
     function getUserForJobByPhoneNumber($number) {
 
         $returnArray = array();
