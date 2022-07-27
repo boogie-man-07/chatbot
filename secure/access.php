@@ -576,7 +576,7 @@ class access {
             $row = $result->fetch_array(MYSQLI_ASSOC);
 
             if (!empty($row)) {
-                $returnArray = $row;
+                array_push($returnArray, $row);
             }
         }
 
