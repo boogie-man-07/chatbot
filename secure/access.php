@@ -561,6 +561,38 @@ class access {
         return $returnArray;
     }
 
+    function getSeparatePostponedVacationsInfo($tg_chat_id) {
+
+        $returnArray = array();
+        // sql command
+        $sql = "SELECT * FROM separated_user_vacations WHERE tg_chat_id='".$tg_chat_id."'";
+        // assign result we got from $sql to result var
+        $result = $this->conn->query($sql);
+
+        while ($row = $result->fetch_assoc()) {
+            $item = $row;
+            array_push($returnArray, $item);
+        }
+
+        return $returnArray;
+    }
+
+    function getPostponedVacationsInfo($tg_chat_id) {
+
+        $returnArray = array();
+        // sql command
+        $sql = "SELECT * FROM user_vacations WHERE is_selected=1 and tg_chat_id='".$tg_chat_id."'";
+        // assign result we got from $sql to result var
+        $result = $this->conn->query($sql);
+
+        while ($row = $result->fetch_assoc()) {
+            $item = $row;
+            array_push($returnArray, $item);
+        }
+
+        return $returnArray;
+    }
+
 
     function selectVacationsByUser($tg_chat_id) {
 
