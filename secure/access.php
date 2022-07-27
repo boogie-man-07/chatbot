@@ -335,6 +335,23 @@ class access {
         return $returnValue;
     }
 
+    function removeVacationDataByChatID($tg_chat_id) {
+
+        // sql statement
+        $sql = "DELETE from separated_user_vacations WHERE tg_chat_id='".$tg_chat_id."'";
+        // prepare statement to be executed
+        $statement = $this->conn->prepare($sql);
+
+        // error occurred
+        if (!$statement) {
+            throw new Exception($statement->error);
+        }
+
+        // launch/execute and store feedback to returnValue
+        $returnValue = $statement->execute();
+        return $returnValue;
+    }
+
     function setState($tg_chat_id, $dialog_state) {
 
         // sql command
