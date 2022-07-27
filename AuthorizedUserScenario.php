@@ -579,7 +579,7 @@ class AuthorizedUserScenario {
                 exit;
             case $this->commands['sendPostponedVacationFormInline']:
                 //$vacationFormData = $this->access->getDataForVacationForm($this->chatID);
-                $vacationFormData = $this->access->getPostponedVacationsInfo($this->chatID);
+                $vacationFormData = $this->access->getSelectedVacationInfo($this->chatID);
                 $separatedVacationFormData = $this->access->getSeparatePostponedVacationsInfo($this->chatID);
                 $sign = $this->salaryRoute->getSign($this->user['fullname']);
                 $date = new dateTime();
