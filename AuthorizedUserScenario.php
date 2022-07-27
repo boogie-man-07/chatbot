@@ -390,6 +390,7 @@ class AuthorizedUserScenario {
 //                             }
                         case $this->states['postponedVacationReasonWaitingState']:
                             $this->access->setSelectedVacationReason($this->chatID, $text);
+                            $this->access->setSeparateVacationsReasons($this->chatID, $text);
                             $this->access->setState($this->chatID, $this->states['vacationFormSendingWaitingState']);
                             $this->salaryRoute->triggerActionForSendPostponedVacationForm($this->chatID);
                             exit;

@@ -905,6 +905,17 @@ class access {
         $statement->execute();
     }
 
+    function setSeparateVacationsReasons($tg_chat_id, $reason) {
+        $sql = "UPDATE separated_user_vacations SET reason=? WHERE tg_chat_id=?";
+        $statement = $this->conn->prepare($sql);
+
+        if (!$statement) {
+            throw new Exception($statement->error);
+        }
+        $statement->bind_param("ss", $reason, $tg_chat_id);
+        $statement->execute();
+    }
+
     function getSelectedVacationInfo($tg_chat_id) {
         $returnArray = array();
         $sql = "SELECT * FROM user_vacations WHERE is_selected=1 and tg_chat_id='".$tg_chat_id."'";
