@@ -349,6 +349,7 @@ class AuthorizedUserScenario {
                                     $this->salaryRoute->triggerActionForCheckPostponedVacationDuration($this->chatID, ((int)$text  < $restVacationsDuration));
                                     exit;
                                 } else {
+                                    $this->access->saveSeparatedUserVacationDuration($this->chatID, $text);
                                     $this->access->setState($this->chatID, $this->states['postponedVacationReasonWaitingState']);
                                     $this->salaryRoute->triggerActionForSetPostponedVacationReason($this->chatID);
                                     exit;
