@@ -344,6 +344,7 @@ class AuthorizedUserScenario {
                                     $this->commonmistakeroute->triggerActionForVacationDurationError($this->chatID, $restVacationsDuration);
                                     exit;
                                 } else if ((int)$text  < $restVacationsDuration) {
+                                    $this->access->saveSeparatedUserVacationDuration($this->chatID, $text);
                                     $this->access->setState($this->chatID, $this->states['postponedSeparateVacationStartDateWaitingState']);
                                     $this->salaryRoute->triggerActionForCheckPostponedVacationDuration($this->chatID, ((int)$text  < $restVacationsDuration));
                                     exit;
@@ -352,6 +353,21 @@ class AuthorizedUserScenario {
                                     $this->salaryRoute->triggerActionForSetPostponedVacationReason($this->chatID);
                                     exit;
                                 }
+
+                                $this->access->saveSeparatedUserVacationDuration($this->chatID, $text);
+
+                                if ($restVacationsDuration > 0) {
+                                    $this->access->setState($this->chatID, $this->states['postponedSeparateVacationStartDateWaitingState']);
+                                    $this->salaryRoute->triggerActionForCheckPostponedVacationDuration($this->chatID, $restVacationsDuration);
+                                    exit;
+                                } else {
+                                    $this->access->setState($this->chatID, $this->states['postponedVacationReasonWaitingState']);
+                                    $this->salaryRoute->triggerActionForSetPostponedVacationReason($this->chatID);
+                                    exit;
+                                }
+                                //$this->access->setState($this->chatID, $this->states['postponedSeparateVacationDurationWaitingState']);
+                                //$this->salaryRoute->triggerActionForSetPostponedVacationDuration($this->chatID);
+                                exit;
                             } else {
                                 $this->commonmistakeroute->triggerActionForVacationDurationFormatError($this->chatID);
                                 exit;
