@@ -337,6 +337,7 @@ class AuthorizedUserScenario {
                         case $this->states['postponedSeparateVacationDurationWaitingState']:
                             if ($this->salaryRoute->isCorrectVacationDurationFormat($text)) {
                                 $this->access->saveSeparatedUserVacationDuration($this->chatID, $text);
+                                $vacationInfo = $this->access->getSelectedVacationInfo($this->chatID);
                                 $totalVacationsDuration = $this->access->getSumOfVacationParts($this->chatID);
                                 $restVacationsDuration =  (int)$vacationInfo['amount'] - (int)$totalVacationsDuration;
                                 if ($restVacationsDuration > 0) {
