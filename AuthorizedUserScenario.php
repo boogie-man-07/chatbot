@@ -75,6 +75,7 @@ class AuthorizedUserScenario {
                 $this->salaryRoute->triggerActionForGetPaymentDatesInformation($this->chatID, $this->user['company_id']);
                 exit;
             case $this->commands['applications']:
+                $this->access->removeVacationDataByChatID($this->chatID);
                 $this->salaryRoute->triggerActionForGetApplicationsInformation($this->chatID, $this->user['firstname']);
                 exit;
             case $this->commands['myVacation']:
@@ -130,6 +131,7 @@ class AuthorizedUserScenario {
             case $this->commands['navigateToMainScreen']:
                 $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
                 $this->access->removeFindUserDataByChatID($this->chatID);
+                $this->access->removeVacationDataByChatID($this->chatID);
                 $this->mainRulesRoute->triggerActionForNavigateBack($this->chatID);
                 exit;
             default:
