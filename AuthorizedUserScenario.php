@@ -586,19 +586,19 @@ class AuthorizedUserScenario {
                 $day = $date->format("d");
                 $month = $date->format("F");
                 $year = $date->format("Y");
-                sendMessage($this->chatID, json_encode($separatedVacationFormData), null);
+                sendMessage($this->chatID, json_encode($vacationFormData), null);
                 foreach ($separatedVacationFormData as $vacation) {
                     //$template = null;
-                    $this->forms->getPostponeVacationForm($this->user['position'], $this->user['fullname'], $vacationFormData['startdate'], $vacationFormData['enddate'], $vacation['startdate'], $vacation['enddate'], $vacation['reason'], $day, $month, $year, $sign, $this->user['company_id']);
-                    $template = $this->email->generatePostponeVacationForm($this->user['company_id']);
-                    $template = str_replace("{firstname}", $this->user['firstname'], $template);
+//                     $this->forms->getPostponeVacationForm($this->user['position'], $this->user['fullname'], $vacationFormData['startdate'], $vacationFormData['enddate'], $vacation['startdate'], $vacation['enddate'], $vacation['reason'], $day, $month, $year, $sign, $this->user['company_id']);
+//                     $template = $this->email->generatePostponeVacationForm($this->user['company_id']);
+//                     $template = str_replace("{firstname}", $this->user['firstname'], $template);
 //                     $this->swiftmailer->sendPostponedVacationMailWithAttachementViaSmtp(
 //                         $this->user['company_id'],
 //                         $this->user['email'],
 //                         "Образец заявления на перенос отпуска",
 //                         $template
 //                     );
-                    //sendMessage($this->chatID, $vacationFormData['startdate'], null);
+//                     sendMessage($this->chatID, $vacationFormData['startdate'], null);
                 }
 
                 $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
