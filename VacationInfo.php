@@ -7,7 +7,7 @@ class VacationInfo {
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_PORT => "11180",
-            CURLOPT_URL => "http://62.105.147.18:11180/DA_ERP/hs/Staff/StaffData?EMAIL=$email&DATA=bot",
+            CURLOPT_URL => "http://office.diall.ru:11180/DA_ERP/hs/Staff/StaffData?EMAIL=$email&DATA=bot",
             CURLOPT_USERPWD => "Web1C:67z%Cc#2",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
@@ -42,8 +42,8 @@ class VacationInfo {
         $vacationsList = Array();
         $curl = curl_init();
         curl_setopt_array($curl, array(
-            CURLOPT_PORT => "80",
-            CURLOPT_URL => "http://192.168.1.20/DA_ERP/hs/Staff/StaffData?EMAIL=$email&DATA=bot",
+            CURLOPT_PORT => "11180",
+            CURLOPT_URL => "http://office.diall.ru:11180/DA_ERP/hs/Staff/StaffData?EMAIL=$email&DATA=bot",
             CURLOPT_USERPWD => "Web1C:67z%Cc#2",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
