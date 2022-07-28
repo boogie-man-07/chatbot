@@ -572,10 +572,7 @@ class access {
         // if we have at least 1 result returned
         if ($result != null && (mysqli_num_rows($result) >= 1 )) {
 
-            // assign result we got to $row as associative array
-            $row = $result->fetch_array(MYSQLI_ASSOC);
-
-            if (!empty($row)) {
+            while ($row = $result->fetch_assoc()) {
                 array_push($returnArray, $row);
             }
         }
