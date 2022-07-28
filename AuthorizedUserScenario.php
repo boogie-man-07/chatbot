@@ -587,7 +587,8 @@ class AuthorizedUserScenario {
                 $month = $date->format("F");
                 $year = $date->format("Y");
                 foreach ($separatedVacationFormData as $vacation) {
-                    sendMessage($this->chatID, $vacationFormData['startdate'], null);
+                    $template = null;
+                    //sendMessage($this->chatID, $vacationFormData['startdate'], null);
                     $this->forms->getPostponeVacationForm($this->user['position'], $this->user['fullname'], $vacationFormData['startdate'], $vacationFormData['enddate'], $vacation['startdate'], $vacation['enddate'], $vacation['reason'], $day, $month, $year, $sign, $this->user['company_id']);
                     $template = $this->email->generatePostponeVacationForm($this->user['company_id']);
                     $template = str_replace("{firstname}", $this->user['firstname'], $template);
