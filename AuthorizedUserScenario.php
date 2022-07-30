@@ -589,6 +589,7 @@ class AuthorizedUserScenario {
                 $sendData = $this->salaryRoute->getSendData($this->user, $vacationFormData, $separatedVacationFormData);
 
                 foreach($sendData['vacations'] as $value) {
+                    sendMessage($this->chatID, json_encode($value), null);
                     $this->forms->getPostponeVacationForm($sendData['position'], $sendData['fullName'], $sendData['startDate'], $sendData['endDate'], $value['startDate'], $value['endDate'], $value['reason'], $day, $month, $year, $sign, $sendData['companyId']);
                     $template = $this->email->generatePostponeVacationForm($this->user['company_id']);
                     $template = str_replace("{firstname}", $this->user['firstname'], $template);
