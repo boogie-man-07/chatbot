@@ -22,7 +22,7 @@ try {
   // Create a message
   $message = (new Swift_Message('Wonderful Subject'))
     ->setFrom(['personalbot@diall.ru' => 'Personalbot'])
-    ->setTo(['chernuylab@gmail.com'])
+    ->setTo(['booogie.man.07@gmail.com'])
     ->setBody('Here is the message itself', 'text/html')
     #->attachSigner($smimeSigner)
   ;
