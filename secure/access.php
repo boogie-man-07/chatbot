@@ -569,7 +569,7 @@ class access {
         // assign result we got from $sql to result var
         $result = $this->conn->query($sql);
 
-        while ($row = $result->fetch_assoc()) {
+        while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
             array_push($returnArray, $row);
         }
 
