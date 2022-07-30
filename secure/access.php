@@ -567,14 +567,13 @@ class access {
         // sql command
         $sql = "SELECT * FROM separated_user_vacations WHERE tg_chat_id='".$tg_chat_id."'";
         // assign result we got from $sql to result var
-        $result = $this->conn->query($sql);
+        $statement = $this->conn->prepare($sql);
+        if (!$statement) {
+            throw new Exception($statement->error);
+        }
 
-        // if we have at least 1 result returned
-        if ($result != null && (mysqli_num_rows($result) >= 1 )) {
-
-            while ($row = $result->fetch_assoc()) {
-                array_push($returnArray, $row);
-            }
+        while ($row = $statement->fetch_assoc()) {
+            array_push($returnArray, $row);
         }
 
         return $returnArray;
