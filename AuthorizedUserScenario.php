@@ -598,17 +598,18 @@ class AuthorizedUserScenario {
                     sendMessage($this->chatID, $oldStartdate, null);
                     $oldEnddate = $vacationFormData['enddate'];
                     sendMessage($this->chatID, $oldEnddate, null);
+                    sendMessage($this->chatID, (string)$value['id'], null);
                     $this->forms->getPostponeVacationForm($position, $fullname, $oldStartdate, $oldEnddate, $value['startdate'], $value['enddate'], $value['reason'], $day, $month, $year, $sign, $companyId);
                     sleep(5);
                     $template = $this->email->generatePostponeVacationForm($this->user['company_id']);
                     $template = str_replace("{firstname}", $this->user['firstname'], $template);
-                    $this->swiftmailer->sendPostponedVacationMailWithAttachementViaSmtp(
-                        $this->user['company_id'],
-                        "booogie.man.07@gmail.com",
-                        "Образец заявления на перенос отпуска",
-                        $template
-                    );
-                    sendMessage($this->chatID, (string)$value['id'], null);
+//                     $this->swiftmailer->sendPostponedVacationMailWithAttachementViaSmtp(
+//                         $this->user['company_id'],
+//                         "booogie.man.07@gmail.com",
+//                         "Образец заявления на перенос отпуска",
+//                         $template
+//                     );
+
                 }
 
                 $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
