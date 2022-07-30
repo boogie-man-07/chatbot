@@ -596,7 +596,7 @@ class AuthorizedUserScenario {
 //                         "Образец заявления на перенос отпуска",
 //                         $template
 //                     );
-                    sendMessage($this->chatID, (string)$separatedVacationFormData[$i], null);
+                    sendMessage($this->chatID, (string)$separatedVacationFormData[$i]['id'], null);
                 }
 
                 $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
