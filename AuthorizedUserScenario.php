@@ -586,19 +586,17 @@ class AuthorizedUserScenario {
                 $day = $date->format("d");
                 $month = $date->format("F");
                 $year = $date->format("Y");
-                sendMessage($this->chatID, (string)count($separatedVacationFormData), null); exit;
-                foreach ($separatedVacationFormData as $key=>$value) {
-                    sleep(2);
-                    $this->forms->getPostponeVacationForm($this->user['position'], $this->user['fullname'], $vacationFormData['startdate'], $vacationFormData['enddate'], $value['startdate'], $value['enddate'], $value['reason'], $day, $month, $year, $sign, $this->user['company_id']);
-                    $template = $this->email->generatePostponeVacationForm($this->user['company_id']);
-                    $template = str_replace("{firstname}", $this->user['firstname'], $template);
+                for($i = 0; $i < count($separatedVacationFormData); $i++) {
+//                     $this->forms->getPostponeVacationForm($this->user['position'], $this->user['fullname'], $vacationFormData['startdate'], $vacationFormData['enddate'], $value['startdate'], $value['enddate'], $value['reason'], $day, $month, $year, $sign, $this->user['company_id']);
+//                     $template = $this->email->generatePostponeVacationForm($this->user['company_id']);
+//                     $template = str_replace("{firstname}", $this->user['firstname'], $template);
 //                     $this->swiftmailer->sendPostponedVacationMailWithAttachementViaSmtp(
 //                         $this->user['company_id'],
 //                         'booogie.man.07@gmail.com',
 //                         "Образец заявления на перенос отпуска",
 //                         $template
 //                     );
-                    sendMessage($this->chatID, (string)$key, null);
+                    sendMessage($this->chatID, (string)$separatedVacationFormData[$i], null);
                 }
 
                 $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
