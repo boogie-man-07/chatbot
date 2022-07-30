@@ -586,18 +586,18 @@ class AuthorizedUserScenario {
                 $day = $date->format("d");
                 $month = $date->format("F");
                 $year = $date->format("Y");
-                $position = $this->user['position'];
-                sendMessage($this->chatID, $position, null);
-                $fullname = $this->user['fullname'];
-                sendMessage($this->chatID, $fullname, null);
-                $companyId = $this->user['company_id'];
-                sendMessage($this->chatID, $companyId, null);
-                $oldStartdate = $vacationFormData['startdate'];
-                sendMessage($this->chatID, $oldStartdate, null);
-                $oldEnddate = $vacationFormData['enddate'];
-                sendMessage($this->chatID, $oldEnddate, null);
-                for($i = 0; count($separatedVacationFormData); $i++) {
-                    $value = $separatedVacationFormData[$i];
+
+                foreach($separatedVacationFormData as $key=>$value) {
+                    $position = $this->user['position'];
+                    sendMessage($this->chatID, $position, null);
+                    $fullname = $this->user['fullname'];
+                    sendMessage($this->chatID, $fullname, null);
+                    $companyId = $this->user['company_id'];
+                    sendMessage($this->chatID, $companyId, null);
+                    $oldStartdate = $vacationFormData['startdate'];
+                    sendMessage($this->chatID, $oldStartdate, null);
+                    $oldEnddate = $vacationFormData['enddate'];
+                    sendMessage($this->chatID, $oldEnddate, null);
                     $this->forms->getPostponeVacationForm($position, $fullname, $oldStartdate, $oldEnddate, $value['startdate'], $value['enddate'], $value['reason'], $day, $month, $year, $sign, $companyId);
                     sleep(5);
                     $template = $this->email->generatePostponeVacationForm($this->user['company_id']);
