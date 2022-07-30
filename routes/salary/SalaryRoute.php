@@ -175,6 +175,27 @@ class SalaryRoute {
         return $state == $states['salaryState'];
     }
 
+    function getSendData($user, $vacationData, $separatedVacationData) {
+        $separatedDataArray = array();
+        foreach($separatedVacationData as $data) {
+            $item = array(
+                'startDate' => $data['startdate'],
+                'endDate' => $data['enddate'],
+                'reason' => $data['reason']
+            );
+            array_push($separatedDataArray, $item);
+        }
+
+        return array(
+            'position' => $user['position'],
+            'fullName' => $user['fullname'],
+            'companyId' => $user[''],
+            'startDate' => $vacationData['startdate'],
+            'endDate' => $vacationData['enddate'],
+            'vacations' => $separatedDataArray
+        );
+    }
+
     function isDialogInProgress($currentState) {
         $dialogState = array(
             'find telefone number',
