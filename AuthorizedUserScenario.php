@@ -585,7 +585,7 @@ class AuthorizedUserScenario {
                 $date = new dateTime();
                 $day = $date->format("d");
                 $month = $date->format("F");
-                $year = $date->for
+                $year = $date->format("Y");
                 //$sendData = $this->salaryRoute->getSendData($this->user, $vacationFormData, $separatedVacationFormData);
 
 //                 foreach($separatedVacationFormData as $value) {
