@@ -586,15 +586,15 @@ class AuthorizedUserScenario {
                 $day = $date->format("d");
                 $month = $date->format("F");
                 $year = $date->format("Y");
-                //$sendData = $this->salaryRoute->getSendData($this->user, $vacationFormData, $separatedVacationFormData);
+                $sendData = $this->salaryRoute->getSendData($this->user, $vacationFormData, $separatedVacationFormData);
 
-//                 foreach($separatedVacationFormData as $value) {
-//                     sendMessage($this->chatID, json_encode($value, true), null);
-//                     $this->forms->getPostponeVacationForm($sendData['position'], $sendData['fullName'], $sendData['startDate'], $sendData['endDate'], $value['startDate'], $value['endDate'], $value['reason'], $day, $month, $year, $sign, $sendData['companyId']);
-//                     $template = $this->email->generatePostponeVacationForm($this->user['company_id']);
-//                     $template = str_replace("{firstname}", $this->user['firstname'], $template);
-//
-//                 }
+                foreach($separatedVacationFormData as $value) {
+                    sendMessage($this->chatID, json_encode($value, true), null);
+                    $this->forms->getPostponeVacationForm($sendData['position'], $sendData['fullName'], $sendData['startDate'], $sendData['endDate'], $value['startDate'], $value['endDate'], $value['reason'], $day, $month, $year, $sign, $sendData['companyId']);
+                    $template = $this->email->generatePostponeVacationForm($this->user['company_id']);
+                    $template = str_replace("{firstname}", $this->user['firstname'], $template);
+
+                }
                 //                     $this->swiftmailer->sendPostponedVacationMailWithAttachementViaSmtp(
                 //                         $this->user['company_id'],
                 //                         "booogie.man.07@gmail.com",
