@@ -581,21 +581,21 @@ class AuthorizedUserScenario {
                 //$vacationFormData = $this->access->getDataForVacationForm($this->chatID);
                 $vacationFormData = $this->access->getSelectedVacationInfo($this->chatID);
                 $separatedVacationFormData = $this->access->getSeparatePostponedVacationsInfo($this->chatID);
-
-
                 $sendData = $this->salaryRoute->getSendData($this->user, $vacationFormData, $separatedVacationFormData);
+                $sign = $this->salaryRoute->getSign($this->user['fullname']);
+                $date = new dateTime();
+                $day = $date->format("d");
+                $month = $date->format("F");
+                $year = $date->format("Y");
+                $position = $sendData['position'];
+                $fullName = $sendData['fullName'];
+                $startDate = $sendData['startDate'];
+                $endDate = $sendData['endDate'];
+                $companyId = $sendData['companyId'];
+
                 sendMessage($this->chatID, (string)count($separatedVacationFormData), null);
                 foreach ($separatedVacationFormData as $value) {
-                    $sign = $this->salaryRoute->getSign($this->user['fullname']);
-                    $date = new dateTime();
-                    $day = $date->format("d");
-                    $month = $date->format("F");
-                    $year = $date->format("Y");
-                    $position = $sendData['position'];
-                    $fullName = $sendData['fullName'];
-                    $startDate = $sendData['startDate'];
-                    $endDate = $sendData['endDate'];
-                    $companyId = $sendData['companyId'];
+
                     //sendMessage($this->chatID, (string)$value['id'], null);
                     $this->forms->getPostponeVacationForm($position, $fullName, $startDate, $endDate, $value['startDate'], $value['endDate'], $value['reason'], $day, $month, $year, $sign, $companyId);
                     $template = $this->email->generatePostponeVacationForm($this->user['company_id']);
