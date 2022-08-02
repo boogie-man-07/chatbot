@@ -596,7 +596,7 @@ class AuthorizedUserScenario {
                 //sendMessage($this->chatID, (string)count($separatedVacationFormData), null);
                 foreach ($sendData['vacations'] as $value) {
 
-                    $valueObj = json_encode($value, true);
+                    $valueObj = json_encode($value);
 
                     sendMessage($this->chatID, $valueObj->startDate, null);
                     //$this->forms->getPostponeVacationForm($position, $fullName, $startDate, $endDate, $valueObj->startDate, $valueObj->endDate, $valueObj->reason, $day, $month, $year, $sign, $companyId);
