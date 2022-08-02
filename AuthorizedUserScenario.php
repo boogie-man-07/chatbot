@@ -594,20 +594,20 @@ class AuthorizedUserScenario {
                 $companyId = $sendData['companyId'];
 
                 sendMessage($this->chatID, (string)count($separatedVacationFormData), null);
-                foreach ($separatedVacationFormData as $value) {
-
-                    //sendMessage($this->chatID, (string)$value['id'], null);
-                    $this->forms->getPostponeVacationForm($position, $fullName, $startDate, $endDate, $value['startDate'], $value['endDate'], $value['reason'], $day, $month, $year, $sign, $companyId);
-                    $template = $this->email->generatePostponeVacationForm($this->user['company_id']);
-                    $template = str_replace("{firstname}", $this->user['firstname'], $template);
-
-                }
-                //                     $this->swiftmailer->sendPostponedVacationMailWithAttachementViaSmtp(
-                //                         $this->user['company_id'],
-                //                         "booogie.man.07@gmail.com",
-                //                         "Образец заявления на перенос отпуска",
-                //                         $template
-                //                     );
+//                 foreach ($separatedVacationFormData as $value) {
+//
+//                     sendMessage($this->chatID, (string)$value['id'], null);
+//                     $this->forms->getPostponeVacationForm($position, $fullName, $startDate, $endDate, $value['startDate'], $value['endDate'], $value['reason'], $day, $month, $year, $sign, $companyId);
+//                     $template = $this->email->generatePostponeVacationForm($this->user['company_id']);
+//                     $template = str_replace("{firstname}", $this->user['firstname'], $template);
+//
+//                 }
+//                                     $this->swiftmailer->sendPostponedVacationMailWithAttachementViaSmtp(
+//                                         $this->user['company_id'],
+//                                         "booogie.man.07@gmail.com",
+//                                         "Образец заявления на перенос отпуска",
+//                                         $template
+//                                     );
                 $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
                 $this->salaryRoute->triggerActionForSendPostponedVacationFormResult($this->chatID, $this->user['firstname'], $this->user['company_id']);
                 exit;
