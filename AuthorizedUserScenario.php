@@ -594,11 +594,11 @@ class AuthorizedUserScenario {
                 $companyId = $sendData['companyId'];
 
                 sendMessage($this->chatID, (string)count($separatedVacationFormData), null);
-                foreach ($separatedVacationFormData as &$value) {
+                foreach ($separatedVacationFormData as $key => $value) {
 
-                    sendMessage($this->chatID, (string)$value['id'], null);
+                    sendMessage($this->chatID, (string)$key, null);
                     $this->forms->getPostponeVacationForm($position, $fullName, $startDate, $endDate, $value['startDate'], $value['endDate'], $value['reason'], $day, $month, $year, $sign, $companyId);
-                    unset($value);
+
                     //$template = $this->email->generatePostponeVacationForm($this->user['company_id']);
                     //$template = str_replace("{firstname}", $this->user['firstname'], $template);
 
