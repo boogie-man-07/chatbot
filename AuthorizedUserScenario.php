@@ -594,7 +594,7 @@ class AuthorizedUserScenario {
                 $companyId = $sendData['companyId'];
                 $vacationList = $sendData['vacations'];
 
-                //sendMessage($this->chatID, (string)count($separatedVacationFormData), null);
+                sendMessage($this->chatID, (string)count($separatedVacationFormData), null);
                 foreach ($vacationList as $key=>$value) {
 
                     sendMessage($this->chatID, $vacationList[$key]['startDate'], null);
