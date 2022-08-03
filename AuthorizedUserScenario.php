@@ -592,7 +592,7 @@ class AuthorizedUserScenario {
                 $vacationList = $sendData['vacations'];
 
                 sendMessage($this->chatID, (string)count($separatedVacationFormData), null);
-                //$sendInfo = $this->forms->getPostponeVacationForm($this->chatID, $sendData, $sign);
+                $sendInfo = $this->forms->getPostponeVacationForm($this->chatID, $sendData, $sign);
                 //$template = $this->email->generatePostponeVacationForm($this->user['company_id']);
                 //$template = str_replace("{firstname}", $this->user['firstname'], $template);
 //                 $this->swiftmailer->sendPostponedVacationMailWithAttachementViaSmtp(
