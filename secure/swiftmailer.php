@@ -234,7 +234,7 @@ class swiftmailer {
     }
   }
 
-  function sendPostponedVacationMailWithAttachementViaSmtp($companyID, $to, $subject, $body) {
+  function sendPostponedVacationMailWithAttachementViaSmtp($companyID, $to, $subject, $body, $sendInfo) {
     require 'vendor/autoload.php';
 
     switch ($companyID) {
@@ -268,14 +268,18 @@ class swiftmailer {
 
         $mailer = new Swift_Mailer($transport);
 
-        $message = (new Swift_Message($subject))
-          ->setFrom(['personalbot@gnhs.ru' => 'Personalbot'])
-          ->setTo([$to])
-          ->setBody($body, 'text/html')
-          ->attach(Swift_Attachment::fromPath('forms/postponedDynamicVacationForm.xlsx') ->setFilename('Заявление на перенос отпуска.xlsx'));
-        ;
-        $mailer->send($message);
-        echo 'Message has been sent';
+        $foreach ($sendInfo as $value) {
+            $message = (new Swift_Message($subject))
+              ->setFrom(['personalbot@gnhs.ru' => 'Personalbot'])
+              ->setTo([$to])
+              ->setBody($body, 'text/html')
+              ->attach(Swift_Attachment::fromPath($value) ->setFilename('Заявление на перенос отпуска.xlsx'));
+            ;
+            $mailer->send($message);
+            echo 'Message has been sent';
+        }
+
+
         if ($mailer) {
           return true;
         }
