@@ -265,23 +265,23 @@ class Forms {
 
 
         foreach ($formInfo['vacations'] as $key=>$info) {
-            require('Classes/PHPExcel.php');
-            $text = "Прошу перенести ежегодный основной оплачиваемый отпуск, запланированный по графику отпусков в период с ".$formInfo['startDate']."г. по ".$formInfo['endDate']."г. на период с ".$info['startDate']."г. по ".$info['endDate']."г. по причине: ".$info['reason'].".";
-            $objPHPExcel = PHPExcel_IOFactory::load("forms/postponedDynamicVacationForm.xlsx");
+//             require('Classes/PHPExcel.php');
+//             $text = "Прошу перенести ежегодный основной оплачиваемый отпуск, запланированный по графику отпусков в период с ".$formInfo['startDate']."г. по ".$formInfo['endDate']."г. на период с ".$info['startDate']."г. по ".$info['endDate']."г. по причине: ".$info['reason'].".";
+//             $objPHPExcel = PHPExcel_IOFactory::load("forms/postponedDynamicVacationForm.xlsx");
+//
+//             $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C5', $seo);
+//             $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D7', strstr($formInfo['position'], '/', true));
+//             $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C11', $companyName);
+//             $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C14', $formInfo['$fullName']);
+//             $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A20', $text);
+//             $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D23', $date);
+//             $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B23', $sign);
+//             $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D29', $seoInitials);
 
-            $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C5', $seo);
-            $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D7', strstr($formInfo['position'], '/', true));
-            $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C11', $companyName);
-            $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C14', $formInfo['$fullName']);
-            $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A20', $text);
-            $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D23', $date);
-            $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B23', $sign);
-            $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D29', $seoInitials);
-
-            $objExcelWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+            //$objExcelWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
             $excelFilename = "forms/postponedDynamicVacationForm_$tg_chat_id"."_"."$key.xlsx";
             array_push($sendInfo, $excelFilename);
-            $objExcelWriter->save($excelFilename);
+            //$objExcelWriter->save($excelFilename);
 
         }
         return $sendInfo;
