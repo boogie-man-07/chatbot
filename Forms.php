@@ -196,14 +196,17 @@ class Forms {
     }
 
     // функция формирует форму для переноса отпуска
-    function getPostponeVacationForm($position, $fullName, $startDate, $endDate, $postponedStartDate, $postponedEndDate, $reason, $day, $month, $year, $sign, $companyId) {
+    function getPostponeVacationForm($tg_chat_id, $formInfo, $sign) {
 
         $newMonth = "";
         $seo = "";
         $seoInitials = "";
         $companyName = "";
-
-        $text = "Прошу перенести ежегодный основной оплачиваемый отпуск, запланированный по графику отпусков в период с {$startDate}г. по {$endDate}г. на период с {$postponedStartDate}г. по {$postponedEndDate}г. по причине: $reason.";
+        $date = new dateTime();
+        $day = $date->format("d");
+        $month = $date->format("F");
+        $year = $date->format("Y");
+        $sendInfo = array();
 
         switch ($month) {
             case "January":
@@ -260,20 +263,28 @@ class Forms {
         $date = $day." ".$newMonth." ".$year." г.";
 
         require('Classes/PHPExcel.php');
-        $objPHPExcel = PHPExcel_IOFactory::load("forms/postponedDynamicVacationForm.xlsx");
 
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C5', $seo);
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D7', strstr($position, '/', true));
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C11', $companyName);
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C14', $fullName);
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A20', $text);
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D23', $date);
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B23', $sign);
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D29', $seoInitials);
+        foreach ($formInfo['vacations'] as $key=>$info) {
+            $text = "Прошу перенести ежегодный основной оплачиваемый отпуск, запланированный по графику отпусков в период с ".$formInfo['startDate']."г. по ".$formInfo['endDate']."г. на период с ".$info['startDate']."г. по ".$info['endDate']."г. по причине: ".$info['reason'].".";
+            $objPHPExcel = PHPExcel_IOFactory::load("forms/postponedDynamicVacationForm.xlsx");
 
-        $objExcelWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-        $excelFilename = "forms/postponedDynamicVacationForm.xlsx";
-        $objExcelWriter->save($excelFilename);
+            $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C5', $seo);
+            $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D7', strstr($formInfo['position'], '/', true));
+            $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C11', $formInfo['$companyName']);
+            $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C14', $formInfo['$fullName']);
+            $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A20', $text);
+            $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D23', $date);
+            $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B23', $sign);
+            $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D29', $seoInitials);
+
+            $objExcelWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+            $excelFilename = "forms/postponedDynamicVacationForm_$tg_chat_id_$key.xlsx";
+            array_push($sendInfo, $excelFilename);
+            $objExcelWriter->save($excelFilename);
+
+        }
+        return $sendInfo;
+
     }
 
     // функция формирует форму для расчетного листка
