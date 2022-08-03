@@ -270,7 +270,7 @@ class Forms {
 
             $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C5', $seo);
             $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D7', strstr($formInfo['position'], '/', true));
-            $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C11', $formInfo['$companyName']);
+            $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C11', $companyName);
             $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C14', $formInfo['$fullName']);
             $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A20', $text);
             $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D23', $date);
