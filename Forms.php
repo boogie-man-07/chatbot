@@ -262,9 +262,10 @@ class Forms {
 
         $date = $day." ".$newMonth." ".$year." г.";
 
-        require('Classes/PHPExcel.php');
+
 
         foreach ($formInfo['vacations'] as $key=>$info) {
+            require('Classes/PHPExcel.php');
             $text = "Прошу перенести ежегодный основной оплачиваемый отпуск, запланированный по графику отпусков в период с ".$formInfo['startDate']."г. по ".$formInfo['endDate']."г. на период с ".$info['startDate']."г. по ".$info['endDate']."г. по причине: ".$info['reason'].".";
             $objPHPExcel = PHPExcel_IOFactory::load("forms/postponedDynamicVacationForm.xlsx");
 
@@ -278,7 +279,7 @@ class Forms {
             $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D29', $seoInitials);
 
             $objExcelWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-            $excelFilename = "forms/postponedDynamicVacationForm_".$tg_chat."_id_".$key."xlsx";
+            $excelFilename = "forms/postponedDynamicVacationForm_$tg_chat_id"."_"."$key.xlsx";
             array_push($sendInfo, $excelFilename);
             $objExcelWriter->save($excelFilename);
 
