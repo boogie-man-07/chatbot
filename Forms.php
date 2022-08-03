@@ -278,7 +278,7 @@ class Forms {
             $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D29', $seoInitials);
 
             $objExcelWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-            $excelFilename = "forms/postponedDynamicVacationForm_$tg_chat_id_$key.xlsx";
+            $excelFilename = "forms/postponedDynamicVacationForm_".$tg_chat."_id_".$key."xlsx";
             array_push($sendInfo, $excelFilename);
             $objExcelWriter->save($excelFilename);
 
