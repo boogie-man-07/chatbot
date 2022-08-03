@@ -280,9 +280,9 @@ class swiftmailer {
         }
 
 
-        if ($mailer) {
-          return true;
-        }
+//         if ($mailer) {
+//           return true;
+//         }
         break;
 
       case 3:
