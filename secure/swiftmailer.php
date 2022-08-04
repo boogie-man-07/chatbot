@@ -261,23 +261,23 @@ class swiftmailer {
         break;
 
       case 2:
-//         $transport = (new Swift_SmtpTransport('kappa.gnhs.ru', 587))
-//           ->setUsername('personalbot@gnhs.ru')
-//           ->setPassword('GrHo654123')
-//         ;
-//
-//         $mailer = new Swift_Mailer($transport);
-//
-//         $foreach ($sendInfo as $value) {
-//             $message = (new Swift_Message($subject))
-//               ->setFrom(['personalbot@gnhs.ru' => 'Personalbot'])
-//               ->setTo([$to])
-//               ->setBody($body, 'text/html')
-//               ->attach(Swift_Attachment::fromPath((string)$value) ->setFilename('Заявление на перенос отпуска.xlsx'));
-//             ;
-//             $mailer->send($message);
-//             echo 'Message has been sent';
-//         }
+        $transport = (new Swift_SmtpTransport('kappa.gnhs.ru', 587))
+          ->setUsername('personalbot@gnhs.ru')
+          ->setPassword('GrHo654123')
+        ;
+
+        $mailer = new Swift_Mailer($transport);
+
+        $foreach ($sendInfo as $value) {
+            $message = (new Swift_Message($subject))
+              ->setFrom(['personalbot@gnhs.ru' => 'Personalbot'])
+              ->setTo([$to])
+              ->setBody($body, 'text/html')
+              ->attach(Swift_Attachment::fromPath((string)$value) ->setFilename('Заявление на перенос отпуска.xlsx'));
+            ;
+            $mailer->send($message);
+            echo 'Message has been sent';
+        }
 
 
 //         if ($mailer) {
