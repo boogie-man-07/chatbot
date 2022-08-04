@@ -594,7 +594,7 @@ class AuthorizedUserScenario {
                 //sendMessage($this->chatID, (string)count($separatedVacationFormData), null);
                 $sendInfo = $this->forms->getPostponeVacationForm($this->chatID, $sendData, $sign);
                 foreach ($sendInfo as $info) {
-                    sendMessage($this->chatID, (string)$info, null);
+                    sendMessage($this->chatID, $info, null);
                 }
                 //$template = $this->email->generatePostponeVacationForm($this->user['company_id']);
                 //$template = str_replace("{firstname}", $this->user['firstname'], $template);
@@ -606,7 +606,7 @@ class AuthorizedUserScenario {
 //                     $sendInfo
 //                 );
                 $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
-                $this->salaryRoute->triggerActionForSendPostponedVacationFormResult($this->chatID, $this->user['firstname'], $this->user['company_id']);
+                //$this->salaryRoute->triggerActionForSendPostponedVacationFormResult($this->chatID, $this->user['firstname'], $this->user['company_id']);
                 exit;
             case $this->commands['sendOldPostponedVacationFormInline']:
                 $template = $this->email->generatePostponeVacationForm($this->user['company_id']);

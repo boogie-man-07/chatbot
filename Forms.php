@@ -206,7 +206,7 @@ class Forms {
         $day = $date->format("d");
         $month = $date->format("F");
         $year = $date->format("Y");
-        $sendInfo = array();
+        $sendInfo = Array();
 
         switch ($month) {
             case "January":
