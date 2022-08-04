@@ -280,8 +280,8 @@ class Forms {
 
             //$objExcelWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 //             $excelFilename = "forms/postponedDynamicVacationForm_$tg_chat_id"."_"."$key.xlsx";
-            $excelFilename = "forms/postponedDynamicVacationForm_$key.xlsx";
-            array_push($sendInfo, $key);
+            $excelFilename = $key;
+            array_push($sendInfo, $excelFilename);
             //$objExcelWriter->save($excelFilename);
 
         }
