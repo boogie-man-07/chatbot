@@ -272,7 +272,7 @@ class swiftmailer {
           ->setFrom(['personalbot@gnhs.ru' => 'Personalbot'])
           ->setTo([$to])
           ->setBody($body, 'text/html')
-          ->attach(Swift_Attachment::fromPath('') ->setFilename('Заявление на перенос отпуска.xlsx'));
+          ->attach(Swift_Attachment::fromPath('forms/postponedDynamicVacationForm.xlsx') ->setFilename('Заявление на перенос отпуска.xlsx'));
         ;
         $mailer->send($message);
         echo 'Message has been sent';
