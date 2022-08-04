@@ -192,6 +192,7 @@ class SalaryRoute {
             'companyId' => $user['company_id'],
             'startDate' => $vacationData['startdate'],
             'endDate' => $vacationData['enddate'],
+            'boss' => $this->getSign($user['boss']),
             'vacations' => $separatedDataArray
         );
     }
