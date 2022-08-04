@@ -260,7 +260,7 @@ class Forms {
         $date = $day." ".$newMonth." ".$year." г.";
         $position = strstr($formInfo['position'], '/', true) == false ? $formInfo['position'] : strstr($formInfo['position'], '/', true);
         $fullName = $formInfo['formFullName'];
-        $seoInitials = $formInfo['seoInitials'];
+        $seoInitials = $formInfo['boss'];
 
         require('Classes/PHPExcel.php');
         $objPHPExcel = PHPExcel_IOFactory::load("forms/postponedDynamicVacationForm.xlsx");

@@ -177,6 +177,7 @@ class SalaryRoute {
 
     function getSendData($user, $vacationData, $separatedVacationData) {
         $separatedDataArray = array();
+        $boss = $this->getSign($user['boss']);
         foreach($separatedVacationData as $data) {
             $item = array(
                 'startDate' => $data['startdate'],
@@ -192,7 +193,7 @@ class SalaryRoute {
             'companyId' => $user['company_id'],
             'startDate' => $vacationData['startdate'],
             'endDate' => $vacationData['enddate'],
-            'boss' => $this->getSign($user['boss']),
+            'boss' => $boss,
             'vacations' => $separatedDataArray
         );
     }
