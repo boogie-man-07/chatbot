@@ -200,7 +200,6 @@ class Forms {
 
         $newMonth = "";
         $seo = "";
-        $seoInitials = "";
         $companyName = "";
         $date = new dateTime();
         $day = $date->format("d");
@@ -250,12 +249,10 @@ class Forms {
         switch ($companyId) {
             case 2:
                 $seo = "Генеральному директору ООО \"Гринхаус\" Шилову Г.Ю.";
-                $seoInitials = "Г.Ю. Шилов";
                 $companyName = "ООО \"Гринхаус\"";
                 break;
             case 3:
                 $seo = "Генеральному директору ООО \"ДИАЛЛ АЛЬЯНС\" Александрову В.В.";
-                $seoInitials = "В.В. Александров";
                 $companyName = "ООО \"ДИАЛЛ АЛЬЯНС\"";
                 break;
         }
@@ -263,6 +260,7 @@ class Forms {
         $date = $day." ".$newMonth." ".$year." г.";
         $position = strstr($formInfo['position'], '/', true) == false ? $formInfo['position'] : strstr($formInfo['position'], '/', true);
         $fullName = $formInfo['formFullName'];
+        $seoInitials = $formInfo['seoInitials'];
 
         require('Classes/PHPExcel.php');
         $objPHPExcel = PHPExcel_IOFactory::load("forms/postponedDynamicVacationForm.xlsx");
