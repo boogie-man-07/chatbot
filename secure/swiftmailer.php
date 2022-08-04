@@ -278,9 +278,9 @@ class swiftmailer {
         echo 'Message has been sent';
 
 
-//         if ($mailer) {
-//           return true;
-//         }
+        if ($mailer) {
+          return true;
+        }
         break;
 
       case 3:
@@ -295,13 +295,13 @@ class swiftmailer {
           ->setFrom(['personalbot@diall.ru' => 'Personalbot'])
           ->setTo([$to])
           ->setBody($body, 'text/html')
-          ->attach(Swift_Attachment::fromPath((string)$sendInfo)) ->setFilename('Заявление на перенос отпуска.xlsx'));
+          ->attach(Swift_Attachment::fromPath("$sendInfo") ->setFilename('Заявление на перенос отпуска.xlsx'));
         ;
         $mailer->send($message);
         echo 'Message has been sent';
-        if ($mailer) {
-          return true;
-        }
+//         if ($mailer) {
+//           return true;
+//         }
         break;
     }
   }
