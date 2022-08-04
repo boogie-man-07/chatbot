@@ -261,7 +261,7 @@ class Forms {
         }
 
         $date = $day." ".$newMonth." ".$year." г.";
-        $position = $formInfo['position'];
+        $position = strstr($formInfo['position'], '/', true)) ? strstr($formInfo['position'], '/', true)) : $formInfo['position'];
         $fullName = $formInfo['formFullName'];
 
         require('Classes/PHPExcel.php');
@@ -272,7 +272,7 @@ class Forms {
             $text = "Прошу перенести ежегодный основной оплачиваемый отпуск, запланированный по графику отпусков в период с ".$formInfo['startDate']."г. по ".$formInfo['endDate']."г. на период с ".$info['startDate']."г. по ".$info['endDate']."г. по причине: ".$info['reason'].".";
 
             $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C5', $seo);
-            $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D7', strstr($position, '/', true));
+            $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D7', $position);
             $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C11', $companyName);
             $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C14', $fullName);
             $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A20', $text);
