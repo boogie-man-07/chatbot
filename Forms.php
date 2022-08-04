@@ -261,7 +261,7 @@ class Forms {
         }
 
         $date = $day." ".$newMonth." ".$year." г.";
-        $position = strstr($formInfo['position'], '/', true)) ? strstr($formInfo['position'], '/', true)) : $formInfo['position'];
+        $position = strstr($formInfo['position'], '/', true) == false ? $formInfo['position'] : strstr($formInfo['position'], '/', true);
         $fullName = $formInfo['formFullName'];
 
         require('Classes/PHPExcel.php');
