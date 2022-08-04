@@ -602,7 +602,7 @@ class AuthorizedUserScenario {
                         "booogie.man.07@gmail.com",
                         "Образец заявления на перенос отпуска",
                         $template,
-                        $sendInfo
+                        (string)$info
                     );
                 }
 
