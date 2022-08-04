@@ -261,6 +261,9 @@ class Forms {
         }
 
         $date = $day." ".$newMonth." ".$year." г.";
+        $position = $formInfo['position'];
+        $companyName = $formInfo['companyName'];
+        $fullName = $formInfo['fullName'];
 
         require('Classes/PHPExcel.php');
 
@@ -270,9 +273,9 @@ class Forms {
             $objPHPExcel = PHPExcel_IOFactory::load("forms/postponedDynamicVacationForm.xlsx");
 
             $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C5', $seo);
-            $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D7', strstr($formInfo['position'], '/', true));
+            $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D7', strstr($position, '/', true));
             $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C11', $companyName);
-            $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C14', $formInfo['$fullName']);
+            $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C14', $fullName);
             $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A20', $text);
             $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D23', $date);
             $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B23', $sign);
