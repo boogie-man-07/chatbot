@@ -206,6 +206,11 @@ class Forms {
         $month = $date->format("F");
         $year = $date->format("Y");
         $sendInfo = Array();
+        $date = $day." ".$newMonth." ".$year." г.";
+        $position = strstr($formInfo['position'], '/', true) == false ? $formInfo['position'] : strstr($formInfo['position'], '/', true);
+        $fullName = $formInfo['formFullName'];
+        $companyId = $formInfo['companyId'];
+        $seoInitials = $formInfo['boss'];
 
         switch ($month) {
             case "January":
@@ -256,11 +261,6 @@ class Forms {
                 $companyName = "ООО \"ДИАЛЛ АЛЬЯНС\"";
                 break;
         }
-
-        $date = $day." ".$newMonth." ".$year." г.";
-        $position = strstr($formInfo['position'], '/', true) == false ? $formInfo['position'] : strstr($formInfo['position'], '/', true);
-        $fullName = $formInfo['formFullName'];
-        $seoInitials = $formInfo['boss'];
 
         require('Classes/PHPExcel.php');
         $objPHPExcel = PHPExcel_IOFactory::load("forms/postponedDynamicVacationForm.xlsx");
