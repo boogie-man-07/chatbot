@@ -188,7 +188,7 @@ class SalaryRoute {
 
         return array(
             'position' => $user['position'],
-            'fullName' => $user['fullname'],
+            'formFullName' => $user['form_fullname'],
             'companyId' => $user['company_id'],
             'startDate' => $vacationData['startdate'],
             'endDate' => $vacationData['enddate'],
