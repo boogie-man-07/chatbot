@@ -200,6 +200,7 @@ class SalaryRoute {
         $boss = $this->getSign($user['boss']);
         foreach($separatedVacationData as $data) {
             $item = array(
+                'id' => $date['id'],
                 'startDate' => $data['startdate'],
                 'endDate' => $data['enddate'],
                 'reason' => $data['reason']
