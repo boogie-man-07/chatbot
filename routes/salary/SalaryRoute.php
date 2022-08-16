@@ -165,14 +165,15 @@ class SalaryRoute {
         }
     }
 
-    function isSeparateVacationDateNotInPast($text, $lastSeparateVacationEndDate) {
+    function isSeparateVacationDateNotInPast($text, $selectedVacationStartDate, $lastSeparateVacationEndDate) {
         $postponedStartDate = new DateTime($text);
+        $startDate = new DateTime($selectedVacationStartDate);
         $lastDate = new DateTime($lastSeparateVacationEndDate);
         $currentDate = new DateTime();
-        if ($postponedStartDate > $lastDate) {
-            return true;
+        if ($lastDate != null) {
+            return $postponedStartDate > $lastDate;
         } else {
-            return false;
+            return $postponedStartDate > $startDate;
         }
     }
 
