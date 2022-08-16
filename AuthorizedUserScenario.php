@@ -324,7 +324,7 @@ class AuthorizedUserScenario {
                         case $this->states['postponedSeparateVacationStartDateWaitingState']:
                             $lastSeparateVacation = $this->access->getLastSeparateVacation($this->chatID);
                             if ($this->salaryRoute->isCorrectDateFormat($text)) {
-                                sendMessage($this->chatID, (string)$lastSeparateVacation['enddate'], null); exit;
+                                sendMessage($this->chatID, $lastSeparateVacation[0]['enddate'], null); exit;
                                 if ($this->salaryRoute->isSeparateVacationDateNotInPast($text, $lastSeparateVacation['enddate'])) {
                                     $vacationInfo = $this->access->getSelectedVacationInfo($this->chatID);
                                     $this->access->saveSeparatedUserVacationStartDate($this->chatID, $text, $vacationInfo);
