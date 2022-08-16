@@ -968,7 +968,7 @@ class access {
 
     function getLastSeparateVacation($tg_chat_id) {
         $returnArray = array();
-        $sql = "SELECT * FROM separated_user_vacations WHERE tg_chat_id='".$tg_chat_id."' order by id desc limit 1";
+        $sql = "SELECT * FROM separated_user_vacations WHERE tg_chat_id='".$tg_chat_id."' order by id desc limit 1, 1";
         $result = $this->conn->query($sql);
 
         // if we have at least 1 result returned
