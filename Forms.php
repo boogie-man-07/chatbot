@@ -203,6 +203,7 @@ class Forms {
         $companyName = "";
         $date = new dateTime();
         $day = $date->format("d");
+        $newDay = mb_strlen($day) == 1 ? '0'.$day : $day;
         $month = $date->format("F");
         $year = $date->format("Y");
         $sendInfo = Array();
@@ -250,7 +251,7 @@ class Forms {
                 break;
         }
 
-        $date = $day." ".$newMonth." ".$year." г.";
+        $date = $newDay." ".$newMonth." ".$year." г.";
 
         switch ($companyId) {
             case 2:
