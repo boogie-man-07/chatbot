@@ -167,7 +167,7 @@ class SalaryRoute {
 
     function isSeparateVacationDateNotInPast($text, $lastSeparateVacationEndDate) {
         $postponedStartDate = new DateTime($text);
-        $lastDate = new DateTime($lastSeparateVacationStartDate);
+        $lastDate = new DateTime($lastSeparateVacationEndDate);
         $currentDate = new DateTime();
         if ($postponedStartDate > $lastDate) {
             return true;
