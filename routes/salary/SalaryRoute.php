@@ -170,7 +170,7 @@ class SalaryRoute {
         $startDate = new DateTime($selectedVacationStartDate);
         $lastDate = new DateTime($lastSeparateVacationEndDate);
         $currentDate = new DateTime();
-        if ($lastDate == null) {
+        if (empty($lastSeparateVacationEndDate)) {
             return $postponedStartDate > $startDate;
         } else {
             return $postponedStartDate > $lastDate;
