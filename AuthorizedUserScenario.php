@@ -195,7 +195,7 @@ class AuthorizedUserScenario {
                             exit;
                         case $this->states['regularVacationStartDateWaitingState']:
                             if ($this->salaryRoute->isCorrectDateFormat($text)) {
-                                if ($this->salaryRoute->isDateNotInPast($text, null)) {
+                                if ($this->salaryRoute->isDateNotInPast($text)) {
                                     $this->access->setRegularVacationStartDate($this->chatID, $text);
                                     $this->access->setState($this->chatID, $this->states['regularVacationDurationWaitingState']);
                                     $this->salaryRoute->triggerActionForSetRegularVacationEndDate($this->chatID);
@@ -277,9 +277,8 @@ class AuthorizedUserScenario {
 //                                 exit;
 //                             }
                         case $this->states['postponedVacationNewStartDateWaitingState']:
-                            $selectedVacation = $this->access->getSelectedVacationInfo($this->chatID);
                             if ($this->salaryRoute->isCorrectDateFormat($text)) {
-                                if ($this->salaryRoute->isDateNotInPast($text, $selectedVacation['startdate'])) {
+                                if ($this->salaryRoute->isDateNotInPast($text)) {
                                     $this->access->setSelectedVacationNewStartDate($this->chatID, $text);
                                     $this->access->setState($this->chatID, $this->states['postponedVacationDurationWaitingState']);
                                     $this->salaryRoute->triggerActionForSetPostponedVacationDuration($this->chatID);
@@ -322,12 +321,11 @@ class AuthorizedUserScenario {
                                 exit;
                             }
                         case $this->states['postponedSeparateVacationStartDateWaitingState']:
-                            $selectedVacation = $this->access->getSelectedVacationInfo($this->chatID);
+                            $vacationInfo = $this->access->getSelectedVacationInfo($this->chatID);
                             $lastSeparateVacation = $this->access->getLastSeparateVacation($this->chatID);
                             if ($this->salaryRoute->isCorrectDateFormat($text)) {
                                 //sendMessage($this->chatID, $lastSeparateVacation['enddate'], null); exit;
-                                if ($this->salaryRoute->isSeparateVacationDateNotInPast($text, $selectedVacation['new_start_date'], $lastSeparateVacation['enddate'])) {
-                                    $vacationInfo = $this->access->getSelectedVacationInfo($this->chatID);
+                                if ($this->salaryRoute->isSeparateVacationDateNotInPast($text, $lastSeparateVacation['enddate'])) {
                                     $this->access->saveSeparatedUserVacationStartDate($this->chatID, $text, $vacationInfo);
                                     $this->access->setState($this->chatID, $this->states['postponedSeparateVacationDurationWaitingState']);
                                     $this->salaryRoute->triggerActionForSetPostponedVacationDuration($this->chatID);
