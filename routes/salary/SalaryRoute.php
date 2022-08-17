@@ -150,31 +150,16 @@ class SalaryRoute {
         return preg_match('/[0-9]/', $text);
     }
 
-    function isDateNotInPast($text, $selectedVacationDate) {
+    function isDateNotInPast($text) {
         $postponedStartDate = new DateTime($text);
-        $selectedStartDate = new DateTime($selectedVacationDate);
         $currentDate = new DateTime();
-        if ($selectedVacationDate == null) {
-            return $postponedStartDate > $currentDate->modify('+5 days');
-        } else {
-            if ($postponedStartDate > $selectedStartDate) {
-                return $postponedStartDate > $selectedStartDate->modify('+5 days');
-            } else {
-                return false;
-            }
-        }
+        return $postponedStartDate > $currentDate->modify('+5 days');
     }
 
-    function isSeparateVacationDateNotInPast($text, $selectedVacationStartDate, $lastSeparateVacationEndDate) {
+    function isSeparateVacationDateNotInPast($text, $lastSeparateVacationEndDate) {
         $postponedStartDate = new DateTime($text);
-        $startDate = new DateTime($selectedVacationStartDate);
         $lastDate = new DateTime($lastSeparateVacationEndDate);
-        $currentDate = new DateTime();
-        if (empty($lastSeparateVacationEndDate)) {
-            return $postponedStartDate > $startDate;
-        } else {
-            return $postponedStartDate > $lastDate;
-        }
+        return $postponedStartDate > $lastDate;
     }
 
     function getSign($fullname) {
