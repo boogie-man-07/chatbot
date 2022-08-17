@@ -600,7 +600,7 @@ class AuthorizedUserScenario {
                     $template = str_replace("{firstname}", $this->user['firstname'], $template);
                     $this->swiftmailer->sendPostponedVacationMailWithAttachementViaSmtp(
                         $this->user['company_id'],
-                        'booogie.man.07@gmail.com',
+                        $this->user['email'],
                         "Образец заявления на перенос отпуска",
                         $template,
                         (string)$info
