@@ -147,7 +147,7 @@ class SalaryRoute {
     }
 
     function isCorrectVacationDurationFormat($text) {
-        return preg_match('/[0-9]/', $text);
+        return preg_match('/^([1-9]/\d?)$/', $text);
     }
 
     function isDateNotInPast($text) {
