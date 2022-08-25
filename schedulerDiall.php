@@ -93,7 +93,8 @@ if ($err) {
                 'mobile_number' => $user['mobile_number'],
                 'company_name' => $user['company_name'],
                 'company_id' => $user['company_id'],
-                'boss' => $user['boss'],
+                'boss' => $user['head'],
+                'boss_position' => $user['head_position'],
                 'main_holliday_counter' => $holiday_main,
                 'additional_holliday_counter' => $holiday_more,
                 'activity' => $user['activity']
@@ -150,6 +151,7 @@ foreach ($employeeList as $employeeValue) {
                 $is_greenhouse_available,
                 $is_diall_available,
                 $employeeValue['boss'],
+                $employeeValue['boss_position'],
                 $employeeValue['main_holliday_counter'],
                 $employeeValue['additional_holliday_counter'],
                 $employeeValue['email']
@@ -180,6 +182,7 @@ foreach ($employeeList as $employeeValue) {
                 $is_greenhouse_available,
                 $is_diall_available,
                 $employeeValue['boss'],
+                $employeeValue['boss_position'],
                 $employeeValue['main_holliday_counter'],
                 $employeeValue['additional_holliday_counter']
             );
@@ -289,6 +292,7 @@ foreach ($employeeList as $employeeValue) {
             $employeeValue['company_name'],
             $employeeValue['company_id'],
             $employeeValue['boss'],
+            $employeeValue['boss_position'],
             $employeeValue['main_holliday_counter'],
             $employeeValue['additional_holliday_counter'],
             $employeeValue['activity']
