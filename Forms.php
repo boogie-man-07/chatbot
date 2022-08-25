@@ -211,6 +211,7 @@ class Forms {
         $fullName = $formInfo['formFullName'];
         $companyId = $formInfo['companyId'];
         $seoInitials = $formInfo['boss'];
+        $bossPosition = $formInfo['bossPosition'];
 
         switch ($month) {
             case "January":
@@ -278,6 +279,7 @@ class Forms {
             $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A20', $text);
             $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D23', $date);
             $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B23', $sign);
+            $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A29', $bossPosition);
             $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D29', $seoInitials);
 
             $objExcelWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');

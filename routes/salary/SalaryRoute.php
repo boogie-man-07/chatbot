@@ -201,6 +201,7 @@ class SalaryRoute {
             'startDate' => $vacationData['startdate'],
             'endDate' => $vacationData['enddate'],
             'boss' => $boss,
+            'bossPosition' => $user['boss_position'],
             'vacations' => $separatedDataArray
         );
     }
