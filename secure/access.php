@@ -1194,7 +1194,7 @@ class access {
     function insertEmployee($userId, $lastname, $firstname, $fullname, $form_fullname, $position, $form_position, $email, $office_number, $internal_number, $mobile_number, $company_name, $company_id, $is_sigma_available, $is_greenhouse_available, $is_diall_available, $boss, $boss_position, $main_holliday_counter, $additional_holliday_counter) {
 
         // sql statement 
-        $sql = "INSERT INTO phonebook SET user_id=?, lastname=?, firstname=?, fullname=?, form_fullname=?, position=?, form_position=?, email=?, office_number=?, internal_number=?, mobile_number=?, company_name=?, company_id=?, is_sigma_available=?, is_greenhouse_available=?, is_diall_available=?, boss=?, boss_position, main_holliday_counter=?, additional_holliday_counter=?";
+        $sql = "INSERT INTO phonebook SET user_id=?, lastname=?, firstname=?, fullname=?, form_fullname=?, position=?, form_position=?, email=?, office_number=?, internal_number=?, mobile_number=?, company_name=?, company_id=?, is_sigma_available=?, is_greenhouse_available=?, is_diall_available=?, boss=?, boss_position=?, main_holliday_counter=?, additional_holliday_counter=?";
 
         // prepare statement to be executed
         $statement = $this->conn->prepare($sql);
