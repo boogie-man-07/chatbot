@@ -196,9 +196,10 @@ class AuthorizedUserScenario {
                         case $this->states['regularVacationStartDateWaitingState']:
                             $date = strtok($text, '.');
                             $correctDate = mb_strlen($date) == 1 ? '0'.$date : $date;
-                            if ($this->salaryRoute->isCorrectDateFormat($correctDate)) {
-                                if ($this->salaryRoute->isDateNotInPast($correctDate)) {
-                                    $this->access->setRegularVacationStartDate($this->chatID, $correctDate);
+                            $correctText = $correctDate.strstr($text, '.');
+                            if ($this->salaryRoute->isCorrectDateFormat($correctText)) {
+                                if ($this->salaryRoute->isDateNotInPast($correctText)) {
+                                    $this->access->setRegularVacationStartDate($this->chatID, $correctText);
                                     $this->access->setState($this->chatID, $this->states['regularVacationDurationWaitingState']);
                                     $this->salaryRoute->triggerActionForSetRegularVacationEndDate($this->chatID);
                                     exit;
@@ -281,9 +282,10 @@ class AuthorizedUserScenario {
                         case $this->states['postponedVacationNewStartDateWaitingState']:
                             $date = strtok($text, '.');
                             $correctDate = mb_strlen($date) == 1 ? '0'.$date : $date;
-                            if ($this->salaryRoute->isCorrectDateFormat($correctDate)) {
-                                if ($this->salaryRoute->isDateNotInPast($correctDate)) {
-                                    $this->access->setSelectedVacationNewStartDate($this->chatID, $correctDate);
+                            $correctText = $correctDate.strstr($text, '.');
+                            if ($this->salaryRoute->isCorrectDateFormat($correctText)) {
+                                if ($this->salaryRoute->isDateNotInPast($correctText)) {
+                                    $this->access->setSelectedVacationNewStartDate($this->chatID, $correctText);
                                     $this->access->setState($this->chatID, $this->states['postponedVacationDurationWaitingState']);
                                     $this->salaryRoute->triggerActionForSetPostponedVacationDuration($this->chatID);
                                     exit;
@@ -327,10 +329,13 @@ class AuthorizedUserScenario {
                         case $this->states['postponedSeparateVacationStartDateWaitingState']:
                             $vacationInfo = $this->access->getSelectedVacationInfo($this->chatID);
                             $lastSeparateVacation = $this->access->getLastSeparateVacation($this->chatID);
-                            if ($this->salaryRoute->isCorrectDateFormat($text)) {
+                            $date = strtok($text, '.');
+                            $correctDate = mb_strlen($date) == 1 ? '0'.$date : $date;
+                            $correctText = $correctDate.strstr($text, '.');
+                            if ($this->salaryRoute->isCorrectDateFormat($correctText)) {
                                 //sendMessage($this->chatID, $lastSeparateVacation['enddate'], null); exit;
-                                if ($this->salaryRoute->isSeparateVacationDateNotInPast($text, $lastSeparateVacation['enddate'])) {
-                                    $this->access->saveSeparatedUserVacationStartDate($this->chatID, $text, $vacationInfo);
+                                if ($this->salaryRoute->isSeparateVacationDateNotInPast($correctText, $lastSeparateVacation['enddate'])) {
+                                    $this->access->saveSeparatedUserVacationStartDate($this->chatID, $correctText, $vacationInfo);
                                     $this->access->setState($this->chatID, $this->states['postponedSeparateVacationDurationWaitingState']);
                                     $this->salaryRoute->triggerActionForSetPostponedVacationDuration($this->chatID);
                                     exit;
