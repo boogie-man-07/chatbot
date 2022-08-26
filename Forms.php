@@ -304,7 +304,7 @@ class Forms {
         $objExcelWriter->save($excelFilename);
     }
 
-    function getNewRegularVacationForm($user, $vacationType, $startDate, $vacationDuration, $vacationReason, $day, $month, $year, $sign) {
+    function getNewRegularVacationForm($user, $vacationType, $startDate, $vacationDuration, $vacationReason, $day, $month, $year, $sign, $bossSign) {
 
         $newMonth = "";
         $seo = "";
@@ -318,7 +318,6 @@ class Forms {
         $position = strstr($user['position'], '/', true) == false ? $user['position'] : strstr($user['position'], '/', true);
         $fullName = $user['form_fullname'];
         $companyId = $user['company_id'];
-        $seoInitials = $user['boss'];
         $bossPosition = $user['boss_position'];
 
         switch ($vacationType) {
@@ -403,7 +402,7 @@ class Forms {
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('E29', $date);
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C29', $sign);
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B42', $bossPosition);
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('E42', $seoInitials);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('E42', $bossSign);
 
         if ($vacationReason != null) {
             $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C26', $vacationReason);

@@ -559,10 +559,11 @@ class AuthorizedUserScenario {
                 $day = $date->format("d");
                 $month = $date->format("F");
                 $year = $date->format("Y");
+                $bossSign = $this->salaryRoute->getSign($this->user['boss']);
                 if ($vacationFormData['vacation_type'] == '3') {
-                    $this->forms->getNewRegularVacationForm($this->user, $vacationFormData['vacation_type'], $vacationFormData["vacation_startdate"], $vacationFormData["vacation_duration"], $vacationFormData["reason"], $day, $month, $year, $sign);
+                    $this->forms->getNewRegularVacationForm($this->user, $vacationFormData['vacation_type'], $vacationFormData["vacation_startdate"], $vacationFormData["vacation_duration"], $vacationFormData["reason"], $day, $month, $year, $sign, $bossSign);
                 } else {
-                    $this->forms->getNewRegularVacationForm($this->user, $vacationFormData['vacation_type'], $vacationFormData["vacation_startdate"], $vacationFormData["vacation_duration"], null, $day, $month, $year, $sign);
+                    $this->forms->getNewRegularVacationForm($this->user, $vacationFormData['vacation_type'], $vacationFormData["vacation_startdate"], $vacationFormData["vacation_duration"], null, $day, $month, $year, $sign, $bossSign);
                 }
                 $template = $this->email->generateNewRegularVacationForm($this->user['company_id']);
                 $template = str_replace("{firstname}", $this->user['firstname'], $template);
