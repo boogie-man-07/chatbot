@@ -1,12 +1,8 @@
 <?Php
 
-$date = new dateTime();
-$day = $date->format("d");
+$date = strtok('1.09.2022', '.');
+$correctDate = mb_strlen($date) == 1 ? '0'.$date : $date;
 
-if (mb_strlen($day) <= 2) {
-    echo '0'.$day;
-} else {
-    echo $day;
-}
+echo $correctDate;
 
 ?>
