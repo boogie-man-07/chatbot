@@ -317,7 +317,7 @@ class Forms {
         $sendInfo = Array();
         $position = strstr($user['position'], '/', true) == false ? $user['position'] : strstr($user['position'], '/', true);
         $fullName = $user['form_fullname'];
-        $companyId = $user['companyid'];
+        $companyId = $user['company_id'];
         $seoInitials = $user['boss'];
         $bossPosition = $user['boss_position'];
 
