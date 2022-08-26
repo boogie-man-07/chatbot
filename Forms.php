@@ -379,6 +379,8 @@ class Forms {
                 break;
         }
 
+        $date = $newDay." ".$newMonth." ".$year." г.";
+
         switch ($companyId) {
             case 2:
                 $seo = "Генеральному директору ООО \"Гринхаус\" Шилову Г.Ю.";
@@ -390,15 +392,13 @@ class Forms {
                 break;
         }
 
-        $date = $day." ".$newMonth." ".$year." г.";
-
         require('Classes/PHPExcel.php');
         $objPHPExcel = PHPExcel_IOFactory::load($path);
 
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D5', $seo);
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('E7', strstr($position, '/', true));
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('E7', $position);
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D11', $companyName);
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D14', $fullname);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D14', $fullName);
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B24', $text);
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('E29', $date);
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C29', $sign);
