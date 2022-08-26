@@ -620,7 +620,7 @@ class access {
             }
 
             // bind parameters to sql statement
-            $statement->bind_param("si", $type, $tg_chat_id);
+            $statement->bind_param("ss", $type, $tg_chat_id);
 
             // launch/execute and store feedback to returnValue
             $returnValue = $statement->execute();
@@ -640,7 +640,7 @@ class access {
             }
 
             // bind 5 params of type string to be placed in sql command
-            $statement->bind_param("is", $tg_chat_id, $type);
+            $statement->bind_param("ss", $tg_chat_id, $type);
             $returnValue = $statement->execute();
 
 
@@ -669,7 +669,7 @@ class access {
             }
 
             // bind parameters to sql statement
-            $statement->bind_param("si", $date, $tg_chat_id);
+            $statement->bind_param("ss", $date, $tg_chat_id);
 
             // launch/execute and store feedback to returnValue
             $returnValue = $statement->execute();
@@ -689,7 +689,7 @@ class access {
             }
 
             // bind 5 params of type string to be placed in sql command
-            $statement->bind_param("is", $tg_chat_id, $date);
+            $statement->bind_param("ss", $tg_chat_id, $date);
             $returnValue = $statement->execute();
 
 
@@ -718,7 +718,7 @@ class access {
             }
 
             // bind parameters to sql statement
-            $statement->bind_param("si", $duration, $tg_chat_id);
+            $statement->bind_param("ss", $duration, $tg_chat_id);
 
             // launch/execute and store feedback to returnValue
             $returnValue = $statement->execute();
@@ -738,7 +738,7 @@ class access {
             }
 
             // bind 5 params of type string to be placed in sql command
-            $statement->bind_param("is", $tg_chat_id, $duration);
+            $statement->bind_param("ss", $tg_chat_id, $duration);
             $returnValue = $statement->execute();
 
 
@@ -766,7 +766,7 @@ class access {
             }
 
             // bind parameters to sql statement
-            $statement->bind_param("si", $reason, $tg_chat_id);
+            $statement->bind_param("ss", $reason, $tg_chat_id);
 
             // launch/execute and store feedback to returnValue
             $returnValue = $statement->execute();
@@ -786,7 +786,7 @@ class access {
             }
 
             // bind 5 params of type string to be placed in sql command
-            $statement->bind_param("is", $tg_chat_id, $reason);
+            $statement->bind_param("ss", $tg_chat_id, $reason);
             $returnValue = $statement->execute();
 
 

@@ -201,7 +201,7 @@ class AuthorizedUserScenario {
                                 if ($this->salaryRoute->isDateNotInPast($correctText)) {
                                     $this->access->setRegularVacationStartDate($this->chatID, $correctText);
                                     $this->access->setState($this->chatID, $this->states['regularVacationDurationWaitingState']);
-                                    $this->salaryRoute->triggerActionForSetRegularVacationEndDate($this->chatID);
+                                    $this->salaryRoute->triggerActionForSetRegularVacationDuration($this->chatID);
                                     exit;
                                 } else {
                                     $this->commonmistakeroute->triggerActionForDateInThePastError($this->chatID);

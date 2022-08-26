@@ -355,7 +355,7 @@ class constants {
     }
 
     function getReplyForRegularVacationStartPreparations() {
-        return "Введите желаемую дату начала отпуска.\nПример: <b>01.01.2018</b>";
+        return "Введите желаемую дату начала отпуска.\nПример: <b>1.01.2023 или 01.01.2023</b>";
     }
 
     function getSetRegularVacationEndDateText() {
@@ -371,11 +371,11 @@ class constants {
     }
 
     function getSetPostponedVacationNewStartDateText() {
-        return "Введи новую дату начала отпуска.\nПример: <b>01.01.2018</b>";
+        return "Введи новую дату начала отпуска.\nПример: <b>1.01.2023 или 01.01.2023</b>";
     }
 
     function getSetPostponedVacationNewEndDateText() {
-        return "Введи новую дату окончания отпуска.\nПример: <b>01.01.2018</b>";
+        return "Введи новую дату окончания отпуска.\nПример: <b>1.01.2023 или 01.01.2023</b>";
     }
 
     function getSetPostponedVacationReasonText() {
@@ -391,7 +391,7 @@ class constants {
     }
 
     function getDateFormatErrorText() {
-        return "Неверный формат даты. Попробуйте снова.\nПример: <b>01.01.2018</b>";
+        return "Неверный формат даты. Попробуйте снова.\nПример: <b>1.01.2023 или 01.01.2023</b>";
     }
 
     function getSendVacationFormText() {
@@ -426,6 +426,6 @@ class constants {
     }
 
     function getReplyCheckPostponedVacationDuration($restDuration) {
-        return "У Вас еще остались дни в данном отпуске, которые необходимо перенесети. Количество оставшихся дней: $restDuration.Пожалуйста, укажите дату начала отпуска.\nПример: <b>01.01.2018</b>";
+        return "У Вас еще остались дни в данном отпуске, которые необходимо перенесети. Количество оставшихся дней: $restDuration.Пожалуйста, укажите дату начала отпуска.\nПример: <b>1.01.2023 или 01.01.2023</b>";
     }
 }
