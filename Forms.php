@@ -304,14 +304,22 @@ class Forms {
         $objExcelWriter->save($excelFilename);
     }
 
-    function getNewRegularVacationForm($position, $fullname, $vacationType, $startDate, $vacationDuration, $vacationReason, $day, $month, $year, $sign, $companyId) {
+    function getNewRegularVacationForm($user, $vacationType, $startDate, $vacationDuration, $vacationReason, $day, $month, $year, $sign) {
 
         $newMonth = "";
-        $path = "";
-        $text = "";
         $seo = "";
-        $seoInitials = "";
         $companyName = "";
+        $date = new dateTime();
+        $day = $date->format("d");
+        $newDay = mb_strlen($day) == 1 ? '0'.$day : $day;
+        $month = $date->format("F");
+        $year = $date->format("Y");
+        $sendInfo = Array();
+        $position = strstr($user['position'], '/', true) == false ? $user['position'] : strstr($user['position'], '/', true);
+        $fullName = $user['form_fullname'];
+        $companyId = $user['companyid'];
+        $seoInitials = $user['boss'];
+        $bossPosition = $user['boss_position'];
 
         switch ($vacationType) {
             case 0:
@@ -374,12 +382,10 @@ class Forms {
         switch ($companyId) {
             case 2:
                 $seo = "Генеральному директору ООО \"Гринхаус\" Шилову Г.Ю.";
-                $seoInitials = "Г.Ю. Шилов";
                 $companyName = "ООО \"Гринхаус\"";
                 break;
             case 3:
                 $seo = "Генеральному директору ООО \"ДИАЛЛ АЛЬЯНС\" Александрову В.В.";
-                $seoInitials = "В.В. Александров";
                 $companyName = "ООО \"ДИАЛЛ АЛЬЯНС\"";
                 break;
         }
@@ -396,7 +402,8 @@ class Forms {
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B24', $text);
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('E29', $date);
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C29', $sign);
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('E35', $seoInitials);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B42', $bossPosition);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('E42', $seoInitials);
 
         if ($vacationReason != null) {
             $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C26', $vacationReason);
