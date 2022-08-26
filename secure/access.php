@@ -620,7 +620,7 @@ class access {
             }
 
             // bind parameters to sql statement
-            $statement->bind_param("si", $type, $tg_chat_id);
+            $statement->bind_param("ss", $type, $tg_chat_id);
 
             // launch/execute and store feedback to returnValue
             $returnValue = $statement->execute();
@@ -640,7 +640,7 @@ class access {
             }
 
             // bind 5 params of type string to be placed in sql command
-            $statement->bind_param("is", $tg_chat_id, $type);
+            $statement->bind_param("ss", $tg_chat_id, $type);
             $returnValue = $statement->execute();
 
 
