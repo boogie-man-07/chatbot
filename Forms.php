@@ -279,8 +279,8 @@ class Forms {
             $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A20', $text);
             $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D23', $date);
             $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B23', $sign);
-            $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A29', $bossPosition);
-            $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D29', $seoInitials);
+            $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A36', $bossPosition);
+            $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D36', $seoInitials);
 
             $objExcelWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
             $excelFilename = "forms/postponedDynamicVacationForm_$tg_chat_id"."_"."$id.xlsx";

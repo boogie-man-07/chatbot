@@ -284,7 +284,7 @@ class AuthorizedUserScenario {
                                     $this->salaryRoute->triggerActionForSetPostponedVacationDuration($this->chatID);
                                     exit;
                                 } else {
-                                    $this->commonmistakeroute->triggerActionForDateInThePastError($this->chatID);
+                                    $this->commonmistakeroute->triggerActionForPostponedDateInThePastError($this->chatID);
                                     exit;
                                 }
                             } else {
@@ -331,7 +331,7 @@ class AuthorizedUserScenario {
                                     $this->salaryRoute->triggerActionForSetPostponedVacationDuration($this->chatID);
                                     exit;
                                 } else {
-                                    $this->commonmistakeroute->triggerActionForDateInThePastError($this->chatID);
+                                    $this->commonmistakeroute->triggerActionForPostponedDateInThePastError($this->chatID);
                                     exit;
                                 }
                             } else {

@@ -82,6 +82,11 @@ class commonmistakeroute {
         sendMessage($chatID, $reply, null);
     }
 
+    function triggerActionForPostponedDateInThePastError($chatID) {
+            $reply = $this->constants->getPostponedDateInThePastErrorText();
+            sendMessage($chatID, $reply, null);
+        }
+
     function triggerActionForDateFormatError($chatID) {
         $reply = $this->constants->getDateFormatErrorText();
         sendMessage($chatID, $reply, null);
