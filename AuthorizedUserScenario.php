@@ -199,7 +199,7 @@ class AuthorizedUserScenario {
                             $month = strstr(substr(strstr($text, '.'), 1, 0), '.', true);
                             $correctMonth = mb_strlen($month) == 1 ? '0'.$month : $month;
                             $correctYear = substr(strrchr($text, "."), 1);
-                            $correctText = $correctDate.$correctMonth.$correctYear;
+                            $correctText = $correctDate.'.'.$correctMonth.'.'.$correctYear;
                             sendMessage($this->chatID, $correctText, null); exit;
                             if ($this->salaryRoute->isCorrectDateFormat($correctText)) {
                                 if ($this->salaryRoute->isDateNotInPast($correctText)) {
