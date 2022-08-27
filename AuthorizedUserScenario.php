@@ -194,9 +194,13 @@ class AuthorizedUserScenario {
                             $this->mainInformationRoute->triggerActionForSendFeedbackConfirmation($this->chatID);
                             exit;
                         case $this->states['regularVacationStartDateWaitingState']:
-                            $date = strtok($text, '.');
+                            $date = strstr($text, '.', true);
                             $correctDate = mb_strlen($date) == 1 ? '0'.$date : $date;
-                            $correctText = $correctDate.strstr($text, '.');
+                            $month = strstr(substr(strstr($text, '.'), 1, 0), '.', true);
+                            $correctMonth = mb_strlen($month) == 1 ? '0'.$month : $month;
+                            $correctYear = substr(strrchr($text, "."), 1);
+                            $correctText = $correctDate.$correctMonth.$correctYear;
+                            sendMessage($this->chatID, $correctText, null); exit;
                             if ($this->salaryRoute->isCorrectDateFormat($correctText)) {
                                 if ($this->salaryRoute->isDateNotInPast($correctText)) {
                                     $this->access->setRegularVacationStartDate($this->chatID, $correctText);
