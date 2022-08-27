@@ -196,7 +196,7 @@ class AuthorizedUserScenario {
                         case $this->states['regularVacationStartDateWaitingState']:
                             $date = strstr($text, '.', true);
                             $correctDate = mb_strlen($date) == 1 ? '0'.$date : $date;
-                            $month = substr(strstr($text, '.'), 1);
+                            $month = strstr(substr(strstr($text, '.'), 1), '.', false);
                             $correctMonth = mb_strlen($month) == 1 ? '0'.$month : $month;
                             $correctYear = substr(strrchr($text, "."), 1);
                             $correctText = $correctDate.'.'.$correctMonth.'.'.$correctYear;
