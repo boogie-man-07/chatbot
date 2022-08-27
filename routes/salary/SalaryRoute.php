@@ -169,6 +169,15 @@ class SalaryRoute {
         return $nArray[0]." ".$nameFirstLetter.".".$middlenameFirstLetter.".";
     }
 
+    function formatDate($text) {
+        $date = strstr($text, '.', true);
+        $correctDate = mb_strlen($date) == 1 ? '0'.$date : $date;
+        $month = strstr(substr(strstr($text, '.'), 1), '.', true);
+        $correctMonth = mb_strlen($month) == 1 ? '0'.$month : $month;
+        $correctYear = substr(strrchr($text, "."), 1);
+        return $correctDate.'.'.$correctMonth.'.'.$correctYear;
+    }
+
     function isCorrectFLFormat($first, $last) {
         if (mb_strlen($first) < 2 || mb_strlen($last) < 2) {
             return false;

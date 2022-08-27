@@ -194,13 +194,7 @@ class AuthorizedUserScenario {
                             $this->mainInformationRoute->triggerActionForSendFeedbackConfirmation($this->chatID);
                             exit;
                         case $this->states['regularVacationStartDateWaitingState']:
-                            $date = strstr($text, '.', true);
-                            $correctDate = mb_strlen($date) == 1 ? '0'.$date : $date;
-                            $month = strstr(substr(strstr($text, '.'), 1), '.', true);
-                            $correctMonth = mb_strlen($month) == 1 ? '0'.$month : $month;
-                            $correctYear = substr(strrchr($text, "."), 1);
-                            $correctText = $correctDate.'.'.$correctMonth.'.'.$correctYear;
-                            sendMessage($this->chatID, $correctText, null); exit;
+                            $correctText = $this->salaryRoute->formatDate($text);
                             if ($this->salaryRoute->isCorrectDateFormat($correctText)) {
                                 if ($this->salaryRoute->isDateNotInPast($correctText)) {
                                     $this->access->setRegularVacationStartDate($this->chatID, $correctText);
@@ -284,9 +278,7 @@ class AuthorizedUserScenario {
 //                                 exit;
 //                             }
                         case $this->states['postponedVacationNewStartDateWaitingState']:
-                            $date = strtok($text, '.');
-                            $correctDate = mb_strlen($date) == 1 ? '0'.$date : $date;
-                            $correctText = $correctDate.strstr($text, '.');
+                            $correctText = $this->salaryRoute->formatDate($text);
                             if ($this->salaryRoute->isCorrectDateFormat($correctText)) {
                                 if ($this->salaryRoute->isDateNotInPast($correctText)) {
                                     $this->access->setSelectedVacationNewStartDate($this->chatID, $correctText);
@@ -334,9 +326,7 @@ class AuthorizedUserScenario {
                         case $this->states['postponedSeparateVacationStartDateWaitingState']:
                             $vacationInfo = $this->access->getSelectedVacationInfo($this->chatID);
                             $lastSeparateVacation = $this->access->getLastSeparateVacation($this->chatID);
-                            $date = strtok($text, '.');
-                            $correctDate = mb_strlen($date) == 1 ? '0'.$date : $date;
-                            $correctText = $correctDate.strstr($text, '.');
+                            $correctText = $this->salaryRoute->formatDate($text);
                             if ($this->salaryRoute->isCorrectDateFormat($correctText)) {
                                 //sendMessage($this->chatID, $lastSeparateVacation['enddate'], null); exit;
                                 if ($this->salaryRoute->isSeparateVacationDateNotInPast($correctText, $lastSeparateVacation['enddate'])) {
