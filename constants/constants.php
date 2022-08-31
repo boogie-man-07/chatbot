@@ -425,6 +425,10 @@ class constants {
         return "К сожалению, максимальное количество дней, которые Вы можете перенести в этом отпуске: $realDuration";
     }
 
+    function getVacationDurationLimitErrorText($restVacationDuration) {
+        return "К сожалению, максимальное количество дней отпуска, которые Вы можете взять в этом году: $restVacationDuration";
+    }
+
     function getReplyCheckPostponedVacationDuration($restDuration) {
         return "У Вас еще остались дни в данном отпуске, которые необходимо перенесети. Количество оставшихся дней: $restDuration.Пожалуйста, укажите дату начала отпуска.\nПример: <b>1.01.2023 или 01.01.2023</b>";
     }

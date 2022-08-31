@@ -212,15 +212,21 @@ class AuthorizedUserScenario {
                         case $this->states['regularVacationDurationWaitingState']:
                             if ($this->salaryRoute->isCorrectVacationDurationFormat($text)) {
                                 $vacationFormData = $this->access->getReguarVacationFormData($this->chatID);
-                                if ($vacationFormData['vacation_type'] != '3') {
-                                    $this->access->setRegularVacationDuration($this->chatID, $text);
-                                    $this->access->setState($this->chatID, $this->states['regularVacationFormSendingWaitingState']);
-                                    $this->salaryRoute->triggerActionForSendRegularVacationForm($this->chatID);
-                                    exit;
+                                $restVacationCount = $this->vacationInfo->getRestVacationCount($this->user['email']);
+                                if ($text <= $restVacationCount) {
+                                    if ($vacationFormData['vacation_type'] != '3') {
+                                        $this->access->setRegularVacationDuration($this->chatID, $text);
+                                        $this->access->setState($this->chatID, $this->states['regularVacationFormSendingWaitingState']);
+                                        $this->salaryRoute->triggerActionForSendRegularVacationForm($this->chatID);
+                                        exit;
+                                    } else {
+                                        $this->access->setRegularVacationDuration($this->chatID, $text);
+                                        $this->access->setState($this->chatID, $this->states['regularVacationAcademicReasonWaitingState']);
+                                        $this->salaryRoute->triggerActionForSetRegularVacationAcademicReason($this->chatID);
+                                        exit;
+                                    }
                                 } else {
-                                    $this->access->setRegularVacationDuration($this->chatID, $text);
-                                    $this->access->setState($this->chatID, $this->states['regularVacationAcademicReasonWaitingState']);
-                                    $this->salaryRoute->triggerActionForSetRegularVacationAcademicReason($this->chatID);
+                                    $this->commonmistakeroute->triggerActionForMaxVacationDurationLimitError($this->chatID, $restVacationCount);
                                     exit;
                                 }
                             } else {
