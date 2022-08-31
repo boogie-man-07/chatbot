@@ -75,8 +75,8 @@ class SalaryRoute {
         sendMessage($chatID, $reply, null);
     }
 
-    function triggerActionForSetRegularVacationDuration($chatID) {
-        $reply = $this->constants->getPostponedVacationDurationText();
+    function triggerActionForSetRegularVacationDuration($chatID, $restVacationDuration) {
+        $reply = $this->constants->getRegularVacationDurationText($restVacationDuration);
         sendMessage($chatID, $reply, null);
     }
 
