@@ -363,7 +363,7 @@ class constants {
     }
 
     function getPostponedVacationDurationText() {
-        return "Введите желаемую длительность отпуска (количество дней).\nПример: <b>14</b>";
+        return "Количество оставшихся дней отпуска в этом году: $restVacationDuration. Введите желаемую длительность отпуска (количество дней).\nПример: <b>14</b>";
     }
 
     function getSetPostponedVacationEndDateText() {
