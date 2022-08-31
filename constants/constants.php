@@ -321,11 +321,12 @@ class constants {
             return "Извините, информация по количеству оставшихся дней отпуска недоступна, попробуйте запросить позднее.";
         } else {
             $vacationsList = "";
-            foreach ($vacations['vacations'] as $key=>$value) {
-                $newDate = date('d.m.Y', strtotime($value['date1']));
-                $vacationsList += "Отпуск $newDate (дней: ".$value['amount'].")\n";
-            }
-            return "Общее количество оставшихся дней отпуска: $data.\n$vacationsList";
+            return json_decode($vacations['vacations'][0]);
+//             foreach ($vacations['vacations'] as $key=>$value) {
+//                 $newDate = date('d.m.Y', strtotime($value['date1']));
+//                 $vacationsList += "Отпуск $newDate (дней: ".$value['amount'].")\n";
+//             }
+//             return "Общее количество оставшихся дней отпуска: $data.\n$vacationsList";
         }
     }
 
