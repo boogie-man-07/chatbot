@@ -317,7 +317,7 @@ class constants {
     }
 
     function getRestVacationInfoText($data, $vacations) {
-        if ($data == 0.00) {
+        if ($data == 0) {
             return "Извините, информация по количеству оставшихся дней отпуска недоступна, попробуйте запросить позднее.";
         } else {
             $vacationsList = "";
