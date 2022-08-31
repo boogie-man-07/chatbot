@@ -106,6 +106,11 @@ class commonmistakeroute {
        $reply = $this->constants->getVacationDurationErrorText($realDuration);
        sendMessage($chatID, $reply, null);
    }
+
+   function triggerActionForMaxVacationDurationLimitError($chatID, $restVacationDuration) {
+       $reply = $this->constants->getVacationDurationLimitErrorText($restVacationDuration);
+       sendMessage($chatID, $reply, null);
+   }
 }
 
 
