@@ -127,8 +127,8 @@ class SalaryRoute {
         sendMessage($chatID, $reply, null);
     }
 
-    function triggerActionForSetPostponedVacationDuration($chatID) {
-        $reply = $this->constants->getPostponedVacationDurationText();
+    function triggerActionForSetPostponedVacationDuration($chatID, $restVacationDuration) {
+        $reply = $this->constants->getPostponedVacationDurationText($restVacationDuration);
         sendMessage($chatID, $reply, null);
     }
 
