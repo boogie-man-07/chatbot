@@ -134,7 +134,7 @@ foreach ($employeeList as $employeeValue) {
             // Если есть и в выгрузке и в БД - обновляем в БД по email 
             echo $employeeValue['email']." сотрудник офиса существует и в файле, и в БД, обновляем в БД<br>";
 
-            /*$access->updateEmployeeByEmail(
+            $access->updateEmployeeByEmail(
                 $employeeValue['userId'],
                 $employeeValue['firstname'],
                 $employeeValue['lastname'],
@@ -157,14 +157,14 @@ foreach ($employeeList as $employeeValue) {
                 $employeeValue['email']
             );
 
-            $logs->logUpload($employeeValue['email']." сотрудник офиса существует и в файле, и в БД, обновляем в БД", $employeeValue['email']);*/
+            $logs->logUpload($employeeValue['email']." сотрудник офиса существует и в файле, и в БД, обновляем в БД", $employeeValue['email']);
 
         } else {
 
             // Если есть в выгрузке, но нет в БД - добавляем в БД по email
             echo $employeeValue['email']." существует в файле, но отсутствует в БД, добавляем в БД<br>";
 
-            /*$access->insertEmployee(
+            $access->insertEmployee(
                 $employeeValue['userId'],
                 $employeeValue['lastname'],
                 $employeeValue['firstname'],
@@ -187,7 +187,7 @@ foreach ($employeeList as $employeeValue) {
                 $employeeValue['additional_holliday_counter']
             );
 
-            $logs->logUpload($employeeValue['email']." сотрудник существует в файле, но отсутствует в БД, добавляем в БД", $employeeValue['email']);*/
+            $logs->logUpload($employeeValue['email']." сотрудник существует в файле, но отсутствует в БД, добавляем в БД", $employeeValue['email']);
         }
 
     // Проверяем активных овощеводов
@@ -200,7 +200,7 @@ foreach ($employeeList as $employeeValue) {
             // Если есть и в выгрузке и в БД - обновляем в БД по мобильному
             echo $employeeValue['mobile_number']." овощевод существует в файле и существует в БД. Обновляем в БД по мобильному.<br>";
 
-            /*$access->updateEmployeeByMobileNumber(
+            $access->updateEmployeeByMobileNumber(
                 $employeeValue['userId'],
                 $employeeValue['firstname'],
                 $employeeValue['lastname'],
@@ -223,14 +223,14 @@ foreach ($employeeList as $employeeValue) {
                 $employeeValue['email']
             );
 
-            $logs->logUpload($employeeValue['mobile_number']." овощевод существует в файле и существует в БД. Обновляем в БД по мобильному.", $employeeValue['mobile_number']);*/
+            $logs->logUpload($employeeValue['mobile_number']." овощевод существует в файле и существует в БД. Обновляем в БД по мобильному.", $employeeValue['mobile_number']);
 
         } else {
     
             // Если есть и в выгрузке, но нет в БД - добавляем в БД по мобильному
             echo $employeeValue['mobile_number']." овощевод существует в файле, но отсутствует в БД. Добавляем в БД по мобильному.<br>";
 
-            /*$access->insertEmployee(
+            $access->insertEmployee(
                 $employeeValue['userId'],
                 $employeeValue['lastname'],
                 $employeeValue['firstname'],
@@ -253,7 +253,7 @@ foreach ($employeeList as $employeeValue) {
                 $employeeValue['additional_holliday_counter']
             );
 
-            $logs->logUpload($employeeValue['mobile_number']." овощевод существует в файле, но отсутствует в БД. Добавляем в БД по мобильному.", $employeeValue['mobile_number']);*/
+            $logs->logUpload($employeeValue['mobile_number']." овощевод существует в файле, но отсутствует в БД. Добавляем в БД по мобильному.", $employeeValue['mobile_number']);
 
         }
 
@@ -267,9 +267,9 @@ foreach ($employeeList as $employeeValue) {
             // Если есть и в выгрузке и в БД - удаляем из БД по email  
             echo $employeeValue['email']." сотрудник офиса неактиивен, удаляем из БД по email<br>";
 
-            //$access->removeEmpoyeeByEmail($employeeValue['email']);
+            $access->removeEmpoyeeByEmail($employeeValue['email']);
 
-            //$logs->logUpload($employeeValue['email']." сотрудник офиса неактивен, удаляем из БД", $employeeValue['email']);
+            $logs->logUpload($employeeValue['email']." сотрудник офиса неактивен, удаляем из БД", $employeeValue['email']);
 
         }
 
@@ -283,9 +283,9 @@ foreach ($employeeList as $employeeValue) {
             // Если есть и в выгрузке и в БД - удаляем из БД по мобильному
             echo $employeeValue['mobile_number']." овощевод неактивен. Удаляем из БД по мобильному.<br>";
 
-            //$access->removeEmpoyeeByMobileNumber($employeeValue['mobile_number']);
+            $access->removeEmpoyeeByMobileNumber($employeeValue['mobile_number']);
 
-            //$logs->logUpload($employeeValue['mobile_number']." овощевод неактивен. Удаляем из БД по мобильному.",$employeeValue['mobile_number']);
+            $logs->logUpload($employeeValue['mobile_number']." овощевод неактивен. Удаляем из БД по мобильному.",$employeeValue['mobile_number']);
 
         }
 
@@ -295,7 +295,7 @@ foreach ($employeeList as $employeeValue) {
         echo $employeeValue['fullname']." не имеет ни email, ни мобильного.<br>";
 
         // Складываем в отдельный файл для доработки 
-        /*$logs->logEmptyUser(
+        $logs->logEmptyUser(
             $employeeValue['userId'],
             $employeeValue['firstname'],
             $employeeValue['lastname'],
@@ -313,7 +313,7 @@ foreach ($employeeList as $employeeValue) {
             $employeeValue['main_holliday_counter'],
             $employeeValue['additional_holliday_counter'],
             $employeeValue['activity']
-        );*/
+        );
     }
     
 }
