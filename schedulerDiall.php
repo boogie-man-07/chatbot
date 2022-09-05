@@ -132,7 +132,7 @@ foreach ($employeeList as $employeeValue) {
         if ($userFromDbResult) {
 
             // Если есть и в выгрузке и в БД - обновляем в БД по email 
-            echo $employeeValue['email']." сотрудник офиса существует и в файле, и в БД, обновляем в БД<br>";
+            //echo $employeeValue['email']." сотрудник офиса существует и в файле, и в БД, обновляем в БД<br>";
 
             /*$access->updateEmployeeByEmail(
                 $employeeValue['userId'],
@@ -162,7 +162,7 @@ foreach ($employeeList as $employeeValue) {
         } else {
 
             // Если есть в выгрузке, но нет в БД - добавляем в БД по email
-            echo $employeeValue['email']." существует в файле, но отсутствует в БД, добавляем в БД<br>";
+            //echo $employeeValue['email']." существует в файле, но отсутствует в БД, добавляем в БД<br>";
 
             /*$access->insertEmployee(
                 $employeeValue['userId'],
@@ -265,7 +265,7 @@ foreach ($employeeList as $employeeValue) {
         if ($userFromDbResult) {
 
             // Если есть и в выгрузке и в БД - удаляем из БД по email  
-            echo $employeeValue['email']." сотрудник офиса неактиивен, удаляем из БД по email<br>";
+            //echo $employeeValue['email']." сотрудник офиса неактиивен, удаляем из БД по email<br>";
 
             //$access->removeEmpoyeeByEmail($employeeValue['email']);
 
