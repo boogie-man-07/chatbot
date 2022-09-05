@@ -122,7 +122,7 @@ foreach ($employeeList as $employeeValue) {
     $is_greenhouse_available = $employeeValue['company_id'] == 2 ? 1 : 0;
     $is_diall_available = $employeeValue['company_id'] == 3 ? 1 : 0;
 
-    echo json_encode($employeeValue, true);
+    //echo json_encode($employeeValue, true);
 
     // Проверяем активных сотрудников офиса
     if ($employeeValue['email'] != null && $employeeValue['mobile_number'] != null && $employeeValue['activity'] == 1) {
