@@ -8,10 +8,12 @@ class authroute {
 
     var $constants = null;
     var $keyboards = null;
+    var $logics = null;
 
-    function __construct($constants, $keyboards) {
+    function __construct($constants, $keyboards, $logics) {
         $this->constants = $constants;
         $this->keyboards = $keyboards;
+        $this->logics = $logics;
     }
 
     function triggerActionForNewUserAuthorization($chatID, $username) {
@@ -100,6 +102,10 @@ class authroute {
         } else {
             return false;
         }
+    }
+
+    function formatPhoneNumber($phoneNumber) {
+        return $this->logics->formatPhoneNumber($phoneNumber);
     }
 
     function isDialogInProgress($currentState) {
