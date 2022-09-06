@@ -81,7 +81,7 @@ class UnauthorizedUserScenario {
                                 exit;
                             }
                         case $this->states['mobileNumberWaitingState']:
-                            sendMessage($this->chatID, "Ваш номер телефона: $phoneNumber", null);
+                            sendMessage($this->chatID, "Ваш номер телефона: ".$this->phoneNumber, null);
                             exit;
                         default:
                             $commonmistakeroute->triggerActionForCommonMistake($this->chatID);
