@@ -214,7 +214,7 @@ class access {
     }
 
     function updateEmployeeAuthorizationFlag($tg_chat_id, $mobileNumber) {
-        $sql = "UPDATE phonebook SET tg_chat_id=? WHERE mobile_number ='".$mobileNumber."'";
+        $sql = "UPDATE phonebook SET is_authorized=1, tg_chat_id=? WHERE mobile_number ='".$mobileNumber."'";
         $statement = $this->conn->prepare($sql);
         if (!$statement) {
             throw new Exception($statement->error);
