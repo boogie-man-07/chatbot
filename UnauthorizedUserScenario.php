@@ -13,9 +13,9 @@ class UnauthorizedUserScenario {
     var $states = null;
     var $state = null;
     var $email = null;
-    var $mobileNumber = null;
+    var $phoneNumber = null;
 
-    function __construct($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $commands, $states, $state, $email, $mobileNumber) {
+    function __construct($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $commands, $states, $state, $email, $phoneNumber) {
         $this->chatID = $chatID;
         $this->user = $user;
         $this->username = $username;
@@ -27,7 +27,7 @@ class UnauthorizedUserScenario {
         $this->states = $states;
         $this->state = $state;
         $this->email = $email;
-        $this->mobileNumber = $mobileNumber;
+        $this->phoneNumber = $phoneNumber;
     }
 
     function run($text) {
@@ -81,7 +81,7 @@ class UnauthorizedUserScenario {
                                 exit;
                             }
                         case $states['mobileNumberWaitingState']:
-                            sendMessage($this->chatID, "Ваш номер телефона: $mobileNumber", null);
+                            sendMessage($this->chatID, "Ваш номер телефона: $phoneNumber", null);
                             exit;
                         default:
                             $commonmistakeroute->triggerActionForCommonMistake($this->chatID);

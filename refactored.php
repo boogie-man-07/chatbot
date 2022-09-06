@@ -77,7 +77,7 @@ $state = $stateResult["dialog_state"];
 
 // Main logics
 if (!$user) {
-    $unauthorizedUserScenario = new UnauthorizedUserScenario($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $commandList, $statesList, $state, $email, $mobileNumber);
+    $unauthorizedUserScenario = new UnauthorizedUserScenario($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $commandList, $statesList, $state, $email, $phoneNumber);
     $unauthorizedUserScenario->run($text);
 } else {
     if (!$isAuthorized) {
