@@ -213,6 +213,17 @@ class access {
         return $returnValue;
     }
 
+    function updateEmployeeAuthorizationFlag($tg_chat_id, $mobileNumber) {
+        $sql = "UPDATE phonebook SET tg_chat_id=? WHERE mobile_number ='".$mobileNumber."'";
+        $statement = $this->conn->prepare($sql);
+        if (!$statement) {
+            throw new Exception($statement->error);
+        }
+        $statement->bind_param("s", $tg_chat_id);
+        $returnValue = $statement->execute();
+        return $returnValue;
+    }
+
     function activateUser($tg_chat_id, $number) {
         $sql = "UPDATE phonebook SET is_authorized=1, tg_chat_id=? where mobile_number=?";
         // prepare statement to be executed
