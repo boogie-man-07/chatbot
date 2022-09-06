@@ -270,7 +270,7 @@ class Forms {
 
         foreach ($formInfo['vacations'] as $key=>$info) {
             $id = $info['id'];
-            $text = "Прошу перенести ежегодный основной оплачиваемый отпуск, запланированный по графику отпусков в период с ".$formInfo['startDate']."г. по ".$formInfo['endDate']."г. на период с ".$info['startDate']."г. по ".$info['endDate']."г. по причине: ".$info['reason'].".";
+            $text = "Прошу перенести ежегодный основной оплачиваемый отпуск, запланированный по графику отпусков в период с ".$formInfo['startDate']."г. по ".$formInfo['endDate']."г., на период с ".$info['startDate']."г. по ".$info['endDate']."г. по причине: ".$info['reason'].".";
 
             $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C5', $seo);
             $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D7', $position);
