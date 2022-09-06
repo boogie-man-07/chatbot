@@ -54,7 +54,7 @@ class constants {
     }
 
     function getReplyForCommonErrorIfMobileAuthorizationUnavailable() {
-        return "Извините, вы являетесь сотрудником офиса! Пожалуйста, воспользуйтесь способом авторизации по email.";
+        return "Извините, вы являетесь сотрудником офиса! Пожалуйста, вернитесь в начало и воспользуйтесь способом авторизации по email.";
     }
 
     function getReplyForCommonErrorIfConfirmationCodeIsIncorrect() {

@@ -86,7 +86,7 @@ class UnauthorizedUserScenario {
                             $mobileNumber = $this->authroute->formatPhoneNumber($this->phoneNumber);
                             $result = $this->access->getUserByPhoneNumber($mobileNumber);
                             if ($result) {
-                                if ($employee['company_id'] === $this->constants['employee']) {
+                                if ($employee['company_id'] == $this->constants['employee']) {
                                     sendMessage($this->chatID, "Я работник, скоро смогу авторизоваться", null);
                                 } else {
                                     $this->commonmistakeroute->triggerActionForMobileAuthorizationUnavailable($this->chatID);
