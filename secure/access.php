@@ -132,7 +132,7 @@ class access {
 
         $returnArray = array();
         // sql command
-        $sql = "SELECT * FROM phonebook WHERE mobile_number='".$number."' and company_id = 33";
+        $sql = "SELECT * FROM phonebook WHERE mobile_number='".$number."'";
         // assign result we got from $sql to result var
         $result = $this->conn->query($sql);
 

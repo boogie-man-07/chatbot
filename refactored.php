@@ -56,6 +56,7 @@ $json = file_get_contents('constants/localization.json');
 $data = json_decode($json, true);
 $commandList = $data['commands'];
 $statesList = $data['states'];
+$constantsList = $data['constants'];
 
 $website = "https://api.telegram.org/bot".$token;
 $updates = file_get_contents('php://input');
@@ -77,7 +78,7 @@ $state = $stateResult["dialog_state"];
 
 // Main logics
 if (!$user) {
-    $unauthorizedUserScenario = new UnauthorizedUserScenario($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $commandList, $statesList, $state, $email, $phoneNumber);
+    $unauthorizedUserScenario = new UnauthorizedUserScenario($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $commandList, $statesList, $constantsList, $state, $email, $phoneNumber);
     $unauthorizedUserScenario->run($text);
 } else {
     if (!$isAuthorized) {

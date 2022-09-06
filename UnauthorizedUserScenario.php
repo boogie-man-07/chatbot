@@ -11,11 +11,12 @@ class UnauthorizedUserScenario {
     var $commonmistakeroute = null;
     var $commands = null;
     var $states = null;
+    var $constants = null;
     var $state = null;
     var $email = null;
     var $phoneNumber = null;
 
-    function __construct($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $commands, $states, $state, $email, $phoneNumber) {
+    function __construct($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $commands, $states, $constants, $state, $email, $phoneNumber) {
         $this->chatID = $chatID;
         $this->user = $user;
         $this->username = $username;
@@ -25,6 +26,7 @@ class UnauthorizedUserScenario {
         $this->commonmistakeroute = $commonmistakeroute;
         $this->commands = $commands;
         $this->states = $states;
+        $this->constants = $constants;
         $this->state = $state;
         $this->email = $email;
         $this->phoneNumber = $phoneNumber;
@@ -82,10 +84,21 @@ class UnauthorizedUserScenario {
                             }
                         case $this->states['mobileNumberWaitingState']:
                             $mobileNumber = $this->authroute->formatPhoneNumber($this->phoneNumber);
-                            //$user = $access->getUserByPhoneNumber($mobileNumber);
+                            $employee = $access->getUserByPhoneNumber($mobileNumber);
+                            if ($result) {
+                                if ($employee['company_id'] === $this->constants['employee']) {
+                                    sendMessage($this->chatID, "Я работник, скоро смогу авторизоваться", null);
+                                } else {
+                                    $this->commonmistakeroute->triggerActionForMobileAuthorizationUnavailable($this->chatID);
+                                    exit;
+                                }
+                            } else {
+                                $this->commonmistakeroute->triggerActionForMobilePhoneNotFound($this->chatID);
+                                exit;
+                            }
                             //$this->authroute->triggerActionForEmployeeAuthorization($this->chatID, $result["fullname"]);
-                            sendMessage($this->chatID, "Ваш номер телефона: ".$mobileNumber, null);
-                            exit;
+                            //sendMessage($this->chatID, "Ваш номер телефона: ".$mobileNumber, null);
+                            //exit;
                         default:
                             $commonmistakeroute->triggerActionForCommonMistake($this->chatID);
                             exit;

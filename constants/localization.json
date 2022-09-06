@@ -87,5 +87,9 @@
         "postponedSeparateVacationStartDateWaitingState": "waiting for postponed separate vacation startdate",
         "postponedSeparateVacationDurationWaitingState": "waiting for postponed separate vacation duration",
         "vacationFormSendingWaitingState": "waiting for vacation form sending"
+    },
+
+    "constants": {
+        "employee": 33
     }
 }
