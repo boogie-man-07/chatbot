@@ -574,7 +574,7 @@ class AuthorizedUserScenario {
                     $vacationFormData['vacation_type'],
                     $this->user['company_id'],
                     $this->user['email'],
-                    "Образец заявления на отпуск",
+                    "Заявление на отпуск",
                     $template
                 );
                 $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
@@ -586,7 +586,7 @@ class AuthorizedUserScenario {
                 $this->swiftmailer->sendRegularVacationMailWithAttachementViaSmtp(
                     $this->user['company_id'],
                     $this->user['email'],
-                    "Образец заявления на отпуск",
+                    "Заявление на отпуск",
                     $template
                 );
                 $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
@@ -614,7 +614,7 @@ class AuthorizedUserScenario {
                     $this->swiftmailer->sendPostponedVacationMailWithAttachementViaSmtp(
                         $this->user['company_id'],
                         $this->user['email'],
-                        "Образец заявления на перенос отпуска",
+                        "Заявление на перенос отпуска",
                         $template,
                         (string)$info
                     );
@@ -630,7 +630,7 @@ class AuthorizedUserScenario {
                 $this->swiftmailer->sendPostponedVacationMailWithAttachementViaSmtp(
                     $this->user['company_id'],
                     $this->user['email'],
-                    "Образец заявления на перенос отпуска",
+                    "Заявление на перенос отпуска",
                     $template
                 );
                 $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
