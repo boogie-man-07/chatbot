@@ -85,6 +85,7 @@ class UnauthorizedUserScenario {
                         case $this->states['mobileNumberWaitingState']:
                             $mobileNumber = $this->authroute->formatPhoneNumber($this->phoneNumber);
                             $employee = $this->access->getUserByPhoneNumber($mobileNumber);
+                            sendMessage($this->chatID, "Ваc зовут: ".$employee['fullname'], null); exit;
                             if ($result) {
                                 if ($employee['company_id'] === $this->constants['employee']) {
                                     sendMessage($this->chatID, "Я работник, скоро смогу авторизоваться", null);
