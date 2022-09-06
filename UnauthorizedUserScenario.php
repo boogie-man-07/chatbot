@@ -87,7 +87,8 @@ class UnauthorizedUserScenario {
                             $result = $this->access->getUserByPhoneNumber($mobileNumber);
                             if ($result) {
                                 if ($result['company_id'] == $this->constants['employee']) {
-                                    sendMessage($this->chatID, "Я работник, скоро смогу авторизоваться", null);
+                                    $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
+                                    $this->authroute->triggerActionForLoginAcceptance($this->chatID, $result["fullname"]);
                                     exit;
                                 } else {
                                     $this->commonmistakeroute->triggerActionForMobileAuthorizationUnavailable($this->chatID);
