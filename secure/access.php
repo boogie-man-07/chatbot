@@ -206,7 +206,7 @@ class access {
         }
 
         // bind parameters to sql statement
-        $statement->bind_param("ii", $is_authorized, $confirmation_code);
+        $statement->bind_param("is", $is_authorized, $confirmation_code);
 
         // launch/execute and store feedback to returnValue
         $returnValue = $statement->execute();
