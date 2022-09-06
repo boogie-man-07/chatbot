@@ -41,6 +41,16 @@ class commonmistakeroute {
         sendMessage($chatID, $reply, null);
     }
 
+    function triggerActionForMobileAuthorizationUnavailable($chatID) {
+        $reply = $this->constants->getReplyForCommonErrorIfMobileAuthorizationUnavailable();
+        sendMessage($chatID, $reply, null);
+    }
+
+    function triggerActionForMobilePhoneNotFound($chatID) {
+        $reply = $this->constants->getReplyForCommonErrorIfMobilePhoneNotFound();
+        sendMessage($chatID, $reply, null);
+    }
+
     function triggerActionForCommonErrorIfConfirmationCodeIncorrect($chatID) {
         $reply = $this->constants->getReplyForCommonErrorIfConfirmationCodeIsIncorrect();
         sendMessage($chatID, $reply, null);

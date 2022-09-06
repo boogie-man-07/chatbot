@@ -49,6 +49,14 @@ class constants {
         return "Сотрудник с таким логином не числится в Компании. Проверьте правильность введенного логина и попробуйте снова.";
     }
 
+    function getReplyForCommonErrorIfMobilePhoneNotFound() {
+        return "Извините, работник с таким номером мобильного телефона не числится в Компании.";
+    }
+
+    function getReplyForCommonErrorIfMobileAuthorizationUnavailable() {
+        return "Извините, вы являетесь сотрудником офиса! Пожалуйста, воспользуйтесь способом авторизации по email.";
+    }
+
     function getReplyForCommonErrorIfConfirmationCodeIsIncorrect() {
         return "код неверен.\nПопробуйте снова.";
     }
