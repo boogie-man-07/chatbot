@@ -89,7 +89,7 @@ class UnauthorizedUserScenario {
                                 if ($result['company_id'] == $this->constants['employee']) {
                                     $this->access->updateEmployeeAuthorizationFlag($this->chatID, $mobileNumber);
                                     $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
-                                    $this->authroute->triggerActionForSuccessfulLogin($this->chatID, $this->user['fullname']);
+                                    $this->authroute->triggerActionForSuccessfulLogin($this->chatID, $result['fullname']);
                                     exit;
                                 } else {
                                     $this->commonmistakeroute->triggerActionForMobileAuthorizationUnavailable($this->chatID);
