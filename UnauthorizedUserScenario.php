@@ -88,6 +88,7 @@ class UnauthorizedUserScenario {
                             if ($result) {
                                 if ($result['company_id'] == $this->constants['employee']) {
                                     sendMessage($this->chatID, "Я работник, скоро смогу авторизоваться", null);
+                                    exit;
                                 } else {
                                     $this->commonmistakeroute->triggerActionForMobileAuthorizationUnavailable($this->chatID);
                                     exit;
