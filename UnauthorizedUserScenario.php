@@ -87,8 +87,9 @@ class UnauthorizedUserScenario {
                             $result = $this->access->getUserByPhoneNumber($mobileNumber);
                             if ($result) {
                                 if ($result['company_id'] == $this->constants['employee']) {
+                                    $this->access->updateAuthorizationFlag(1, null, $this->chatID);
                                     $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
-                                    $this->authroute->triggerActionForLoginAcceptance($this->chatID, $result["fullname"]);
+                                    $this->authroute->triggerActionForSuccessfulLogin($this->chatID, $this->user['fullname']);
                                     exit;
                                 } else {
                                     $this->commonmistakeroute->triggerActionForMobileAuthorizationUnavailable($this->chatID);
@@ -98,7 +99,6 @@ class UnauthorizedUserScenario {
                                 $this->commonmistakeroute->triggerActionForMobilePhoneNotFound($this->chatID);
                                 exit;
                             }
-                            //$this->authroute->triggerActionForEmployeeAuthorization($this->chatID, $result["fullname"]);
                             //sendMessage($this->chatID, "Ваш номер телефона: ".$mobileNumber, null);
                             //exit;
                         default:
