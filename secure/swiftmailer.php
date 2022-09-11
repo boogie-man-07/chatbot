@@ -312,10 +312,6 @@ class swiftmailer {
         switch ($companyID) {
             case 1:
                 break;
-
-            case 2:
-                break;
-
             case 3:
                 $transport = (new Swift_SmtpTransport('mail.diall.ru', 587))
                     ->setUsername('personalbot')
