@@ -90,6 +90,7 @@
     },
 
     "constants": {
-        "employee": 33
+        "employee": 33,
+        "isEmployee": 1
     }
 }
