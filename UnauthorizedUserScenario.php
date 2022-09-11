@@ -86,7 +86,7 @@ class UnauthorizedUserScenario {
                             $mobileNumber = $this->authroute->formatPhoneNumber($this->phoneNumber);
                             $result = $this->access->getUserByPhoneNumber($mobileNumber);
                             if ($result) {
-                                if ($result['company_id'] == $this->constants['employee']) {
+                                if ($result['is_employee']) {
                                     $this->access->updateEmployeeAuthorizationFlag($this->chatID, $mobileNumber);
                                     $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
                                     $this->authroute->triggerActionForSuccessfulLogin($this->chatID, $result['fullname']);
