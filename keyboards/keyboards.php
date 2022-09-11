@@ -19,7 +19,7 @@ class keyboards {
                 ),
                 array(
                     array(
-                    "text" => "Авторизация по SMS"
+                    "text" => "Авторизация по номеру телефона"
                     )
                 )
             ),
