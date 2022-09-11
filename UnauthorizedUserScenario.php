@@ -64,14 +64,19 @@ class UnauthorizedUserScenario {
                             if ($this->authroute->checkLogin($text)) {
                                 $result = $this->access->getUserByPersonnelNumber($text);
                                 if ($result) {
-                                    if ($this->authroute->comparse($text, $result['email'])) {
-                                        $confirmationCode = $this->email->generateConfirmationCode(10);
-                                        $this->access->saveConfirmationCode($confirmationCode, $this->chatID, $result['email']);
-                                        $this->access->setState($this->chatID, $this->states['confirmationCodeWaitingState']);
-                                        $this->authroute->triggerActionForLoginAcceptance($this->chatID, $result["fullname"]);
-                                        exit;
+                                    if ($result['is_employee'] == $this->constants['isNotEmployee']) {
+                                        if ($this->authroute->comparse($text, $result['email'])) {
+                                            $confirmationCode = $this->email->generateConfirmationCode(10);
+                                            $this->access->saveConfirmationCode($confirmationCode, $this->chatID, $result['email']);
+                                            $this->access->setState($this->chatID, $this->states['confirmationCodeWaitingState']);
+                                            $this->authroute->triggerActionForLoginAcceptance($this->chatID, $result["fullname"]);
+                                            exit;
+                                        } else {
+                                            $this->commonmistakeroute->triggerActionForCommonErrorIfLoginNotFound($this->chatID);
+                                            exit;
+                                        }
                                     } else {
-                                        $this->commonmistakeroute->triggerActionForCommonErrorIfLoginNotFound($this->chatID);
+                                        $this->commonmistakeroute->triggerActionForEmailAuthorizationUnavailable($this->chatID);
                                         exit;
                                     }
                                 } else {

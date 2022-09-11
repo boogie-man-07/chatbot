@@ -53,6 +53,10 @@ class constants {
         return "Извините, работник с таким номером мобильного телефона не числится в Компании.";
     }
 
+    function getReplyForCommonErrorIfEmailAuthorizationUnavailable() {
+        return "Извините, вы не являетесь сотрудником офиса! Пожалуйста, вернитесь в начало и воспользуйтесь способом авторизации по номеру телефона.";
+    }
+
     function getReplyForCommonErrorIfMobileAuthorizationUnavailable() {
         return "Извините, вы являетесь сотрудником офиса! Пожалуйста, вернитесь в начало и воспользуйтесь способом авторизации по email.";
     }
