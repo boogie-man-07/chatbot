@@ -3,7 +3,7 @@
     "commands": {
         "start":  "/start",
         "emailAuthorization": "Авторизация по email",
-        "smsAuthorization": "Авторизация по SMS",
+        "smsAuthorization": "Авторизация по номеру телефона",
         "toStart": "Вернуться в начало",
         "exit": "Выход",
         "phones": "Телефонный справочник",
@@ -91,6 +91,7 @@
 
     "constants": {
         "employee": 33,
-        "isEmployee": 1
+        "isEmployee": 1,
+        "isNotEmployee": 0
     }
 }
