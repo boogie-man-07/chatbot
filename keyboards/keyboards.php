@@ -223,25 +223,6 @@ class keyboards {
                     "resize_keyboard" => true,
                     "one_time_keyboard" => false
                 ));
-            case 22;
-            case 2:
-                return json_encode(array(
-                    "keyboard" => array(
-                        array(
-                            array("text" => "Как добраться")
-                        ),
-                        array(
-                            array("text" => "Схема проезда (Сколково)"),
-                            array("text" => "Схема проезда (Ст.Оскол)")
-                        ),
-                        array(
-                            array("text" => "Назад")
-                        )
-                    ),
-                    "resize_keyboard" => true,
-                    "one_time_keyboard" => false
-                ));
-            case 33;
             case 3:
                 return json_encode(array(
                     "keyboard" => array(
@@ -265,9 +246,9 @@ class keyboards {
 
     function getItHelpMenuInlineKeyboard($companyId) {
         switch ($companyId) {
-            case 1; case 2; case 22:
+            case 1:
                 return null;
-            case 3; case 33:
+            case 3:
                 return json_encode(array(
                     "keyboard" => array(
                         array(
@@ -381,7 +362,7 @@ class keyboards {
                         )
                     )
                 ));
-            case 2; case 3:
+            case 3:
                 return json_encode(array(
                     "inline_keyboard" => array(
                         array(
@@ -406,8 +387,6 @@ class keyboards {
                         )
                     )
                 ));
-            case 22; case 33:
-                return null;
         }
     }
 
