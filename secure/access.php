@@ -1195,7 +1195,7 @@ class access {
         }
 
         // bind parameters to sql statement
-        $statement->bind_param("ssssssssssiiiiissss", $userId, $firstname, $lastname, $fullname, $form_fullname, $position, $form_position, $office_number, $internal_number, $company_name, $company_id, $is_employee, $is_sigma_available, $is_greenhouse_available, $is_diall_available, $boss, $main_holliday_counter, $additional_holliday_counter, $email);
+        $statement->bind_param("ssssssssssiiiiisssss", $userId, $firstname, $lastname, $fullname, $form_fullname, $position, $form_position, $office_number, $internal_number, $company_name, $company_id, $is_employee, $is_sigma_available, $is_greenhouse_available, $is_diall_available, $boss, $boss_position, $main_holliday_counter, $additional_holliday_counter, $email);
 
         // launch/execute and store feedback to returnValue
         $returnValue = $statement->execute();
