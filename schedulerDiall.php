@@ -20,6 +20,7 @@ $access = new access($host, $user, $pass, $name);
 $access->connect();
 
 require ("logs/logs.php");
+$logs = new logs();
 
 $result = Array();
 $employeeList = Array();
@@ -51,19 +52,12 @@ $err = curl_error($curl);
 curl_close($curl);
 
 if ($err) {
-
     echo "cURL Error #: ".$err;
-
+    exit;
 } else {
-
     $result = json_decode($response, true);
-
     if (!$result['error']) {
-
-        
-
         foreach ($result['data'] as $users) {
-            
 
             $user = json_decode($users['data'], true);
 
@@ -103,21 +97,12 @@ if ($err) {
         }
 
     } else {
-
-        // TODO just add to logging
-        $logs = new logs();
-        $logs->logUpload("File for upoad is bad", null);
-
+        $logs->logUpload("File for upload is bad", null);
+        exit;
     }
 }
 
-// $userFromDbResult = $access->getAllUsersFromDb();
-
-$logs = new logs();
-
-
 foreach ($employeeList as $employeeValue) {
-
     $is_sigma_available = $employeeValue['company_id'] == 1 ? 1 : 0;
     $is_greenhouse_available = $employeeValue['company_id'] == 2 ? 1 : 0;
     $is_diall_available = $employeeValue['company_id'] == 3 ? 1 : 0;
@@ -147,6 +132,7 @@ foreach ($employeeList as $employeeValue) {
                 $employeeValue['mobile_number'],
                 $employeeValue['company_name'],
                 $employeeValue['company_id'],
+                0,
                 $is_sigma_available,
                 $is_greenhouse_available,
                 $is_diall_available,
@@ -178,6 +164,7 @@ foreach ($employeeList as $employeeValue) {
                 $employeeValue['mobile_number'],
                 $employeeValue['company_name'],
                 $employeeValue['company_id'],
+                0,
                 $is_sigma_available,
                 $is_greenhouse_available,
                 $is_diall_available,
@@ -190,7 +177,7 @@ foreach ($employeeList as $employeeValue) {
             $logs->logUpload($employeeValue['email']." сотрудник существует в файле, но отсутствует в БД, добавляем в БД", $employeeValue['email']);
         }
 
-    // Проверяем активных овощеводов
+    // Проверяем активных рабочих
     } else if ($employeeValue['email'] == "" && $employeeValue['mobile_number'] != "" && $employeeValue['activity'] == 1) {
 
         $userFromDbResult = $access->getUserByPhoneNumber($employeeValue['mobile_number']);
@@ -198,7 +185,7 @@ foreach ($employeeList as $employeeValue) {
         if ($userFromDbResult) {
 
             // Если есть и в выгрузке и в БД - обновляем в БД по мобильному
-            echo $employeeValue['mobile_number']." овощевод существует в файле и существует в БД. Обновляем в БД по мобильному.<br>";
+            echo $employeeValue['mobile_number']." рабочий существует в файле и существует в БД. Обновляем в БД по мобильному.<br>";
 
             $access->updateEmployeeByMobileNumber(
                 $employeeValue['userId'],
@@ -212,7 +199,8 @@ foreach ($employeeList as $employeeValue) {
                 $employeeValue['internal_number'],
                 $employeeValue['mobile_number'],
                 $employeeValue['company_name'],
-                33,
+                $employeeValue['company_id'],
+                1,
                 $is_sigma_available,
                 $is_greenhouse_available,
                 $is_diall_available,
@@ -223,12 +211,12 @@ foreach ($employeeList as $employeeValue) {
                 $employeeValue['email']
             );
 
-            $logs->logUpload($employeeValue['mobile_number']." овощевод существует в файле и существует в БД. Обновляем в БД по мобильному.", $employeeValue['mobile_number']);
+            $logs->logUpload($employeeValue['mobile_number']." рабочий существует в файле и существует в БД. Обновляем в БД по мобильному.", $employeeValue['mobile_number']);
 
         } else {
     
             // Если есть и в выгрузке, но нет в БД - добавляем в БД по мобильному
-            echo $employeeValue['mobile_number']." овощевод существует в файле, но отсутствует в БД. Добавляем в БД по мобильному.<br>";
+            echo $employeeValue['mobile_number']." рабочий существует в файле, но отсутствует в БД. Добавляем в БД по мобильному.<br>";
 
             $access->insertEmployee(
                 $employeeValue['userId'],
@@ -243,7 +231,8 @@ foreach ($employeeList as $employeeValue) {
                 $employeeValue['internal_number'],
                 $employeeValue['mobile_number'],
                 $employeeValue['company_name'],
-                33,
+                $employeeValue['company_name'],
+                1,
                 $is_sigma_available,
                 $is_greenhouse_available,
                 $is_diall_available,
@@ -253,7 +242,7 @@ foreach ($employeeList as $employeeValue) {
                 $employeeValue['additional_holliday_counter']
             );
 
-            $logs->logUpload($employeeValue['mobile_number']." овощевод существует в файле, но отсутствует в БД. Добавляем в БД по мобильному.", $employeeValue['mobile_number']);
+            $logs->logUpload($employeeValue['mobile_number']." рабочий существует в файле, но отсутствует в БД. Добавляем в БД по мобильному.", $employeeValue['mobile_number']);
 
         }
 
@@ -265,7 +254,7 @@ foreach ($employeeList as $employeeValue) {
         if ($userFromDbResult) {
 
             // Если есть и в выгрузке и в БД - удаляем из БД по email  
-            echo $employeeValue['email']." сотрудник офиса неактиивен, удаляем из БД по email<br>";
+            echo $employeeValue['email']." сотрудник офиса неактивен, удаляем из БД по email<br>";
 
             $access->removeEmpoyeeByEmail($employeeValue['email']);
 
@@ -273,7 +262,7 @@ foreach ($employeeList as $employeeValue) {
 
         }
 
-    // Проверяем неактивных овощеводов
+    // Проверяем неактивных рабочих
     } else if ($employeeValue['email'] == "" && $employeeValue['mobile_number'] != "" && $employeeValue['activity'] == 0) {
 
         $userFromDbResult = $access->getUserForJobByPhoneNumber($employeeValue['mobile_number']);
@@ -281,11 +270,11 @@ foreach ($employeeList as $employeeValue) {
         if ($userFromDbResult) {
 
             // Если есть и в выгрузке и в БД - удаляем из БД по мобильному
-            echo $employeeValue['mobile_number']." овощевод неактивен. Удаляем из БД по мобильному.<br>";
+            echo $employeeValue['mobile_number']." рабочий неактивен. Удаляем из БД по мобильному.<br>";
 
             $access->removeEmpoyeeByMobileNumber($employeeValue['mobile_number']);
 
-            $logs->logUpload($employeeValue['mobile_number']." овощевод неактивен. Удаляем из БД по мобильному.",$employeeValue['mobile_number']);
+            $logs->logUpload($employeeValue['mobile_number']." рабочий неактивен. Удаляем из БД по мобильному.",$employeeValue['mobile_number']);
 
         }
 

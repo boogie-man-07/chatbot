@@ -1162,10 +1162,10 @@ class access {
     }
 
     // METHODS FOR SCHEDULLER
-    function updateEmployeeByEmail($userId, $firstname, $lastname, $fullname, $form_fullname, $form_position, $position, $office_number, $internal_number, $mobile_number, $company_name, $company_id, $is_sigma_available, $is_greenhouse_available, $is_diall_available, $boss, $boss_position, $main_holliday_counter, $additional_holliday_counter, $email) {
+    function updateEmployeeByEmail($userId, $firstname, $lastname, $fullname, $form_fullname, $form_position, $position, $office_number, $internal_number, $mobile_number, $company_name, $company_id, $is_employee, $is_sigma_available, $is_greenhouse_available, $is_diall_available, $boss, $boss_position, $main_holliday_counter, $additional_holliday_counter, $email) {
 
         // sql statement
-        $sql = "UPDATE phonebook SET user_id=?, firstname=?, lastname=?, fullname=?, form_fullname=?, position=?, form_position=?, office_number=?, internal_number=?, mobile_number=?, company_name=?, company_id=?, is_sigma_available=?, is_greenhouse_available=?, is_diall_available=?, boss=?, boss_position=?, main_holliday_counter=?, additional_holliday_counter=?, updated_at=CURRENT_TIMESTAMP WHERE email ='".$email."'";
+        $sql = "UPDATE phonebook SET user_id=?, firstname=?, lastname=?, fullname=?, form_fullname=?, position=?, form_position=?, office_number=?, internal_number=?, mobile_number=?, company_name=?, company_id=?, is_employee=?, is_sigma_available=?, is_greenhouse_available=?, is_diall_available=?, boss=?, boss_position=?, main_holliday_counter=?, additional_holliday_counter=?, updated_at=CURRENT_TIMESTAMP WHERE email ='".$email."'";
         // prepare statement to be executed
         $statement = $this->conn->prepare($sql);
 
@@ -1175,17 +1175,17 @@ class access {
         }
 
         // bind parameters to sql statement
-        $statement->bind_param("sssssssssssiiiissss", $userId, $firstname, $lastname, $fullname, $form_fullname, $position, $form_position, $office_number, $internal_number, $mobile_number, $company_name, $company_id, $is_sigma_available, $is_greenhouse_available, $is_diall_available, $boss, $boss_position, $main_holliday_counter, $additional_holliday_counter);
+        $statement->bind_param("sssssssssssiiiiissss", $userId, $firstname, $lastname, $fullname, $form_fullname, $position, $form_position, $office_number, $internal_number, $mobile_number, $company_name, $company_id, $is_employee, $is_sigma_available, $is_greenhouse_available, $is_diall_available, $boss, $boss_position, $main_holliday_counter, $additional_holliday_counter);
 
         // launch/execute and store feedback to returnValue
         $returnValue = $statement->execute();
         return $returnValue;
     }
 
-    function updateEmployeeByMobileNumber($userId, $firstname, $lastname, $fullname, $form_fullname, $form_position, $position, $office_number, $internal_number, $mobile_number, $company_name, $company_id, $is_sigma_available, $is_greenhouse_available, $is_diall_available, $boss, $boss_position, $main_holliday_counter, $additional_holliday_counter, $email) {
+    function updateEmployeeByMobileNumber($userId, $firstname, $lastname, $fullname, $form_fullname, $form_position, $position, $office_number, $internal_number, $mobile_number, $company_name, $company_id, $is_employee, $is_sigma_available, $is_greenhouse_available, $is_diall_available, $boss, $boss_position, $main_holliday_counter, $additional_holliday_counter, $email) {
 
         // sql statement
-        $sql = "UPDATE phonebook SET user_id=?, firstname=?, lastname=?, fullname=?, form_fullname=?, position=?, form_position=?, office_number=?, internal_number=?, company_name=?, company_id=?, is_sigma_available=?, is_greenhouse_available=?, is_diall_available=?, boss=?, boss_position=?, main_holliday_counter=?, additional_holliday_counter=?, email=?, updated_at=CURRENT_TIMESTAMP WHERE mobile_number ='".$mobile_number."'";
+        $sql = "UPDATE phonebook SET user_id=?, firstname=?, lastname=?, fullname=?, form_fullname=?, position=?, form_position=?, office_number=?, internal_number=?, company_name=?, company_id=?, is_employee=?, is_sigma_available=?, is_greenhouse_available=?, is_diall_available=?, boss=?, boss_position=?, main_holliday_counter=?, additional_holliday_counter=?, email=?, updated_at=CURRENT_TIMESTAMP WHERE mobile_number ='".$mobile_number."'";
         // prepare statement to be executed
         $statement = $this->conn->prepare($sql);
 
@@ -1195,17 +1195,17 @@ class access {
         }
 
         // bind parameters to sql statement
-        $statement->bind_param("ssssssssssiiiissss", $userId, $firstname, $lastname, $fullname, $form_fullname, $position, $form_position, $office_number, $internal_number, $company_name, $company_id, $is_sigma_available, $is_greenhouse_available, $is_diall_available, $boss, $main_holliday_counter, $additional_holliday_counter, $email);
+        $statement->bind_param("ssssssssssiiiiissss", $userId, $firstname, $lastname, $fullname, $form_fullname, $position, $form_position, $office_number, $internal_number, $company_name, $company_id, $is_employee, $is_sigma_available, $is_greenhouse_available, $is_diall_available, $boss, $main_holliday_counter, $additional_holliday_counter, $email);
 
         // launch/execute and store feedback to returnValue
         $returnValue = $statement->execute();
         return $returnValue;
     }
 
-    function insertEmployee($userId, $lastname, $firstname, $fullname, $form_fullname, $position, $form_position, $email, $office_number, $internal_number, $mobile_number, $company_name, $company_id, $is_sigma_available, $is_greenhouse_available, $is_diall_available, $boss, $boss_position, $main_holliday_counter, $additional_holliday_counter) {
+    function insertEmployee($userId, $lastname, $firstname, $fullname, $form_fullname, $position, $form_position, $email, $office_number, $internal_number, $mobile_number, $company_name, $company_id, $is_employee, $is_sigma_available, $is_greenhouse_available, $is_diall_available, $boss, $boss_position, $main_holliday_counter, $additional_holliday_counter) {
 
         // sql statement 
-        $sql = "INSERT INTO phonebook SET user_id=?, lastname=?, firstname=?, fullname=?, form_fullname=?, position=?, form_position=?, email=?, office_number=?, internal_number=?, mobile_number=?, company_name=?, company_id=?, is_sigma_available=?, is_greenhouse_available=?, is_diall_available=?, boss=?, boss_position=?, main_holliday_counter=?, additional_holliday_counter=?";
+        $sql = "INSERT INTO phonebook SET user_id=?, lastname=?, firstname=?, fullname=?, form_fullname=?, position=?, form_position=?, email=?, office_number=?, internal_number=?, mobile_number=?, company_name=?, company_id=?, is_employee=?, is_sigma_available=?, is_greenhouse_available=?, is_diall_available=?, boss=?, boss_position=?, main_holliday_counter=?, additional_holliday_counter=?";
 
         // prepare statement to be executed
         $statement = $this->conn->prepare($sql);
@@ -1216,7 +1216,7 @@ class access {
         }
 
         // bind parameters to sql statement
-        $statement->bind_param("ssssssssssssiiiissss", $userId, $lastname, $firstname, $fullname, $form_fullname, $position, $form_position, $email, $office_number, $internal_number, $mobile_number, $company_name, $company_id, $is_sigma_available, $is_greenhouse_available, $is_diall_available, $boss, $boss_position, $main_holliday_counter, $additional_holliday_counter);
+        $statement->bind_param("ssssssssssssiiiiissss", $userId, $lastname, $firstname, $fullname, $form_fullname, $position, $form_position, $email, $office_number, $internal_number, $mobile_number, $company_name, $company_id, $is_employee, $is_sigma_available, $is_greenhouse_available, $is_diall_available, $boss, $boss_position, $main_holliday_counter, $additional_holliday_counter);
 
         // launch/execute and store feedback to returnValue
         $returnValue = $statement->execute();
