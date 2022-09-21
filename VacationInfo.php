@@ -35,7 +35,7 @@ class VacationInfo {
             foreach ($result['holiday'] as $item) {
                 $sum += (int)$item['amount'];
             }
-            return $amount;
+            return $sum;
 
 
 //             $main = $this->fixComma($result['holiday_main']);
