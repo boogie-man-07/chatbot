@@ -308,6 +308,7 @@ class AuthorizedUserScenario {
 
                                 if ((int)$text == (int)$vacationInfo['amount']) {
                                     $this->access->setSelectedVacationNewDuration($this->chatID, $text);
+                                    $vacationInfo = $this->access->getSelectedVacationInfo($this->chatID);
                                     $this->access->saveSeparatedUserVacations($this->chatID, $vacationInfo);
                                     $this->access->setState($this->chatID, $this->states['postponedVacationReasonWaitingState']);
                                     $this->salaryRoute->triggerActionForSetPostponedVacationReason($this->chatID);
@@ -317,6 +318,7 @@ class AuthorizedUserScenario {
                                     exit;
                                 } else {
                                     $this->access->setSelectedVacationNewDuration($this->chatID, $text);
+                                    $vacationInfo = $this->access->getSelectedVacationInfo($this->chatID);
                                     $this->access->saveSeparatedUserVacations($this->chatID, $vacationInfo);
                                     $totalVacationsDuration = $this->access->getSumOfVacationParts($this->chatID);
                                     $restVacationsDuration =  (int)$vacationInfo['amount'] - (int)$totalVacationsDuration;
@@ -355,6 +357,7 @@ class AuthorizedUserScenario {
                                 $this->commonmistakeroute->triggerActionForDateFormatError($this->chatID);
                                 exit;
                             }
+                        // todo check logic
                         case $this->states['postponedSeparateVacationDurationWaitingState']:
                             if ($this->salaryRoute->isCorrectVacationDurationFormat($text)) {
                                 $vacationInfo = $this->access->getSelectedVacationInfo($this->chatID);
