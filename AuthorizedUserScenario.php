@@ -306,7 +306,7 @@ class AuthorizedUserScenario {
                                 $this->access->setSelectedVacationNewDuration($this->chatID, $text);
                                 $vacationInfo = $this->access->getSelectedVacationInfo($this->chatID);
                                 $this->access->saveSeparatedUserVacations($this->chatID, $vacationInfo);
-                                if ($text == $vacationInfo['amount']) {
+                                if ((int)$text == (int)$vacationInfo['amount']) {
                                     $this->access->setState($this->chatID, $this->states['postponedVacationReasonWaitingState']);
                                     $this->salaryRoute->triggerActionForSetPostponedVacationReason($this->chatID);
                                     exit;
@@ -338,7 +338,7 @@ class AuthorizedUserScenario {
                             if ($this->salaryRoute->isCorrectDateFormat($correctText)) {
                                 //sendMessage($this->chatID, $lastSeparateVacation['enddate'], null); exit;
                                 if ($this->salaryRoute->isSeparateVacationDateNotInPast($correctText, $lastSeparateVacation['enddate'])) {
-                                    $this->access->saveSeparatedUserVacationStartDate($this->chatID, $correctText, $vacationInfo);
+                                    $this->access->saveSeparatedUserVacationStartDate($this->chatID, $correctText, $vacationInfo); exit;
                                     $this->access->setState($this->chatID, $this->states['postponedSeparateVacationDurationWaitingState']);
                                     $this->salaryRoute->triggerActionForSetPostponedVacationDuration($this->chatID);
                                     exit;
