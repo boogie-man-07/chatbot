@@ -526,7 +526,7 @@ class AuthorizedUserScenario {
             case $this->commands['postponedVacationCaseInline']:
                 if ($this->user['company_id'] == 3) {
                     $data = $this->vacationInfo->getVacationsInfo($this->user['email']);
-                    sendMessage($this->chatID, (string)$data, null); exit;
+                    sendMessage($this->chatID, json_encode($data), null); exit;
                     if ($data) {
                         $this->access->saveUserVacations($this->chatID, $data);
                         $this->access->setState($this->chatID, $this->states['postponedVacationChooseVacationState']);
