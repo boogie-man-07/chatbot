@@ -34,7 +34,8 @@ class VacationInfo {
             $main = $this->fixComma($result['holiday_main']);
             $additional = $this->fixComma($result['holiday_more']);
             $restVacation = bcadd($main, $additional);
-            return $restVacation;
+            //return $restVacation;
+            return json_encode($response);
         }
     }
 
