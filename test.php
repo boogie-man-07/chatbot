@@ -30,8 +30,9 @@ if ($err) {
     $main = $this->fixComma($result['holiday_main']);
     $additional = $this->fixComma($result['holiday_more']);
     $restVacation = bcadd($main, $additional);
-    echo $restVacation;
+    print_r($restVacation);
     return $restVacation;
 }
+
 
 ?>
