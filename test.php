@@ -1,6 +1,6 @@
 <?Php
 
-echo preg_match("/{booogie@gmail.com}/", '@diall.ru');
+echo preg_match("/{booogie@diall.ru}/", '@diall.ru');
 
 
 ?>
