@@ -178,7 +178,7 @@ foreach ($employeeList as $employeeValue) {
         }
 
     // Проверяем активных рабочих
-    } else if (($employeeValue['email'] == "" || preg_match("/@diall.ru/", $employeeValue['email']) == false) && $employeeValue['mobile_number'] != "" && $employeeValue['activity'] == 1) {
+    } else if (($employeeValue['email'] == "" || preg_match("/@diall.ru/", $employeeValue['email']) == 0) && $employeeValue['mobile_number'] != "" && $employeeValue['activity'] == 1) {
 
         $userFromDbResult = $access->getUserByPhoneNumber($employeeValue['mobile_number']);
 
