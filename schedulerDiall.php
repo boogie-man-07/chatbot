@@ -110,9 +110,9 @@ foreach ($employeeList as $employeeValue) {
     //echo json_encode($employeeValue, true);
 
     // Проверяем активных сотрудников офиса
-    if ($employeeValue['email'] != "" && $employeeValue['mobile_number'] != "" && $employeeValue['activity'] == 1) {
+    if (preg_match("/@diall.ru/", $employeeValue['email']) == 1 && $employeeValue['mobile_number'] != "" && $employeeValue['activity'] == 1) {
 
-        /*$userFromDbResult = $access->getUserByPersonnelNumber($employeeValue['email']);
+        $userFromDbResult = $access->getUserByPersonnelNumber($employeeValue['email']);
 
         if ($userFromDbResult) {
 
@@ -175,7 +175,7 @@ foreach ($employeeList as $employeeValue) {
             );
 
             $logs->logUpload($employeeValue['email']." сотрудник существует в файле, но отсутствует в БД, добавляем в БД", $employeeValue['email']);
-        }*/
+        }
 
     // Проверяем активных рабочих
     } else if (preg_match("/@diall.ru/", $employeeValue['email']) == 0 && $employeeValue['mobile_number'] != "" && $employeeValue['activity'] == 1) {
@@ -184,10 +184,8 @@ foreach ($employeeList as $employeeValue) {
 
         if ($userFromDbResult) {
 
-            echo "update, email: ".$employeeValue['mobile_number']."<br>";
-
             // Если есть и в выгрузке и в БД - обновляем в БД по мобильному
-            /*echo $employeeValue['mobile_number']." рабочий существует в файле и существует в БД. Обновляем в БД по мобильному.<br>";
+            echo $employeeValue['mobile_number']." рабочий существует в файле и существует в БД. Обновляем в БД по мобильному.<br>";
 
             $access->updateEmployeeByMobileNumber(
                 $employeeValue['userId'],
@@ -213,14 +211,12 @@ foreach ($employeeList as $employeeValue) {
                 $employeeValue['email']
             );
 
-            $logs->logUpload($employeeValue['mobile_number']." рабочий существует в файле и существует в БД. Обновляем в БД по мобильному.", $employeeValue['mobile_number']);*/
+            $logs->logUpload($employeeValue['mobile_number']." рабочий существует в файле и существует в БД. Обновляем в БД по мобильному.", $employeeValue['mobile_number']);
 
         } else {
-
-            echo "insert, email: ".$employeeValue['mobile_number']."<br>";
     
             // Если есть и в выгрузке, но нет в БД - добавляем в БД по мобильному
-            /*echo $employeeValue['mobile_number']." рабочий существует в файле, но отсутствует в БД. Добавляем в БД по мобильному.<br>";
+            echo $employeeValue['mobile_number']." рабочий существует в файле, но отсутствует в БД. Добавляем в БД по мобильному.<br>";
 
             $access->insertEmployee(
                 $employeeValue['userId'],
@@ -246,14 +242,14 @@ foreach ($employeeList as $employeeValue) {
                 $employeeValue['additional_holliday_counter']
             );
 
-            $logs->logUpload($employeeValue['mobile_number']." рабочий существует в файле, но отсутствует в БД. Добавляем в БД по мобильному.", $employeeValue['mobile_number']);*/
+            $logs->logUpload($employeeValue['mobile_number']." рабочий существует в файле, но отсутствует в БД. Добавляем в БД по мобильному.", $employeeValue['mobile_number']);
 
         }
 
     // Проверяем неактивных сотрудников офиса 
-    } else if ($employeeValue['email'] != "" && $employeeValue['mobile_number'] != "" && $employeeValue['activity'] == 0) {
+    } else if (preg_match("/@diall.ru/", $employeeValue['email']) == 1 && $employeeValue['mobile_number'] != "" && $employeeValue['activity'] == 0) {
 
-        /*$userFromDbResult = $access->getUserByPersonnelNumber($employeeValue['email']);
+        $userFromDbResult = $access->getUserByPersonnelNumber($employeeValue['email']);
 
         if ($userFromDbResult) {
 
@@ -264,12 +260,12 @@ foreach ($employeeList as $employeeValue) {
 
             $logs->logUpload($employeeValue['email']." сотрудник офиса неактивен, удаляем из БД", $employeeValue['email']);
 
-        }*/
+        }
 
     // Проверяем неактивных рабочих
     } else if (preg_match("/@diall.ru/", $employeeValue['email']) == 0 && $employeeValue['mobile_number'] != "" && $employeeValue['activity'] == 0) {
 
-        /*$userFromDbResult = $access->getUserForJobByPhoneNumber($employeeValue['mobile_number']);
+        $userFromDbResult = $access->getUserForJobByPhoneNumber($employeeValue['mobile_number']);
 
         if ($userFromDbResult) {
 
@@ -280,12 +276,12 @@ foreach ($employeeList as $employeeValue) {
 
             $logs->logUpload($employeeValue['mobile_number']." рабочий неактивен. Удаляем из БД по мобильному.",$employeeValue['mobile_number']);
 
-        }*/
+        }
 
     // Проверяем тех у кого вообще ничего нет
     } else if ($employeeValue['email'] == "" && $employeeValue['mobile_number'] == "") {
 
-        /*echo $employeeValue['fullname']." не имеет ни email, ни мобильного.<br>";
+        echo $employeeValue['fullname']." не имеет ни email, ни мобильного.<br>";
 
         // Складываем в отдельный файл для доработки 
         $logs->logEmptyUser(
@@ -306,7 +302,7 @@ foreach ($employeeList as $employeeValue) {
             $employeeValue['main_holliday_counter'],
             $employeeValue['additional_holliday_counter'],
             $employeeValue['activity']
-        );*/
+        );
     }
     
 }
