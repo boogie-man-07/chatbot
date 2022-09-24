@@ -178,7 +178,7 @@ foreach ($employeeList as $employeeValue) {
         }
 
     // Проверяем активных рабочих
-    } else if (($employeeValue['email'] == "" || preg_match("/@diall.ru/", $employeeValue['email']) == 0) && $employeeValue['mobile_number'] != "" && $employeeValue['activity'] == 1) {
+    } else if (preg_match("/@diall.ru/", $employeeValue['email']) == 0 && $employeeValue['mobile_number'] != "" && $employeeValue['activity'] == 1) {
 
         $userFromDbResult = $access->getUserByPhoneNumber($employeeValue['mobile_number']);
 
@@ -263,7 +263,7 @@ foreach ($employeeList as $employeeValue) {
         }
 
     // Проверяем неактивных рабочих
-    } else if ($employeeValue['email'] == "" && $employeeValue['mobile_number'] != "" && $employeeValue['activity'] == 0) {
+    } else if (preg_match("/@diall.ru/", $employeeValue['email']) == 0 && $employeeValue['mobile_number'] != "" && $employeeValue['activity'] == 0) {
 
         $userFromDbResult = $access->getUserForJobByPhoneNumber($employeeValue['mobile_number']);
 
