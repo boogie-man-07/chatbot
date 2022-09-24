@@ -357,7 +357,6 @@ class AuthorizedUserScenario {
                                 $this->commonmistakeroute->triggerActionForDateFormatError($this->chatID);
                                 exit;
                             }
-                        // todo check logic
                         case $this->states['postponedSeparateVacationDurationWaitingState']:
                             if ($this->salaryRoute->isCorrectVacationDurationFormat($text)) {
                                 $vacationInfo = $this->access->getSelectedVacationInfo($this->chatID);
