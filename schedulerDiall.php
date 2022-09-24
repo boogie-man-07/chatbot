@@ -110,7 +110,7 @@ foreach ($employeeList as $employeeValue) {
     //echo json_encode($employeeValue, true);
 
     // Проверяем активных сотрудников офиса
-    if (preg_match("/@diall.ru/", $employeeValue['email']) == 1 && $employeeValue['mobile_number'] != "" && $employeeValue['activity'] == 1) {
+    if (preg_match("/diall.ru/", strtolower($employeeValue['email'])) == 1 && $employeeValue['mobile_number'] != "" && $employeeValue['activity'] == 1) {
 
         $userFromDbResult = $access->getUserByPersonnelNumber($employeeValue['email']);
 
@@ -178,7 +178,7 @@ foreach ($employeeList as $employeeValue) {
         }
 
     // Проверяем активных рабочих
-    } else if (preg_match("/@diall.ru/", $employeeValue['email']) == 0 && $employeeValue['mobile_number'] != "" && $employeeValue['activity'] == 1) {
+    } else if (preg_match("/diall.ru/", strtolower($employeeValue['email'])) == 0 && $employeeValue['mobile_number'] != "" && $employeeValue['activity'] == 1) {
 
         $userFromDbResult = $access->getUserByPhoneNumber($employeeValue['mobile_number']);
 
@@ -247,7 +247,7 @@ foreach ($employeeList as $employeeValue) {
         }
 
     // Проверяем неактивных сотрудников офиса 
-    } else if (preg_match("/@diall.ru/", $employeeValue['email']) == 1 && $employeeValue['mobile_number'] != "" && $employeeValue['activity'] == 0) {
+    } else if (preg_match("/diall.ru/", strtolower($employeeValue['email'])) == 1 && $employeeValue['mobile_number'] != "" && $employeeValue['activity'] == 0) {
 
         $userFromDbResult = $access->getUserByPersonnelNumber($employeeValue['email']);
 
@@ -263,7 +263,7 @@ foreach ($employeeList as $employeeValue) {
         }
 
     // Проверяем неактивных рабочих
-    } else if (preg_match("/@diall.ru/", $employeeValue['email']) == 0 && $employeeValue['mobile_number'] != "" && $employeeValue['activity'] == 0) {
+    } else if (preg_match("/diall.ru/", strtolower($employeeValue['email'])) == 0 && $employeeValue['mobile_number'] != "" && $employeeValue['activity'] == 0) {
 
         $userFromDbResult = $access->getUserForJobByPhoneNumber($employeeValue['mobile_number']);
 
