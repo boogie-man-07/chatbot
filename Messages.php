@@ -5,7 +5,7 @@
 # Time: 16:59
 
 
-$file = parse_ini_file("../../Testbotdb.ini");
+$file = parse_ini_file("../Botdb.ini");
 $token = trim($file["token"]);
 $website = "https://api.telegram.org/bot".$token;
 

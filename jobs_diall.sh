@@ -1,3 +1,3 @@
 #!/bin/bash
-cd /var/www/sigmabot.ddns.net/tstchatbot/chatbot/
+cd /var/www/sigmabot.ddns.net/chatbot/
 php schedulerDiall.php
