@@ -82,7 +82,7 @@ if (!$user) {
     $unauthorizedUserScenario->run($text);
 } else {
     if (!$isAuthorized) {
-        $nonFinishedAuthorizationUserScenario = new NonFinishedAuthorizationUserScenario($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $commandList, $statesList, $state, $email);
+        $nonFinishedAuthorizationUserScenario = new NonFinishedAuthorizationUserScenario($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $commandList, $statesList, $state, $email, $query);
         if ($isInline) {
             $nonFinishedAuthorizationUserScenario->runInline($text);
         } else {
@@ -113,6 +113,11 @@ function sendPhoto($chatID, $imageUrl, $keyboard) {
 function sendSticker($chatID, $sticker) {
   $url = $GLOBALS[website]."/sendSticker?chat_id=$chatID&sticker=$sticker";
   file_get_contents($url);
+}
+
+function answerCallbackQuery($callbackQueryId, $text) {
+    $url = $GLOBALS[website]."/answerCallbackQuery?callback_query_id=$callbackQueryId&text=$text";
+    file_get_contents($url);
 }
 
 ?>
