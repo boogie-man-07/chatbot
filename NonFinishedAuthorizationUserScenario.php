@@ -115,6 +115,7 @@ class NonFinishedAuthorizationUserScenario {
     function runInline($text) {
         switch ($text) {
             case $this->commands['sendCodeInline']:
+                answerCallbackQuery($this->query["id"], "Код подтверждения отправлен!");
                 sendMessage($this->chatID, json_encode($this->query), null);
                 $template = $this->email->confirmationTemplate($this->user['company_id']);
                 $template = str_replace("{confirmationCode}", $this->user['confirmation_code'], $template);
