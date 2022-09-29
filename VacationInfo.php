@@ -77,7 +77,7 @@ class VacationInfo {
 
             $main = $this->fixComma($result['holiday_main']);
             $additional = $this->fixComma($result['holiday_more']);
-            $restVacation = bcadd($main, $additional);
+            $restVacation = bcadd((int)$main, (int)$additional);
             return $restVacation;
         }
     }
