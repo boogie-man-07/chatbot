@@ -116,7 +116,7 @@ function sendSticker($chatID, $sticker) {
 }
 
 function answerCallbackQuery($callbackQueryId, $text) {
-    $url = $GLOBALS[website]."/answerCallbackQuery?callback_query_id=$callbackQueryId&text=$text&show_alert=true";
+    $url = $GLOBALS[website]."/answerCallbackQuery?callback_query_id=$callbackQueryId&text=$text";
     file_get_contents($url);
 }
 
