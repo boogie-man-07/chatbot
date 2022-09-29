@@ -13,8 +13,9 @@ class NonFinishedAuthorizationUserScenario {
     var $states = null;
     var $state = null;
     var $email = null;
+    var $query = null;
 
-    function __construct($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $commands, $states, $state, $email) {
+    function __construct($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $commands, $states, $state, $email, $query) {
         $this->chatID = $chatID;
         $this->user = $user;
         $this->username = $username;
@@ -26,6 +27,7 @@ class NonFinishedAuthorizationUserScenario {
         $this->states = $states;
         $this->state = $state;
         $this->email = $email;
+        $this->query = $query;
     }
     // TODO first check if not authorized then return you're not authorized to do this. Same on not authorized user
     function run($text) {
@@ -113,6 +115,7 @@ class NonFinishedAuthorizationUserScenario {
     function runInline($text) {
         switch ($text) {
             case $this->commands['sendCodeInline']:
+                sendMessage($this->chatID, json_encode($this->query), null);
                 $template = $this->email->confirmationTemplate($this->user['company_id']);
                 $template = str_replace("{confirmationCode}", $this->user['confirmation_code'], $template);
                 $template = str_replace("{fullname}", $this->user['fullname'], $template);
