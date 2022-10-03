@@ -713,7 +713,7 @@ class AuthorizedUserScenario {
                 }
             default:
                 switch ($this->state) {
-                    answerCallbackQuery($this->query["id"], "Успешно!");
+                    //answerCallbackQuery($this->query["id"], "Успешно!");
                     case $this->states['postponedVacationChooseVacationState']:
                         if ($this->user['company_id'] == 3) {
                             $this->access->setSelectedVacation($this->chatID, $text);
