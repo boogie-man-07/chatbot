@@ -26,7 +26,7 @@ class constants {
     }
 
     function getReplyForAuthorizedUser($username) {
-        return "С возвращением, $username!\nПока я умею выполнять команды в меню ниже, но я постоянно учусь!";
+        return "С возвращением, $username!\n Вы уже авторизованы и можете использовать меня на полную катушку!\nНиже меню с командами, которые я умею выполнять.";
     }
 
     function getReplyForCommonMistake() {

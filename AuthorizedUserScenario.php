@@ -46,6 +46,10 @@ class AuthorizedUserScenario {
 
     function run($text) {
         switch ($text) {
+            case $this->commands['start']:
+                $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
+                $this->authroute->triggerActionForBotRestartedByAuthorized($this->chatID, $this->user['fullname']);
+                exit;
             case $this->commands['exit']:
                 $isUserRemoved = $this->access->removeUserCredentialsByChatID($this->chatID);
                 $isUserStateRemoved = $this->access->removeUserStateByChatID($this->chatID);
