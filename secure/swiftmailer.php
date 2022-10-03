@@ -100,8 +100,11 @@ class swiftmailer {
                 echo 'Message has been sent';
                 if ($mailer) {
                     return true;
+                    break;
+                } else {
+                    return false;
+                    break;
                 }
-                break;
 
             case 2:
                 switch ($vacationType) {
@@ -137,8 +140,11 @@ class swiftmailer {
                 echo 'Message has been sent';
                 if ($mailer) {
                     return true;
+                    break;
+                } else {
+                    return false;
+                    break;
                 }
-                break;
 
             case 3:
 
@@ -173,9 +179,12 @@ class swiftmailer {
                 $mailer->send($message);
                 echo 'Message has been sent';
                 if ($mailer) {
-                  return true;
+                    return true;
+                    break;
+                } else {
+                    return false;
+                    break;
                 }
-                break;
         }
     }
 
@@ -199,11 +208,13 @@ class swiftmailer {
         ;
 
         $mailer->send($message);
-        echo 'Message has been sent';
         if ($mailer) {
-          return true;
+            return true;
+            break;
+        } else {
+            return false;
+            break;
         }
-        break;
 
       case 2:
         $transport = (new Swift_SmtpTransport('kappa.gnhs.ru', 587))
@@ -220,11 +231,13 @@ class swiftmailer {
           ->attach(Swift_Attachment::fromPath('forms/gnhsRegularDynamicVacationForm.xlsx') ->setFilename('Заявление на отпуск.xlsx'));
         ;
         $mailer->send($message);
-        echo 'Message has been sent';
         if ($mailer) {
-          return true;
+            return true;
+            break;
+        } else {
+            return false;
+            break;
         }
-        break;
 
       case 3:
         $transport = (new Swift_SmtpTransport('mail.diall.ru', 587))
@@ -241,11 +254,13 @@ class swiftmailer {
           ->attach(Swift_Attachment::fromPath('forms/diallRegularVacationForm.docx') ->setFilename('Заявление на отпуск.docx'));
         ;
         $mailer->send($message);
-        echo 'Message has been sent';
         if ($mailer) {
-          return true;
+            return true;
+            break;
+        } else {
+            return false;
+            break;
         }
-        break;
     }
   }
 
@@ -269,11 +284,13 @@ class swiftmailer {
         ;
 
         $mailer->send($message);
-        echo 'Message has been sent';
         if ($mailer) {
-          return true;
+            return true;
+            break;
+        } else {
+            return false;
+            break;
         }
-        break;
 
       case 2:
         $transport = (new Swift_SmtpTransport('kappa.gnhs.ru', 587))
@@ -290,13 +307,13 @@ class swiftmailer {
           ->attach(Swift_Attachment::fromPath('forms/postponedDynamicVacationForm.xlsx') ->setFilename('Заявление на перенос отпуска.xlsx'));
         ;
         $mailer->send($message);
-        echo 'Message has been sent';
-
-
         if ($mailer) {
-          return true;
+            return true;
+            break;
+        } else {
+            return false;
+            break;
         }
-        break;
 
       case 3:
         $transport = (new Swift_SmtpTransport('mail.diall.ru', 587))
@@ -313,11 +330,13 @@ class swiftmailer {
           ->attach(Swift_Attachment::fromPath("$sendInfo") ->setFilename('Заявление на перенос отпуска.xlsx'));
         ;
         $mailer->send($message);
-        echo 'Message has been sent';
-//         if ($mailer) {
-//           return true;
-//         }
-        break;
+        if ($mailer) {
+            return true;
+            break;
+        } else {
+            return false;
+            break;
+        }
     }
   }
 
@@ -341,8 +360,13 @@ class swiftmailer {
                     ->setBody($body, 'text/html')
                     ;
                 $mailer->send($message);
-                echo 'Message has been sent';
-                break;
+                if ($mailer) {
+                    return true;
+                    break;
+                } else {
+                    return false;
+                    break;
+                }
         }
     }
 }

@@ -436,56 +436,69 @@ class AuthorizedUserScenario {
             case $this->commands['userFullCardInline']:
                 $userForFind = $this->access->getFindUserData($this->chatID);
                 if ($userForFind) {
+                    answerCallbackQuery($this->query["id"], "Пользователь найден!");
                     $result = $this->access->getUserByFirstnameAndLastName($userForFind['find_userfirstname'], $userForFind['find_userlastname'], $this->logics->getUserPrivelegesForUserCards($this->user));
                     $this->phonebookroute->triggerActionForGetUserCard($this->chatID, $result);
                     exit;
                 } else {
+                    answerCallbackQuery($this->query["id"], "");
                     $this->commonmistakeroute->triggerActionForRestartFindUser($this->chatID);
                     exit;
                 }
             case $this->commands['userEmailInline']:
                 $userForFind = $this->access->getFindUserData($this->chatID);
                 if ($userForFind) {
+                    answerCallbackQuery($this->query["id"], "Адрес электронной почты найден!");
                     $result = $this->access->getUserByFirstnameAndLastName($userForFind['find_userfirstname'], $userForFind['find_userlastname'], $this->logics->getUserPrivelegesForUserCards($this->user));
                     $this->phonebookroute->triggerActionForGetUserEmail($this->chatID, $result['email']);
                     exit;
                 } else {
+                    answerCallbackQuery($this->query["id"], "Адрес электронной почты не найден!");
                     $this->commonmistakeroute->triggerActionForRestartFindUser($this->chatID);
                     exit;
                 }
             case $this->commands['userMobileNumberInline']:
                 $userForFind = $this->access->getFindUserData($this->chatID);
                 if ($userForFind) {
+                    answerCallbackQuery($this->query["id"], "Номер мобильного телефона найден!");
                     $result = $this->access->getUserByFirstnameAndLastName($userForFind['find_userfirstname'], $userForFind['find_userlastname'], $this->logics->getUserPrivelegesForUserCards($this->user));
                     $this->phonebookroute->triggerActionForGetUserMobileNumber($this->chatID, $result['mobile_number']);
                     exit;
                 } else {
+                    answerCallbackQuery($this->query["id"], "Номер мобильного телефона не найден!");
                     $this->commonmistakeroute->triggerActionForRestartFindUser($this->chatID);
                     exit;
                 }
-            case $this->commands['userOfficeNumberInline']: // need to clear state after search
+            case $this->commands['userOfficeNumberInline']: // need to clear state after search?
                 $userForFind = $this->access->getFindUserData($this->chatID);
                 if ($userForFind) {
+                    answerCallbackQuery($this->query["id"], "Номер рабочего телефона найден!");
                     $result = $this->access->getUserByFirstnameAndLastName($userForFind['find_userfirstname'], $userForFind['find_userlastname'], $this->logics->getUserPrivelegesForUserCards($this->user));
                     $this->phonebookroute->triggerActionForGetUserOfficeNumber($this->chatID, $result['office_number'], $result['internal_number']);
                     exit;
                 } else {
+                    answerCallbackQuery($this->query["id"], "Номер рабочего телефона не найден!");
                     $this->commonmistakeroute->triggerActionForRestartFindUser($this->chatID);
                     exit;
                 }
             case $this->commands['firstRuleInline']:
+                answerCallbackQuery($this->query["id"], "Правда и факты!");
                 $this->valuesRoute->triggerActionForGetFirstValue($this->chatID, $this->user['company_id'], $this->commands['secondRuleInline']);
                 exit;
             case $this->commands['secondRuleInline']:
+                answerCallbackQuery($this->query["id"], "Открытость и прозрачность!");
                 $this->valuesRoute->triggerActionForGetSecondValue($this->chatID, $this->user['company_id'], $this->commands['thirdRuleInline']);
                 exit;
             case $this->commands['thirdRuleInline']:
+                answerCallbackQuery($this->query["id"], "Работа - любимое дело!");
                 $this->valuesRoute->triggerActionForGetThirdValue($this->chatID, $this->user['company_id'], $this->commands['fourthRuleInline']);
                 exit;
             case $this->commands['fourthRuleInline']:
+                answerCallbackQuery($this->query["id"], "Значимые отношения!");
                 $this->valuesRoute->triggerActionForGetFourthValue($this->chatID, $this->user['company_id'], $this->commands['lastRuleInline']);
                 exit;
             case $this->commands['lastRuleInline']:
+                answerCallbackQuery($this->query["id"], "");
                 $this->valuesRoute->triggerActionForGetLastValue($this->chatID, $this->user['firstname']);
                 exit;
             case $this->commands['sendFeedbackInline']:
@@ -494,49 +507,76 @@ class AuthorizedUserScenario {
                 if ($feedback) {
                     switch ($this->state) {
                         case 'waiting for ERP feedback':
-                            $this->swiftmailer->sendFeedback(
+                            $isSended = $this->swiftmailer->sendFeedback(
                                 $this->user['company_id'],
                                 'it_help@diall.ru',
                                 "#1C &".$this->user['email']."&",
                                 $feedbackText
                             );
-                            break;
+                            if ($isSended) {
+                                answerCallbackQuery($this->query["id"], "Обращение успешно отправлено!");
+                                break;
+                            } else {
+                                answerCallbackQuery($this->query["id"], "Не удалось отправить обращение, попробуйте еще раз!");
+                                break;
+                            }
                         case 'waiting for hardware feedback':
-                            $this->swiftmailer->sendFeedback(
+                            $isSended = $this->swiftmailer->sendFeedback(
                                 $this->user['company_id'],
                                 'it_help@diall.ru',
                                 "#ADM &".$this->user['email']."&",
                                 $feedbackText
                             );
-                            break;
+                            if ($isSended) {
+                                answerCallbackQuery($this->query["id"], "Обращение успешно отправлено!");
+                                break;
+                            } else {
+                                answerCallbackQuery($this->query["id"], "Не удалось отправить обращение, попробуйте еще раз!");
+                                break;
+                            }
                         case 'waiting for resources feedback':
-                            $this->swiftmailer->sendFeedback(
+                            $isSended = $this->swiftmailer->sendFeedback(
                                 $this->user['company_id'],
                                 'it_help@diall.ru',
                                 "#ADM &".$this->user['email']."&",
                                 $feedbackText
                             );
-                            break;
+                            if ($isSended) {
+                                answerCallbackQuery($this->query["id"], "Обращение успешно отправлено!");
+                                break;
+                            } else {
+                                answerCallbackQuery($this->query["id"], "Не удалось отправить обращение, попробуйте еще раз!");
+                                break;
+                            }
                         case 'waiting for other feedback':
-                            $this->swiftmailer->sendFeedback(
+                            $isSended = $this->swiftmailer->sendFeedback(
                                 $this->user['company_id'],
                                 'it_help@diall.ru',
                                 "&".$this->user['email']."&",
                                 $feedbackText
                             );
-                            break;
+                            if ($isSended) {
+                                answerCallbackQuery($this->query["id"], "Обращение успешно отправлено!");
+                                break;
+                            } else {
+                                answerCallbackQuery($this->query["id"], "Не удалось отправить обращение, попробуйте еще раз!");
+                                break;
+                            }
                     }
                     $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
                     $this->mainInformationRoute->triggerActionForSendFeedback($this->chatID);
                     exit;
                 } else {
+                    answerCallbackQuery($this->query["id"], "Не удалось отправить обращение, попробуйте еще раз!");
                     $this->commonmistakeroute->triggerErrorForSendFeedback();
                     exit;
                 }
             case $this->commands['regularVacationCaseInline']:
+                answerCallbackQuery($this->query["id"], "Успешно!");
                 $this->salaryRoute->triggerActionForRegularApplicationPreparations($this->chatID, $this->user['firstname'], $this->user['company_id']);
                 exit;
             case $this->commands['postponedVacationCaseInline']:
+                answerCallbackQuery($this->query["id"], "Успешно!");
                 if ($this->user['company_id'] == 3) {
                     $data = $this->vacationInfo->getVacationsInfo($this->user['email']);
                     if ($data) {
@@ -548,21 +588,25 @@ class AuthorizedUserScenario {
                 }
                 exit;
             case $this->commands['triggerMainVacationInline']:
+                answerCallbackQuery($this->query["id"], "Успешно!");
                 $this->access->setRegualarVacationType($this->chatID, '0');
                 $this->access->setState($this->chatID, $this->states['regularVacationStartDateWaitingState']);
                 $this->salaryRoute->triggerActionForRegularVacationStartPreparations($this->chatID);
                 exit;
             case $this->commands['triggerAdditionalVacationInline']:
+                answerCallbackQuery($this->query["id"], "Успешно!");
                 $this->access->setRegualarVacationType($this->chatID, '1');
                 $this->access->setState($this->chatID, $this->states['regularVacationStartDateWaitingState']);
                 $this->salaryRoute->triggerActionForRegularVacationStartPreparations($this->chatID);
                 exit;
             case $this->commands['triggerNoPaymentVacationInline']:
+                answerCallbackQuery($this->query["id"], "Успешно!");
                 $this->access->setRegualarVacationType($this->chatID, '2');
                 $this->access->setState($this->chatID, $this->states['regularVacationStartDateWaitingState']);
                 $this->salaryRoute->triggerActionForRegularVacationStartPreparations($this->chatID);
                 exit;
             case $this->commands['triggerAcademicVacationInline']:
+                answerCallbackQuery($this->query["id"], "Успешно!");
                 $this->access->setRegualarVacationType($this->chatID, '3');
                 $this->access->setState($this->chatID, $this->states['regularVacationStartDateWaitingState']);
                 $this->salaryRoute->triggerActionForRegularVacationStartPreparations($this->chatID);
@@ -583,28 +627,41 @@ class AuthorizedUserScenario {
                 }
                 $template = $this->email->generateNewRegularVacationForm($this->user['company_id']);
                 $template = str_replace("{firstname}", $this->user['firstname'], $template);
-                $this->swiftmailer->sendNewRegularVacationMailWithAttachementViaSmtp(
+                $isSended = $this->swiftmailer->sendNewRegularVacationMailWithAttachementViaSmtp(
                     $vacationFormData['vacation_type'],
                     $this->user['company_id'],
                     $this->user['email'],
                     "Заявление на отпуск",
                     $template
                 );
-                $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
-                $this->salaryRoute->triggerActionForSendRegularVacationFormResult($this->chatID, $this->user['firstname'], $this->user['company_id']);
-                exit;
+                if ($isSended) {
+                    answerCallbackQuery($this->query["id"], "Письмо успешно отправлено!");
+                    $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
+                    $this->salaryRoute->triggerActionForSendRegularVacationFormResult($this->chatID, $this->user['firstname'], $this->user['company_id']);
+                    exit;
+                } else {
+                    answerCallbackQuery($this->query["id"], "Не удалось отправить письмо, повторите попытку!");
+                    exit;
+                }
+
             case $this->commands['sendOldRegularVacationFormInline']:
                 $template = $this->email->generateRegularVacationForm($this->user['company_id']);
                 $template = str_replace("{firstname}", $this->user['firstname'], $template);
-                $this->swiftmailer->sendRegularVacationMailWithAttachementViaSmtp(
+                $isSended = $this->swiftmailer->sendRegularVacationMailWithAttachementViaSmtp(
                     $this->user['company_id'],
                     $this->user['email'],
                     "Заявление на отпуск",
                     $template
                 );
-                $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
-                $this->salaryRoute->triggerActionForSendOldRegularVacationFormResult($this->chatID, $this->user['firstname'], $this->user['company_id']);
-                exit;
+                if ($isSended) {
+                    answerCallbackQuery($this->query["id"], "Письмо успешно отправлено!");
+                    $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
+                    $this->salaryRoute->triggerActionForSendOldRegularVacationFormResult($this->chatID, $this->user['firstname'], $this->user['company_id']);
+                    exit;
+                } else {
+                    answerCallbackQuery($this->query["id"], "Не удалось отправить письмо, повторите попытку!");
+                    exit;
+                }
             case $this->commands['sendPostponedVacationFormInline']:
                 //$vacationFormData = $this->access->getDataForVacationForm($this->chatID);
                 $vacationFormData = $this->access->getSelectedVacationInfo($this->chatID);
@@ -632,25 +689,31 @@ class AuthorizedUserScenario {
                         (string)$info
                     );
                 }
-
-
+                answerCallbackQuery($this->query["id"], "Письмо успешно отправлено!");
                 $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
                 $this->salaryRoute->triggerActionForSendPostponedVacationFormResult($this->chatID, $this->user['firstname'], $this->user['company_id']);
                 exit;
             case $this->commands['sendOldPostponedVacationFormInline']:
                 $template = $this->email->generatePostponeVacationForm($this->user['company_id']);
                 $template = str_replace("{firstname}", $this->user['firstname'], $template);
-                $this->swiftmailer->sendPostponedVacationMailWithAttachementViaSmtp(
+                $isSended = $this->swiftmailer->sendPostponedVacationMailWithAttachementViaSmtp(
                     $this->user['company_id'],
                     $this->user['email'],
                     "Заявление на перенос отпуска",
                     $template
                 );
-                $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
-                $this->salaryRoute->triggerActionForSendOldPostponedVacationFormResult($this->chatID, $this->user['firstname'], $this->user['company_id']);
-                exit;
+                if ($isSended) {
+                    answerCallbackQuery($this->query["id"], "Письмо успешно отправлено!");
+                    $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
+                    $this->salaryRoute->triggerActionForSendOldPostponedVacationFormResult($this->chatID, $this->user['firstname'], $this->user['company_id']);
+                    exit;
+                } else {
+                    answerCallbackQuery($this->query["id"], "Не удалось отправить письмо, повторите попытку!");
+                    exit;
+                }
             default:
                 switch ($this->state) {
+                    answerCallbackQuery($this->query["id"], "Успешно!");
                     case $this->states['postponedVacationChooseVacationState']:
                         if ($this->user['company_id'] == 3) {
                             $this->access->setSelectedVacation($this->chatID, $text);
@@ -659,6 +722,7 @@ class AuthorizedUserScenario {
                             exit;
                         }
                     default:
+                        answerCallbackQuery($this->query["id"], "");
                         sendMessage($this->chatID, "Default finished inline", null);
                         exit;
                 }
