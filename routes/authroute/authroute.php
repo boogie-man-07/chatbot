@@ -52,6 +52,12 @@ class authroute {
         sendMessage($chatID, $reply, $keyboard);
     }
 
+    function triggerActionForBotRestartedByAuthorized($chatID, $username) {
+        $reply = $this->constants->getReplyForAuthorizedUser($username);
+        $keyboard = $this->keyboards->mainKeyboard();
+        sendMessage($chatID, $reply, $keyboard);
+    }
+
     function triggerActionWithSendingConfirmationEmail($chatID, $username) {
         $reply = $this->constants->getReplyForEmailIsSended($username);
         sendMessage($chatID, $reply, null);
