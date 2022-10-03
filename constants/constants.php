@@ -322,7 +322,7 @@ class constants {
                 $newDate = date('d.m.Y', strtotime($value['date1']));
                 $vacationsList .= "Отпуск $newDate (дней: ".$value['amount'].")\n";
             }
-            return "Общее количество оставшихся дней отпуска: $data.\n$vacationsList";
+            return "Неиспользованный остаток отпуска: $data.\n$vacationsList";
         }
     }
 
