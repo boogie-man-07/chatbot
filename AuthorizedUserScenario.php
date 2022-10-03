@@ -201,7 +201,7 @@ class AuthorizedUserScenario {
                             $correctText = $this->salaryRoute->formatDate($text);
                             if ($this->salaryRoute->isCorrectDateFormat($correctText)) {
                                 if ($this->salaryRoute->isDateNotInPast($correctText)) {
-                                    $restVacationCount = $this->vacationInfo->getRestVacationCount($this->user['email']);
+                                    $restVacationCount = $this->vacationInfo->getRestVacationCountNew($this->user['email']);
                                     $this->access->setRegularVacationStartDate($this->chatID, $correctText);
                                     $this->access->setState($this->chatID, $this->states['regularVacationDurationWaitingState']);
                                     $this->salaryRoute->triggerActionForSetRegularVacationDuration($this->chatID, $restVacationCount);
@@ -217,7 +217,7 @@ class AuthorizedUserScenario {
                         case $this->states['regularVacationDurationWaitingState']:
                             if ($this->salaryRoute->isCorrectVacationDurationFormat($text)) {
                                 $vacationFormData = $this->access->getReguarVacationFormData($this->chatID);
-                                $restVacationCount = $this->vacationInfo->getRestVacationCount($this->user['email']);
+                                $restVacationCount = $this->vacationInfo->getRestVacationCountNew($this->user['email']);
                                 if ($text <= $restVacationCount) {
                                     if ($vacationFormData['vacation_type'] != '3') {
                                         $this->access->setRegularVacationDuration($this->chatID, $text);
