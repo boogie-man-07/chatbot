@@ -21,8 +21,9 @@ class AuthorizedUserScenario {
     var $forms = null;
     var $email = null;
     var $vacationInfo = null;
+    var $query = null;
 
-    function __construct($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $phonebookroute, $valuesRoute, $mainRulesRoute, $mainInformationRoute, $salaryRoute, $commands, $states, $state, $logics, $forms, $email, $vacationInfo) {
+    function __construct($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $phonebookroute, $valuesRoute, $mainRulesRoute, $mainInformationRoute, $salaryRoute, $commands, $states, $state, $logics, $forms, $email, $vacationInfo, $query) {
         $this->chatID = $chatID;
         $this->user = $user;
         $this->username = $username;
@@ -42,6 +43,7 @@ class AuthorizedUserScenario {
         $this->forms = $forms;
         $this->email = $email;
         $this->vacationInfo = $vacationInfo;
+        $this->query = $query;
     }
 
     function run($text) {
