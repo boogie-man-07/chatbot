@@ -722,7 +722,7 @@ class AuthorizedUserScenario {
                             exit;
                         }
                     default:
-                        answerCallbackQuery($this->query["id"], "...");
+                        //answerCallbackQuery($this->query["id"], "...");
                         sendMessage($this->chatID, "Default finished inline", null);
                         exit;
                 }
