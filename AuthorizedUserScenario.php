@@ -713,7 +713,6 @@ class AuthorizedUserScenario {
                 }
             default:
                 switch ($this->state) {
-                    //answerCallbackQuery($this->query["id"], "Успешно!");
                     case $this->states['postponedVacationChooseVacationState']:
                         if ($this->user['company_id'] == 3) {
                             $this->access->setSelectedVacation($this->chatID, $text);
@@ -722,7 +721,6 @@ class AuthorizedUserScenario {
                             exit;
                         }
                     default:
-                        //answerCallbackQuery($this->query["id"], "...");
                         sendMessage($this->chatID, "Default finished inline", null);
                         exit;
                 }
