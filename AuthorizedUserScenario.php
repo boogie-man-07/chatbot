@@ -441,7 +441,7 @@ class AuthorizedUserScenario {
                     $this->phonebookroute->triggerActionForGetUserCard($this->chatID, $result);
                     exit;
                 } else {
-                    answerCallbackQuery($this->query["id"], "");
+                    answerCallbackQuery($this->query["id"], "...");
                     $this->commonmistakeroute->triggerActionForRestartFindUser($this->chatID);
                     exit;
                 }
@@ -498,7 +498,7 @@ class AuthorizedUserScenario {
                 $this->valuesRoute->triggerActionForGetFourthValue($this->chatID, $this->user['company_id'], $this->commands['lastRuleInline']);
                 exit;
             case $this->commands['lastRuleInline']:
-                answerCallbackQuery($this->query["id"], "");
+                answerCallbackQuery($this->query["id"], "...");
                 $this->valuesRoute->triggerActionForGetLastValue($this->chatID, $this->user['firstname']);
                 exit;
             case $this->commands['sendFeedbackInline']:
@@ -722,7 +722,7 @@ class AuthorizedUserScenario {
                             exit;
                         }
                     default:
-                        answerCallbackQuery($this->query["id"], "");
+                        answerCallbackQuery($this->query["id"], "...");
                         sendMessage($this->chatID, "Default finished inline", null);
                         exit;
                 }
