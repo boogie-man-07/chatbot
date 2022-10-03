@@ -115,18 +115,25 @@ class NonFinishedAuthorizationUserScenario {
     function runInline($text) {
         switch ($text) {
             case $this->commands['sendCodeInline']:
-                answerCallbackQuery($this->query["id"], "Код подтверждения отправлен!");
                 $template = $this->email->confirmationTemplate($this->user['company_id']);
                 $template = str_replace("{confirmationCode}", $this->user['confirmation_code'], $template);
                 $template = str_replace("{fullname}", $this->user['fullname'], $template);
-                $this->swiftmailer->sendMailViaSmtp(
+                $isSended = $this->swiftmailer->sendMailViaSmtp(
                     $this->user['company_id'],
                     $this->user['email'],
                     "Подтверждение регистрации в telegram-боте \"Персональный ассистент работника\"",
                     $template
                 );
-                $this->authroute->triggerActionWithSendingConfirmationEmail($this->chatID, $this->username);
-                exit;
+                if ($isSended) {
+                    answerCallbackQuery($this->query["id"], "Код подтверждения отправлен!");
+                    $this->authroute->triggerActionWithSendingConfirmationEmail($this->chatID, $this->username);
+                    exit;
+                } else {
+                    answerCallbackQuery($this->query["id"], "Не удалось отправить код подтверждения, повторите попытку!");
+                    $this->commonmistakeroute->triggerActionForCommonMistake($this->chatID, $this->username);
+                    exit;
+                }
+
             case $this->commands['toStartInline']:
                 $this->access->setState($this->chatID, $this->states['startAuthorizationState']);
                 $this->authroute->triggerActionForGoToTheStart($this->chatID, $this->username);
