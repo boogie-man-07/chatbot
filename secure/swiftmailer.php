@@ -21,8 +21,13 @@ class swiftmailer {
           ->setBody($body, 'text/html')
           ;
         $mailer->send($message);
-        echo 'Message has been sent';
-        break;
+        if ($mailer) {
+            return true;
+            break;
+        } else {
+            return false;
+            break;
+        }
 
       case 2:
         $transport = (new Swift_SmtpTransport('kappa.gnhs.ru', 587))
@@ -38,8 +43,13 @@ class swiftmailer {
           ->setBody($body, 'text/html')
           ;
         $mailer->send($message);
-        echo 'Message has been sent';
-        break;
+        if ($mailer) {
+            return true;
+            break;
+        } else {
+            return false;
+            break;
+        }
 
       case 3:
         $transport = (new Swift_SmtpTransport('mail.diall.ru', 587))
@@ -55,8 +65,13 @@ class swiftmailer {
           ->setBody($body, 'text/html')
           ;
         $mailer->send($message);
-        echo 'Message has been sent';
-        break;
+        if ($mailer) {
+            return true;
+            break;
+        } else {
+            return false;
+            break;
+        }
     }
   }
 
