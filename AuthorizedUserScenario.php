@@ -22,8 +22,9 @@ class AuthorizedUserScenario {
     var $email = null;
     var $vacationInfo = null;
     var $query = null;
+    var $logs = null;
 
-    function __construct($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $phonebookroute, $valuesRoute, $mainRulesRoute, $mainInformationRoute, $salaryRoute, $commands, $states, $state, $logics, $forms, $email, $vacationInfo, $query) {
+    function __construct($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $phonebookroute, $valuesRoute, $mainRulesRoute, $mainInformationRoute, $salaryRoute, $commands, $states, $state, $logics, $forms, $email, $vacationInfo, $query, $logs) {
         $this->chatID = $chatID;
         $this->user = $user;
         $this->username = $username;
@@ -44,9 +45,14 @@ class AuthorizedUserScenario {
         $this->email = $email;
         $this->vacationInfo = $vacationInfo;
         $this->query = $query;
+        $this->logs = $logs;
     }
 
     function run($text) {
+        if($this->chatID == '187967374' || $this->chatID == '5389293300') {
+            $this->logs->logCustom($text, $this->user['fullname']);
+        }
+
         switch ($text) {
             case $this->commands['start']:
                 $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
@@ -432,6 +438,9 @@ class AuthorizedUserScenario {
     }
 
     function runInline($text) {
+        if($this->chatID == '187967374' || $this->chatID == '5389293300') {
+            $this->logs->logCustom($text, $this->user['fullname']);
+        }
         switch ($text) {
             case $this->commands['userFullCardInline']:
                 $userForFind = $this->access->getFindUserData($this->chatID);
