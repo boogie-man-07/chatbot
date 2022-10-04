@@ -49,7 +49,7 @@ class AuthorizedUserScenario {
     }
 
     function run($text) {
-        if($this->chatID == '187967374') {
+        if($this->chatID == '187967374' || $this->chatID == '5389293300') {
             $this->logCustom($text, $this->user['fullname']);
         }
 
@@ -438,7 +438,7 @@ class AuthorizedUserScenario {
     }
 
     function runInline($text) {
-        if($this->chatID == '187967374') {
+        if($this->chatID == '187967374' || $this->chatID == '5389293300') {
             $this->logCustom($text, $this->user['fullname']);
         }
         switch ($text) {
