@@ -22,6 +22,16 @@ class logs {
 		file_put_contents('logs/result_log_'.$current_date.'.txt', $logMessage, FILE_APPEND | LOCK_EX);
 	}
 
+	function logCustom($message, $fullname) {
+
+        $logics = new logics();
+        $current_date = $logics->getCurrentDate();
+        $current_date_time = $logics->getDateForLogging();
+        $logMessage = "[".(string)$current_date_time."];$message;$fullname\n";
+
+        file_put_contents('logs/custom_log_'.$current_date.'.txt', $logMessage, FILE_APPEND | LOCK_EX);
+    }
+
 	function logUpload($message, $email) {
 
 		$logics = new logics();
