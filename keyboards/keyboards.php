@@ -484,7 +484,7 @@ class keyboards {
                         "callback_data" => "noAction"
                     ),
                     array(
-                        "text" => "2",
+                        "text" => hex2bin('&#128736;'),
                         "callback_data" => "noAction"
                     ),
                     array(
