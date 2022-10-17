@@ -143,7 +143,7 @@ class SalaryRoute {
         sendMessage($chatID, $reply, $keyboard);
     }
 
-    function triggerCalendarAction() {
+    function triggerCalendarAction($chatID) {
         $reply = "Пробный календарь";
         $keyboard = $this->keyboards->getCalendar();
         sendMessage($chatID, $reply, $keyboard);
