@@ -476,7 +476,7 @@ class keyboards {
                 ),
                 array(
                     array(
-                        "text" => " ",
+                        "text" => "",
                         "callback_data" => "noAction"
                     ),
                     array(
@@ -501,6 +501,140 @@ class keyboards {
                     ),
                     array(
                         "text" => "6",
+                        "callback_data" => "noAction"
+                    )
+                ),
+                array(
+                    array(
+                        "text" => "7",
+                        "callback_data" => "noAction"
+                    ),
+                    array(
+                        "text" => "8",
+                        "callback_data" => "noAction"
+                    ),
+                    array(
+                        "text" => "9",
+                        "callback_data" => "noAction"
+                    ),
+                    array(
+                        "text" => "10",
+                        "callback_data" => "noAction"
+                    ),
+                    array(
+                        "text" => "11",
+                        "callback_data" => "noAction"
+                    ),
+                    array(
+                        "text" => "12",
+                        "callback_data" => "noAction"
+                    ),
+                    array(
+                        "text" => "13",
+                        "callback_data" => "noAction"
+                    )
+                ),
+                array(
+                    array(
+                        "text" => "14",
+                        "callback_data" => "noAction"
+                    ),
+                    array(
+                        "text" => "15",
+                        "callback_data" => "noAction"
+                    ),
+                    array(
+                        "text" => "16",
+                        "callback_data" => "noAction"
+                    ),
+                    array(
+                        "text" => "17",
+                        "callback_data" => "noAction"
+                    ),
+                    array(
+                        "text" => "18",
+                        "callback_data" => "noAction"
+                    ),
+                    array(
+                        "text" => "19",
+                        "callback_data" => "noAction"
+                    ),
+                    array(
+                        "text" => "20",
+                        "callback_data" => "noAction"
+                    )
+                ),
+                array(
+                    array(
+                        "text" => "21",
+                        "callback_data" => "noAction"
+                    ),
+                    array(
+                        "text" => "22",
+                        "callback_data" => "noAction"
+                    ),
+                    array(
+                        "text" => "23",
+                        "callback_data" => "noAction"
+                    ),
+                    array(
+                        "text" => "24",
+                        "callback_data" => "noAction"
+                    ),
+                    array(
+                        "text" => "25",
+                        "callback_data" => "noAction"
+                    ),
+                    array(
+                        "text" => "26",
+                        "callback_data" => "noAction"
+                    ),
+                    array(
+                        "text" => "27",
+                        "callback_data" => "noAction"
+                    )
+                ),
+                array(
+                    array(
+                        "text" => "28",
+                        "callback_data" => "noAction"
+                    ),
+                    array(
+                        "text" => "29",
+                        "callback_data" => "noAction"
+                    ),
+                    array(
+                        "text" => "30",
+                        "callback_data" => "noAction"
+                    ),
+                    array(
+                        "text" => "31",
+                        "callback_data" => "noAction"
+                    ),
+                    array(
+                        "text" => "",
+                        "callback_data" => "noAction"
+                    ),
+                    array(
+                        "text" => "",
+                        "callback_data" => "noAction"
+                    ),
+                    array(
+                        "text" => "",
+                        "callback_data" => "noAction"
+                    )
+                ),
+                array(
+                    array(
+                        "text" => "<<",
+                        "callback_data" => "noAction"
+                    ),
+                    array(
+                        "text" => "Январь",
+                        "callback_data" => "noAction"
+                    ),
+                    array(
+                        "text" => ">>",
                         "callback_data" => "noAction"
                     )
                 )
