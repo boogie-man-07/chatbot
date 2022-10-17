@@ -49,7 +49,8 @@
         "sendNewRegularVacationFormInline": "sendNewRegularVacationForm",
         "sendOldRegularVacationFormInline": "sendOldRegularVacationForm",
         "sendPostponedVacationFormInline": "sendPostponedVacationForm",
-        "sendOldPostponedVacationFormInline": "sendOldPostponeVacationForm"
+        "sendOldPostponedVacationFormInline": "sendOldPostponeVacationForm",
+        "calendar": "Календарь"
     },
 
     "mainKeyboard": {

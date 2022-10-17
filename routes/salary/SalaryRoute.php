@@ -143,6 +143,12 @@ class SalaryRoute {
         sendMessage($chatID, $reply, $keyboard);
     }
 
+    function triggerCalendarAction() {
+        $reply = "Пробный календарь";
+        $keyboard = $this->keyboards->getCalendar();
+        sendMessage($chatID, $reply, $keyboard);
+    }
+
     function isCorrectDateFormat($text) {
         return preg_match('/(0[1-9]|1[0-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}$/', $text);
     }
