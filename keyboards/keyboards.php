@@ -488,63 +488,63 @@ class keyboards {
                         "callback_data" => "noAction"
                     ),
                     array(
-                        "text" => "3",
+                        "text" => hex2bin("F09F9BA0"),
                         "callback_data" => "noAction"
                     ),
                     array(
-                        "text" => "4",
+                        "text" => hex2bin("F09F9BA0"),
                         "callback_data" => "noAction"
                     ),
                     array(
-                        "text" => "5",
+                        "text" => hex2bin("F09F9BA0"),
                         "callback_data" => "noAction"
                     ),
                     array(
-                        "text" => "6",
+                        "text" => hex2bin("F09F9BA0"),
                         "callback_data" => "noAction"
                     )
                 ),
                 array(
                     array(
-                        "text" => "7",
+                        "text" => hex2bin("F09F9BA0"),
                         "callback_data" => "noAction"
                     ),
                     array(
-                        "text" => "8",
+                        "text" => hex2bin("F09F9BA0"),
                         "callback_data" => "noAction"
                     ),
                     array(
-                        "text" => "9",
+                        "text" => hex2bin("F09F9BA0"),
                         "callback_data" => "noAction"
                     ),
                     array(
-                        "text" => "10",
+                        "text" => hex2bin("F09F9BA0"),
                         "callback_data" => "noAction"
                     ),
                     array(
-                        "text" => "11",
+                        "text" => hex2bin("F09F9BA0"),
                         "callback_data" => "noAction"
                     ),
                     array(
-                        "text" => "12",
+                        "text" => hex2bin("F09F9BA0"),
                         "callback_data" => "noAction"
                     ),
                     array(
-                        "text" => "13",
+                        "text" => hex2bin("F09F9BA0"),
                         "callback_data" => "noAction"
                     )
                 ),
                 array(
                     array(
-                        "text" => "14",
+                        "text" => hex2bin("F09F9BA0"),
                         "callback_data" => "noAction"
                     ),
                     array(
-                        "text" => "15",
+                        "text" => hex2bin("F09F9BA0"),
                         "callback_data" => "noAction"
                     ),
                     array(
-                        "text" => "16",
+                        "text" => hex2bin("F09F9BA0"),
                         "callback_data" => "noAction"
                     ),
                     array(
