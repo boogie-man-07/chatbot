@@ -54,6 +54,9 @@ class AuthorizedUserScenario {
         }
 
         switch ($text) {
+            case $this->commands['calendar']:
+                $this->salaryRoute->triggerCalendarAction($this->chatID);
+                exit;
             case $this->commands['start']:
                 $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
                 $this->authroute->triggerActionForBotRestartedByAuthorized($this->chatID, $this->user['fullname']);

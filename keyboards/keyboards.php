@@ -304,6 +304,7 @@ class keyboards {
                     array("text" => "Мой отпуск")
                 ),
                 array(
+                    array("text" => "Календарь"),
                     array("text" => "Назад")
                 )
             ),
@@ -416,6 +417,66 @@ class keyboards {
                         "text" => "Отправить заявление",
                         "callback_data" => "sendNewRegularVacationForm"
                     )
+                ),
+                array(
+                    array(
+                        "text" => "Пн",
+                        "callback_data" => ""
+                    ),
+                    array(
+                        "text" => "Вт",
+                        "callback_data" => ""
+                    ),
+                    array(
+                        "text" => "Ср",
+                        "callback_data" => ""
+                    ),
+                    array(
+                        "text" => "Чт",
+                        "callback_data" => ""
+                    ),
+                    array(
+                        "text" => "Пт",
+                        "callback_data" => ""
+                    ),
+                    array(
+                        "text" => "Сб",
+                        "callback_data" => ""
+                    ),
+                    array(
+                        "text" => "Вс",
+                        "callback_data" => ""
+                    ),
+                ),
+                array(
+                    array(
+                        "text" => "",
+                        "callback_data" => ""
+                    ),
+                    array(
+                        "text" => "1",
+                        "callback_data" => ""
+                    ),
+                    array(
+                        "text" => "2",
+                        "callback_data" => ""
+                    ),
+                    array(
+                        "text" => "3",
+                        "callback_data" => ""
+                    ),
+                    array(
+                        "text" => "4",
+                        "callback_data" => ""
+                    ),
+                    array(
+                        "text" => "5",
+                        "callback_data" => ""
+                    ),
+                    array(
+                        "text" => "6",
+                        "callback_data" => ""
+                    )
                 )
             )
         ));
@@ -428,6 +489,19 @@ class keyboards {
                     array(
                         "text" => "Отправить заявление",
                         "callback_data" => "sendPostponedVacationForm"
+                    )
+                )
+            )
+        ));
+    }
+
+    function getCalendar() {
+        return json_encode(array(
+            "inline_keyboard" => array(
+                array(
+                    array(
+                        "text" => "Дней 18 = 113,67 ч / Ночей 11 = 75,33 ч",
+                        "callback_data" => ""
                     )
                 )
             )
