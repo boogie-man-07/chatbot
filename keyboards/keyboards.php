@@ -476,7 +476,7 @@ class keyboards {
                 ),
                 array(
                     array(
-                        "text" => "",
+                        "text" => " ",
                         "callback_data" => "noAction"
                     ),
                     array(
@@ -612,15 +612,15 @@ class keyboards {
                         "callback_data" => "noAction"
                     ),
                     array(
-                        "text" => "",
+                        "text" => " ",
                         "callback_data" => "noAction"
                     ),
                     array(
-                        "text" => "",
+                        "text" => " ",
                         "callback_data" => "noAction"
                     ),
                     array(
-                        "text" => "",
+                        "text" => " ",
                         "callback_data" => "noAction"
                     )
                 ),
