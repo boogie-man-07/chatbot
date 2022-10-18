@@ -68,7 +68,7 @@ $queryData = $query["data"];
 
 $chatID = $queryData ? $query["from"]["id"] : $updates['message']['from']['id'];
 $text = $queryData ? $queryData : $updates['message']['text'];
-$messageId = $queryData ? $updates["callback_query"]['inline_message_id'] : $updates['message']['message_id'];
+$messageId = $queryData ? $updates["callback_query"]['message']['message_id'] : $updates['message']['message_id'];
 $username = $queryData ? $query["from"]["first_name"] : $updates['message']['from']['first_name'];
 $isInline = $queryData ? true : false;
 
@@ -90,7 +90,7 @@ if (!$user) {
             $nonFinishedAuthorizationUserScenario->run($text);
         }
     } else {
-        $authorizedUserScenario = new AuthorizedUserScenario($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $phonebookroute, $valuesRoute, $mainRulesRoute, $mainInformationRoute, $salaryRoute, $commandList, $statesList, $state, $logics, $forms, $email, $vacationInfo, $query, $logs, $messageId, $updates);
+        $authorizedUserScenario = new AuthorizedUserScenario($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $phonebookroute, $valuesRoute, $mainRulesRoute, $mainInformationRoute, $salaryRoute, $commandList, $statesList, $state, $logics, $forms, $email, $vacationInfo, $query, $logs, $messageId);
         if ($isInline) {
             $authorizedUserScenario->runInline($text);
         } else {
@@ -122,7 +122,7 @@ function answerCallbackQuery($callbackQueryId, $text) {
 }
 
 function editMessageReplyMarkup($chatID, $messageId, $keyboard) {
-   $url = $GLOBALS[website]."/editMessageReplyMarkup?chat_id=$chatID&inline_message_id=$messageId&reply_markup=$keyboard";
+   $url = $GLOBALS[website]."/editMessageReplyMarkup?chat_id=$chatID&message_id=$messageId&reply_markup=$keyboard";
    file_get_contents($url);
 }
 
