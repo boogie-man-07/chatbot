@@ -23,8 +23,9 @@ class AuthorizedUserScenario {
     var $vacationInfo = null;
     var $query = null;
     var $logs = null;
+    var $message = null;
 
-    function __construct($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $phonebookroute, $valuesRoute, $mainRulesRoute, $mainInformationRoute, $salaryRoute, $commands, $states, $state, $logics, $forms, $email, $vacationInfo, $query, $logs) {
+    function __construct($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $phonebookroute, $valuesRoute, $mainRulesRoute, $mainInformationRoute, $salaryRoute, $commands, $states, $state, $logics, $forms, $email, $vacationInfo, $query, $logs, $message) {
         $this->chatID = $chatID;
         $this->user = $user;
         $this->username = $username;
@@ -46,6 +47,7 @@ class AuthorizedUserScenario {
         $this->vacationInfo = $vacationInfo;
         $this->query = $query;
         $this->logs = $logs;
+        $this->message = $message;
     }
 
     function run($text) {
@@ -56,6 +58,7 @@ class AuthorizedUserScenario {
         switch ($text) {
             case $this->commands['calendar']:
                 $this->salaryRoute->triggerCalendarAction($this->chatID);
+                sendMessage($this->chatID, $this->message, null);
                 exit;
             case $this->commands['start']:
                 $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);

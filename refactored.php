@@ -61,6 +61,7 @@ $constantsList = $data['constants'];
 $website = "https://api.telegram.org/bot".$token;
 $updates = file_get_contents('php://input');
 $updates = json_decode($updates, true);
+$message = $queryData ? $query["data"] : $updates['message'];
 $phoneNumber = $updates['message']['contact']['phone_number'];
 $query = $updates["callback_query"];
 $queryID = $query["id"];
@@ -89,7 +90,7 @@ if (!$user) {
             $nonFinishedAuthorizationUserScenario->run($text);
         }
     } else {
-        $authorizedUserScenario = new AuthorizedUserScenario($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $phonebookroute, $valuesRoute, $mainRulesRoute, $mainInformationRoute, $salaryRoute, $commandList, $statesList, $state, $logics, $forms, $email, $vacationInfo, $query, $logs);
+        $authorizedUserScenario = new AuthorizedUserScenario($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $phonebookroute, $valuesRoute, $mainRulesRoute, $mainInformationRoute, $salaryRoute, $commandList, $statesList, $state, $logics, $forms, $email, $vacationInfo, $query, $logs, $message);
         if ($isInline) {
             $authorizedUserScenario->runInline($text);
         } else {
@@ -103,7 +104,6 @@ $access->disconnect();
 function sendMessage($chatID, $text, $keyboard) {
   $url = $GLOBALS[website]."/sendMessage?chat_id=$chatID&parse_mode=HTML&text=".urlencode($text)."&reply_markup=".$keyboard;
   file_get_contents($url);
-  return $url;
 }
 
 function sendPhoto($chatID, $imageUrl, $keyboard) {
