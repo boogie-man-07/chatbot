@@ -434,7 +434,7 @@ class keyboards {
             )
         ));
     }
-
+    // remove
     function getCalendar() {
         return json_encode(array(
             "inline_keyboard" => array(

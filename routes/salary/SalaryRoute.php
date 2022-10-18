@@ -142,7 +142,7 @@ class SalaryRoute {
         $keyboard = $this->keyboards->getSendPostponedVacationFormInlineKeyboard();
         sendMessage($chatID, $reply, $keyboard);
     }
-
+    // remove
     function triggerCalendarAction($chatID) {
         $reply = "Пробный календарь";
         $keyboard = $this->keyboards->getCalendar();
