@@ -451,7 +451,7 @@ class AuthorizedUserScenario {
         switch ($text) {
             // remove
             case $this->commands['calendarInline']:
-                sendMessage($this->chatID, $this->query, null);
+                sendMessage($this->chatID, $this->query['inline_message_id'], null);
 //                 $keyboard = json_encode(array(
 //                     "inline_keyboard" => array(
 //                         array(
