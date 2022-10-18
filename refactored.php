@@ -120,4 +120,9 @@ function answerCallbackQuery($callbackQueryId, $text) {
     file_get_contents($url);
 }
 
+function editMessageReplyMarkup($chatID, $messageId, $keyboard) {
+   $url = $GLOBALS[website]."/editMessageReplyMarkup?chat_id=$chatID&inline_message_id=$messageId&reply_markup=$keyboard";
+   file_get_contents($url);
+}
+
 ?>
