@@ -448,7 +448,18 @@ class AuthorizedUserScenario {
         switch ($text) {
             // remove
             case $this->commands['calendarInline']:
-                editMessageReplyMarkup($this->chatID, $this->query["id"], null);
+                sendMessage($this->chatId, $this->query['message_id'], null);
+//                 $keyboard = json_encode(array(
+//                     "inline_keyboard" => array(
+//                         array(
+//                             array(
+//                                 "text" => "Отправить заявление",
+//                                 "callback_data" => "sendPostponedVacationForm"
+//                             )
+//                         )
+//                     )
+//                 ));
+//                 editMessageReplyMarkup($this->chatID, $this->query["id"], $keyboard);
                 exit;
             case $this->commands['userFullCardInline']:
                 $userForFind = $this->access->getFindUserData($this->chatID);
