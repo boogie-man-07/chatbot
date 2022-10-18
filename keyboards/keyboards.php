@@ -441,7 +441,7 @@ class keyboards {
                 array(
                     array(
                         "text" => "Дней 18 = 113,67 ч / Ночей 11 = 75,33 ч",
-                        "callback_data" => "noAction"
+                        "callback_data" => "emptyAction"
                     )
                 ),
                 array(

@@ -51,7 +51,7 @@
         "sendPostponedVacationFormInline": "sendPostponedVacationForm",
         "sendOldPostponedVacationFormInline": "sendOldPostponeVacationForm",
         "calendar": "Календарь",
-        "calendarInline": "noAction"
+        "calendarInline": "emptyAction"
     },
 
     "mainKeyboard": {
