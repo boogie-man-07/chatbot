@@ -61,7 +61,6 @@ $constantsList = $data['constants'];
 $website = "https://api.telegram.org/bot".$token;
 $updates = file_get_contents('php://input');
 $updates = json_decode($updates, true);
-$message = $queryData ? $query["data"] : $updates['message'];
 $phoneNumber = $updates['message']['contact']['phone_number'];
 $query = $updates["callback_query"];
 $queryID = $query["id"];
@@ -90,7 +89,7 @@ if (!$user) {
             $nonFinishedAuthorizationUserScenario->run($text);
         }
     } else {
-        $authorizedUserScenario = new AuthorizedUserScenario($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $phonebookroute, $valuesRoute, $mainRulesRoute, $mainInformationRoute, $salaryRoute, $commandList, $statesList, $state, $logics, $forms, $email, $vacationInfo, $query, $logs, $message);
+        $authorizedUserScenario = new AuthorizedUserScenario($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $phonebookroute, $valuesRoute, $mainRulesRoute, $mainInformationRoute, $salaryRoute, $commandList, $statesList, $state, $logics, $forms, $email, $vacationInfo, $query, $logs);
         if ($isInline) {
             $authorizedUserScenario->runInline($text);
         } else {
