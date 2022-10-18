@@ -103,6 +103,7 @@ $access->disconnect();
 function sendMessage($chatID, $text, $keyboard) {
   $url = $GLOBALS[website]."/sendMessage?chat_id=$chatID&parse_mode=HTML&text=".urlencode($text)."&reply_markup=".$keyboard;
   file_get_contents($url);
+  return $url;
 }
 
 function sendPhoto($chatID, $imageUrl, $keyboard) {
