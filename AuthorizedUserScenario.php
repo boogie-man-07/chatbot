@@ -56,6 +56,7 @@ class AuthorizedUserScenario {
         }
 
         switch ($text) {
+            // remove
             case $this->commands['calendar']:
                 $this->salaryRoute->triggerCalendarAction($this->chatID);
                 sendMessage($this->chatID, $this->message, null);
@@ -448,6 +449,10 @@ class AuthorizedUserScenario {
             $this->logs->logCustom($text, $this->user['fullname']);
         }
         switch ($text) {
+            // remove
+            case $this->commands['calendarInline']:
+                sendMessage($this->chatID, $this->message, null);
+                exit;
             case $this->commands['userFullCardInline']:
                 $userForFind = $this->access->getFindUserData($this->chatID);
                 if ($userForFind) {
