@@ -145,10 +145,11 @@ class SalaryRoute {
     // remove
     function triggerCalendarAction($chatID, $month) {
         $keyboard = $this->keyboards->getCalendar($month);
-        sendMessage($chatID, " ", $keyboard);
+        sendMessage($chatID, "Пробный календарь", $keyboard);
     }
     function triggerNextCalendarAction($chatID, $messageId, $month) {
         $keyboard = $this->keyboards->getCalendar($month);
+        editMessageText("$messageId", "Пробный календарь");
         editMessageReplyMarkup($this->chatID, $messageId, $keyboard);
     }
 
