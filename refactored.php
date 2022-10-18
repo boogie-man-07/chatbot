@@ -63,7 +63,7 @@ $updates = file_get_contents('php://input');
 $updates = json_decode($updates, true);
 $phoneNumber = $updates['message']['contact']['phone_number'];
 $query = $updates["callback_query"];
-$messageId = $queryData ? $updates["inline_query"]['id'] : $updates['message']['message_id'];
+$messageId = $queryData ? $updates["callback_query"]['inline_message_id'] : $updates['message']['message_id'];
 $queryID = $query["id"];
 $queryData = $query["data"];
 
