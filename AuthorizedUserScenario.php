@@ -59,7 +59,7 @@ class AuthorizedUserScenario {
             // remove
             case $this->commands['calendar']:
                 $this->salaryRoute->triggerCalendarAction($this->chatID);
-                sendMessage($this->chatId, $updates, null);
+                sendMessage($this->chatId, json_encode($updates), null);
                 exit;
             case $this->commands['start']:
                 $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
