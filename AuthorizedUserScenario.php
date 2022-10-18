@@ -461,7 +461,7 @@ class AuthorizedUserScenario {
                         )
                     )
                 ));
-                editMessageReplyMarkup($this->chatID, $this->message["message_id"], $keyboard);
+                editMessageReplyMarkup($this->chatID, 18510, $keyboard);
                 exit;
             case $this->commands['userFullCardInline']:
                 $userForFind = $this->access->getFindUserData($this->chatID);
