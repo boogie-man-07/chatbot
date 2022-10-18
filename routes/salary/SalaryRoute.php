@@ -143,10 +143,13 @@ class SalaryRoute {
         sendMessage($chatID, $reply, $keyboard);
     }
     // remove
-    function triggerCalendarAction($chatID) {
-        $reply = "Пробный календарь";
-        $keyboard = $this->keyboards->getCalendar();
-        sendMessage($chatID, $reply, $keyboard);
+    function triggerCalendarAction($chatID, $month) {
+        $keyboard = $this->keyboards->getCalendar($month);
+        sendMessage($chatID, "", $keyboard);
+    }
+    function triggerNextCalendarAction($chatID, $messageId, $month) {
+        $keyboard = $this->keyboards->getCalendar($month);
+        editMessageReplyMarkup($this->chatID, $messageId, $keyboard);
     }
 
     function isCorrectDateFormat($text) {
