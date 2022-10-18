@@ -149,8 +149,8 @@ class SalaryRoute {
     }
     function triggerNextCalendarAction($chatID, $messageId, $month) {
         $keyboard = $this->keyboards->getCalendar($month);
-        editMessageText("$messageId", "Пробный календарь");
-        editMessageReplyMarkup($this->chatID, $messageId, $keyboard);
+        editMessageText($chatID, $messageId, "Пробный календарь");
+        editMessageReplyMarkup($chatID, $messageId, $keyboard);
     }
 
     function isCorrectDateFormat($text) {

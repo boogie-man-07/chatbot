@@ -106,8 +106,8 @@ function sendMessage($chatID, $text, $keyboard) {
   file_get_contents($url);
 }
 
-function editMessageText($messageId, $text) {
- $url = $GLOBALS[website]."/editMessageText?message_id=$messageId&text=".urlencode($text);
+function editMessageText($chatID, $messageId, $text) {
+ $url = $GLOBALS[website]."/editMessageText?chat_id=$chatID&message_id=$messageId&text=".urlencode($text);
  file_get_contents($url);
 }
 
