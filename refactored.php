@@ -63,12 +63,12 @@ $updates = file_get_contents('php://input');
 $updates = json_decode($updates, true);
 $phoneNumber = $updates['message']['contact']['phone_number'];
 $query = $updates["callback_query"];
-$messageId = $queryData ? $updates["callback_query"]['inline_message_id'] : $updates['message']['message_id'];
 $queryID = $query["id"];
 $queryData = $query["data"];
 
 $chatID = $queryData ? $query["from"]["id"] : $updates['message']['from']['id'];
 $text = $queryData ? $queryData : $updates['message']['text'];
+$messageId = $queryData ? $updates["callback_query"]['inline_message_id'] : $updates['message']['message_id'];
 $username = $queryData ? $query["from"]["first_name"] : $updates['message']['from']['first_name'];
 $isInline = $queryData ? true : false;
 
