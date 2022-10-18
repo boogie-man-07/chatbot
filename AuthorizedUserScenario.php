@@ -451,7 +451,7 @@ class AuthorizedUserScenario {
         switch ($text) {
             // remove
             case $this->commands['calendarInline']:
-                sendMessage($this->chatID, json_encode($this->query), null);
+                sendMessage($this->chatID, $this->query, null);
                 exit;
             case $this->commands['userFullCardInline']:
                 $userForFind = $this->access->getFindUserData($this->chatID);
