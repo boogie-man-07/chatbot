@@ -435,13 +435,13 @@ class keyboards {
         ));
     }
     // remove
-    function getCalendar() {
+    function getCalendar($month) {
         return json_encode(array(
             "inline_keyboard" => array(
                 array(
                     array(
                         "text" => "Дней 18 = 113,67 ч / Ночей 11 = 75,33 ч",
-                        "callback_data" => "emptyAction"
+                        "callback_data" => "noAction"
                     )
                 ),
                 array(
@@ -630,8 +630,8 @@ class keyboards {
                         "callback_data" => "noAction"
                     ),
                     array(
-                        "text" => "Январь",
-                        "callback_data" => "noAction"
+                        "text" => $month,
+                        "callback_data" => "emptyAction"
                     ),
                     array(
                         "text" => ">>",

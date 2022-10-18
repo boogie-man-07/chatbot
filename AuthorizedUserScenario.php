@@ -58,7 +58,7 @@ class AuthorizedUserScenario {
         switch ($text) {
             // remove
             case $this->commands['calendar']:
-                $this->salaryRoute->triggerCalendarAction($this->chatID);
+                $this->salaryRoute->triggerCalendarAction($this->chatID, "январь");
                 exit;
             case $this->commands['start']:
                 $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
@@ -450,17 +450,7 @@ class AuthorizedUserScenario {
         switch ($text) {
             // remove
             case $this->commands['calendarInline']:
-                $keyboard = json_encode(array(
-                    "inline_keyboard" => array(
-                        array(
-                            array(
-                                "text" => "Отправить заявление",
-                                "callback_data" => "sendPostponedVacationForm"
-                            )
-                        )
-                    )
-                ));
-                editMessageReplyMarkup($this->chatID, $this->messageId, $keyboard);
+                $this->salaryroute->triggerNextCalendarAction($this->chatID, $this->messageId, "Февраль");
                 exit;
             case $this->commands['userFullCardInline']:
                 $userForFind = $this->access->getFindUserData($this->chatID);
