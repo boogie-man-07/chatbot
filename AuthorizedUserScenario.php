@@ -23,9 +23,9 @@ class AuthorizedUserScenario {
     var $vacationInfo = null;
     var $query = null;
     var $logs = null;
-    var $updates = null;
+    var $message = null;
 
-    function __construct($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $phonebookroute, $valuesRoute, $mainRulesRoute, $mainInformationRoute, $salaryRoute, $commands, $states, $state, $logics, $forms, $email, $vacationInfo, $query, $logs, $updates) {
+    function __construct($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $phonebookroute, $valuesRoute, $mainRulesRoute, $mainInformationRoute, $salaryRoute, $commands, $states, $state, $logics, $forms, $email, $vacationInfo, $query, $logs, $message) {
         $this->chatID = $chatID;
         $this->user = $user;
         $this->username = $username;
@@ -47,7 +47,7 @@ class AuthorizedUserScenario {
         $this->vacationInfo = $vacationInfo;
         $this->query = $query;
         $this->logs = $logs;
-        $this->updates = $updates;
+        $this->message = $message;
     }
 
     function run($text) {
@@ -59,7 +59,7 @@ class AuthorizedUserScenario {
             // remove
             case $this->commands['calendar']:
                 $this->salaryRoute->triggerCalendarAction($this->chatID);
-                sendMessage($this->chatID, json_encode($this->updates), null);
+                sendMessage($this->chatID, json_encode($this->message['message_id']), null);
                 exit;
             case $this->commands['start']:
                 $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
@@ -451,18 +451,17 @@ class AuthorizedUserScenario {
         switch ($text) {
             // remove
             case $this->commands['calendarInline']:
-                sendMessage($this->chatID, json_encode($this->query), null);
-//                 $keyboard = json_encode(array(
-//                     "inline_keyboard" => array(
-//                         array(
-//                             array(
-//                                 "text" => "Отправить заявление",
-//                                 "callback_data" => "sendPostponedVacationForm"
-//                             )
-//                         )
-//                     )
-//                 ));
-//                 editMessageReplyMarkup($this->chatID, $this->query["id"], $keyboard);
+                $keyboard = json_encode(array(
+                    "inline_keyboard" => array(
+                        array(
+                            array(
+                                "text" => "Отправить заявление",
+                                "callback_data" => "sendPostponedVacationForm"
+                            )
+                        )
+                    )
+                ));
+                editMessageReplyMarkup($this->chatID, $this->message["message_id"], $keyboard);
                 exit;
             case $this->commands['userFullCardInline']:
                 $userForFind = $this->access->getFindUserData($this->chatID);
