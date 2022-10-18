@@ -106,6 +106,11 @@ function sendMessage($chatID, $text, $keyboard) {
   file_get_contents($url);
 }
 
+function editMessageText($messageId, $text) {
+ $url = $GLOBALS[website]."/editMessageText?message_id=$messageId&text=".urlencode($text);
+ file_get_contents($url);
+}
+
 function sendPhoto($chatID, $imageUrl, $keyboard) {
   $url = $GLOBALS[website]."/sendPhoto?chat_id=$chatID&parse_mode=HTML&photo=".$imageUrl."&reply_markup=".$keyboard;
   file_get_contents($url);
