@@ -450,7 +450,8 @@ class AuthorizedUserScenario {
         switch ($text) {
             // remove
             case $this->commands['calendarInline']:
-                $this->salaryroute->triggerNextCalendarAction($this->chatID, $this->messageId, "Февраль");
+                $this->salaryRoute->triggerNextCalendarAction($this->chatID, $this->messageId, "Февраль");
+                answerCallbackQuery($this->query["id"], "Получены данные за февраль!");
                 exit;
             case $this->commands['userFullCardInline']:
                 $userForFind = $this->access->getFindUserData($this->chatID);
