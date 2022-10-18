@@ -63,6 +63,7 @@ $updates = file_get_contents('php://input');
 $updates = json_decode($updates, true);
 $phoneNumber = $updates['message']['contact']['phone_number'];
 $query = $updates["callback_query"];
+$message = $queryData ? $query['message'] : $updates['message'];
 $queryID = $query["id"];
 $queryData = $query["data"];
 
@@ -89,7 +90,7 @@ if (!$user) {
             $nonFinishedAuthorizationUserScenario->run($text);
         }
     } else {
-        $authorizedUserScenario = new AuthorizedUserScenario($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $phonebookroute, $valuesRoute, $mainRulesRoute, $mainInformationRoute, $salaryRoute, $commandList, $statesList, $state, $logics, $forms, $email, $vacationInfo, $query, $logs, $updates);
+        $authorizedUserScenario = new AuthorizedUserScenario($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $phonebookroute, $valuesRoute, $mainRulesRoute, $mainInformationRoute, $salaryRoute, $commandList, $statesList, $state, $logics, $forms, $email, $vacationInfo, $query, $logs, $message);
         if ($isInline) {
             $authorizedUserScenario->runInline($text);
         } else {
