@@ -59,7 +59,7 @@ class AuthorizedUserScenario {
             // remove
             case $this->commands['calendar']:
                 $this->salaryRoute->triggerCalendarAction($this->chatID);
-                sendMessage($this->chatID, json_encode($updates), null);
+                sendMessage($this->chatID, json_encode($this->updates), null);
                 exit;
             case $this->commands['start']:
                 $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
@@ -451,7 +451,7 @@ class AuthorizedUserScenario {
         switch ($text) {
             // remove
             case $this->commands['calendarInline']:
-                sendMessage($this->chatID, json_encode($updates), null);
+                sendMessage($this->chatID, json_encode($this->updates), null);
 //                 $keyboard = json_encode(array(
 //                     "inline_keyboard" => array(
 //                         array(
