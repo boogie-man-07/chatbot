@@ -23,8 +23,9 @@ class AuthorizedUserScenario {
     var $vacationInfo = null;
     var $query = null;
     var $logs = null;
+    var $updates = null;
 
-    function __construct($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $phonebookroute, $valuesRoute, $mainRulesRoute, $mainInformationRoute, $salaryRoute, $commands, $states, $state, $logics, $forms, $email, $vacationInfo, $query, $logs) {
+    function __construct($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $phonebookroute, $valuesRoute, $mainRulesRoute, $mainInformationRoute, $salaryRoute, $commands, $states, $state, $logics, $forms, $email, $vacationInfo, $query, $logs, $updates) {
         $this->chatID = $chatID;
         $this->user = $user;
         $this->username = $username;
@@ -46,6 +47,7 @@ class AuthorizedUserScenario {
         $this->vacationInfo = $vacationInfo;
         $this->query = $query;
         $this->logs = $logs;
+        $this->updates = $updates;
     }
 
     function run($text) {
@@ -448,7 +450,7 @@ class AuthorizedUserScenario {
         switch ($text) {
             // remove
             case $this->commands['calendarInline']:
-                sendMessage($this->chatId, (string)$this->query['id'], null);
+                sendMessage($this->chatId, (string)$updates, null);
 //                 $keyboard = json_encode(array(
 //                     "inline_keyboard" => array(
 //                         array(
