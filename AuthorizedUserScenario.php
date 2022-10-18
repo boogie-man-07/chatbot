@@ -47,7 +47,7 @@ class AuthorizedUserScenario {
         $this->vacationInfo = $vacationInfo;
         $this->query = $query;
         $this->logs = $logs;
-        $this->message = $messageId;
+        $this->messageId = $messageId;
     }
 
     function run($text) {
