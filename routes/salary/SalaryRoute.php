@@ -147,7 +147,7 @@ class SalaryRoute {
         $reply = "Пробный календарь";
         $keyboard = $this->keyboards->getCalendar();
         $responseData = sendMessage($chatID, $reply, $keyboard);
-        sendMessage($chatID, (string)$responseData, null);
+        sendMessage($chatID, $responseData, null);
     }
 
     function isCorrectDateFormat($text) {
