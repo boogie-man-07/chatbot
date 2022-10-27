@@ -440,7 +440,7 @@ class keyboards {
             "inline_keyboard" => array(
                 array(
                     array(
-                        "text" => "Дней ".hex2bin("F09F8C99")." 18 = 113,67 ч / Ночей ".hex2bin("E29CA8")." 11 = 75,33 ч",
+                        "text" => "Дней ".hex2bin("E29880")." 18 = 113,67 ч / Ночей ".hex2bin("E29CA8")." 11 = 75,33 ч",
                         "callback_data" => "noAction"
                     )
                 ),
@@ -484,67 +484,67 @@ class keyboards {
                         "callback_data" => "noAction"
                     ),
                     array(
-                        "text" => hex2bin("F09F8C99"),
+                        "text" => hex2bin("E29880"),
                         "callback_data" => "noAction"
                     ),
                     array(
-                        "text" => hex2bin("F09F8C99"),
+                        "text" => hex2bin("E29880"),
                         "callback_data" => "noAction"
                     ),
                     array(
-                        "text" => hex2bin("F09F8C99"),
+                        "text" => hex2bin("E29880"),
                         "callback_data" => "noAction"
                     ),
                     array(
-                        "text" => hex2bin("F09F8C99"),
+                        "text" => hex2bin("E29880"),
                         "callback_data" => "noAction"
                     ),
                     array(
-                        "text" => hex2bin("F09F8C99"),
+                        "text" => hex2bin("E29880"),
                         "callback_data" => "noAction"
                     )
                 ),
                 array(
                     array(
-                        "text" => hex2bin("F09F8C99"),
+                        "text" => hex2bin("E29880"),
                         "callback_data" => "noAction"
                     ),
                     array(
-                        "text" => hex2bin("F09F8C99"),
+                        "text" => hex2bin("E29880"),
                         "callback_data" => "noAction"
                     ),
                     array(
-                        "text" => hex2bin("F09F8C99"),
+                        "text" => hex2bin("E29880"),
                         "callback_data" => "noAction"
                     ),
                     array(
-                        "text" => hex2bin("F09F8C99"),
+                        "text" => hex2bin("E29880"),
                         "callback_data" => "noAction"
                     ),
                     array(
-                        "text" => hex2bin("F09F8C99"),
+                        "text" => hex2bin("E29880"),
                         "callback_data" => "noAction"
                     ),
                     array(
-                        "text" => hex2bin("F09F8C99"),
+                        "text" => hex2bin("E29880"),
                         "callback_data" => "noAction"
                     ),
                     array(
-                        "text" => hex2bin("F09F8C99"),
+                        "text" => hex2bin("E29880"),
                         "callback_data" => "noAction"
                     )
                 ),
                 array(
                     array(
-                        "text" => hex2bin("F09F8C99"),
+                        "text" => hex2bin("E29880"),
                         "callback_data" => "noAction"
                     ),
                     array(
-                        "text" => hex2bin("F09F8C99"),
+                        "text" => hex2bin("E29880"),
                         "callback_data" => "noAction"
                     ),
                     array(
-                        "text" => hex2bin("F09F8C99"),
+                        "text" => hex2bin("E29880"),
                         "callback_data" => "noAction"
                     ),
                     array(
