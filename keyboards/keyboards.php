@@ -304,7 +304,7 @@ class keyboards {
                     array("text" => "Мой отпуск")
                 ),
                 array(
-//                     array("text" => "Календарь"),
+                    array("text" => "Календарь"),
                     array("text" => "Назад")
                 )
             ),
