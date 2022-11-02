@@ -21,11 +21,12 @@ class AuthorizedUserScenario {
     var $forms = null;
     var $email = null;
     var $vacationInfo = null;
+    var $calendarInfo = null;
     var $query = null;
     var $logs = null;
     var $messageId = null;
 
-    function __construct($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $phonebookroute, $valuesRoute, $mainRulesRoute, $mainInformationRoute, $salaryRoute, $commands, $states, $state, $logics, $forms, $email, $vacationInfo, $query, $logs, $messageId) {
+    function __construct($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $phonebookroute, $valuesRoute, $mainRulesRoute, $mainInformationRoute, $salaryRoute, $commands, $states, $state, $logics, $forms, $email, $vacationInfo, $calendarInfo, $query, $logs, $messageId) {
         $this->chatID = $chatID;
         $this->user = $user;
         $this->username = $username;
@@ -45,6 +46,7 @@ class AuthorizedUserScenario {
         $this->forms = $forms;
         $this->email = $email;
         $this->vacationInfo = $vacationInfo;
+        $this->calendarInfo = $calendarInfo;
         $this->query = $query;
         $this->logs = $logs;
         $this->messageId = $messageId;
@@ -451,6 +453,12 @@ class AuthorizedUserScenario {
             // remove
             case $this->commands['calendarInline']:
                 $this->salaryRoute->triggerNextCalendarAction($this->chatID, $this->messageId, "Февраль");
+                // start delete segment
+                $vacationInfo = $this->vacationInfo->getRestVacationCountByUserId($this->user['user_id']);
+                $calendarEmployee = $this->calendarInfo->getMonthlyDataForEmployee();
+                $calendarOffice = $this->calendarInfo->getMonthlyDataForOffice();
+                sendMessage($this->chatID, json_encode($vacationInfo), $keyboard);
+                // end delete segment
                 answerCallbackQuery($this->query["id"], "Получены данные за февраль!");
                 exit;
             case $this->commands['userFullCardInline']:
