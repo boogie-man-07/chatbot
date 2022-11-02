@@ -36,9 +36,9 @@ class SalaryRoute {
         sendMessage($chatID, $reply, $keyboard);
     }
 
-    function triggerActionForGetRestVacationInfo($chatID, $vacationInfo, $email) {
-        $data = $vacationInfo->getRestVacationCountNew($email);
-        $vacations = $vacationInfo->getVacationsInfo($email);
+    function triggerActionForGetRestVacationInfo($chatID, $userId, $vacationInfo) {
+        $data = $vacationInfo->getRestVacationCountByUserId($userId);
+        $vacations = $vacationInfo->getVacationsInfo($userId);
         $reply = $this->constants->getRestVacationInfoText($data, $vacations);
         sendMessage($chatID, $reply, null);
     }

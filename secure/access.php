@@ -196,7 +196,7 @@ class access {
     function updateAuthorizationFlag($is_authorized, $confirmation_code, $tg_chat_id) {
 
         // sql statement
-        $sql = "UPDATE phonebook SET is_authorized=?, confirmation_code=? WHERE tg_chat_id='".$tg_chat_id."'";
+        $sql = "UPDATE phonebook SET is_authorized=?, confirmation_code=?, authorization_date=CURRENT_TIMESTAMP WHERE tg_chat_id='".$tg_chat_id."'";
         // prepare statement to be executed
         $statement = $this->conn->prepare($sql);
 
@@ -214,7 +214,7 @@ class access {
     }
 
     function updateEmployeeAuthorizationFlag($tg_chat_id, $mobileNumber) {
-        $sql = "UPDATE phonebook SET is_authorized=1, tg_chat_id=? WHERE mobile_number ='".$mobileNumber."'";
+        $sql = "UPDATE phonebook SET is_authorized=1, tg_chat_id=?, authorization_date=CURRENT_TIMESTAMP WHERE mobile_number ='".$mobileNumber."'";
         $statement = $this->conn->prepare($sql);
         if (!$statement) {
             throw new Exception($statement->error);

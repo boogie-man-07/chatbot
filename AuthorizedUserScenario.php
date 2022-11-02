@@ -99,7 +99,7 @@ class AuthorizedUserScenario {
                 $this->salaryRoute->triggerActionForGetApplicationsInformation($this->chatID, $this->user['firstname']);
                 exit;
             case $this->commands['myVacation']:
-                $this->salaryRoute->triggerActionForGetRestVacationInfo($this->chatID, $this->vacationInfo, $this->user['email']);
+                $this->salaryRoute->triggerActionForGetRestVacationInfo($this->chatID, $this->user['user_id'], $this->vacationInfo);
                 exit;
             case $this->commands['howToNavigate']:
                 $this->mainInformationRoute->triggerActionForShowHowToNavigateToOffice($this->chatID, $this->user['company_id']);
@@ -217,7 +217,7 @@ class AuthorizedUserScenario {
                             $correctText = $this->salaryRoute->formatDate($text);
                             if ($this->salaryRoute->isCorrectDateFormat($correctText)) {
                                 if ($this->salaryRoute->isDateNotInPast($correctText)) {
-                                    $restVacationCount = $this->vacationInfo->getRestVacationCountNew($this->user['email']);
+                                    $restVacationCount = $this->vacationInfo->getRestVacationCountByUserId($this->user['user_id']);
                                     $this->access->setRegularVacationStartDate($this->chatID, $correctText);
                                     $this->access->setState($this->chatID, $this->states['regularVacationDurationWaitingState']);
                                     $this->salaryRoute->triggerActionForSetRegularVacationDuration($this->chatID, $restVacationCount);
@@ -233,7 +233,7 @@ class AuthorizedUserScenario {
                         case $this->states['regularVacationDurationWaitingState']:
                             if ($this->salaryRoute->isCorrectVacationDurationFormat($text)) {
                                 $vacationFormData = $this->access->getReguarVacationFormData($this->chatID);
-                                $restVacationCount = $this->vacationInfo->getRestVacationCountNew($this->user['email']);
+                                $restVacationCount = $this->vacationInfo->getRestVacationCountByUserId($this->user['user_id']);
                                 if ($text <= $restVacationCount) {
                                     if ($vacationFormData['vacation_type'] != '3') {
                                         $this->access->setRegularVacationDuration($this->chatID, $text);
@@ -608,7 +608,7 @@ class AuthorizedUserScenario {
             case $this->commands['postponedVacationCaseInline']:
                 answerCallbackQuery($this->query["id"], "Успешно!");
                 if ($this->user['company_id'] == 3) {
-                    $data = $this->vacationInfo->getVacationsInfo($this->user['email']);
+                    $data = $this->vacationInfo->getVacationsInfo($this->user['user_id']);
                     if ($data) {
                         $this->access->saveUserVacations($this->chatID, $data);
                         $this->access->setState($this->chatID, $this->states['postponedVacationChooseVacationState']);
