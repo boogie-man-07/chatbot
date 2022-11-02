@@ -458,6 +458,8 @@ class AuthorizedUserScenario {
                 $calendarEmployee = $this->calendarInfo->getMonthlyDataForEmployee();
                 $calendarOffice = $this->calendarInfo->getMonthlyDataForOffice();
                 sendMessage($this->chatID, json_encode($vacationInfo), null);
+                sendMessage($this->chatID, json_encode($calendarEmployee), null);
+                sendMessage($this->chatID, json_encode($calendarOffice), null);
                 // end delete segment
                 answerCallbackQuery($this->query["id"], "Получены данные за февраль!");
                 exit;
