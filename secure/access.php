@@ -150,6 +150,28 @@ class access {
         return $returnArray;
     }
 
+    function getUserByUserId($userId) {
+
+            $returnArray = array();
+            // sql command
+            $sql = "SELECT * FROM phonebook WHERE user_id='".$user_id."'";
+            // assign result we got from $sql to result var
+            $result = $this->conn->query($sql);
+
+            // if we have at least 1 result returned
+            if ($result != null && (mysqli_num_rows($result) >= 1 )) {
+
+                // assign result we got to $row as associative array
+                $row = $result->fetch_array(MYSQLI_ASSOC);
+
+                if (!empty($row)) {
+                    $returnArray = $row;
+                }
+            }
+
+            return $returnArray;
+        }
+
     function getUserByFirstnameAndLastName($firstname, $lastname, $ids) {
 
         $returnArray = array();
@@ -1162,6 +1184,7 @@ class access {
     }
 
     // METHODS FOR SCHEDULLER
+
     function updateEmployeeByEmail($userId, $firstname, $lastname, $fullname, $form_fullname, $form_position, $position, $office_number, $internal_number, $mobile_number, $company_name, $company_id, $is_employee, $is_sigma_available, $is_greenhouse_available, $is_diall_available, $boss, $boss_position, $main_holliday_counter, $additional_holliday_counter, $email) {
 
         // sql statement
