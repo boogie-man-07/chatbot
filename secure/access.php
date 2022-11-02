@@ -154,7 +154,7 @@ class access {
 
             $returnArray = array();
             // sql command
-            $sql = "SELECT * FROM phonebook WHERE user_id='".$user_id."'";
+            $sql = "SELECT * FROM phonebook WHERE user_id='".$userId."'";
             // assign result we got from $sql to result var
             $result = $this->conn->query($sql);
 
