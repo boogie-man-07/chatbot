@@ -29,7 +29,7 @@ class CalendarInfo {
             //echo "cURL Error #: ".$err;
             return "Извините, но что-то пошло не так, попробуйте повторить позднее.";
         } else {
-            return $result;
+            return $response;
         }
     }
 
@@ -60,7 +60,7 @@ class CalendarInfo {
                 //echo "cURL Error #: ".$err;
                 return "Извините, но что-то пошло не так, попробуйте повторить позднее.";
             } else {
-                return $result;
+                return $response;
             }
         }
 }
