@@ -457,7 +457,7 @@ class AuthorizedUserScenario {
                 $vacationInfo = $this->vacationInfo->getRestVacationCountByUserId($this->user['user_id']);
                 $calendarEmployee = $this->calendarInfo->getMonthlyDataForEmployee();
                 $calendarOffice = $this->calendarInfo->getMonthlyDataForOffice();
-                sendMessage($this->chatID, json_encode($vacationInfo), $keyboard);
+                sendMessage($this->chatID, json_encode($vacationInfo), null);
                 // end delete segment
                 answerCallbackQuery($this->query["id"], "Получены данные за февраль!");
                 exit;
