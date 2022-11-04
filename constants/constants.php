@@ -296,17 +296,18 @@ class constants {
         return "Не удалось отправить заявление. Повторите попытку позже.";
     }
 
-    function getReplyForEnterSalaryMenu($dmsType) {
+    function getReplyForEnterSalaryMenu() {
+        return "Выберите пункт меню, для получения информации о заработной плате.";
+    }
+
+    function getReplyForEnterDmsMenu($dmsType) {
+        return "Выберите пункт меню, для получения информации о ДМС.";
         switch ($dmsType) {
             case 0:
                 return "К сожалению, в настоящее время у Вас нет полиса ДМС.";
             case 1; case 2:
                 return "Выберите пункт меню, для получения информации о заработной плате.";
         }
-    }
-
-    function getReplyForEnterDmsMenu() {
-        return "Выберите пункт меню, для получения информации о ДМС.";
     }
 
     function getReplyForMainSalaryInformation($companyId) {
