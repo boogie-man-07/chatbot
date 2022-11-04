@@ -28,6 +28,8 @@
         "officeWork": "Работа в офисах",
         "appearance": "Внешний вид",
         "navigateToMainScreen": "Назад",
+        "calendar": "Календарь",
+        "dmsInformation": "ДМС",
         "sendCodeInline": "sendConfirmationCode",
         "toStartInline": "goToTheStart",
         "userFullCardInline": "getUserCard",
@@ -50,7 +52,6 @@
         "sendOldRegularVacationFormInline": "sendOldRegularVacationForm",
         "sendPostponedVacationFormInline": "sendPostponedVacationForm",
         "sendOldPostponedVacationFormInline": "sendOldPostponeVacationForm",
-        "calendar": "Календарь",
         "calendarInline": "emptyAction"
     },
 
