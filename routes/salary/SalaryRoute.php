@@ -20,6 +20,12 @@ class SalaryRoute {
         sendMessage($chatID, $reply, $keyboard);
     }
 
+    function triggerActionForShowDmsMenu($chatID, $isDmsActive, $isSurveyFinished) {
+        $reply = $this->constants->getReplyForEnterDmsMenu();
+        $keyboard = $this->keyboards->getDmsMenuKeyboard($isDmsActive, $isSurveyFinished);
+        sendMessage($chatID, $reply, $keyboard);
+    }
+
     function triggerActionForGetMainSalaryInformation($chatID, $companyId) {
         $reply = $this->constants->getReplyForMainSalaryInformation($companyId);
         sendMessage($chatID, $reply, null);

@@ -305,12 +305,67 @@ class keyboards {
                 ),
                 array(
 //                     array("text" => "Календарь"),
+                    array("text" => "ДМС"),
                     array("text" => "Назад")
                 )
             ),
             "resize_keyboard" => true,
             "one_time_keyboard" => false
         ));
+    }
+
+    function getDmsMenuKeyboard($isDmsActive, $isSurveyFinished) {
+        if (!$isDmsActive) {
+            return json_encode(array(
+                "keyboard" => array(
+                    array(
+                        array("text" => "Задать вопрос"),
+                        array("text" => "Назад")
+                    )
+                ),
+                "resize_keyboard" => true,
+                "one_time_keyboard" => false
+            ));
+        } else {
+            if (!$isSurveyFinished) {
+                return json_encode(array(
+                    "keyboard" => array(
+                        array(
+                            array("text" => "Памятка"),
+                            array("text" => "Перечень клиник"),
+                        ),
+                        array(
+                            array("text" => "Контакты"),
+                            array("text" => "Пройти опрос")
+                        ),
+                        array(
+                            array("text" => "Задать вопрос"),
+                            array("text" => "Назад")
+                        )
+                    ),
+                    "resize_keyboard" => true,
+                    "one_time_keyboard" => false
+                ));
+            } else {
+                return json_encode(array(
+                    "keyboard" => array(
+                        array(
+                            array("text" => "Памятка"),
+                            array("text" => "Перечень клиник"),
+                        ),
+                        array(
+                            array("text" => "Контакты"),
+                            array("text" => "Задать вопрос")
+                        ),
+                        array(
+                            array("text" => "Назад")
+                        )
+                    ),
+                    "resize_keyboard" => true,
+                    "one_time_keyboard" => false
+                ));
+            }
+        }
     }
 
     function getApplicationMenuInlineKeyboard() {

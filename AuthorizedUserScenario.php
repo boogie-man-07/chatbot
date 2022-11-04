@@ -136,6 +136,9 @@ class AuthorizedUserScenario {
                 $this->access->setState($this->chatID, $this->states['salaryState']);
                 $this->salaryRoute->triggerActionForShowSalaryMenu($this->chatID);
                 exit;
+            case $this->commands['dmsInformation']:
+                $this->salaryRoute->triggerActionForShowDmsMenu($this->chatID, true, false);
+                exit;
             case $this->commands['meetings']:
                 $this->mainRulesRoute->triggerActionForGetMeetingInfo($this->chatID, $this->user['firstname']);
                 exit;

@@ -297,7 +297,11 @@ class constants {
     }
 
     function getReplyForEnterSalaryMenu() {
-        return "Выберите пункт меню, для получения информации о заработной плате";
+        return "Выберите пункт меню, для получения информации о заработной плате.";
+    }
+
+    function getReplyForEnterDmsMenu() {
+        return "Выберите пункт меню, для получения информации о ДМС.";
     }
 
     function getReplyForMainSalaryInformation($companyId) {
