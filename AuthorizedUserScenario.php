@@ -137,8 +137,8 @@ class AuthorizedUserScenario {
                 $this->salaryRoute->triggerActionForShowSalaryMenu($this->chatID);
                 exit;
             case $this->commands['dmsInformation']:
-                sendMessage($this->chatID, json_encode($this->user), null); exit;
-                $this->salaryRoute->triggerActionForShowDmsMenu($this->chatID, $this->user['dms_type'], false);
+                sendMessage($this->chatID, $this->user['fullname'], null); exit;
+                //$this->salaryRoute->triggerActionForShowDmsMenu($this->chatID, $this->user['dms_type'], false);
                 exit;
             case $this->commands['meetings']:
                 $this->mainRulesRoute->triggerActionForGetMeetingInfo($this->chatID, $this->user['firstname']);
