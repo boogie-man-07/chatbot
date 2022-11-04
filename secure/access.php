@@ -110,7 +110,7 @@ class access {
 
         $returnArray = array();
         // sql command
-        $sql = "SELECT * FROM phonebook WHERE tg_chat_id='".$tg_chat_id."'";
+        $sql = "SELECT ph.*, ed.dms_type FROM phonebook ph left join employee_dms ed ON ph.user_id = ed.user_id WHERE ph.tg_chat_id='".$tg_chat_id."'";
         // assign result we got from $sql to result var
         $result = $this->conn->query($sql);
 

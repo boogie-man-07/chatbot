@@ -314,8 +314,8 @@ class keyboards {
         ));
     }
 
-    function getDmsMenuKeyboard($isDmsActive, $isSurveyFinished) {
-        if (!$isDmsActive) {
+    function getDmsMenuKeyboard($dmsType, $isSurveyFinished) {
+        if ($dmsType == 0) {
             return json_encode(array(
                 "keyboard" => array(
                     array(
