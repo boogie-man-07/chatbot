@@ -109,9 +109,8 @@ class access {
     function getUserByChatID($tg_chat_id) {
 
         $returnArray = array();
-        // sql command
-        $sql = "SELECT * FROM phonebook left join employee_dms ON phonebook.user_id = employee_dms.user_id WHERE phonebook.tg_chat_id='".$tg_chat_id."'";
-        // assign result we got from $sql to result var
+        $sql = "SELECT * FROM phonebook WHERE tg_chat_id='".$tg_chat_id."'";
+        //$sql = "SELECT * FROM phonebook left join employee_dms ON phonebook.user_id = employee_dms.user_id WHERE phonebook.tg_chat_id='".$tg_chat_id."'";
         $result = $this->conn->query($sql);
 
         // if we have at least 1 result returned
