@@ -110,7 +110,7 @@ class access {
 
         $returnArray = array();
         //$sql = "SELECT * FROM phonebook WHERE tg_chat_id='".$tg_chat_id."'";
-        $sql = "SELECT * FROM phonebook left join employee_dms ON phonebook.user_id = employee_dms.user_id WHERE phonebook.tg_chat_id='".$tg_chat_id."'";
+        $sql = "SELECT ph.*, ed.dms_type FROM phonebook ph left join employee_dms ed ON ph.user_id = ed.user_id WHERE ph.tg_chat_id='".$tg_chat_id."'";
         $result = $this->conn->query($sql);
 
         // if we have at least 1 result returned
