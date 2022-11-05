@@ -26,6 +26,11 @@ class SalaryRoute {
         sendMessage($chatID, $reply, $keyboard);
     }
 
+    function triggerActionForSendDmsMemo($chatID, $dmsType) {
+        $reply = $this->constants->getUrlForSendDmsMemo($dmsType);
+        sendDocument($chatID, $reply, null);
+    }
+
     function triggerActionForGetMainSalaryInformation($chatID, $companyId) {
         $reply = $this->constants->getReplyForMainSalaryInformation($companyId);
         sendMessage($chatID, $reply, null);

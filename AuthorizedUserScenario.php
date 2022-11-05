@@ -139,6 +139,21 @@ class AuthorizedUserScenario {
             case $this->commands['dmsInformation']:
                 $this->salaryRoute->triggerActionForShowDmsMenu($this->chatID, $this->user['dms_type'], false);
                 exit;
+            case $this->commands['dmsMemo']:
+                $this->salaryRoute->triggerActionForSendDmsMemo($this->chatID, $this->user['dms_type']);
+                exit;
+            case $this->commands['dmsClinics']:
+                $this->salaryRoute->triggerActionForSendClinics($this->chatID, $this->user['dms_type']);
+                exit;
+            case $this->commands['dmsContacts']:
+                $this->salaryRoute->triggerActionForSendContacts($this->chatID, $this->user['dms_type']);
+                exit;
+            case $this->commands['dmsGoToSurvey']:
+                $this->salaryRoute->triggerActionForStartSurvey($this->chatID, $this->user['dms_type']);
+                exit;
+            case $this->commands['dmsAskAQuestion']:
+                $this->salaryRoute->triggerActionForAskAQuestion($this->chatID, $this->user['dms_type']);
+                exit;
             case $this->commands['meetings']:
                 $this->mainRulesRoute->triggerActionForGetMeetingInfo($this->chatID, $this->user['firstname']);
                 exit;
