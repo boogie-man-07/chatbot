@@ -142,17 +142,17 @@ class AuthorizedUserScenario {
             case $this->commands['dmsMemo']:
                 $this->salaryRoute->triggerActionForSendDmsMemo($this->chatID, $this->user['dms_type']);
                 exit;
-            case $this->commands['dmsClinics']:
-                $this->salaryRoute->triggerActionForSendDmsClinics($this->chatID, $this->user['dms_type']);
-                exit;
-            case $this->commands['dmsContacts']:
-                $this->salaryRoute->triggerActionForSendDmsContacts($this->chatID, $this->user['dms_type']);
-                exit;
-            case $this->commands['dmsGoToSurvey']:
-                $this->salaryRoute->triggerActionForStartDmsSurvey($this->chatID);
-                exit;
-            case $this->commands['dmsAskAQuestion']:
-                $this->salaryRoute->triggerActionForAskADmsQuestion($this->chatID);
+//             case $this->commands['dmsClinics']:
+//                 $this->salaryRoute->triggerActionForSendDmsClinics($this->chatID, $this->user['dms_type']);
+//                 exit;
+//             case $this->commands['dmsContacts']:
+//                 $this->salaryRoute->triggerActionForSendDmsContacts($this->chatID, $this->user['dms_type']);
+//                 exit;
+//             case $this->commands['dmsGoToSurvey']:
+//                 $this->salaryRoute->triggerActionForStartDmsSurvey($this->chatID);
+//                 exit;
+//             case $this->commands['dmsAskAQuestion']:
+//                 $this->salaryRoute->triggerActionForAskADmsQuestion($this->chatID);
                 exit;
             case $this->commands['meetings']:
                 $this->mainRulesRoute->triggerActionForGetMeetingInfo($this->chatID, $this->user['firstname']);
