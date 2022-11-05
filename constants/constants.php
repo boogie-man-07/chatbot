@@ -340,7 +340,7 @@ class constants {
         return "Скоро здесь будет опрос.";
     }
 
-    function getReplyForStartDmsSurvey() {
+    function getReplyForAskADmsQuestion() {
         return "Скоро здесь Вы сможете задать вопрос по ДМС.";
     }
 
