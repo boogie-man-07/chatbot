@@ -778,15 +778,14 @@ class AuthorizedUserScenario {
                     );
                     if ($isSended) {
                         answerCallbackQuery($this->query["id"], "Ваш вопрос успешно отправлен!");
-                        break;
+                        $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
+                        $this->salaryRoute->triggerActionForDmsQuestionIsSended($this->chatID);
+                        $this->access->removeDmsQuestionInfo($this->chatID);
+                        exit;
                     } else {
                         answerCallbackQuery($this->query["id"], "Не удалось отправить вопрос, попробуйте еще раз!");
-                        break;
+                        exit;
                     }
-                    $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
-                    $this->salaryRoute->triggerActionForDmsQuestionIsSended($this->chatID);
-                    $this->access->removeDmsQuestionInfo($this->chatID);
-                    exit;
                 } else {
                     answerCallbackQuery($this->query["id"], "Не удалось отправить вопрос, попробуйте еще раз!");
                     $this->commonmistakeroute->triggerErrorForSendFeedback();
