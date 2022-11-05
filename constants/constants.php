@@ -321,7 +321,7 @@ class constants {
     function getUrlForSendDmsClinics($dmsType) {
         switch ($dmsType) {
             case 1:
-                return "https://sigmabot.ddns.net/files/dms_clinics_ingosstrah.xlsx";
+                return "https://sigmabot.ddns.net/files/dms_clinics_ingosstrah.pdf";
             case 2:
                 return "https://sigmabot.ddns.net/files/dms_clinics_soglasie.pdf";
         }
