@@ -312,9 +312,9 @@ class constants {
     function getUrlForSendDmsMemo($dmsType) {
         switch ($dmsType) {
             case 1:
-                return "https://sigmabot.ddns.net/files/memo_2.pdf";
+                return "https://sigmabot.ddns.net/files/memo_soglasie.pdf";
             case 2:
-                return "https://sigmabot.ddns.net/files/memo_2.pdf";
+                return "https://sigmabot.ddns.net/files/memo_soglasie.pdf";
         }
     }
 
