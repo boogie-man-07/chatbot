@@ -779,8 +779,8 @@ class AuthorizedUserScenario {
                     if ($isSended) {
                         answerCallbackQuery($this->query["id"], "Ваш вопрос успешно отправлен!");
                         $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
-                        $this->salaryRoute->triggerActionForDmsQuestionIsSended($this->chatID);
                         $this->access->removeDmsQuestionInfo($this->chatID);
+                        $this->salaryRoute->triggerActionForDmsQuestionIsSended($this->chatID);
                         exit;
                     } else {
                         answerCallbackQuery($this->query["id"], "Не удалось отправить вопрос, попробуйте еще раз!");
