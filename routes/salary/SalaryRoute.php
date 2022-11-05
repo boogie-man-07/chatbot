@@ -51,6 +51,17 @@ class SalaryRoute {
         sendMessage($chatID, $reply, null);
     }
 
+    function triggerActionForDmsSendingConfirmation($chatID) {
+        $reply = $this->constants->getReplyForDmsSending();
+        $keyboard = $this->keyboards::getDmsSendingInlineKeyboard();
+        sendMessage($chatID, $reply, $keyboard);
+    }
+
+    function triggerActionForDmsQuestionIsSended($chatID) {
+        $reply = $this->constants::getReplyForDmsQuestionIsSended();
+        sendMessage($chatID, $reply, null);
+    }
+
     function triggerActionForGetMainSalaryInformation($chatID, $companyId) {
         $reply = $this->constants->getReplyForMainSalaryInformation($companyId);
         sendMessage($chatID, $reply, null);

@@ -107,6 +107,19 @@ class email {
       return $template;
     }
 
+    function generateDmsQuestionForm($companyID) {
+        switch ($companyID) {
+            case 2:
+                break;
+            case 1; case 3:
+              $file = fopen("templates/dmsQuestionFormTemplate.html", "r") or die("Unable to open file");
+              $template = fread($file, filesize("templates/dmsQuestionFormTemplate.html"));
+              break;
+        }
+        fclose($file);
+        return $template;
+    }
+
     function sendEmail($details) {
 
         // information of email

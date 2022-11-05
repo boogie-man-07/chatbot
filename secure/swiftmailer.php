@@ -369,6 +369,38 @@ class swiftmailer {
                 }
         }
     }
+
+    function sendDmsQuestion($companyID, $to, $subject, $body) {
+        require 'vendor/autoload.php';
+
+        switch ($companyID) {
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                $transport = (new Swift_SmtpTransport('mail.diall.ru', 587))
+                    ->setUsername('personalbot')
+                    ->setPassword('whWRcG%Y5K')
+                ;
+
+                $mailer = new Swift_Mailer($transport);
+
+                $message = (new Swift_Message($subject))
+                    ->setFrom(['personalbot@diall.ru' => 'Bot_PersonalAssistant'])
+                    ->setTo([$to])
+                    ->setBody($body, 'text/html')
+                    ;
+                $mailer->send($message);
+                if ($mailer) {
+                    return true;
+                    break;
+                } else {
+                    return false;
+                    break;
+                }
+        }
+    }
 }
 
 

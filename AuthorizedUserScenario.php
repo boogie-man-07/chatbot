@@ -152,6 +152,7 @@ class AuthorizedUserScenario {
                 $this->salaryRoute->triggerActionForStartDmsSurvey($this->chatID);
                 exit;
             case $this->commands['dmsAskAQuestion']:
+                $this->access->setState($this->chatID, $this->states['dmsQuestionWaitingState']);
                 $this->salaryRoute->triggerActionForAskADmsQuestion($this->chatID);
                 exit;
             case $this->commands['meetings']:
@@ -455,6 +456,10 @@ class AuthorizedUserScenario {
                             //$this->access->setState($this->chatID, $this->states['vacationFormSendingWaitingState']);
                             $this->salaryRoute->triggerActionForSendPostponedVacationForm($this->chatID);
                             exit;
+                        case $this->states['dmsQuestionWaitingState']:
+                            $this->access->setDmsQuestionInfo($this->chatID, $text);
+                            $this->salaryRoute->triggerActionForDmsSendingConfirmation($this->chatID);
+                            exit;
                         default:
                             $this->commonmistakeroute->triggerActionForCommonMistake($this->chatID);
                             exit;
@@ -757,6 +762,34 @@ class AuthorizedUserScenario {
                     exit;
                 } else {
                     answerCallbackQuery($this->query["id"], "Не удалось отправить письмо, повторите попытку!");
+                    exit;
+                }
+            case $this->commands['sendDmsQuestionInline']:
+                $questionInfo = $this->access->getDmsQuestionInfo($this->chatID);
+                if ($questionInfo) {
+                    $template = $this->email->generateDmsQuestionForm($this->user['company_id']);
+                    $template = str_replace("{fullname}", $this->user['fullname'], $template);
+                    $template = str_replace("{question}", $questionInfo['question_text'], $template);
+                    $isSended = $this->swiftmailer->sendDmsQuestion(
+                        $this->user['company_id'],
+                        'booogie.man.07@gmail.com',
+                        "Вопрос в рамках ДМС (Персональный ассистент работника)",
+                        $template
+                    );
+                    if ($isSended) {
+                        answerCallbackQuery($this->query["id"], "Ваш вопрос успешно отправлен!");
+                        break;
+                    } else {
+                        answerCallbackQuery($this->query["id"], "Не удалось отправить вопрос, попробуйте еще раз!");
+                        break;
+                    }
+                    $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
+                    $this->salaryRoute->triggerActionForDmsQuestionIsSended($this->chatID);
+                    $this->access->removeDmsQuestionInfo($this->chatID);
+                    exit;
+                } else {
+                    answerCallbackQuery($this->query["id"], "Не удалось отправить вопрос, попробуйте еще раз!");
+                    $this->commonmistakeroute->triggerErrorForSendFeedback();
                     exit;
                 }
             default:
