@@ -285,11 +285,19 @@ class constants {
     }
 
     function getReplyForFeedbackSending() {
-        return "Ваше сообщение будет направлено в поддержку";
+        return "Ваше сообщение будет направлено в поддержку.";
+    }
+
+    function getReplyForDmsQuestionIsSended() {
+        return "Ваше сообщение будет направлено специалисту.";
     }
 
     function getReplyForFeedbackIsSent() {
         return "Сообщение успешно отправлено, номер зарегистрированного обращения придет на почту.";
+    }
+
+    function getReplyForDmsIsSent() {
+        return "Ваш вопрос успешно отправлен, специалист ответит в ближайшее время.";
     }
 
     function gerReplyForSendFeedbackError() {
@@ -341,7 +349,7 @@ class constants {
     }
 
     function getReplyForAskADmsQuestion() {
-        return "Скоро здесь Вы сможете задать вопрос по ДМС.";
+        return "Сформулируйте интересующий Вас вопрос максимально подробно.";
     }
 
     function getReplyForMainSalaryInformation($companyId) {

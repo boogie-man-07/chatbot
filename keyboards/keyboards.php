@@ -292,6 +292,19 @@ class keyboards {
         ));
     }
 
+    function getDmsSendingInlineKeyboard() {
+        return json_encode(array(
+            "inline_keyboard" => array(
+                array(
+                    array(
+                        "text" => "Отправить вопрос",
+                        "callback_data" => "sendDmsQuestion"
+                    )
+                )
+            )
+        ));
+    }
+
     function getSalaryMenuKeyboard() {
         return json_encode(array(
             "keyboard" => array(

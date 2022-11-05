@@ -1426,6 +1426,49 @@ class access {
         return $returnArray;
     }
 
+    function setDmsQuestionInfo($tg_chat_id, $question_text) {
+        $sql = "SELECT * FROM dms_question_info WHERE tg_chat_id='".$tg_chat_id."'";
+        $result = $this->conn->query($sql);
+        if ($result != null && (mysqli_num_rows($result) >= 1 )) {
+            $sql = "UPDATE dms_question_info SET question_text=? WHERE tg_chat_id=?";
+            $statement = $this->conn->prepare($sql);
+
+            if (!$statement) {
+                throw new Exception($statement->error);
+            }
+            $statement->bind_param("ss", $question_text, $tg_chat_id);
+            $returnValue = $statement->execute();
+        } else {
+            $sql = "INSERT INTO dms_question_info SET tg_chat_id=?, question_text=?";
+            $statement = $this->conn->prepare($sql);
+
+            if (!$statement) {
+                throw new Exception($statement->error);
+            }
+            $statement->bind_param("ss", $tg_chat_id, $question_text);
+            $returnValue = $statement->execute();
+        }
+        return $returnValue;
+    }
+
+    function getDmsQuestionInfo($tg_chat_id) {
+        $returnArray = array();
+        $sql = "SELECT * FROM dms_question_info WHERE tg_chat_id='".$tg_chat_id."'";
+        $result = $this->conn->query($sql);
+        if ($result != null && (mysqli_num_rows($result) >= 1 )) {
+            $row = $result->fetch_array(MYSQLI_ASSOC);
+            if (!empty($row)) {
+                $returnArray = $row;
+            }
+        }
+        return $returnArray;
+    }
+
+    function removeDmsQuestionInfo($tg_chat_id) {
+        $sql = "DELETE FROM dms_question_info WHERE tg_chat_id='".$tg_chat_id."'";
+        $this->conn->query($sql);
+    }
+
     function getReguarVacationFormData($tg_chat_id) {
         $returnArray = array();
         // sql command
