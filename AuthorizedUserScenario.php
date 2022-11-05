@@ -457,7 +457,6 @@ class AuthorizedUserScenario {
                             $this->salaryRoute->triggerActionForSendPostponedVacationForm($this->chatID);
                             exit;
                         case $this->states['dmsQuestionWaitingState']:
-                        sendMessage($this->chatID, 'dmsQuestionWaitingState', null);
                             $this->access->setDmsQuestionInfo($this->chatID, $text);
                             $this->salaryRoute->triggerActionForDmsSendingConfirmation($this->chatID);
                             exit;
