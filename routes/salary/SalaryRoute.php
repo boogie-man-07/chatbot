@@ -28,7 +28,7 @@ class SalaryRoute {
 
     function triggerActionForSendDmsMemo($chatID, $dmsType) {
         $reply = $this->constants->getUrlForSendDmsMemo($dmsType);
-        sendDocument($chatID, $reply, null);
+        sendDocument($chatID, $reply, "{}");
     }
 
     function triggerActionForGetMainSalaryInformation($chatID, $companyId) {
