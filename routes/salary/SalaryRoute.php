@@ -53,8 +53,8 @@ class SalaryRoute {
 
     function triggerActionForDmsSendingConfirmation($chatID) {
         $reply = $this->constants->getReplyForDmsSending();
-        $keyboard = $this->keyboards->getDmsSendingInlineKeyboard();
-        sendMessage($chatID, $reply, $keyboard);
+        //$keyboard = $this->keyboards->getDmsSendingInlineKeyboard();
+        sendMessage($chatID, $reply, null);
     }
 
     function triggerActionForDmsQuestionIsSended($chatID) {
