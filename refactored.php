@@ -119,7 +119,7 @@ function sendPhoto($chatID, $imageUrl, $keyboard) {
 }
 
 function sendDocument($chatID, $documentUrl, $keyboard) {
-  $url = $GLOBALS[website]."/sendDocument?chat_id=$chatID&parse_mode=HTML&document=".$imageUrl."&reply_markup=".$keyboard;
+  $url = $GLOBALS[website]."/sendDocument?chat_id=$chatID&parse_mode=HTML&document=".$documentUrl."&reply_markup=".$keyboard;
   file_get_contents($url);
 }
 
