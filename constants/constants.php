@@ -318,6 +318,32 @@ class constants {
         }
     }
 
+    function getUrlForSendDmsClinics($dmsType) {
+        switch ($dmsType) {
+            case 1:
+                return "https://sigmabot.ddns.net/files/dms_clinics_ingosstrah.xlsx";
+            case 2:
+                return "https://sigmabot.ddns.net/files/dms_clinics_soglasie.pdf";
+        }
+    }
+
+    function getUrlForSendDmsContacts($dmsType) {
+        switch ($dmsType) {
+            case 1:
+                return "К сожалению, контакты мне неизвестны, как узнаю - обязательно поделюсь.";
+            case 2:
+                return "К сожалению, контакты мне неизвестны, как узнаю - обязательно поделюсь.";
+        }
+    }
+
+    function getReplyForStartDmsSurvey() {
+        return "Скоро здесь будет опрос.";
+    }
+
+    function getReplyForStartDmsSurvey() {
+        return "Скоро здесь Вы сможете задать вопрос по ДМС.";
+    }
+
     function getReplyForMainSalaryInformation($companyId) {
         switch ($companyId) {
             case 1:

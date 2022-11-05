@@ -31,6 +31,26 @@ class SalaryRoute {
         sendDocument($chatID, $reply, "{}");
     }
 
+    function triggerActionForSendDmsClinics($chatID, $dmsType) {
+        $reply = $this->constants->getUrlForSendDmsClinics($dmsType);
+        sendDocument($chatID, $reply, "{}");
+    }
+
+    function triggerActionForSendDmsContacts($chatID, $dmsType) {
+        $reply = $this->constants->getUrlForSendDmsContacts($dmsType);
+        sendMessage($chatID, $reply, null);
+    }
+
+    function triggerActionForStartDmsSurvey($chatID) {
+        $reply = $this->constants->getReplyForStartDmsSurvey();
+        sendMessage($chatID, $reply, null);
+    }
+
+    function triggerActionForAskADmsQuestion($chatID) {
+        $reply = $this->constants->getReplyForAskADmsQuestion();
+        sendMessage($chatID, $reply, null);
+    }
+
     function triggerActionForGetMainSalaryInformation($chatID, $companyId) {
         $reply = $this->constants->getReplyForMainSalaryInformation($companyId);
         sendMessage($chatID, $reply, null);
