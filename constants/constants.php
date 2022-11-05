@@ -288,7 +288,7 @@ class constants {
         return "Ваше сообщение будет направлено в поддержку.";
     }
 
-    function getReplyForDmsQuestionIsSended() {
+    function getReplyForDmsSending() {
         return "Ваше сообщение будет направлено специалисту.";
     }
 
