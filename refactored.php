@@ -118,6 +118,11 @@ function sendPhoto($chatID, $imageUrl, $keyboard) {
   file_get_contents($url);
 }
 
+function sendDocument($chatID, $documentUrl, $keyboard) {
+  $url = $GLOBALS[website]."/sendDocument?chat_id=$chatID&parse_mode=HTML&document=".$imageUrl."&reply_markup=".$keyboard;
+  file_get_contents($url);
+}
+
 function sendSticker($chatID, $sticker) {
   $url = $GLOBALS[website]."/sendSticker?chat_id=$chatID&sticker=$sticker";
   file_get_contents($url);
