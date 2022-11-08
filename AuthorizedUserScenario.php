@@ -60,7 +60,8 @@ class AuthorizedUserScenario {
         switch ($text) {
             // remove
             case $this->commands['calendar']:
-                sendMessage($this->chatID, $this->calendarInfo, null);
+                $calendar = $this->calendarInfo->getMonthlyDataForEmployee();
+                sendMessage($this->chatID, $calendar, null);
                 //$this->salaryRoute->triggerCalendarAction($this->chatID, "январь");
                 exit;
             case $this->commands['start']:
