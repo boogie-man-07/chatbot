@@ -5,8 +5,8 @@ class CalendarInfo {
     function getMonthlyDataForEmployee() {
         $curl = curl_init();
         curl_setopt_array($curl, array(
-            CURLOPT_PORT => "80",
-            CURLOPT_URL => "http://192.168.1.20/DA_ERP/hs/Staff/Grafic/?GUID=37e79227-62e3-11eb-a20a-00155d93a613&Month=01.11.2022",
+            CURLOPT_PORT => "11180",
+            CURLOPT_URL => "http://office.diall.ru:11180/DA_ERP/hs/Staff/Grafic/?GUID=37e79227-62e3-11eb-a20a-00155d93a613&Month=01.11.2022",
             CURLOPT_USERPWD => "Web1C:67z%Cc#2",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
@@ -36,8 +36,8 @@ class CalendarInfo {
     function getMonthlyDataForOffice() {
         $curl = curl_init();
         curl_setopt_array($curl, array(
-            CURLOPT_PORT => "80",
-            CURLOPT_URL => "http://192.168.1.20/DA_ERP/hs/Staff/Grafic?GUID=a16f8694-e7f9-11eb-a1b1-d4f5ef044d5e&Month=01.11.2022",
+            CURLOPT_PORT => "11180",
+            CURLOPT_URL => "http://office.diall.ru:11180/DA_ERP/hs/Staff/Grafic?GUID=a16f8694-e7f9-11eb-a1b1-d4f5ef044d5e&Month=01.11.2022",
             CURLOPT_USERPWD => "Web1C:67z%Cc#2",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
