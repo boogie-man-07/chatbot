@@ -95,13 +95,14 @@ if (!$user) {
         }
     } else {
         $authorizedUserScenario = new AuthorizedUserScenario($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $phonebookroute, $valuesRoute, $mainRulesRoute, $mainInformationRoute, $salaryRoute, $commandList, $statesList, $state, $logics, $forms, $email, $vacationInfo, $calendarInfo, $query, $logs, $messageId, $updates);
-        if ($isInline) {
-            $authorizedUserScenario->runInline($text);
-        } /*else if($isPoll) {
-            $authorizedUserScenario->runPoll($text);
-        }*/ else {
-            $authorizedUserScenario->run($text);
-        }
+//         if ($isInline) {
+//             $authorizedUserScenario->runInline($text);
+//         } else if($isPoll) {
+//             $authorizedUserScenario->runPoll($text);
+//         } else {
+//             $authorizedUserScenario->run($text);
+//         }
+        $authorizedUserScenario->runPoll($text);
     }
 }
 
