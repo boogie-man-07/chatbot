@@ -102,7 +102,7 @@ if (!$user) {
 //         } else {
 //             $authorizedUserScenario->run($text);
 //         }
-        $authorizedUserScenario->runPoll($text);
+        $authorizedUserScenario->runPoll();
     }
 }
 
