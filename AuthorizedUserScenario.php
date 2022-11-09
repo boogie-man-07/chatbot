@@ -811,7 +811,7 @@ class AuthorizedUserScenario {
         }
     }
 
-    function runPoll($text) {
+    function runPoll() {
         sendMessage($this->chatID, json_encode($this->updates), null);
     }
 }
