@@ -25,8 +25,9 @@ class AuthorizedUserScenario {
     var $query = null;
     var $logs = null;
     var $messageId = null;
+    var $poll = null;
 
-    function __construct($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $phonebookroute, $valuesRoute, $mainRulesRoute, $mainInformationRoute, $salaryRoute, $commands, $states, $state, $logics, $forms, $email, $vacationInfo, $calendarInfo, $query, $logs, $messageId) {
+    function __construct($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $phonebookroute, $valuesRoute, $mainRulesRoute, $mainInformationRoute, $salaryRoute, $commands, $states, $state, $logics, $forms, $email, $vacationInfo, $calendarInfo, $query, $logs, $messageId, $poll) {
         $this->chatID = $chatID;
         $this->user = $user;
         $this->username = $username;
@@ -50,6 +51,7 @@ class AuthorizedUserScenario {
         $this->query = $query;
         $this->logs = $logs;
         $this->messageId = $messageId;
+        $this->poll = $poll;
     }
 
     function run($text) {
@@ -807,6 +809,10 @@ class AuthorizedUserScenario {
                         exit;
                 }
         }
+    }
+
+    function runPoll($text) {
+        sendMessage($this->chatID, json_encode($this->poll), null);
     }
 }
 
