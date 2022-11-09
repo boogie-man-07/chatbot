@@ -64,6 +64,7 @@ $website = "https://api.telegram.org/bot".$token;
 $updates = file_get_contents('php://input');
 $updates = json_decode($updates, true);
 $phoneNumber = $updates['message']['contact']['phone_number'];
+$poll = $updates['message']['poll'];
 $query = $updates["callback_query"];
 $queryID = $query["id"];
 $queryData = $query["data"];
@@ -73,6 +74,7 @@ $text = $queryData ? $queryData : $updates['message']['text'];
 $messageId = $queryData ? $updates["callback_query"]['message']['message_id'] : $updates['message']['message_id'];
 $username = $queryData ? $query["from"]["first_name"] : $updates['message']['from']['first_name'];
 $isInline = $queryData ? true : false;
+$isPoll = $poll ? true: false;
 
 $user = $access->getUserByChatID($chatID);
 $isAuthorized = $user['is_authorized'];
@@ -92,9 +94,11 @@ if (!$user) {
             $nonFinishedAuthorizationUserScenario->run($text);
         }
     } else {
-        $authorizedUserScenario = new AuthorizedUserScenario($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $phonebookroute, $valuesRoute, $mainRulesRoute, $mainInformationRoute, $salaryRoute, $commandList, $statesList, $state, $logics, $forms, $email, $vacationInfo, $calendarInfo, $query, $logs, $messageId);
+        $authorizedUserScenario = new AuthorizedUserScenario($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $phonebookroute, $valuesRoute, $mainRulesRoute, $mainInformationRoute, $salaryRoute, $commandList, $statesList, $state, $logics, $forms, $email, $vacationInfo, $calendarInfo, $query, $logs, $messageId, $poll);
         if ($isInline) {
             $authorizedUserScenario->runInline($text);
+        } else if($isPoll) {
+            $authorizedUserScenario->runPoll($text);
         } else {
             $authorizedUserScenario->run($text);
         }
