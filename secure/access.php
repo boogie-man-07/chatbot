@@ -1489,4 +1489,42 @@ class access {
 
         return $returnArray;
     }
+
+    function getDmsPollInfo($userId) {
+        $returnArray = array();
+        $sql = "SELECT * FROM polls_user_data WHERE poll_id = 1 and user_id = '".$userId."'";
+        $result = $this->conn->query($sql);
+        if ($result != null && (mysqli_num_rows($result) >= 1 )) {
+            $row = $result->fetch_array(MYSQLI_ASSOC);
+            if (!empty($row)) {
+                $returnArray = $row;
+            }
+        }
+        return $returnArray;
+    }
+
+    function setDmsPollInfo($userId, $pollState, $isFinished) {
+        $sql = "SELECT * FROM polls_user_data WHERE user_id='".$userId."'";
+        $result = $this->conn->query($sql);
+        if ($result != null && (mysqli_num_rows($result) >= 1 )) {
+            $sql = "UPDATE polls_user_data SET poll_id = 1, user_id = ?, poll_state = ?, is_finished = ? WHERE user_id = ?";
+            $statement = $this->conn->prepare($sql);
+
+            if (!$statement) {
+                throw new Exception($statement->error);
+            }
+            $statement->bind_param("iii", $userId, $pollState, $userId);
+            $returnValue = $statement->execute();
+        } else {
+            $sql = "INSERT INTO polls_user_data SET poll_id = 1, user_id = ?, poll_state = ?, is_finished = ?";
+            $statement = $this->conn->prepare($sql);
+
+            if (!$statement) {
+                throw new Exception($statement->error);
+            }
+            $statement->bind_param("iii", $userId, $pollState, $isFinished);
+            $returnValue = $statement->execute();
+        }
+        return $returnValue;
+    }
 }
