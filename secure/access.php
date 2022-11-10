@@ -1513,7 +1513,7 @@ class access {
             if (!$statement) {
                 throw new Exception($statement->error);
             }
-            $statement->bind_param("iii", $userId, $pollState, $userId);
+            $statement->bind_param("sii", $userId, $pollState, $userId);
             $returnValue = $statement->execute();
         } else {
             $sql = "INSERT INTO polls_user_data SET poll_id = 1, user_id = ?, poll_state = ?, is_finished = ?";
@@ -1522,7 +1522,7 @@ class access {
             if (!$statement) {
                 throw new Exception($statement->error);
             }
-            $statement->bind_param("iii", $userId, $pollState, $isFinished);
+            $statement->bind_param("sii", $userId, $pollState, $isFinished);
             $returnValue = $statement->execute();
         }
         return $returnValue;
