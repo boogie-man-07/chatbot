@@ -520,7 +520,8 @@ class keyboards {
 
     function getInlineKeyboardForAskADmsPollQuestion($pollQuestionInfo) {
         $replyList = array();
-        foreach($pollQuestionInfo['reply_options'] as $value) {
+        $options = json_decode($pollQuestionInfo['reply_options'], true);
+        foreach($options  as $key=>$value) {
             $itemTitle = $value['title'];
             $callback_data = $value['pol_id']."_".$value['question_id']."_".$value['title'];
             $replyItem = array(array(
