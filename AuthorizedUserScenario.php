@@ -152,11 +152,12 @@ class AuthorizedUserScenario {
                 exit;
             case $this->commands['dmsGoToSurvey']:
                 $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
-                if ($pollInfo) {
-                    sendMessage($chatID, "not pollInfo", null);
-                } else {
-                    sendMessage($chatID, "pollInfo", null);
-                }
+                sendMessage($chatID, json_encode($pollInfo), null);
+//                 if ($pollInfo) {
+//                     sendMessage($chatID, "not pollInfo", null);
+//                 } else {
+//                     sendMessage($chatID, "pollInfo", null);
+//                 }
                 //$this->salaryRoute->triggerActionForStartDmsSurvey($this->chatID);
                 exit;
             case $this->commands['dmsAskAQuestion']:
