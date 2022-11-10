@@ -345,7 +345,7 @@ class constants {
     }
 
     function getReplyForStartDmsSurvey() {
-        return "Скоро здесь будет опрос.";
+        return "Пройдите, пожалуйста, небольшой опрос. Ваше мнение очень важно для нас!";
     }
 
     function getReplyForAskADmsQuestion() {

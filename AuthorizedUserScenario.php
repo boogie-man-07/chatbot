@@ -151,7 +151,13 @@ class AuthorizedUserScenario {
                 $this->salaryRoute->triggerActionForSendDmsContacts($this->chatID, $this->user['dms_type']);
                 exit;
             case $this->commands['dmsGoToSurvey']:
-                $this->salaryRoute->triggerActionForStartDmsSurvey($this->chatID);
+                $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
+                if ($pollInfo) {
+                    sendMessage($chatID, json_encode($pollInfo), null);
+                } else {
+                    sendMessage($chatID, "pollInfo", null);
+                }
+                //$this->salaryRoute->triggerActionForStartDmsSurvey($this->chatID);
                 exit;
             case $this->commands['dmsAskAQuestion']:
                 $this->access->setState($this->chatID, $this->states['dmsQuestionWaitingState']);
