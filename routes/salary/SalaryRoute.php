@@ -44,7 +44,7 @@ class SalaryRoute {
     function triggerActionForProceedDmsSurvey($chatID, $pollState) {
         $reply = $this->constants->getReplyForProceedDmsSurvey($pollState);
         $keyboard = $this->keyboards->getProceedDmsSurveyInlineKeyboard($pollState);
-        sendMessage($chatID, $reply, null);
+        sendMessage($chatID, $reply, $keyboard);
     }
 
     function triggerActionForAskADmsQuestion($chatID) {
