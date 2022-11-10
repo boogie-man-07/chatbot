@@ -151,13 +151,12 @@ class AuthorizedUserScenario {
                 $this->salaryRoute->triggerActionForSendDmsContacts($this->chatID, $this->user['dms_type']);
                 exit;
             case $this->commands['dmsGoToSurvey']:
-//                 $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
-                sendMessage($this->chatID, json_encode($this->user), null);
-//                 if ($pollInfo) {
-//                     sendMessage($chatID, "not pollInfo", null);
-//                 } else {
-//                     sendMessage($chatID, "pollInfo", null);
-//                 }
+                $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
+                if ($pollInfo) {
+                    sendMessage($this->chatID, json_encode($pollInfo), null);
+                } else {
+                    sendMessage($this->chatID, "pollInfo", null);
+                }
                 //$this->salaryRoute->triggerActionForStartDmsSurvey($this->chatID);
                 exit;
             case $this->commands['dmsAskAQuestion']:
