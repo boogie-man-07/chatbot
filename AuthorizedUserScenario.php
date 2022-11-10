@@ -153,7 +153,7 @@ class AuthorizedUserScenario {
             case $this->commands['dmsGoToSurvey']:
                 $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
                 if ($pollInfo) {
-                    sendMessage($chatID, json_encode($pollInfo), null);
+                    sendMessage($chatID, "not pollInfo", null);
                 } else {
                     sendMessage($chatID, "pollInfo", null);
                 }
