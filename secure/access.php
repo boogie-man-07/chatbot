@@ -1527,4 +1527,17 @@ class access {
         }
         return $returnValue;
     }
+
+    function getDmsPollQuestionInfo($pollId, $pollState) {
+        $returnArray = array();
+        $sql = "SELECT * from polls_reply_options WHERE poll_id = '".$pollId."' and question_id = '".((int)$pollState + 1)."'";
+        $result = $this->conn->query($sql);
+        if ($result != null && (mysqli_num_rows($result) >= 1 )) {
+            $row = $result->fetch_array(MYSQLI_ASSOC);
+            if (!empty($row)) {
+                $returnArray = $row;
+            }
+        }
+        return $returnArray;
+    }
 }
