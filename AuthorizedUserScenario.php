@@ -780,7 +780,7 @@ class AuthorizedUserScenario {
                 $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
                 $pollQuestionInfo = $this->access->getDmsPollQuestionInfo(1, $pollInfo['poll_state']);
                 sendMessage($chatID, json_encode($pollInfo), null);
-                sendMessage($chatID, json_encode($pollQuestionInfo), null);
+                sendMessage($chatID, $pollQuestionInfo['reply_options'], null);
 //                 $this->salaryRoute->triggerActionForAskDmsQuestion($this->chatID, $pollQuestionInfo);
                 answerCallbackQuery($this->query["id"], "Вопрос загружен!");
                 exit;
