@@ -518,6 +518,23 @@ class keyboards {
         ));
     }
 
+    function getInlineKeyboardForAskADmsPollQuestion($pollQuestionInfo) {
+        $replyList = array();
+        foreach($pollQuestionInfo['reply_options'] $value) {
+            $itemTitle = $value['title'];
+            $callback_data = $value['pol_id']."_".$value['question_id']."_".$value['title'];
+            $replyItem = array(array(
+                "text" => $itemTitle,
+                "callback_data" => $callback_data
+            ));
+            array_push($replyList, $replyItem);
+        }
+
+        return json_encode(array(
+            "inline_keyboard" => $replyList
+        ));
+    }
+
     function getCalendar($month) {
         return json_encode(array(
             "inline_keyboard" => array(
