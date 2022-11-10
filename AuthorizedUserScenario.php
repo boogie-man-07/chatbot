@@ -153,11 +153,16 @@ class AuthorizedUserScenario {
             case $this->commands['dmsGoToSurvey']:
                 $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
                 if ($pollInfo) {
-                    sendMessage($this->chatID, 'есть опрос', null);
+                    if ($pollInfo['is_finished']) {
+                        sendMessage($this->chatID, 'Вы уже прошли данный опрос, спасибо за уделенное время!', null);
+                    } else {
+                        sendMessage($this->chatID, 'Ранее Вы уже начали проходить данный опрос, Давайте продолжим!', null);
+                        $this->salaryRoute->triggerActionForProceedDmsSurvey($this->chatID, $pollInfo['poll_state']);
+                    }
                 } else {
                     $this->access->setDmsPollInfo($this->user['user_id'], 0, 0);
+                    $this->salaryRoute->triggerActionForProceedDmsSurvey($this->chatID, 0);
                 }
-                //$this->salaryRoute->triggerActionForStartDmsSurvey($this->chatID);
                 exit;
             case $this->commands['dmsAskAQuestion']:
                 $this->access->setState($this->chatID, $this->states['dmsQuestionWaitingState']);
@@ -772,6 +777,9 @@ class AuthorizedUserScenario {
                     answerCallbackQuery($this->query["id"], "Не удалось отправить письмо, повторите попытку!");
                     exit;
                 }
+            case $this->commands['proceedDmsSurveyInline']:
+                answerCallbackQuery($this->query["id"], "Вопрос загружен!");
+                exit;
             case $this->commands['sendDmsQuestionInline']:
                 $questionInfo = $this->access->getDmsQuestionInfo($this->chatID);
                 if ($questionInfo) {
