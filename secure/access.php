@@ -1530,7 +1530,8 @@ class access {
 
     function getDmsPollQuestionInfo($pollId, $pollState) {
         $returnArray = array();
-        $sql = "SELECT * from polls_reply_options WHERE poll_id = '".$pollId."' and question_id = '".((int)$pollState + 1)."'";
+        $questionId = $pollState + 1;
+        $sql = "SELECT * from polls_reply_options WHERE poll_id = '".$pollId."' and question_id = '".$questionId."'";
         $result = $this->conn->query($sql);
         if ($result != null && (mysqli_num_rows($result) >= 1 )) {
             $row = $result->fetch_array(MYSQLI_ASSOC);
