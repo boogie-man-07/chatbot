@@ -156,7 +156,6 @@ class AuthorizedUserScenario {
                     if ($pollInfo['is_finished']) {
                         sendMessage($this->chatID, 'Вы уже прошли данный опрос, спасибо за уделенное время!', null);
                     } else {
-                        sendMessage($this->chatID, 'Ранее Вы уже начали проходить данный опрос, Давайте продолжим!', null);
                         $this->salaryRoute->triggerActionForProceedDmsSurvey($this->chatID, $pollInfo['poll_state']);
                     }
                 } else {
