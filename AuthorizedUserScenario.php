@@ -779,9 +779,7 @@ class AuthorizedUserScenario {
             case $this->commands['proceedDmsSurveyInline']:
                 $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
                 $pollQuestionInfo = $this->access->getDmsPollQuestionInfo(1, $pollInfo['poll_state']);
-                sendMessage($this->chatID, json_encode($pollInfo), null);
-                sendMessage($this->chatID, $pollQuestionInfo['reply_options'], null);
-//                 $this->salaryRoute->triggerActionForAskDmsQuestion($this->chatID, $pollQuestionInfo);
+                $this->salaryRoute->triggerActionForAskDmsPollQuestion($this->chatID, $pollQuestionInfo);
                 answerCallbackQuery($this->query["id"], "Вопрос загружен!");
                 exit;
             case $this->commands['sendDmsQuestionInline']:

@@ -353,6 +353,10 @@ class constants {
         }
     }
 
+    function getReplyForAskADmsPollQuestion($pollQuestionInfo) {
+        return "Вопрос №".$pollQuestionInfo['question_id']."\n".$pollQuestionInfo['question_text'];
+    }
+
     function getReplyForAskADmsQuestion() {
         return "Сформулируйте интересующий Вас вопрос максимально подробно.";
     }
