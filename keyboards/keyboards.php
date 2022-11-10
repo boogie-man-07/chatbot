@@ -502,7 +502,22 @@ class keyboards {
             )
         ));
     }
-    // remove
+
+    function getProceedDmsSurveyInlineKeyboard($pollState) {
+        $title = $pollState == 0 ? "Начать" : "Продолжить";
+
+        return json_encode(array(
+            "inline_keyboard" => array(
+                array(
+                    array(
+                        "text" => $title,
+                        "callback_data" => "proceedDmsSurvey"
+                    )
+                )
+            )
+        ));
+    }
+
     function getCalendar($month) {
         return json_encode(array(
             "inline_keyboard" => array(

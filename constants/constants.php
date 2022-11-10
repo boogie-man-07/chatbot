@@ -344,8 +344,13 @@ class constants {
         }
     }
 
-    function getReplyForStartDmsSurvey() {
-        return "Пройдите, пожалуйста, небольшой опрос. Ваше мнение очень важно для нас!";
+    function getReplyForProceedDmsSurvey($pollState) {
+        switch ($pollState) {
+            case 0:
+                return "Пройдите, пожалуйста, небольшой опрос. Ваше мнение очень важно для нас!";
+            default:
+                return "Ранее Вы уже начали проходить данный опрос, Давайте продолжим!";
+        }
     }
 
     function getReplyForAskADmsQuestion() {
