@@ -821,9 +821,9 @@ class AuthorizedUserScenario {
                         }
                     case $this->states['dmsPoolReplyWaitingState']:
                         $cleanOption = substr($text, strpos($text, "*") + 1);
-                        $selectedOption = strstr($cleanOption, '#', true);
+                        //$selectedOption = strstr($cleanOption, '#', true);
                         //$this->salaryRoute->triggerActionForSelectDmsPoolOption($this->chatID, $this->messageId, $isShouldBeSelected, $selectedOption);
-                        sendMessage($this->chatID, $selectedOption, null);
+                        sendMessage($this->chatID, $cleanOption, null);
                         exit;
                     default:
                         sendMessage($this->chatID, "Default finished inline", null);
