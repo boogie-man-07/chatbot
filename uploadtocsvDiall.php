@@ -1,6 +1,6 @@
 ﻿<?Php
 
-require ("logs/logs.php");
+// require ("logs/logs.php");
 
 $curl = curl_init();
 curl_setopt_array($curl, array(
