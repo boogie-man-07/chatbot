@@ -1592,7 +1592,7 @@ class access {
                     ));
                 }
             });
-            $updatedResponses = array('options' => $updatedResponsesList);
+            $updatedResponses = json_encode(array('options' => $updatedResponsesList));
             //
             $sql = "UPDATE polls_user_responses SET responses = $updatedResponses, updated = CURRENT_TIMESTAMP where user_id = ? and poll_id = ? and question_id = ?";
             $statement = $this->conn->prepare($sql);
