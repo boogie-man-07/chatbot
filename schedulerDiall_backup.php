@@ -112,7 +112,7 @@ foreach ($employeeList as $employeeValue) {
     // Проверяем активных сотрудников офиса
     if (preg_match("/diall.ru/", strtolower($employeeValue['email'])) == 1 && $employeeValue['mobile_number'] != "" && $employeeValue['activity'] == 1) {
 
-        $userFromDbResult = $access->getUserByPersonnelNumber($employeeValue['email']);
+        $userFromDbResult = $access->getUserByUserId($employeeValue['userId']);
 
         if ($userFromDbResult) {
 
@@ -180,7 +180,7 @@ foreach ($employeeList as $employeeValue) {
     // Проверяем активных рабочих
     } else if (preg_match("/diall.ru/", strtolower($employeeValue['email'])) == 0 && $employeeValue['mobile_number'] != "" && $employeeValue['activity'] == 1) {
 
-        $userFromDbResult = $access->getUserByPhoneNumber($employeeValue['mobile_number']);
+        $userFromDbResult = $access->getUserByUserId($employeeValue['userId']);
 
         if ($userFromDbResult) {
 
