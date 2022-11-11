@@ -824,7 +824,7 @@ class AuthorizedUserScenario {
                         $selectedOption = strstr($cleanOption, '#', true);
 //                         $isShouldBeSelected = substr($text, strpos($text, "#") + 1) == "0" ? true : false;
 //                         $this->salaryRoute->triggerActionForSelectDmsPoolOption($this->chatID, $this->messageId, $isShouldBeSelected, $selectedOption);
-                        sendMessage($this->chatID, $selectedOption, null);
+                        sendMessage($this->chatID, (string)$selectedOption, null);
                         exit;
                     default:
                         sendMessage($this->chatID, "Default finished inline", null);
