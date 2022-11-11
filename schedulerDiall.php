@@ -95,7 +95,10 @@ if ($err) {
             );
             array_push($employeeList, $userItem);
         }
-
+        // Убираем Еремину из процесса (прибито гвоздями)
+        $employeeList = array_filter($employeeList, function ($value) use ($fullname) {
+            return ($value["fullname"] != "Еремина Елена Анатольевна");
+        });
     } else {
         $logs->logUpload("File for upload is bad", null);
         exit;
