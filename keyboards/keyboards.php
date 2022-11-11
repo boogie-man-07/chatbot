@@ -523,7 +523,7 @@ class keyboards {
         $options = json_decode($pollQuestionInfo['reply_options'], true);
         $nextButtonText = $pollQuestionInfo['question_id'] >= count($options['options']) ? "Продолжить" : "Завершить";
         foreach($options['options'] as $key=>$value) {
-            $itemTitle = $value['title'];
+            $itemTitle = $value['isSelected'] ? hex2bin('f09f9982')." ".$value['title'] : $value['title'];
             $callbackData = $userId."_".$pollQuestionInfo['poll_id'].$pollQuestionInfo['question_id']."*".$value['id'];
             $replyItem = array(array(
                 "text" => $itemTitle,
