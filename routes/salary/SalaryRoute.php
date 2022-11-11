@@ -53,10 +53,10 @@ class SalaryRoute {
         sendMessage($chatID, $reply, $keyboard);
     }
 
-    function triggerActionForSelectDmsPoolOption($this->chatID, $messageId, $isShouldBeSelected, $selectedOption) {
-        $keyboard = $this->keyboards->getInlineKeyboardForAskADmsPollQuestion($userId, $pollQuestionInfo, $isShouldBeSelected, $selectedOption);
-        editMessageReplyMarkup($chatID, $messageId, $keyboard);
-    }
+//     function triggerActionForSelectDmsPoolOption($this->chatID, $messageId, $isShouldBeSelected, $selectedOption) {
+//         $keyboard = $this->keyboards->getInlineKeyboardForAskADmsPollQuestion($userId, $pollQuestionInfo, $isShouldBeSelected, $selectedOption);
+//         editMessageReplyMarkup($chatID, $messageId, $keyboard);
+//     }
 
     function triggerActionForAskADmsQuestion($chatID) {
         $reply = $this->constants->getReplyForAskADmsQuestion();
