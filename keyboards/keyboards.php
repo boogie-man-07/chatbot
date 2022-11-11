@@ -524,7 +524,7 @@ class keyboards {
         $nextButtonText = $pollQuestionInfo['question_id'] >= count($options['options']) ? "Продолжить" : "Завершить";
         foreach($options['options'] as $key=>$value) {
             $itemTitle = $value['title'];
-            $callbackData = $userId."_".$pollQuestionInfo['poll_id'].$pollQuestionInfo['question_id']."*".$value['id']."#";
+            $callbackData = $userId."_".$pollQuestionInfo['poll_id'].$pollQuestionInfo['question_id']."*".$value['id'];
             $replyItem = array(array(
                 "text" => $itemTitle,
                 "callback_data" => $callbackData
@@ -532,7 +532,7 @@ class keyboards {
             array_push($replyList, $replyItem);
         }
         $nextButtonItem = array(array(
-            "text" => "Продолжить",
+            "text" => $nextButtonText,
             "callback_data" => "prodoljit"
         ));
         array_push($replyList, $nextButtonItem);
