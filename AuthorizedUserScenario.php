@@ -826,6 +826,7 @@ class AuthorizedUserScenario {
                         //$this->access->setSelectedDmsPollOption($this->user['user_id'], $pollQuestionInfo, $selectedOption);
                         //$this->salaryRoute->triggerActionForSelectDmsPollOption($this->chatID, $this->messageId);
                         sendMessage($this->chatID, (string)$selectedOption, null);
+                        answerCallbackQuery($this->query["id"], "Выбран вариант ответа №$selectedOption");
                         exit;
                     default:
                         sendMessage($this->chatID, "Default finished inline", null);
