@@ -1364,6 +1364,18 @@ class access {
         return $returnValue;
     }
 
+    function removeEmployeeByUserId($userId) {
+        $sql = "DELETE from phonebook WHERE user_id='".$userId."'";
+        $statement = $this->conn->prepare($sql);
+
+        if (!$statement) {
+            throw new Exception($statement->error);
+        }
+
+        $returnValue = $statement->execute();
+        return $returnValue;
+    }
+
     function setFeedbackInfo($tg_chat_id, $feedback_text) {
 
         // sql command

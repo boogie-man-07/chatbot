@@ -119,18 +119,120 @@ foreach ($employeeList as $employeeValue) {
         if ($employeeValue['activity'] == 1) {
             if (preg_match("/diall.ru/", strtolower($employeeValue['email'])) == 1 && $employeeValue['mobile_number'] != "" && $employeeValue['activity'] == 1) {
                 echo $employeeValue['userId'].", ".$employeeValue['fullname']." - активный сотрудник офиса, обновляем в БД<br>";
+                $access->updateEmployeeByEmail(
+                    $employeeValue['userId'],
+                    $employeeValue['firstname'],
+                    $employeeValue['lastname'],
+                    $employeeValue['fullname'],
+                    $employeeValue['form_fullname'],
+                    $employeeValue['position'],
+                    $employeeValue['form_position'],
+                    $employeeValue['office_number'],
+                    $employeeValue['internal_number'],
+                    $employeeValue['mobile_number'],
+                    $employeeValue['company_name'],
+                    $employeeValue['company_id'],
+                    0,
+                    $is_sigma_available,
+                    $is_greenhouse_available,
+                    $is_diall_available,
+                    $employeeValue['boss'],
+                    $employeeValue['boss_position'],
+                    $employeeValue['main_holliday_counter'],
+                    $employeeValue['additional_holliday_counter'],
+                    $employeeValue['email']
+                );
+
+                $logs->logUpload($employeeValue['email']." сотрудник офиса существует и в файле, и в БД, обновляем в БД", $employeeValue['email']);
             } else if (preg_match("/diall.ru/", strtolower($employeeValue['email'])) == 0 && $employeeValue['mobile_number'] != "" && $employeeValue['activity'] == 1) {
                 echo $employeeValue['userId'].", ".$employeeValue['fullname']." - активный рабочий, обновляем в БД<br>";
+                $access->updateEmployeeByMobileNumber(
+                    $employeeValue['userId'],
+                    $employeeValue['firstname'],
+                    $employeeValue['lastname'],
+                    $employeeValue['fullname'],
+                    $employeeValue['form_fullname'],
+                    $employeeValue['position'],
+                    $employeeValue['form_position'],
+                    $employeeValue['office_number'],
+                    $employeeValue['internal_number'],
+                    $employeeValue['mobile_number'],
+                    $employeeValue['company_name'],
+                    $employeeValue['company_id'],
+                    1,
+                    $is_sigma_available,
+                    $is_greenhouse_available,
+                    $is_diall_available,
+                    $employeeValue['boss'],
+                    $employeeValue['boss_position'],
+                    $employeeValue['main_holliday_counter'],
+                    $employeeValue['additional_holliday_counter'],
+                    $employeeValue['email']
+                );
+
+                $logs->logUpload($employeeValue['mobile_number']." рабочий существует в файле и существует в БД. Обновляем в БД по мобильному.", $employeeValue['mobile_number']);
             }
         } else if ($employeeValue['activity'] == 0) {
             echo $employeeValue['userId'].", ".$employeeValue['fullname']." - сотрудник/рабочий не активен, удаляем из БД<br>";
+            $access->removeEmployeeByUserId($employeeValue['userId']);
+            $logs->logUpload($employeeValue['email']." сотрудник офиса неактивен, удаляем из БД", $employeeValue['email']);
         }
     } else {
         if ($employeeValue['activity'] == 1) {
             if (preg_match("/diall.ru/", strtolower($employeeValue['email'])) == 1 && $employeeValue['mobile_number'] != "" && $employeeValue['activity'] == 1) {
                 echo $employeeValue['userId'].", ".$employeeValue['fullname']." - активный новый сотрудник офиса, добавляем в БД<br>";
+                $access->insertEmployee(
+                    $employeeValue['userId'],
+                    $employeeValue['lastname'],
+                    $employeeValue['firstname'],
+                    $employeeValue['fullname'],
+                    $employeeValue['form_fullname'],
+                    $employeeValue['position'],
+                    $employeeValue['form_position'],
+                    $employeeValue['email'],
+                    $employeeValue['office_number'],
+                    $employeeValue['internal_number'],
+                    $employeeValue['mobile_number'],
+                    $employeeValue['company_name'],
+                    $employeeValue['company_id'],
+                    0,
+                    $is_sigma_available,
+                    $is_greenhouse_available,
+                    $is_diall_available,
+                    $employeeValue['boss'],
+                    $employeeValue['boss_position'],
+                    $employeeValue['main_holliday_counter'],
+                    $employeeValue['additional_holliday_counter']
+                );
+
+                $logs->logUpload($employeeValue['email']." сотрудник существует в файле, но отсутствует в БД, добавляем в БД", $employeeValue['email']);
             } else if (preg_match("/diall.ru/", strtolower($employeeValue['email'])) == 0 && $employeeValue['mobile_number'] != "" && $employeeValue['activity'] == 1) {
                 echo $employeeValue['userId'].", ".$employeeValue['fullname']." - активный новый рабочий, добавляем в БД<br>";
+                $access->insertEmployee(
+                    $employeeValue['userId'],
+                    $employeeValue['lastname'],
+                    $employeeValue['firstname'],
+                    $employeeValue['fullname'],
+                    $employeeValue['form_fullname'],
+                    $employeeValue['position'],
+                    $employeeValue['form_position'],
+                    $employeeValue['email'],
+                    $employeeValue['office_number'],
+                    $employeeValue['internal_number'],
+                    $employeeValue['mobile_number'],
+                    $employeeValue['company_name'],
+                    $employeeValue['company_name'],
+                    1,
+                    $is_sigma_available,
+                    $is_greenhouse_available,
+                    $is_diall_available,
+                    $employeeValue['boss'],
+                    $employeeValue['boss_position'],
+                    $employeeValue['main_holliday_counter'],
+                    $employeeValue['additional_holliday_counter']
+                );
+
+                $logs->logUpload($employeeValue['mobile_number']." рабочий существует в файле, но отсутствует в БД. Добавляем в БД по мобильному.", $employeeValue['mobile_number']);
             } else if ($employeeValue['email'] == "" && $employeeValue['mobile_number'] == "") {
                 echo $employeeValue['userId'].", ".$employeeValue['fullname']." - у сотрудника нет ничего, ничего не делаем с БД, просто логируем<br>";
             }
