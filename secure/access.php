@@ -1183,7 +1183,7 @@ class access {
     }
 
     // METHODS FOR SCHEDULLER
-
+    // delete
     function updateEmployeeByEmail($userId, $firstname, $lastname, $fullname, $form_fullname, $form_position, $position, $office_number, $internal_number, $mobile_number, $company_name, $company_id, $is_employee, $is_sigma_available, $is_greenhouse_available, $is_diall_available, $boss, $boss_position, $main_holliday_counter, $additional_holliday_counter, $email) {
 
         // sql statement
@@ -1203,7 +1203,7 @@ class access {
         $returnValue = $statement->execute();
         return $returnValue;
     }
-
+    // delete
     function updateEmployeeByMobileNumber($userId, $firstname, $lastname, $fullname, $form_fullname, $form_position, $position, $office_number, $internal_number, $mobile_number, $company_name, $company_id, $is_employee, $is_sigma_available, $is_greenhouse_available, $is_diall_available, $boss, $boss_position, $main_holliday_counter, $additional_holliday_counter, $email) {
 
         // sql statement
@@ -1218,6 +1218,26 @@ class access {
 
         // bind parameters to sql statement
         $statement->bind_param("ssssssssssiiiiisssss", $userId, $firstname, $lastname, $fullname, $form_fullname, $position, $form_position, $office_number, $internal_number, $company_name, $company_id, $is_employee, $is_sigma_available, $is_greenhouse_available, $is_diall_available, $boss, $boss_position, $main_holliday_counter, $additional_holliday_counter, $email);
+
+        // launch/execute and store feedback to returnValue
+        $returnValue = $statement->execute();
+        return $returnValue;
+    }
+
+    function updateEmployeeByUserId($firstname, $lastname, $fullname, $form_fullname, $position, $form_position, $email, $office_number, $internal_number, $mobile_number, $company_name, $company_id, $is_employee, $is_sigma_available, $is_greenhouse_available, $is_diall_available, $boss, $boss_position, $main_holliday_counter, $additional_holliday_counter, $userId) {
+
+        // sql statement
+        $sql = "UPDATE phonebook SET firstname=?, lastname=?, fullname=?, form_fullname=?, position=?, form_position=?, email=?, office_number=?, internal_number=?, mobile_number=?, company_name=?, company_id=?, is_employee=?, is_sigma_available=?, is_greenhouse_available=?, is_diall_available=?, boss=?, boss_position=?, main_holliday_counter=?, additional_holliday_counter=?, updated_at=CURRENT_TIMESTAMP WHERE user_id ='".$userId."'";
+        // prepare statement to be executed
+        $statement = $this->conn->prepare($sql);
+
+        // error occurred
+        if (!$statement) {
+            throw new Exception($statement->error);
+        }
+
+        // bind parameters to sql statement
+        $statement->bind_param("sssssssssssiiiiissss", $firstname, $lastname, $fullname, $form_fullname, $position, $form_position, $email, $office_number, $internal_number, $mobile_number, $company_name, $company_id, $is_employee, $is_sigma_available, $is_greenhouse_available, $is_diall_available, $boss, $boss_position, $main_holliday_counter, $additional_holliday_counter);
 
         // launch/execute and store feedback to returnValue
         $returnValue = $statement->execute();
@@ -1338,7 +1358,7 @@ class access {
 
         return $returnArray;
     }
-
+    // delete
     function removeEmpoyeeByEmail($email) {
 
         $sql = "DELETE from phonebook WHERE email='".$email."'";
@@ -1351,7 +1371,7 @@ class access {
         $returnValue = $statement->execute();
         return $returnValue;
     }
-
+    // delete
     function removeEmpoyeeByMobileNumber($mobile_number) {
         $sql = "DELETE from phonebook WHERE mobile_number='".$mobile_number."'";
         $statement = $this->conn->prepare($sql);
