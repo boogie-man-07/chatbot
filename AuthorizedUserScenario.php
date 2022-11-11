@@ -780,7 +780,7 @@ class AuthorizedUserScenario {
                 $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
                 $pollQuestionInfo = $this->access->getDmsPollQuestionInfo(1, $pollInfo['poll_state']);
                 $this->access->setState($this->chatID, $this->states['dmsPoolReplyWaitingState']);
-                $this->salaryRoute->triggerActionForAskDmsPollQuestion($this->chatID, $this->user['user_id'], $pollQuestionInfo, false, 0);
+                $this->salaryRoute->triggerActionForAskDmsPollQuestion($this->chatID, $this->user['user_id'], $pollQuestionInfo);
                 answerCallbackQuery($this->query["id"], "Вопрос загружен!");
                 exit;
             case $this->commands['sendDmsQuestionInline']:
@@ -822,8 +822,7 @@ class AuthorizedUserScenario {
                     case $this->states['dmsPoolReplyWaitingState']:
                         $cleanOption = substr($text, strpos($text, "*") + 1);
                         $selectedOption = strstr($cleanOption, '#', true);
-//                         $isShouldBeSelected = substr($text, strpos($text, "#") + 1) == "0" ? true : false;
-//                         $this->salaryRoute->triggerActionForSelectDmsPoolOption($this->chatID, $this->messageId, $isShouldBeSelected, $selectedOption);
+                        //$this->salaryRoute->triggerActionForSelectDmsPoolOption($this->chatID, $this->messageId, $isShouldBeSelected, $selectedOption);
                         sendMessage($this->chatID, $selectedOption, null);
                         exit;
                     default:
