@@ -111,22 +111,20 @@ foreach ($employeeList as $employeeValue) {
     $is_greenhouse_available = $employeeValue['company_id'] == 2 ? 1 : 0;
     $is_diall_available = $employeeValue['company_id'] == 3 ? 1 : 0;
 
-
-    // проверяем по GUID есть ли сотрудник в БД
     $userFromDbResult = $access->getUserByUserId($employeeValue['userId']);
 
     if ($userFromDbResult) {
         if ($employeeValue['activity'] == 1) {
             if (preg_match("/diall.ru/", strtolower($employeeValue['email'])) == 1 && $employeeValue['mobile_number'] != "" && $employeeValue['activity'] == 1) {
                 echo $employeeValue['userId'].", ".$employeeValue['fullname']." - активный сотрудник офиса, обновляем в БД<br>";
-                $access->updateEmployeeByEmail(
-                    $employeeValue['userId'],
+                $access->updateEmployeeByUserId(
                     $employeeValue['firstname'],
                     $employeeValue['lastname'],
                     $employeeValue['fullname'],
                     $employeeValue['form_fullname'],
                     $employeeValue['position'],
                     $employeeValue['form_position'],
+                    $employeeValue['email'],
                     $employeeValue['office_number'],
                     $employeeValue['internal_number'],
                     $employeeValue['mobile_number'],
@@ -140,20 +138,20 @@ foreach ($employeeList as $employeeValue) {
                     $employeeValue['boss_position'],
                     $employeeValue['main_holliday_counter'],
                     $employeeValue['additional_holliday_counter'],
-                    $employeeValue['email']
+                    $employeeValue['userId']
                 );
 
                 $logs->logUpload($employeeValue['email']." сотрудник офиса существует и в файле, и в БД, обновляем в БД", $employeeValue['email']);
             } else if (preg_match("/diall.ru/", strtolower($employeeValue['email'])) == 0 && $employeeValue['mobile_number'] != "" && $employeeValue['activity'] == 1) {
                 echo $employeeValue['userId'].", ".$employeeValue['fullname']." - активный рабочий, обновляем в БД<br>";
-                $access->updateEmployeeByMobileNumber(
-                    $employeeValue['userId'],
+                $access->updateEmployeeByUserId(
                     $employeeValue['firstname'],
                     $employeeValue['lastname'],
                     $employeeValue['fullname'],
                     $employeeValue['form_fullname'],
                     $employeeValue['position'],
                     $employeeValue['form_position'],
+                    $employeeValue['email'],
                     $employeeValue['office_number'],
                     $employeeValue['internal_number'],
                     $employeeValue['mobile_number'],
@@ -167,7 +165,7 @@ foreach ($employeeList as $employeeValue) {
                     $employeeValue['boss_position'],
                     $employeeValue['main_holliday_counter'],
                     $employeeValue['additional_holliday_counter'],
-                    $employeeValue['email']
+                    $employeeValue['userId']
                 );
 
                 $logs->logUpload($employeeValue['mobile_number']." рабочий существует в файле и существует в БД. Обновляем в БД по мобильному.", $employeeValue['mobile_number']);
