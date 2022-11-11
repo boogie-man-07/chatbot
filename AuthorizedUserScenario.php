@@ -820,7 +820,8 @@ class AuthorizedUserScenario {
                             exit;
                         }
                     case $this->states['dmsPoolReplyWaitingState']:
-                        $selectedOption = strstr(substr($text, strpos($text, "*") + 1), '#', true);
+                        $cleanOption = substr($text, strpos($text, "*") + 1);
+                        $selectedOption = strstr($cleanOption, '#', true);
 //                         $isShouldBeSelected = substr($text, strpos($text, "#") + 1) == "0" ? true : false;
 //                         $this->salaryRoute->triggerActionForSelectDmsPoolOption($this->chatID, $this->messageId, $isShouldBeSelected, $selectedOption);
                         sendMessage($this->chatID, $selectedOption, null);
