@@ -112,7 +112,6 @@ foreach ($employeeList as $employeeValue) {
     $userFromDbResult = $access->getUserByUserId($employeeValue['userId']);
 
     if ($userFromDbResult) {
-        echo $employeeValue['userId'].", ".$employeeValue['fullname']." - сотрудник существует и в файле, и в БД<br>";
         if ($employeeValue['activity'] == 1) {
             if (preg_match("/diall.ru/", strtolower($employeeValue['email'])) == 1 && $employeeValue['mobile_number'] != "" && $employeeValue['activity'] == 1) {
                 echo $employeeValue['userId'].", ".$employeeValue['fullname']." - активный сотрудник офиса, обновляем в БД<br>";
@@ -123,7 +122,6 @@ foreach ($employeeList as $employeeValue) {
             echo $employeeValue['userId'].", ".$employeeValue['fullname']." - сотрудник/рабочий не активен, удаляем из БД<br>";
         }
     } else {
-        echo $employeeValue['userId'].", ".$employeeValue['fullname']." - сотрудник существует в файле, но отсутствует в БД<br>";
         if ($employeeValue['activity'] == 1) {
             if (preg_match("/diall.ru/", strtolower($employeeValue['email'])) == 1 && $employeeValue['mobile_number'] != "" && $employeeValue['activity'] == 1) {
                 echo $employeeValue['userId'].", ".$employeeValue['fullname']." - активный новый сотрудник офиса, добавляем в БД<br>";
