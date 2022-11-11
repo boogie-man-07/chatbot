@@ -779,6 +779,7 @@ class AuthorizedUserScenario {
             case $this->commands['proceedDmsSurveyInline']:
                 $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
                 $pollQuestionInfo = $this->access->getDmsPollQuestionInfo(1, $pollInfo['poll_state']);
+                $this->access->setState($this->chatID, $this->states['dmsPoolReplyWaitingState']);
                 $this->salaryRoute->triggerActionForAskDmsPollQuestion($this->chatID, $pollQuestionInfo);
                 answerCallbackQuery($this->query["id"], "Вопрос загружен!");
                 exit;
@@ -818,6 +819,9 @@ class AuthorizedUserScenario {
                             $this->salaryRoute->triggerActionForSetPostponedVacationNewStartDate($this->chatID);
                             exit;
                         }
+                    case $this->states['dmsPoolReplyWaitingState']:
+                        sendMessage($this->chatID, json_encode($this->query), null);
+                        exit;
                     default:
                         sendMessage($this->chatID, "Default finished inline", null);
                         exit;

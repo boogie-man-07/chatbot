@@ -97,7 +97,8 @@
         "postponedSeparateVacationStartDateWaitingState": "waiting for postponed separate vacation startdate",
         "postponedSeparateVacationDurationWaitingState": "waiting for postponed separate vacation duration",
         "vacationFormSendingWaitingState": "waiting for vacation form sending",
-        "dmsQuestionWaitingState": "waiting for dms question"
+        "dmsQuestionWaitingState": "waiting for dms question",
+        "dmsPoolReplyWaitingState": "waiting for choose dms pool reply"
     },
 
     "constants": {
