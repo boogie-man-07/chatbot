@@ -1607,11 +1607,11 @@ class access {
             $returnValue = $statement->execute();
         } else {
             $responses = json_decode($pollQuestionData['reply_options'], true);
-            $responsesArray = array();
-            foreach($responses['options'] as $key=>$value) {
-                array_push($responsesArray, $value);
-            }
-            $createdResponses = json_encode(array('options' => $responsesArray));
+//             $responsesArray = array();
+//             foreach($responses['options'] as $key=>$value) {
+//                 array_push($responsesArray, $value);
+//             }
+            $createdResponses = json_encode(array('options' => $responses));
             $sql = "INSERT INTO polls_user_responses SET user_id = ?, poll_id = ?, question_id = ?, responses = ?, created = CURRENT_TIMESTAMP, updated = CURRENT_TIMESTAMP";
             $statement = $this->conn->prepare($sql);
 
