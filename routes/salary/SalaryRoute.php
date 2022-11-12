@@ -47,16 +47,16 @@ class SalaryRoute {
         sendMessage($chatID, $reply, $keyboard);
     }
 
-    function triggerActionForAskDmsPollQuestion($chatID, $userId, $pollQuestionInfo, $isSelected) {
-        $reply = $this->constants->getReplyForAskADmsPollQuestion($pollQuestionInfo);
-        $keyboard = $this->keyboards->getInlineKeyboardForAskADmsPollQuestion($userId, $pollQuestionInfo, $isSelected);
+    function triggerActionForAskDmsPollQuestion($chatID, $userId, $pollInfo, $pollQuestionInfo, $isSelected) {
+        $reply = $this->constants->getReplyForAskADmsPollQuestion($pollInfo, $pollQuestionInfo);
+        $keyboard = $this->keyboards->getInlineKeyboardForAskADmsPollQuestion($userId, $pollInfo, $pollQuestionInfo, $isSelected);
         sendMessage($chatID, $reply, $keyboard);
     }
 
-    function triggerActionForSelectDmsPollOption($chatID, $messageId, $userId, $pollQuestionInfo, $isSelected) {
-        $keyboard = $this->keyboards->getInlineKeyboardForAskADmsPollQuestion($userId, $pollQuestionInfo, $isSelected);
-        editMessageReplyMarkup($chatID, $messageId, $keyboard);
-    }
+//     function triggerActionForSelectDmsPollOption($chatID, $messageId, $userId, $pollQuestionInfo, $isSelected) {
+//         $keyboard = $this->keyboards->getInlineKeyboardForAskADmsPollQuestion($userId, $pollQuestionInfo, $isSelected);
+//         editMessageReplyMarkup($chatID, $messageId, $keyboard);
+//     }
 
     function triggerActionForAskADmsQuestion($chatID) {
         $reply = $this->constants->getReplyForAskADmsQuestion();
