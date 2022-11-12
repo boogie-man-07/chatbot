@@ -1567,7 +1567,7 @@ class access {
         if ($result != null && (mysqli_num_rows($result) >= 1 )) {
             $row = $result->fetch_array(MYSQLI_ASSOC);
             if (!empty($row)) {
-                $returnArray = $row;
+                array_push($returnArray, $row);
             }
         }
         return $returnArray;
