@@ -831,16 +831,15 @@ class AuthorizedUserScenario {
                         $pollQuestionInfo = $this->access->getDmsPollQuestionsInfo(1);
                         $isOptionSaved = $this->access->setSelectedDmsPollOption($this->user['user_id'], $pollInfo, $pollQuestionInfo, (int)$selectedOption);
                         if ($isOptionSaved) {
-                            $updatedResponseOptions = $this->access->getSelectedDmsPollOption($this->user['user_id'], $pollInfo, $pollQuestionInfo);
-                            sendMessage($this->chatID, json_encode($updatedResponseOptions), null);
+                            $updatedResponseOptions = $this->access->getDmsPollOptions($this->user['user_id'], $pollInfo, $pollQuestionInfo);
+//                             sendMessage($this->chatID, json_encode($updatedResponseOptions), null);
                             answerCallbackQuery($this->query["id"], "Выбран вариант ответа №$selectedOption");
-                            //$this->salaryRoute->triggerActionForSelectDmsPollOption($this->chatID, $this->messageId, $this->user['user_id'], $updatedResponseOptions, true);
+                            $this->salaryRoute->triggerActionForSelectDmsPollOption($this->chatID, $this->messageId, $this->user['user_id'], $pollInfo, $updatedResponseOptions, true);
                             exit;
                         } else {
                             answerCallbackQuery($this->query["id"], "Не удалось сохранить ответ на вопрос №$selectedOption. Попробуйте ответить еще раз!");
+                            exit;
                         }
-                        answerCallbackQuery($this->query["id"], "Тадаааа!");
-                        exit;
                     default:
                         sendMessage($this->chatID, "Default finished inline", null);
                         exit;
