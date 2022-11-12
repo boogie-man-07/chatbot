@@ -782,7 +782,7 @@ class AuthorizedUserScenario {
                 $this->access->setState($this->chatID, $this->states['dmsPoolReplyWaitingState'], true);
                 //$this->salaryRoute->triggerActionForAskDmsPollQuestion($this->chatID, $this->user['user_id'], $pollInfo, $pollQuestionInfo, false);
                 answerCallbackQuery($this->query["id"], "Вопрос загружен!");
-                sendMessage($this->chatID, $pollQuestionInfo[0]['question_text'], null);
+                sendMessage($this->chatID, (string)$pollQuestionInfo[0]['question_text'], null);
                 exit;
             case $this->commands['sendDmsQuestionInline']:
                 $questionInfo = $this->access->getDmsQuestionInfo($this->chatID);
