@@ -354,7 +354,7 @@ class constants {
     }
 
     function getReplyForAskADmsPollQuestion($pollInfo, $pollQuestionInfo) {
-        $id = $pollInfo['poll_state'] + 1;
+        $id = $pollInfo['poll_state'];
         return "Вопрос №".$pollQuestionInfo[$id]['question_id']."\n".$pollQuestionInfo[$id]['question_text'];
     }
 
