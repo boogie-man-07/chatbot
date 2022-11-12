@@ -823,7 +823,7 @@ class AuthorizedUserScenario {
                         $selectedOption = substr($text, strpos($text, "*") + 1);
                         $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
                         $pollQuestionInfo = $this->access->getDmsPollQuestionInfo(1, $pollInfo['poll_state']);
-                        //$this->access->setSelectedDmsPollOption($this->user['user_id'], $pollQuestionInfo, $selectedOption);
+                        $this->access->setSelectedDmsPollOption($this->user['user_id'], $selectedOption);
                         //$this->salaryRoute->triggerActionForSelectDmsPollOption($this->chatID, $this->messageId);
                         sendMessage($this->chatID, (string)$selectedOption, null);
                         answerCallbackQuery($this->query["id"], "Выбран вариант ответа №$selectedOption");
