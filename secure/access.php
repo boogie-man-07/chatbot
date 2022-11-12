@@ -1606,7 +1606,7 @@ class access {
             $statement->bind_param("ssii", $updatedResponses, $userId, $pollQuestionData['poll_id'], $pollQuestionData['question_id']);
             $returnValue = $statement->execute();
         } else {
-            $responses = json_encode($pollQuestionData['reply_options']);
+            $responses = json_decode($pollQuestionData['reply_options'], true);
             $createdResponses = array();
             foreach ($responses['options'] as $key=>$value) {
                 if ($value['id'] != $selectedOption) {
