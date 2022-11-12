@@ -1573,55 +1573,55 @@ class access {
         return $returnArray;
     }
 
-    function setSelectedDmsPollOption($userId, $pollInfo, $pollQuestionInfo, $selectedOption) {
-        $id = $pollInfo['poll_state'];
-        $sql = "SELECT * FROM polls_user_responses WHERE user_id='".$userId."' and poll_id='".$pollQuestionInfo[$id]['poll_id']."' and question_id='".$pollQuestionInfo[$id]['question_id']."'";
-        $result = $this->conn->query($sql);
-        if ($result != null && (mysqli_num_rows($result) >= 1 )) {
-            $row = $result->fetch_array(MYSQLI_ASSOC);
-            if (!empty($row)) {
-                $returnArray = $row;
-            }
-            $responses = json_decode($returnArray['responses'], true);
-            $updatedResponsesList = array();
-            foreach ($responses['options'] as $key=>$value) {
-                if ($value['id'] != $selectedOption) {
-                    array_push($updatedResponsesList, $value);
-                } else if ($value['id'] == $selectedOption) {
-                    array_push($updatedResponsesList, array(
-                        'id' => $value['id'],
-                        'title' => $value['title'],
-                        'isSelected' => !$value['isSelected']
-                    ));
-                }
-            };
-            $updatedResponses = json_encode(array('options' => $updatedResponsesList));
-            $sql = "UPDATE polls_user_responses SET responses = ?, updated = CURRENT_TIMESTAMP where user_id = ? and poll_id = ? and question_id = ?";
-            $statement = $this->conn->prepare($sql);
-
-            if (!$statement) {
-                throw new Exception($statement->error);
-            }
-            $statement->bind_param("ssii", $updatedResponses, $userId, $pollQuestionInfo[$id]['poll_id'], $pollQuestionInfo[$id]['question_id']);
-            $returnValue = $statement->execute();
-        } else {
-            $responses = json_decode($pollQuestionInfo[$id]['reply_options']), true);
-            $responsesArray = array();
-            foreach($responses['options'] as $key=>$value) {
-                array_push($responsesArray, $value);
-            }
-            $createdResponses = json_encode(array('options' => $responsesArray));
-            $sql = "INSERT INTO polls_user_responses SET user_id = ?, poll_id = ?, question_id = ?, responses = ?, created = CURRENT_TIMESTAMP, updated = CURRENT_TIMESTAMP";
-            $statement = $this->conn->prepare($sql);
-
-            if (!$statement) {
-                throw new Exception($statement->error);
-            }
-            $statement->bind_param("siis", $userId, $pollQuestionInfo[$id]['poll_id'], $pollQuestionInfo[$id]['question_id'], $createdResponses);
-            $returnValue = $statement->execute();
-        }
-        return $returnValue;
-    }
+//     function setSelectedDmsPollOption($userId, $pollInfo, $pollQuestionInfo, $selectedOption) {
+//         $id = $pollInfo['poll_state'];
+//         $sql = "SELECT * FROM polls_user_responses WHERE user_id='".$userId."' and poll_id='".$pollQuestionInfo[$id]['poll_id']."' and question_id='".$pollQuestionInfo[$id]['question_id']."'";
+//         $result = $this->conn->query($sql);
+//         if ($result != null && (mysqli_num_rows($result) >= 1 )) {
+//             $row = $result->fetch_array(MYSQLI_ASSOC);
+//             if (!empty($row)) {
+//                 $returnArray = $row;
+//             }
+//             $responses = json_decode($returnArray['responses'], true);
+//             $updatedResponsesList = array();
+//             foreach ($responses['options'] as $key=>$value) {
+//                 if ($value['id'] != $selectedOption) {
+//                     array_push($updatedResponsesList, $value);
+//                 } else if ($value['id'] == $selectedOption) {
+//                     array_push($updatedResponsesList, array(
+//                         'id' => $value['id'],
+//                         'title' => $value['title'],
+//                         'isSelected' => !$value['isSelected']
+//                     ));
+//                 }
+//             };
+//             $updatedResponses = json_encode(array('options' => $updatedResponsesList));
+//             $sql = "UPDATE polls_user_responses SET responses = ?, updated = CURRENT_TIMESTAMP where user_id = ? and poll_id = ? and question_id = ?";
+//             $statement = $this->conn->prepare($sql);
+//
+//             if (!$statement) {
+//                 throw new Exception($statement->error);
+//             }
+//             $statement->bind_param("ssii", $updatedResponses, $userId, $pollQuestionInfo[$id]['poll_id'], $pollQuestionInfo[$id]['question_id']);
+//             $returnValue = $statement->execute();
+//         } else {
+//             $responses = json_decode($pollQuestionInfo[$id]['reply_options']), true);
+//             $responsesArray = array();
+//             foreach($responses['options'] as $key=>$value) {
+//                 array_push($responsesArray, $value);
+//             }
+//             $createdResponses = json_encode(array('options' => $responsesArray));
+//             $sql = "INSERT INTO polls_user_responses SET user_id = ?, poll_id = ?, question_id = ?, responses = ?, created = CURRENT_TIMESTAMP, updated = CURRENT_TIMESTAMP";
+//             $statement = $this->conn->prepare($sql);
+//
+//             if (!$statement) {
+//                 throw new Exception($statement->error);
+//             }
+//             $statement->bind_param("siis", $userId, $pollQuestionInfo[$id]['poll_id'], $pollQuestionInfo[$id]['question_id'], $createdResponses);
+//             $returnValue = $statement->execute();
+//         }
+//         return $returnValue;
+//     }
 
     function getSelectedDmsPollOption($userId, $pollQuestionInfo) {
         $returnArray = array();
