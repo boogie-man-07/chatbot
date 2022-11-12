@@ -832,7 +832,7 @@ class AuthorizedUserScenario {
 //                         } else {
 //                             answerCallbackQuery($this->query["id"], "Не удалось сохранить ответ на вопрос №$selectedOption. Попробуйте ответить еще раз!");
 //                         }
-                        sendMessage($this->chatID, json_encode($pollQuestionInfo), null);
+                        sendMessage($this->chatID, $pollQuestionInfo, null);
                         answerCallbackQuery($this->query["id"], "Тадаааа!");
                         exit;
                     default:
