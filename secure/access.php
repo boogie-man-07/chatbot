@@ -1578,8 +1578,12 @@ class access {
         $sql = "SELECT * FROM polls_user_responses WHERE user_id='".$userId."' and poll_id='".$pollQuestionInfo['poll_id']."' and question_id='".$pollQuestionInfo['question_id']."'";
         $result = $this->conn->query($sql);
         if ($result != null && (mysqli_num_rows($result) >= 1 )) {
+            $row = $result->fetch_array(MYSQLI_ASSOC);
+            if (!empty($row)) {
+                $returnArray = $row;
+            }
             // todo change responses object
-            $responses = json_decode($result['responses'], true);
+            $responses = json_decode($returnArray['responses'], true);
             $updatedResponsesList = array();
             foreach ($responses['options'] as $key=>$value) {
                 if ($value['id'] != $selectedOption) {
