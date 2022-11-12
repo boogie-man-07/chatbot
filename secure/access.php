@@ -1573,8 +1573,9 @@ class access {
         return $returnArray;
     }
 
-    function setSelectedDmsPollOption($userId, $pollQuestionInfo, $selectedOption) {
-        $sql = "SELECT * FROM polls_user_responses WHERE user_id='".$userId."' and poll_id='".$pollQuestionInfo['poll_id']."' and question_id='".$pollQuestionInfo['question_id']."'";
+    function setSelectedDmsPollOption($userId, $pollInfo, $pollQuestionInfo, $selectedOption) {
+        $id = $pollInfo['poll_state'];
+        $sql = "SELECT * FROM polls_user_responses WHERE user_id='".$userId."' and poll_id='".$pollQuestionInfo[$id]['poll_id']."' and question_id='".$pollQuestionInfo[$id]['question_id']."'";
         $result = $this->conn->query($sql);
         if ($result != null && (mysqli_num_rows($result) >= 1 )) {
             $row = $result->fetch_array(MYSQLI_ASSOC);
@@ -1601,10 +1602,10 @@ class access {
             if (!$statement) {
                 throw new Exception($statement->error);
             }
-            $statement->bind_param("ssii", $updatedResponses, $userId, $pollQuestionInfo['poll_id'], $pollQuestionInfo['question_id']);
+            $statement->bind_param("ssii", $updatedResponses, $userId, $pollQuestionInfo[$id]['poll_id'], $pollQuestionInfo[$id]['question_id']);
             $returnValue = $statement->execute();
         } else {
-            $responses = json_decode($pollQuestionInfo['reply_options'], true);
+            $responses = json_decode($pollQuestionInfo[$id]['reply_options'], true);
             $createdResponses = json_encode(array('options' => $responses['options']));
             $sql = "INSERT INTO polls_user_responses SET user_id = ?, poll_id = ?, question_id = ?, responses = ?, created = CURRENT_TIMESTAMP, updated = CURRENT_TIMESTAMP";
             $statement = $this->conn->prepare($sql);
@@ -1612,7 +1613,7 @@ class access {
             if (!$statement) {
                 throw new Exception($statement->error);
             }
-            $statement->bind_param("siis", $userId, $pollQuestionInfo['poll_id'], $pollQuestionInfo['question_id'], $createdResponses);
+            $statement->bind_param("siis", $userId, $pollQuestionInfo[$id]['poll_id'], $pollQuestionInfo[$id]['question_id'], $createdResponses);
             $returnValue = $statement->execute();
         }
         return $returnValue;
