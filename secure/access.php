@@ -1602,7 +1602,7 @@ class access {
             }
             $statement->bind_param("sii", $userId, $pollQuestionInfo['poll_id'], $pollQuestionInfo['question_id']);
             $returnValue = $statement->execute();
-        } else {
+        } /*else {
             // todo create new responses object
             $sql = "INSERT INTO polls_user_responses SET user_id = ?, poll_id = ?, question_id = ?, responses = $createdResponses, created = CURRENT_TIMESTAMP, updated = CURRENT_TIMESTAMP";
             $statement = $this->conn->prepare($sql);
@@ -1612,7 +1612,7 @@ class access {
             }
             $statement->bind_param("sii", $userId, $pollQuestionInfo['poll_id'], $pollQuestionInfo['question_id']);
             $returnValue = $statement->execute();
-        }
+        }*/
         return $returnValue;
     }
 }
