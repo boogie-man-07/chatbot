@@ -810,6 +810,12 @@ class AuthorizedUserScenario {
                     $this->commonmistakeroute->triggerErrorForSendFeedback();
                     exit;
                 }
+            case $this->commands['nextDmsPollOptionInline']:
+                sendMessage($this->chatID, "nextDmsPollOptionInline", null);
+                exit;
+            case $this->commands['finishDmsPollInline']:
+                sendMessage($this->chatID, "finishDmsPollInline", null);
+                exit;
             default:
                 switch ($this->state) {
                     case $this->states['postponedVacationChooseVacationState']:
@@ -827,7 +833,7 @@ class AuthorizedUserScenario {
                         if ($isOptionSaved) {
                             $updatedResponseOptions = $this->access->getSelectedDmsPollOption($this->user['user_id'], $pollQuestionInfo);
                             answerCallbackQuery($this->query["id"], "Выбран вариант ответа №$selectedOption");
-                            //$this->salaryRoute->triggerActionForSelectDmsPollOption($this->chatID, $this->messageId, $this->user['user_id'], $updatedResponseOptions, true);
+                            $this->salaryRoute->triggerActionForSelectDmsPollOption($this->chatID, $this->messageId, $this->user['user_id'], $updatedResponseOptions, true);
                             exit;
                         } else {
                             answerCallbackQuery($this->query["id"], "Не удалось сохранить ответ на вопрос №$selectedOption. Попробуйте ответить еще раз!");
