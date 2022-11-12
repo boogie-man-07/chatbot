@@ -1606,11 +1606,12 @@ class access {
             $statement->bind_param("ssii", $updatedResponses, $userId, $pollQuestionData['poll_id'], $pollQuestionData['question_id']);
             $returnValue = $statement->execute();
         } else {
-            $responses = json_decode($pollQuestionData['reply_options'], true);
+//             $responses = json_decode($pollQuestionData['reply_options'], true);
 //             $responsesArray = array();
 //             foreach($responses['options'] as $key=>$value) {
 //                 array_push($responsesArray, $value);
 //             }
+            $responses = $pollQuestionData['reply_options'];
             $createdResponses = json_encode(array('options' => $responses));
             $sql = "INSERT INTO polls_user_responses SET user_id = ?, poll_id = ?, question_id = ?, responses = ?, created = CURRENT_TIMESTAMP, updated = CURRENT_TIMESTAMP";
             $statement = $this->conn->prepare($sql);
