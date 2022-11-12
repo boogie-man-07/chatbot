@@ -1574,6 +1574,7 @@ class access {
     }
 
     function setSelectedDmsPollOption($userId, $pollInfo, $pollQuestionInfo, $selectedOption) {
+        $returnArray = array();
         $id = $pollInfo['poll_state'];
         $pollQuestionData = $pollQuestionInfo[$id];
         $sql = "SELECT * FROM polls_user_responses WHERE user_id='".$userId."' and poll_id='".$pollQuestionData['poll_id']."' and question_id='".$pollQuestionData['question_id']."'";
@@ -1583,9 +1584,9 @@ class access {
             if (!empty($row)) {
                 $returnArray = $row;
             }
-            $responses = json_decode($returnArray['responses']['options'], true);
+            $responses = json_decode($returnArray['responses'], true);
             $updatedResponsesList = array();
-            foreach ($responses as $key=>$value) {
+            foreach ($responses['options'] as $key=>$value) {
                 if ($value['id'] != $selectedOption) {
                     array_push($updatedResponsesList, $value);
                 } else if ($value['id'] == $selectedOption) {
