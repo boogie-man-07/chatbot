@@ -1584,17 +1584,17 @@ class access {
             }
             $responses = json_decode($returnArray['responses'], true);
             $updatedResponsesList = array();
-//             foreach ($responses['options'] as $key=>$value) {
-//                 if ($value['id'] != $selectedOption) {
-//                     array_push($updatedResponsesList, $value);
-//                 } else if ($value['id'] == $selectedOption) {
-//                     array_push($updatedResponsesList, array(
-//                         'id' => $value['id'],
-//                         'title' => $value['title'],
-//                         'isSelected' => !$value['isSelected']
-//                     ));
-//                 }
-//             });
+            foreach ($responses['options'] as $key=>$value) {
+                if ($value['id'] != $selectedOption) {
+                    array_push($updatedResponsesList, $value);
+                } else if ($value['id'] == $selectedOption) {
+                    array_push($updatedResponsesList, array(
+                        'id' => $value['id'],
+                        'title' => $value['title'],
+                        'isSelected' => !$value['isSelected']
+                    ));
+                }
+            });
 //             $updatedResponses = json_encode(array('options' => $updatedResponsesList));
 //             $sql = "UPDATE polls_user_responses SET responses = $updatedResponses, updated = CURRENT_TIMESTAMP where user_id = ? and poll_id = ? and question_id = ?";
 //             $statement = $this->conn->prepare($sql);
