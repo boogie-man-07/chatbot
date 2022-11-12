@@ -1611,7 +1611,7 @@ class access {
 //             foreach($responses['reply_options']['options'] as $key=>$value) {
 //                 array_push($responsesArray, $value);
 //             }
-            $createdResponses = json_encode(array('options' => $pollQuestionData['reply_options']));
+            $createdResponses = json_encode(array('options' => $pollQuestionData['reply_options']['options']));
             $sql = "INSERT INTO polls_user_responses SET user_id = ?, poll_id = ?, question_id = ?, responses = ?, created = CURRENT_TIMESTAMP, updated = CURRENT_TIMESTAMP";
             $statement = $this->conn->prepare($sql);
 
