@@ -1582,8 +1582,8 @@ class access {
             if (!empty($row)) {
                 $returnArray = $row;
             }
-//             $responses = json_decode($returnArray['responses'], true);
-//             $updatedResponsesList = array();
+            $responses = json_decode($returnArray['responses'], true);
+            $updatedResponsesList = array();
 //             foreach ($responses['options'] as $key=>$value) {
 //                 if ($value['id'] != $selectedOption) {
 //                     array_push($updatedResponsesList, $value);
