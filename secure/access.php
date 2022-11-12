@@ -1582,30 +1582,28 @@ class access {
             if (!empty($row)) {
                 $returnArray = $row;
             }
-            // todo change responses object
-            $responses = json_decode($returnArray['responses'], true);
-            $updatedResponsesList = array();
-            foreach ($responses['options'] as $key=>$value) {
-                if ($value['id'] != $selectedOption) {
-                    array_push($updatedResponsesList, $value);
-                } else if ($value['id'] == $selectedOption) {
-                    array_push($updatedResponsesList, array(
-                        'id' => $value['id'],
-                        'title' => $value['title'],
-                        'isSelected' => !$value['isSelected']
-                    ));
-                }
-            });
-            $updatedResponses = json_encode(array('options' => $updatedResponsesList));
-            //
-            $sql = "UPDATE polls_user_responses SET responses = $updatedResponses, updated = CURRENT_TIMESTAMP where user_id = ? and poll_id = ? and question_id = ?";
-            $statement = $this->conn->prepare($sql);
-
-            if (!$statement) {
-                throw new Exception($statement->error);
-            }
-            $statement->bind_param("sii", $userId, $pollQuestionInfo['poll_id'], $pollQuestionInfo['question_id']);
-            $returnValue = $statement->execute();
+//             $responses = json_decode($returnArray['responses'], true);
+//             $updatedResponsesList = array();
+//             foreach ($responses['options'] as $key=>$value) {
+//                 if ($value['id'] != $selectedOption) {
+//                     array_push($updatedResponsesList, $value);
+//                 } else if ($value['id'] == $selectedOption) {
+//                     array_push($updatedResponsesList, array(
+//                         'id' => $value['id'],
+//                         'title' => $value['title'],
+//                         'isSelected' => !$value['isSelected']
+//                     ));
+//                 }
+//             });
+//             $updatedResponses = json_encode(array('options' => $updatedResponsesList));
+//             $sql = "UPDATE polls_user_responses SET responses = $updatedResponses, updated = CURRENT_TIMESTAMP where user_id = ? and poll_id = ? and question_id = ?";
+//             $statement = $this->conn->prepare($sql);
+//
+//             if (!$statement) {
+//                 throw new Exception($statement->error);
+//             }
+//             $statement->bind_param("sii", $userId, $pollQuestionInfo['poll_id'], $pollQuestionInfo['question_id']);
+//             $returnValue = $statement->execute();
         } /*else {
             // todo create new responses object
             $sql = "INSERT INTO polls_user_responses SET user_id = ?, poll_id = ?, question_id = ?, responses = $createdResponses, created = CURRENT_TIMESTAMP, updated = CURRENT_TIMESTAMP";
@@ -1617,6 +1615,6 @@ class access {
             $statement->bind_param("sii", $userId, $pollQuestionInfo['poll_id'], $pollQuestionInfo['question_id']);
             $returnValue = $statement->execute();
         }*/
-        return $returnValue;
+//         return $returnValue;
     }
 }
