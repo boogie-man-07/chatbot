@@ -823,11 +823,15 @@ class AuthorizedUserScenario {
                         $selectedOption = substr($text, strpos($text, "*") + 1);
                         $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
                         $pollQuestionInfo = $this->access->getDmsPollQuestionInfo(1, $pollInfo['poll_state']);
-                        $this->access->setSelectedDmsPollOption($this->user['user_id'], $pollQuestionInfo, (int)$selectedOption);
-                        //$this->salaryRoute->triggerActionForSelectDmsPollOption($this->chatID, $this->messageId);
-                        sendMessage($this->chatID, (string)$selectedOption, null);
-                        answerCallbackQuery($this->query["id"], "Выбран вариант ответа №$selectedOption");
-                        exit;
+                        $isOptionSaved = $this->access->setSelectedDmsPollOption($this->user['user_id'], $pollQuestionInfo, (int)$selectedOption);
+                        if ($isOptionSaved) {
+                            $updatedResponseOptions = $this->access->getSelectedDmsPollOption($this->user['user_id'], $pollQuestionInfo);
+                            answerCallbackQuery($this->query["id"], "Выбран вариант ответа №$selectedOption");
+                            //$this->salaryRoute->triggerActionForSelectDmsPollOption($this->chatID, $this->messageId, $this->user['user_id'], $updatedResponseOptions);
+                            exit;
+                        } else {
+
+                        }
                     default:
                         sendMessage($this->chatID, "Default finished inline", null);
                         exit;
