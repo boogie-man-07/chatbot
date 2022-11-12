@@ -1603,7 +1603,7 @@ class access {
                 throw new Exception($statement->error);
             }
             $statement->bind_param("ssii", $updatedResponses, $userId, $pollQuestionInfo['poll_id'], $pollQuestionInfo['question_id']);
-            $statement->execute();
+            $returnValue = $statement->execute();
         } else {
             $responses = json_decode($pollQuestionInfo['reply_options'], true);
             $createdResponses = json_encode(array('options' => $responses['options']));
@@ -1616,6 +1616,19 @@ class access {
             $statement->bind_param("siis", $userId, $pollQuestionInfo['poll_id'], $pollQuestionInfo['question_id'], $createdResponses);
             $returnValue = $statement->execute();
         }
-//         return $returnValue;
+        return $returnValue;
+    }
+
+    function getSelectedDmsPollOption($userId, $pollQuestionInfo) {
+        $returnArray = array();
+        $sql = "SELECT * from polls_user_responses WHERE poll_id = '".$pollQuestionInfo['poll_id']."' and question_id = '".$pollQuestionInfo['question_id']."'";
+        $result = $this->conn->query($sql);
+        if ($result != null && (mysqli_num_rows($result) >= 1 )) {
+            $row = $result->fetch_array(MYSQLI_ASSOC);
+            if (!empty($row)) {
+                $returnArray = $row;
+            }
+        }
+        return $returnArray;
     }
 }
