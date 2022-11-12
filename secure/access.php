@@ -1583,9 +1583,9 @@ class access {
             if (!empty($row)) {
                 $returnArray = $row;
             }
-            $responses = json_decode($returnArray, true);
+            //$responses = json_decode($returnArray, true);
             $updatedResponsesList = array();
-            foreach ($responses['responses']['options'] as $key=>$value) {
+            foreach ($returnArray['responses']['options'] as $key=>$value) {
                 if ($value['id'] != $selectedOption) {
                     array_push($updatedResponsesList, $value);
                 } else if ($value['id'] == $selectedOption) {
@@ -1606,12 +1606,12 @@ class access {
             $statement->bind_param("ssii", $updatedResponses, $userId, $pollQuestionData['poll_id'], $pollQuestionData['question_id']);
             $returnValue = $statement->execute();
         } else {
-            $responses = json_decode($pollQuestionData, true);
+//             $responses = json_decode($pollQuestionData, true);
 //             $responsesArray = array();
 //             foreach($responses['reply_options']['options'] as $key=>$value) {
 //                 array_push($responsesArray, $value);
 //             }
-            $createdResponses = json_encode(array('options' => $responses['reply_options']));
+            $createdResponses = json_encode(array('options' => $pollQuestionData['reply_options']));
             $sql = "INSERT INTO polls_user_responses SET user_id = ?, poll_id = ?, question_id = ?, responses = ?, created = CURRENT_TIMESTAMP, updated = CURRENT_TIMESTAMP";
             $statement = $this->conn->prepare($sql);
 
