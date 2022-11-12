@@ -1606,7 +1606,7 @@ class access {
             $statement->execute();
         } else {
             $responses = json_decode($pollQuestionInfo['reply_options'], true);
-            $createdResponses = json_encode($responses['options']);
+            $createdResponses = json_encode(array('options' => $responses['options']));
             $sql = "INSERT INTO polls_user_responses SET user_id = ?, poll_id = ?, question_id = ?, responses = ?, created = CURRENT_TIMESTAMP, updated = CURRENT_TIMESTAMP";
             $statement = $this->conn->prepare($sql);
 
