@@ -1633,7 +1633,7 @@ class access {
         return $returnValue;
     }
 
-    function getSelectedDmsPollOption($userId, $pollInfo, $pollQuestionInfo) {
+    function getDmsPollOptions($userId, $pollInfo, $pollQuestionInfo) {
         $returnArray = array();
         $id = $pollInfo['poll_state'];
         $pollQuestionData = $pollQuestionInfo[$id];
@@ -1642,7 +1642,7 @@ class access {
         if ($result != null && (mysqli_num_rows($result) >= 1 )) {
             $row = $result->fetch_array(MYSQLI_ASSOC);
             if (!empty($row)) {
-                $returnArray = $row;
+                array_push($returnArray, $row);
             }
         }
         return $returnArray;
