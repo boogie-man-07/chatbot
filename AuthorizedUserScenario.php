@@ -831,7 +831,7 @@ class AuthorizedUserScenario {
                         $pollQuestionInfo = $this->access->getDmsPollQuestionsInfo(1);
                         $isOptionSaved = $this->access->setSelectedDmsPollOption($this->user['user_id'], $pollInfo, $pollQuestionInfo, (int)$selectedOption);
                         if ($isOptionSaved) {
-                            $updatedResponseOptions = $this->access->getSelectedDmsPollOption($this->user['user_id'], $pollQuestionInfo);
+                            $updatedResponseOptions = $this->access->getSelectedDmsPollOption($this->user['user_id'], $pollInfo, $pollQuestionInfo);
                             answerCallbackQuery($this->query["id"], "Выбран вариант ответа №$selectedOption");
                             $this->salaryRoute->triggerActionForSelectDmsPollOption($this->chatID, $this->messageId, $this->user['user_id'], $updatedResponseOptions, true);
                             exit;
