@@ -830,7 +830,7 @@ class AuthorizedUserScenario {
                             //$this->salaryRoute->triggerActionForSelectDmsPollOption($this->chatID, $this->messageId, $this->user['user_id'], $updatedResponseOptions);
                             exit;
                         } else {
-
+                            answerCallbackQuery($this->query["id"], "Не удалось сохранить ответ на вопрос №$selectedOption. Попробуйте ответить еще раз!");
                         }
                     default:
                         sendMessage($this->chatID, "Default finished inline", null);
