@@ -1596,13 +1596,13 @@ class access {
                 }
             };
             $updatedResponses = json_encode(array('options' => $updatedResponsesList));
-            $sql = "UPDATE polls_user_responses SET responses = $updatedResponses, updated = CURRENT_TIMESTAMP where user_id = ? and poll_id = ? and question_id = ?";
+            $sql = "UPDATE polls_user_responses SET responses = ?, updated = CURRENT_TIMESTAMP where user_id = ? and poll_id = ? and question_id = ?";
             $statement = $this->conn->prepare($sql);
 
             if (!$statement) {
                 throw new Exception($statement->error);
             }
-            $statement->bind_param("sii", $userId, $pollQuestionInfo['poll_id'], $pollQuestionInfo['question_id']);
+            $statement->bind_param("ssii", $updatedResponses, $userId, $pollQuestionInfo['poll_id'], $pollQuestionInfo['question_id']);
             $statement->execute();
         } /*else {
             // todo create new responses object
