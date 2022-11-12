@@ -522,8 +522,8 @@ class keyboards {
         $replyList = array();
         $id = $pollInfo['poll_state'];
         $options = json_decode(($isSelected ? $pollQuestionInfo[$id]['responses'] : $pollQuestionInfo[$id]['reply_options']), true);
-        $nextButtonText = $pollQuestionInfo[$id]['question_id'] >= count($pollQuestionInfo) ? "Завершить" : "Продолжить";
-        $nextButtonCallbackData =  $pollQuestionInfo[$id]['question_id'] >= count($pollQuestionInfo) ? 'finishDmsPoll' : 'nextDmsPollOption';
+        $nextButtonText = $pollQuestionInfo[$id]['question_id'] >= array_count_values(array_column($pollQuestionInfo, 'question_id')) ? "Завершить" : "Продолжить";
+        $nextButtonCallbackData =  $pollQuestionInfo[$id]['question_id'] >= array_count_values(array_column($pollQuestionInfo, 'question_id')) ? 'finishDmsPoll' : 'nextDmsPollOption';
         foreach($options['options'] as $key=>$value) {
             $itemTitle = $value['isSelected'] ? $value['title']." ".hex2bin('E29C85') : $value['title'];
             $callbackData = $userId."_".$pollQuestionInfo[$id]['poll_id'].$pollQuestionInfo[$id]['question_id']."*".$value['id'];
