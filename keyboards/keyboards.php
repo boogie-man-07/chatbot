@@ -518,9 +518,9 @@ class keyboards {
         ));
     }
 
-    function getInlineKeyboardForAskADmsPollQuestion($userId, $pollQuestionInfo) {
+    function getInlineKeyboardForAskADmsPollQuestion($userId, $pollQuestionInfo, $isSelected) {
         $replyList = array();
-        $options = json_decode($pollQuestionInfo['reply_options'], true);
+        $options = json_decode(($isSelected ? $pollQuestionInfo['responses'] : $pollQuestionInfo['reply_options']), true);
         $nextButtonText = $pollQuestionInfo['question_id'] >= count($options['options']) ? "Продолжить" : "Завершить";
         foreach($options['options'] as $key=>$value) {
             $itemTitle = $value['isSelected'] == true ? hex2bin('f09f9982')." ".$value['title'] : $value['title'];
