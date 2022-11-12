@@ -823,7 +823,7 @@ class AuthorizedUserScenario {
                         $selectedOption = substr($text, strpos($text, "*") + 1);
                         $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
                         $pollQuestionInfo = $this->access->getDmsPollQuestionInfo(1);
-                        $isOptionSaved = $this->access->setSelectedDmsPollOption($this->user['user_id'], $pollInfo, $pollQuestionInfo, (int)$selectedOption);
+//                         $isOptionSaved = $this->access->setSelectedDmsPollOption($this->user['user_id'], $pollInfo, $pollQuestionInfo, (int)$selectedOption);
 //                         if ($isOptionSaved) {
 //                             $updatedResponseOptions = $this->access->getSelectedDmsPollOption($this->user['user_id'], $pollQuestionInfo);
 //                             answerCallbackQuery($this->query["id"], "Выбран вариант ответа №$selectedOption");
@@ -832,7 +832,7 @@ class AuthorizedUserScenario {
 //                         } else {
 //                             answerCallbackQuery($this->query["id"], "Не удалось сохранить ответ на вопрос №$selectedOption. Попробуйте ответить еще раз!");
 //                         }
-                        //sendMessage($this->chatID, json_encode($pollQuestionInfo), null);
+                        sendMessage($this->chatID, json_encode($pollQuestionInfo), null);
                         answerCallbackQuery($this->query["id"], "Тадаааа!");
                         exit;
                     default:
