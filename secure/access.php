@@ -1604,17 +1604,18 @@ class access {
             }
             $statement->bind_param("ssii", $updatedResponses, $userId, $pollQuestionInfo['poll_id'], $pollQuestionInfo['question_id']);
             $statement->execute();
-        } /*else {
-            // todo create new responses object
-            $sql = "INSERT INTO polls_user_responses SET user_id = ?, poll_id = ?, question_id = ?, responses = $createdResponses, created = CURRENT_TIMESTAMP, updated = CURRENT_TIMESTAMP";
+        } else {
+            $responses = json_decode($pollQuestionInfo['reply_options'], true);
+            $createdResponses = $responses['options'];
+            $sql = "INSERT INTO polls_user_responses SET user_id = ?, poll_id = ?, question_id = ?, responses = ?, created = CURRENT_TIMESTAMP, updated = CURRENT_TIMESTAMP";
             $statement = $this->conn->prepare($sql);
 
             if (!$statement) {
                 throw new Exception($statement->error);
             }
-            $statement->bind_param("sii", $userId, $pollQuestionInfo['poll_id'], $pollQuestionInfo['question_id']);
+            $statement->bind_param("siis", $userId, $pollQuestionInfo['poll_id'], $pollQuestionInfo['question_id'], $createdResponses);
             $returnValue = $statement->execute();
-        }*/
+        }
 //         return $returnValue;
     }
 }
