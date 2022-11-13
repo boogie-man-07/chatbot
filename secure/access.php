@@ -1560,6 +1560,26 @@ class access {
         return $returnValue;
     }
 
+    function resetPollOptionState($userId, $pollInfo, $pollQuestionInfo) {
+        $id = $pollInfo['poll_state'];
+        $pollQuestionData = $pollQuestionInfo[$id];
+        $sql = "SELECT * FROM polls_user_responses WHERE user_id='".$userId."' and poll_id='".$pollQuestionData['poll_id']."' and question_id='".$pollQuestionData['question_id']."'";
+        $responses = json_decode($pollQuestionData['reply_options'], true);
+        $createdResponsesList = array();
+        foreach ($responses['options'] as $key=>$value) {
+            array_push($createdResponsesList, $value);
+        }
+        $createdResponses = json_encode(array('options' => $createdResponsesList));
+        $sql = "UPDATE polls_user_responses SET responses = ?, updated = CURRENT_TIMESTAMP where user_id = ? and poll_id = ? and question_id = ?";
+        $statement = $this->conn->prepare($sql);
+
+        if (!$statement) {
+            throw new Exception($statement->error);
+        }
+        $statement->bind_param("ssii", $createdResponses, $userId, $pollQuestionData['poll_id'], $pollQuestionData['question_id']);
+        $returnValue = $statement->execute();
+    }
+
     function getDmsPollQuestionsInfo($pollId) {
         $returnArray = array();
         $sql = "SELECT * from polls_reply_options WHERE poll_id = $pollId";
