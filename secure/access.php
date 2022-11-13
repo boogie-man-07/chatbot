@@ -1669,7 +1669,7 @@ class access {
     }
 
     function increaseUserDmsPollState($userId, $pollInfo) {
-        $sql = "INSERT INTO polls_user_data SET poll_state = ? where poll_id = ? and user_id = ?";
+        $sql = "UPDATE polls_user_data SET poll_state = ? where poll_id = ? and user_id = ?";
         $statement = $this->conn->prepare($sql);
 
         if (!$statement) {
