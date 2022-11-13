@@ -814,12 +814,6 @@ class AuthorizedUserScenario {
                     $this->commonmistakeroute->triggerErrorForSendFeedback();
                     exit;
                 }
-            case $this->commands['nextDmsPollOptionInline']:
-                sendMessage($this->chatID, "nextDmsPollOptionInline", null);
-                exit;
-            case $this->commands['finishDmsPollInline']:
-                sendMessage($this->chatID, "finishDmsPollInline", null);
-                exit;
             default:
                 switch ($this->state) {
                     case $this->states['postponedVacationChooseVacationState']:
@@ -834,7 +828,15 @@ class AuthorizedUserScenario {
                         $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
                         $pollQuestionInfo = $this->access->getDmsPollQuestionsInfo(1);
 
-                        sendMessage($this->chatID, json_encode($this->query), null); exit;
+                        if ($text == $this->commands['nextDmsPollOptionInline']) {
+                            sendMessage($this->chatID, "nextDmsPollOptionInline scenario", null);
+                            exit;
+                        }
+
+                        if ($text == $this->commands['finishDmsPollInline']) {
+                            sendMessage($this->chatID, "finishDmsPollInline scenario", null);
+                            exit;
+                        }
 
                         $isOptionSaved = $this->access->setSelectedDmsPollOption($this->user['user_id'], $pollInfo, $pollQuestionInfo, (int)$selectedOption);
                         if ($isOptionSaved) {
