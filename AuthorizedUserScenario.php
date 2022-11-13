@@ -779,6 +779,9 @@ class AuthorizedUserScenario {
             case $this->commands['proceedDmsSurveyInline']:
                 $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
                 $pollQuestionInfo = $this->access->getDmsPollQuestionsInfo(1);
+                if($pollInfo['poll_state'] == 0) {
+                    $this->access->resetPollOptionState($this->user['user_id'], $pollInfo, $pollQuestionInfo);
+                }
                 $isSelected = $pollInfo['poll_state'] == 0 ? false : true;
                 $this->access->setState($this->chatID, $this->states['dmsPoolReplyWaitingState'], true);
                 $this->salaryRoute->triggerActionForAskDmsPollQuestion($this->chatID, $this->user['user_id'], $pollInfo, $pollQuestionInfo, $isSelected);
