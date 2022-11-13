@@ -818,7 +818,7 @@ class AuthorizedUserScenario {
                 $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
                 $pollQuestionInfo = $this->access->getDmsPollQuestionsInfo(1);
                 $pollOptions = $this->access->getDmsPollOptions($this->user['user_id'], $pollInfo, $pollQuestionInfo);
-                $isCouldBeAccepted = $this->salaryRoute->isDmsPollReplyCouldBeAccepted($this->user['user_id'], $pollInfo, $pollOptions);
+//                 $isCouldBeAccepted = $this->salaryRoute->isDmsPollReplyCouldBeAccepted($this->user['user_id'], $pollInfo, $pollOptions);
 //                 if ($isCouldBeAccepted) {
 //                     $isStateIncreased = $this->access->increaseUserDmsPollState($this->user['user_id'], $pollInfo);
 //                     if ($isStateIncreased) {
