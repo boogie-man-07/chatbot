@@ -255,7 +255,8 @@ class SalaryRoute {
         $controlArray = array();
         $id = $pollInfo['poll_state'];
         $pollQuestionData = $pollOptions[$id];
-        foreach ($pollQuestionData['responses']['options'] as $key=>$value) {
+        $responses = json_decode($pollQuestionData['responses'], true);
+        foreach ($responses['options'] as $key=>$value) {
             if ($value['isSelected'] == true) {
                 array_push($controlArray, 1);
             } else {
