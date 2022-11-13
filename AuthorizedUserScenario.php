@@ -832,17 +832,17 @@ class AuthorizedUserScenario {
                     case $this->states['dmsPoolReplyWaitingState']:
                         $selectedOption = substr($text, strpos($text, "*") + 1);
                         $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
-                        $pollQuestionInfo = $this->access->getDmsPollQuestionsInfo(1); exit;
+                        $pollQuestionInfo = $this->access->getDmsPollQuestionsInfo(1);
 
-//                         if ($text == $this->commands['nextDmsPollOptionInline']) {
-//                             sendMessage($this->chatID, "nextDmsPollOptionInline scenario", null);
-//                             exit;
-//                         }
-//
-//                         if ($text == $this->commands['finishDmsPollInline']) {
-//                             sendMessage($this->chatID, "finishDmsPollInline scenario", null);
-//                             exit;
-//                         }
+                        if ($text == $this->commands['nextDmsPollOptionInline']) {
+                            sendMessage($this->chatID, "nextDmsPollOptionInline scenario 2", null);
+                            exit;
+                        }
+
+                        if ($text == $this->commands['finishDmsPollInline']) {
+                            sendMessage($this->chatID, "finishDmsPollInline scenario 2", null);
+                            exit;
+                        }
 
                         $isOptionSaved = $this->access->setSelectedDmsPollOption($this->user['user_id'], $pollInfo, $pollQuestionInfo, (int)$selectedOption);
                         if ($isOptionSaved) {
