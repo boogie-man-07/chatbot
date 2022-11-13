@@ -264,9 +264,9 @@ class SalaryRoute {
             }
         }
         if (array_sum($controlArray) == 0) {
-            return false
+            return false;
         } else {
-            return true
+            return true;
         }
     }
 
