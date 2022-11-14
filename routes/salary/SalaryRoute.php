@@ -210,10 +210,7 @@ class SalaryRoute {
     }
 
     function isCorrectDigit($text) {
-        if (!preg_match('/^\d+$/', $text)) {
-          return 0;
-        } else {
-            return 1;
+        return return preg_match('/^([1-9]\d?)$/', $text);
     }
 
     function isDateNotInPast($text) {
