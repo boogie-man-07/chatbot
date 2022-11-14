@@ -210,11 +210,7 @@ class SalaryRoute {
     }
 
     function isCorrectDigit($text) {
-        if (is_numeric($text)) {
-            return true;
-        } else {
-            return false;
-        }
+        return is_int($text);
     }
 
     function isDateNotInPast($text) {
