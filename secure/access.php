@@ -1623,4 +1623,10 @@ class access {
         $result = $this->conn->query($sql);
         return $result;
     }
+
+    function setPollAsFinished($this->user['user_id'], $pollInfo) {
+        $sql = "UPDATE polls_user_data SET is_finished = 1 WHERE poll_id='".$pollInfo['poll_id']."' and user_id='".$userId."'";
+        $result = $this->conn->query($sql);
+        return $result;
+    }
 }
