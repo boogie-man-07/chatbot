@@ -779,9 +779,9 @@ class AuthorizedUserScenario {
             case $this->commands['proceedDmsSurveyInline']:
                 $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
                 $pollQuestionInfo = $this->access->getDmsPollQuestionsInfo(1);
-                if($pollInfo['poll_state'] == 0) {
-                    $this->access->resetPollOptionState($this->user['user_id'], $pollInfo, $pollQuestionInfo);
-                }
+//                 if($pollInfo['poll_state'] == 0) {
+//                     $this->access->resetPollOptionState($this->user['user_id'], $pollInfo, $pollQuestionInfo);
+//                 }
                 $isSelected = $pollInfo['poll_state'] == 0 ? false : true;
                 $this->access->setState($this->chatID, $this->states['dmsPoolReplyWaitingState'], true);
                 $this->salaryRoute->triggerActionForAskDmsPollQuestion($this->chatID, $this->user['user_id'], $pollInfo, $pollQuestionInfo, $isSelected);
@@ -814,33 +814,33 @@ class AuthorizedUserScenario {
                     $this->commonmistakeroute->triggerErrorForSendFeedback();
                     exit;
                 }
-            case $this->commands['nextDmsPollOptionInline']:
-                $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
-                $pollQuestionInfo = $this->access->getDmsPollQuestionsInfo(1);
-                $pollOptions = $this->access->getDmsPollOptions($this->user['user_id'], $pollInfo, $pollQuestionInfo);
-                $isCouldBeAccepted = $this->salaryRoute->isDmsPollReplyCouldBeAccepted($this->user['user_id'], $pollInfo, $pollOptions);
-                if ($isCouldBeAccepted) {
-                    $isStateIncreased = $this->access->increaseUserDmsPollState($this->user['user_id'], $pollInfo);
-                    if ($isStateIncreased) {
-                        $newPollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
-                        sendMessage($this->chatID, json_encode($pollQuestionInfo), null);
-                        //$isSelected = $pollInfo['poll_state'] == 0 ? false : true;
-//                         $this->access->setState($this->chatID, $this->states['dmsPoolReplyWaitingState'], true);
-                        $this->salaryRoute->triggerActionForAskDmsPollNextQuestion($this->chatID, $this->user['user_id'], $newPollInfo, $pollQuestionInfo, false);
-                        answerCallbackQuery($this->query["id"], "Загружен следующий вопрос!");
-                        exit;
-                    } else {
-                        answerCallbackQuery($this->query["id"], "Не удалось сохранить ответ на вопрос!");
-                        exit;
-                    }
-                } else {
-                    answerCallbackQuery($this->query["id"], "Не удалось сохранить ответ на вопрос!");
-                    exit;
-                }
-
-            case $this->commands['finishDmsPollInline']:
-                sendMessage($this->chatID, "finishDmsPollInline scenario", null);
-                exit;
+//             case $this->commands['nextDmsPollOptionInline']:
+//                 $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
+//                 $pollQuestionInfo = $this->access->getDmsPollQuestionsInfo(1);
+//                 $pollOptions = $this->access->getDmsPollOptions($this->user['user_id'], $pollInfo, $pollQuestionInfo);
+//                 $isCouldBeAccepted = $this->salaryRoute->isDmsPollReplyCouldBeAccepted($this->user['user_id'], $pollInfo, $pollOptions);
+//                 if ($isCouldBeAccepted) {
+//                     $isStateIncreased = $this->access->increaseUserDmsPollState($this->user['user_id'], $pollInfo);
+//                     if ($isStateIncreased) {
+//                         $newPollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
+//                         sendMessage($this->chatID, json_encode($pollQuestionInfo), null);
+//                         //$isSelected = $pollInfo['poll_state'] == 0 ? false : true;
+// //                         $this->access->setState($this->chatID, $this->states['dmsPoolReplyWaitingState'], true);
+//                         $this->salaryRoute->triggerActionForAskDmsPollNextQuestion($this->chatID, $this->user['user_id'], $newPollInfo, $pollQuestionInfo, false);
+//                         answerCallbackQuery($this->query["id"], "Загружен следующий вопрос!");
+//                         exit;
+//                     } else {
+//                         answerCallbackQuery($this->query["id"], "Не удалось сохранить ответ на вопрос!");
+//                         exit;
+//                     }
+//                 } else {
+//                     answerCallbackQuery($this->query["id"], "Не удалось сохранить ответ на вопрос!");
+//                     exit;
+//                 }
+//
+//             case $this->commands['finishDmsPollInline']:
+//                 sendMessage($this->chatID, "finishDmsPollInline scenario", null);
+//                 exit;
             default:
                 switch ($this->state) {
                     case $this->states['postponedVacationChooseVacationState']:
@@ -850,20 +850,20 @@ class AuthorizedUserScenario {
                             $this->salaryRoute->triggerActionForSetPostponedVacationNewStartDate($this->chatID);
                             exit;
                         }
-                    case $this->states['dmsPoolReplyWaitingState']:
-                        $selectedOption = substr($text, strpos($text, "*") + 1);
-                        $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
-                        $pollQuestionInfo = $this->access->getDmsPollQuestionsInfo(1);
-                        $isOptionSaved = $this->access->setSelectedDmsPollOption($this->user['user_id'], $pollInfo, $pollQuestionInfo, (int)$selectedOption);
-                        if ($isOptionSaved) {
-                            $updatedResponseOptions = $this->access->getDmsPollOptions($this->user['user_id'], $pollInfo, $pollQuestionInfo);
-                            answerCallbackQuery($this->query["id"], "Выбран вариант ответа №$selectedOption");
-                            $this->salaryRoute->triggerActionForSelectDmsPollOption($this->chatID, $this->messageId, $this->user['user_id'], $pollInfo, $updatedResponseOptions, true);
-                            exit;
-                        } else {
-                            answerCallbackQuery($this->query["id"], "Не удалось сохранить ответ на вопрос №$selectedOption. Попробуйте ответить еще раз!");
-                            exit;
-                        }
+//                     case $this->states['dmsPoolReplyWaitingState']:
+//                         $selectedOption = substr($text, strpos($text, "*") + 1);
+//                         $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
+//                         $pollQuestionInfo = $this->access->getDmsPollQuestionsInfo(1);
+//                         $isOptionSaved = $this->access->setSelectedDmsPollOption($this->user['user_id'], $pollInfo, $pollQuestionInfo, (int)$selectedOption);
+//                         if ($isOptionSaved) {
+//                             $updatedResponseOptions = $this->access->getDmsPollOptions($this->user['user_id'], $pollInfo, $pollQuestionInfo);
+//                             answerCallbackQuery($this->query["id"], "Выбран вариант ответа №$selectedOption");
+//                             $this->salaryRoute->triggerActionForSelectDmsPollOption($this->chatID, $this->messageId, $this->user['user_id'], $pollInfo, $updatedResponseOptions, true);
+//                             exit;
+//                         } else {
+//                             answerCallbackQuery($this->query["id"], "Не удалось сохранить ответ на вопрос №$selectedOption. Попробуйте ответить еще раз!");
+//                             exit;
+//                         }
                     default:
                         sendMessage($this->chatID, "Default finished inline", null);
                         exit;
