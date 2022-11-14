@@ -49,22 +49,22 @@ class SalaryRoute {
 
     function triggerActionForAskDmsPollQuestion($chatID, $userId, $pollInfo, $pollQuestionInfo, $isQuestionStartedEarlier) {
         $reply = $this->constants->getReplyForAskADmsPollQuestion($pollInfo, $pollQuestionInfo);
-        $keyboard = $this->keyboards->getInlineKeyboardForAskADmsPollQuestion($userId, $pollInfo, $pollQuestionInfo, $isQuestionStartedEarlier);
-        sendMessage($chatID, $reply, $keyboard);
+        //$keyboard = $this->keyboards->getInlineKeyboardForAskADmsPollQuestion($userId, $pollInfo, $pollQuestionInfo, $isQuestionStartedEarlier);
+        sendMessage($chatID, $reply, null);
     }
 
-    function triggerActionForAskDmsPollNextQuestion($chatID, $userId, $pollInfo, $pollQuestionInfo, $isQuestionStartedEarlier) {
-        $reply = $this->constants->getReplyForAskADmsPollQuestion($pollInfo, $pollQuestionInfo);
-        $keyboard = $this->keyboards->getInlineKeyboardForAskADmsPollQuestion($userId, $pollInfo, $pollQuestionInfo, $isQuestionStartedEarlier);
-        sendMessage($chatID, $reply, $keyboard);
-    }
-
-    function triggerActionForSelectDmsPollOption($chatID, $messageId, $userId, $pollInfo, $pollQuestionInfo, $isSelected) {
-        $reply = $this->constants->getReplyForAskADmsPollQuestion($pollInfo, $pollQuestionInfo);
-        $keyboard = $this->keyboards->getInlineKeyboardForAskADmsPollQuestion($userId, $pollInfo, $pollQuestionInfo, $isSelected);
-        editMessageText($chatID, $messageId, $reply);
-        editMessageReplyMarkup($chatID, $messageId, $keyboard);
-    }
+//     function triggerActionForAskDmsPollNextQuestion($chatID, $userId, $pollInfo, $pollQuestionInfo, $isQuestionStartedEarlier) {
+//         $reply = $this->constants->getReplyForAskADmsPollQuestion($pollInfo, $pollQuestionInfo);
+//         $keyboard = $this->keyboards->getInlineKeyboardForAskADmsPollQuestion($userId, $pollInfo, $pollQuestionInfo, $isQuestionStartedEarlier);
+//         sendMessage($chatID, $reply, $keyboard);
+//     }
+//
+//     function triggerActionForSelectDmsPollOption($chatID, $messageId, $userId, $pollInfo, $pollQuestionInfo, $isSelected) {
+//         $reply = $this->constants->getReplyForAskADmsPollQuestion($pollInfo, $pollQuestionInfo);
+//         $keyboard = $this->keyboards->getInlineKeyboardForAskADmsPollQuestion($userId, $pollInfo, $pollQuestionInfo, $isSelected);
+//         editMessageText($chatID, $messageId, $reply);
+//         editMessageReplyMarkup($chatID, $messageId, $keyboard);
+//     }
 
     function triggerActionForAskADmsQuestion($chatID) {
         $reply = $this->constants->getReplyForAskADmsQuestion();
