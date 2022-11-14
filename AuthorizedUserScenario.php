@@ -478,6 +478,7 @@ class AuthorizedUserScenario {
                                 $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
                                 $pollQuestionInfo = $this->access->getDmsPollQuestionsInfo(1);
                                 $isOptionSaved = $this->access->setSelectedDmsPollOption($this->user['user_id'], $pollInfo, $pollQuestionInfo, (int)$selectedOption);
+                                sendMessage($this->chatID, $this->salaryRoute->shouldGoToNextQuestion($pollInfo, $pollQuestionInfo), null); exit;
                                 if ($isOptionSaved) {
                                     if ($this->salaryRoute->shouldGoToNextQuestion($pollInfo, $pollQuestionInfo)) {
                                         $this->access->increaseUserDmsPollState($this->user['user_id'], $pollInfo);
