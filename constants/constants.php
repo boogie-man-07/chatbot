@@ -358,9 +358,9 @@ class constants {
         $pollQuestionData = $pollQuestionInfo[$id];
         $responses = "";
         foreach ($pollQuestionInfo as $key=>$value) {
-            $responses += "$key. $value['question_text']\n";
+            $responses += (string)$key.". $value['question_text']\n";
         }
-        return "Вопрос №".$pollQuestionData['question_id']."\n".$pollQuestionData['question_text']."\n\nВарианты ответа:\n$responses";
+        return "Вопрос №".$pollQuestionData['question_id']."\n".$pollQuestionData['question_text']."\n\nВарианты ответа:\n".$responses;
     }
 
     function getReplyForAskADmsQuestion() {
