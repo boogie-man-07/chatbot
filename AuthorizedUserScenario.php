@@ -820,7 +820,7 @@ class AuthorizedUserScenario {
                 $pollOptions = $this->access->getDmsPollOptions($this->user['user_id'], $pollInfo, $pollQuestionInfo);
                 $isCouldBeAccepted = $this->salaryRoute->isDmsPollReplyCouldBeAccepted($this->user['user_id'], $pollInfo, $pollOptions);
                 if ($isCouldBeAccepted) {
-                    $isStateIncreased = $this->access->increaseUserDmsPollState($this->user['user_id'], $pollInfo);
+                    //$isStateIncreased = $this->access->increaseUserDmsPollState($this->user['user_id'], $pollInfo);
                     answerCallbackQuery($this->query["id"], "Ответ сохранен!");
                     exit;
 //                     if ($isStateIncreased) {
