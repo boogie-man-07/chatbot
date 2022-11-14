@@ -831,7 +831,7 @@ class AuthorizedUserScenario {
                     } else {
                         answerCallbackQuery($this->query["id"], "Не удалось сохранить ответ на вопрос!");
                         exit;
-//                     }
+                    }
                 } else {
                     answerCallbackQuery($this->query["id"], "Не удалось сохранить ответ на вопрос!");
                     // Необходимо выбрать хотя бы один вариант ответа!
