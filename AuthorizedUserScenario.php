@@ -479,18 +479,18 @@ class AuthorizedUserScenario {
                             } else {
                                 sendMessage($this->chatID, ' not digit', null); exit;
                             }
-//                             $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
-//                             $pollQuestionInfo = $this->access->getDmsPollQuestionsInfo(1);
-//                             $isOptionSaved = $this->access->setSelectedDmsPollOption($this->user['user_id'], $pollInfo, $pollQuestionInfo, (int)$selectedOption);
-//                             if ($isOptionSaved) {
-//                                 $updatedResponseOptions = $this->access->getDmsPollOptions($this->user['user_id'], $pollInfo, $pollQuestionInfo);
+                            $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
+                            $pollQuestionInfo = $this->access->getDmsPollQuestionsInfo(1);
+                            $isOptionSaved = $this->access->setSelectedDmsPollOption($this->user['user_id'], $pollInfo, $pollQuestionInfo, (int)$selectedOption);
+                            if ($isOptionSaved) {
+                                $updatedResponseOptions = $this->access->getDmsPollOptions($this->user['user_id'], $pollInfo, $pollQuestionInfo);
 //                                 answerCallbackQuery($this->query["id"], "Выбран вариант ответа №$selectedOption");
 //                                 $this->salaryRoute->triggerActionForSelectDmsPollOption($this->chatID, $this->messageId, $this->user['user_id'], $pollInfo, $updatedResponseOptions, true);
-//                                 exit;
-//                             } else {
-//                                 answerCallbackQuery($this->query["id"], "Не удалось сохранить ответ на вопрос №$selectedOption. Попробуйте ответить еще раз!");
-//                                 exit;
-//                             }
+                                exit;
+                            } else {
+                                answerCallbackQuery($this->query["id"], "Не удалось сохранить ответ на вопрос №$selectedOption. Попробуйте ответить еще раз!");
+                                exit;
+                            }
                         default:
                             $this->commonmistakeroute->triggerActionForCommonMistake($this->chatID);
                             exit;
