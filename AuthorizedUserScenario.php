@@ -479,18 +479,16 @@ class AuthorizedUserScenario {
                                 $pollQuestionInfo = $this->access->getDmsPollQuestionsInfo(1);
                                 $isOptionSaved = $this->access->setSelectedDmsPollOption($this->user['user_id'], $pollInfo, $pollQuestionInfo, (int)$selectedOption);
                                 if ($isOptionSaved) {
-                                    sendMessage($this->chatID, 'digit', null);
-                                    //$this->access->getDmsPollOptions($this->user['user_id'], $pollInfo, $pollQuestionInfo);
-    //                                 answerCallbackQuery($this->query["id"], "Выбран вариант ответа №$selectedOption");
-    //                                 $this->salaryRoute->triggerActionForSelectDmsPollOption($this->chatID, $this->messageId, $this->user['user_id'], $pollInfo, $updatedResponseOptions, true);
+                                    $this->access->getDmsPollOptions($this->user['user_id'], $pollInfo, $pollQuestionInfo);
+                                    $this->salaryRoute->triggerActionForAskNextDmsPollQuestion($this->chatID, $this->user['user_id'], $pollInfo, $pollQuestionInfo);
                                     exit;
                                 } else {
-                                    //answerCallbackQuery($this->query["id"], "Не удалось сохранить ответ на вопрос №$selectedOption. Попробуйте ответить еще раз!");
+                                    sendMessage($this->chatID, 'Не удалось сохранить ответ. Введите, пожалуйста, цифру еще раз!', null);
                                     exit;
                                 }
                             } else {
                                 // todo move to salaryRoute
-                                sendMessage($this->chatID, ' not digit', null);
+                                sendMessage($this->chatID, 'Формат неверен. Введите корректную цифру с выбраннным ответом!', null);
                             }
                         default:
                             $this->commonmistakeroute->triggerActionForCommonMistake($this->chatID);
