@@ -479,8 +479,9 @@ class AuthorizedUserScenario {
                                 $pollQuestionInfo = $this->access->getDmsPollQuestionsInfo(1);
                                 $isOptionSaved = $this->access->setSelectedDmsPollOption($this->user['user_id'], $pollInfo, $pollQuestionInfo, (int)$selectedOption);
                                 if ($isOptionSaved) {
-                                    $this->access->getDmsPollOptions($this->user['user_id'], $pollInfo, $pollQuestionInfo);
-                                    $this->salaryRoute->triggerActionForAskNextDmsPollQuestion($this->chatID, $this->user['user_id'], $pollInfo, $pollQuestionInfo);
+                                    $this->access->increaseUserDmsPollState($userId, $pollInfo);
+                                    $newPollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
+                                    $this->salaryRoute->triggerActionForAskNextDmsPollQuestion($this->chatID, $this->user['user_id'], $newPollInfo, $pollQuestionInfo);
                                     exit;
                                 } else {
                                     sendMessage($this->chatID, 'Не удалось сохранить ответ. Введите, пожалуйста, цифру еще раз!', null);
