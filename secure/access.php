@@ -1669,7 +1669,7 @@ class access {
     }
 
     function increaseUserDmsPollState($userId, $pollInfo) {
-    $sql = "select * from polls_user_data where user_id = ? and poll_id = ?";
+    $sql = "update polls_user_data set poll_state = 1 where user_id = ? and poll_id = ?";
     $statement = $this->conn->prepare($sql);
     if (!$statement) {
         throw new Exception($statement->error);
