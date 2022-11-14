@@ -480,14 +480,14 @@ class AuthorizedUserScenario {
                                 $isOptionSaved = $this->access->setSelectedDmsPollOption($this->user['user_id'], $pollInfo, $pollQuestionInfo, (int)$selectedOption);
                                 if ($isOptionSaved) {
                                     if ($this->salaryRoute->shouldGoToNextQuestion($pollInfo, $pollQuestionInfo)) {
-                                        $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
-                                        // todo check that poll is finished
-                                        sendMessage($this->chatID, 'Спасибо за уделенное время!', null);
-                                        exit;
-                                    } else {
                                         $this->access->increaseUserDmsPollState($this->user['user_id'], $pollInfo);
                                         $newPollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
                                         $this->salaryRoute->triggerActionForAskNextDmsPollQuestion($this->chatID, $this->user['user_id'], $newPollInfo, $pollQuestionInfo);
+                                        exit;
+                                    } else {
+                                        $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
+                                        $this->access->setPollAsFinished($this->user['user_id'], $pollInfo);
+                                        sendMessage($this->chatID, 'Это были все вопросы! Спасибо за уделенное время!', null);
                                         exit;
                                     }
                                 } else {
