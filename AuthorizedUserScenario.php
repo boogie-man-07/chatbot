@@ -475,21 +475,22 @@ class AuthorizedUserScenario {
                         case $this->states['dmsPoolReplyWaitingState']:
                             $selectedOption = substr($text, 0, 1);
                             if ($this->salaryRoute->isCorrectDigit($text)) {
-                                sendMessage($this->chatID, 'digit', null); exit;
+                                $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
+                                $pollQuestionInfo = $this->access->getDmsPollQuestionsInfo(1);
+                                $isOptionSaved = $this->access->setSelectedDmsPollOption($this->user['user_id'], $pollInfo, $pollQuestionInfo, (int)$selectedOption);
+                                if ($isOptionSaved) {
+                                    sendMessage($this->chatID, 'digit', null);
+                                    //$this->access->getDmsPollOptions($this->user['user_id'], $pollInfo, $pollQuestionInfo);
+    //                                 answerCallbackQuery($this->query["id"], "Выбран вариант ответа №$selectedOption");
+    //                                 $this->salaryRoute->triggerActionForSelectDmsPollOption($this->chatID, $this->messageId, $this->user['user_id'], $pollInfo, $updatedResponseOptions, true);
+                                    exit;
+                                } else {
+                                    //answerCallbackQuery($this->query["id"], "Не удалось сохранить ответ на вопрос №$selectedOption. Попробуйте ответить еще раз!");
+                                    exit;
+                                }
                             } else {
-                                sendMessage($this->chatID, ' not digit', null); exit;
-                            }
-                            $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
-                            $pollQuestionInfo = $this->access->getDmsPollQuestionsInfo(1);
-                            $isOptionSaved = $this->access->setSelectedDmsPollOption($this->user['user_id'], $pollInfo, $pollQuestionInfo, (int)$selectedOption);
-                            if ($isOptionSaved) {
-                                $updatedResponseOptions = $this->access->getDmsPollOptions($this->user['user_id'], $pollInfo, $pollQuestionInfo);
-//                                 answerCallbackQuery($this->query["id"], "Выбран вариант ответа №$selectedOption");
-//                                 $this->salaryRoute->triggerActionForSelectDmsPollOption($this->chatID, $this->messageId, $this->user['user_id'], $pollInfo, $updatedResponseOptions, true);
-                                exit;
-                            } else {
-                                answerCallbackQuery($this->query["id"], "Не удалось сохранить ответ на вопрос №$selectedOption. Попробуйте ответить еще раз!");
-                                exit;
+                                // todo move to salaryRoute
+                                sendMessage($this->chatID, ' not digit', null);
                             }
                         default:
                             $this->commonmistakeroute->triggerActionForCommonMistake($this->chatID);
