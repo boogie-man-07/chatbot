@@ -355,9 +355,10 @@ class constants {
 
     function getReplyForAskADmsPollQuestion($pollInfo, $pollQuestionInfo) {
         $id = $pollInfo['poll_state'];
-        $pollQuestionData = json_decode($pollQuestionInfo[$id]['reply_options'], true);
+        $pollQuestionData = $pollQuestionInfo[$id];
+        $replyOptions = json_decode($pollQuestionData['reply_options'], true);
         $responses = "";
-        foreach ($pollQuestionInfo as $key=>$value) {
+        foreach ($replyOptions as $key=>$value) {
             $responses += (string)$key.". ".$value['question_text']."\n";
         }
         return "Вопрос №".$pollQuestionData['question_id']."\n".$pollQuestionData['question_text']."\n\nВарианты ответа:\n".$responses;
