@@ -1675,7 +1675,7 @@ class access {
         if (!$statement) {
             throw new Exception($statement->error);
         }
-        $statement->bind_param("iis", ($pollInfo['poll_state'] + 1), $pollInfo['poll_id'], $userId);
+        $statement->bind_param("iis", 1, 1, $userId);
         $returnValue = $statement->execute();
         return $returnValue;
     }
