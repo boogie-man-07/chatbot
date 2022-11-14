@@ -1674,11 +1674,11 @@ class access {
 
         if (!$statement) {
             $returnValue = new Exception($statement->error);
-            return (string)$returnValue;
+            return $returnValue;
 //             throw new Exception($statement->error);
         }
         $statement->bind_param("iis", $pollInfo['poll_state'] + 1, $pollInfo['poll_id'], $userId);
         $returnValue = $statement->execute();
-        return (string)$returnValue;
+        return $returnValue;
     }
 }
