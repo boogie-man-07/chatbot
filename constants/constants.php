@@ -359,7 +359,7 @@ class constants {
         $replyOptions = json_decode($pollQuestionData['reply_options'], true);
         $responses = "";
         foreach ($replyOptions['options'] as $key=>$value) {
-            $responses += (string)$value['id'].". ".$value['title']."\n";
+            $responses .= (string)$value['id'].". ".$value['title']."\n";
         }
         return "Вопрос №".$pollQuestionData['question_id']."\n".$pollQuestionData['question_text']."\n\nВарианты ответа:\n".$responses;
     }
