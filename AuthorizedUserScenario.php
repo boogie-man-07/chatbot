@@ -820,7 +820,8 @@ class AuthorizedUserScenario {
                 $pollOptions = $this->access->getDmsPollOptions($this->user['user_id'], $pollInfo, $pollQuestionInfo);
                 $isCouldBeAccepted = $this->salaryRoute->isDmsPollReplyCouldBeAccepted($this->user['user_id'], $pollInfo, $pollOptions);
                 if ($isCouldBeAccepted) {
-                    $this->access->increaseUserDmsPollState($this->user['user_id'], $pollInfo);
+                    $isStateIncreased = $this->access->increaseUserDmsPollState($this->user['user_id'], $pollInfo);
+                    sendMessage($this->chatID, $isStateIncreased, null);
 //                     if ($isStateIncreased) {
 //                         $isSelected = $pollInfo['poll_state'] == 0 ? false : true;
 //                         $this->access->setState($this->chatID, $this->states['dmsPoolReplyWaitingState'], true);
