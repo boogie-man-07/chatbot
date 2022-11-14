@@ -1602,25 +1602,25 @@ class access {
         return $returnValue;
     }
 
-    function getDmsPollOptions($userId, $pollInfo, $pollQuestionInfo) {
-        $returnArray = array();
-        $id = $pollInfo['poll_state'];
-        $pollQuestionData = $pollQuestionInfo[$id];
-        $sql = "SELECT * from polls_user_responses WHERE poll_id = '".$pollQuestionData['poll_id']."'";
-        $result = $this->conn->query($sql);
-        if ($result != null && (mysqli_num_rows($result) >= 1 )) {
-            $row = $result->fetch_array(MYSQLI_ASSOC);
-            if (!empty($row)) {
-                array_push($returnArray, $row);
-            }
-        }
-        return $returnArray;
-    }
-
-//     function increaseUserDmsPollState($userId, $pollInfo) {
-//         $nextPollQuestion = $pollInfo['poll_state'] + 1;
-//         $sql = "UPDATE polls_user_data SET poll_state='".$nextPollQuestion."' WHERE poll_id='".$pollInfo['poll_id']."' and user_id='".$userId."'";
+//     function getDmsPollOptions($userId, $pollInfo, $pollQuestionInfo) {
+//         $returnArray = array();
+//         $id = $pollInfo['poll_state'];
+//         $pollQuestionData = $pollQuestionInfo[$id];
+//         $sql = "SELECT * from polls_user_responses WHERE poll_id = '".$pollQuestionData['poll_id']."'";
 //         $result = $this->conn->query($sql);
-//         return $result;
+//         if ($result != null && (mysqli_num_rows($result) >= 1 )) {
+//             $row = $result->fetch_array(MYSQLI_ASSOC);
+//             if (!empty($row)) {
+//                 array_push($returnArray, $row);
+//             }
+//         }
+//         return $returnArray;
 //     }
+
+    function increaseUserDmsPollState($userId, $pollInfo) {
+        $nextPollQuestion = $pollInfo['poll_state'] + 1;
+        $sql = "UPDATE polls_user_data SET poll_state='".$nextPollQuestion."' WHERE poll_id='".$pollInfo['poll_id']."' and user_id='".$userId."'";
+        $result = $this->conn->query($sql);
+        return $result;
+    }
 }
