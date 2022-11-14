@@ -1676,6 +1676,6 @@ class access {
         }
         $statement->bind_param("is", (int)$pollInfo['poll_state'] + 1, (int)$pollInfo['poll_id']);
         $returnValue = $statement->execute();
-        return $returnValue;
+        return $statement;
     }
 }
