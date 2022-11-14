@@ -1669,14 +1669,13 @@ class access {
     }
 
     function increaseUserDmsPollState($userId, $pollInfo) {
-//     $sql = "update polls_user_data set poll_state = ? where user_id = ? and poll_id = ?";
-//     $statement = $this->conn->prepare($sql);
-//     if (!$statement) {
-//         throw new Exception($statement->error);
-//     }
-//     $statement->bind_param("isi", $pollInfo['poll_state'], $userId, $pollInfo['poll_id']);
-//     $returnValue = $statement->execute();
-//     return $returnValue;
-        return $pollInfo['poll_state'];
+    $sql = "update polls_user_data set poll_state = ? where user_id = ? and poll_id = ?";
+    $statement = $this->conn->prepare($sql);
+    if (!$statement) {
+        throw new Exception($statement->error);
+    }
+    $statement->bind_param("isi", $pollInfo['poll_state'] + 1, $userId, $pollInfo['poll_id']);
+    $returnValue = $statement->execute();
+    return $returnValue;
     }
 }
