@@ -1536,28 +1536,24 @@ class access {
     }
 
     function setDmsPollInfo($userId, $pollState, $isFinished) {
-        $sql = "SELECT * FROM polls_user_data WHERE user_id='".$userId."'";
-        $result = $this->conn->query($sql);
-        if ($result != null && (mysqli_num_rows($result) >= 1 )) {
-            $sql = "UPDATE polls_user_data SET poll_id = 1, user_id = ?, poll_state = ?, is_finished = ? WHERE user_id = ?";
-            $statement = $this->conn->prepare($sql);
+        $sql = "INSERT INTO polls_user_data SET poll_id = 1, user_id = ?, poll_state = ?, is_finished = ?";
+        $statement = $this->conn->prepare($sql);
 
-            if (!$statement) {
-                throw new Exception($statement->error);
-            }
-            $statement->bind_param("sii", $userId, $pollState, $userId);
-            $returnValue = $statement->execute();
-        } else {
-            $sql = "INSERT INTO polls_user_data SET poll_id = 1, user_id = ?, poll_state = ?, is_finished = ?";
-            $statement = $this->conn->prepare($sql);
-
-            if (!$statement) {
-                throw new Exception($statement->error);
-            }
-            $statement->bind_param("sii", $userId, $pollState, $isFinished);
-            $returnValue = $statement->execute();
+        if (!$statement) {
+            throw new Exception($statement->error);
         }
-        return $returnValue;
+        $statement->bind_param("sii", $userId, $pollState, $isFinished);
+        $returnValue = $statement->execute();
+    }
+
+    function getDmsPollQuestionsInfo($pollId) {
+        $returnArray = array();
+        $sql = "SELECT * from polls_reply_options WHERE poll_id = $pollId";
+        $result = $this->conn->query($sql);
+        while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
+            array_push($returnArray, $row);
+        }
+        return $returnArray;
     }
 
 //     function resetPollOptionState($userId, $pollInfo, $pollQuestionInfo) {
@@ -1579,16 +1575,6 @@ class access {
 //         $statement->bind_param("ssii", $createdResponses, $userId, $pollQuestionData['poll_id'], $pollQuestionData['question_id']);
 //         $returnValue = $statement->execute();
 //     }
-
-    function getDmsPollQuestionsInfo($pollId) {
-        $returnArray = array();
-        $sql = "SELECT * from polls_reply_options WHERE poll_id = $pollId";
-        $result = $this->conn->query($sql);
-        while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
-            array_push($returnArray, $row);
-        }
-        return $returnArray;
-    }
 //
 //     function setSelectedDmsPollOption($userId, $pollInfo, $pollQuestionInfo, $selectedOption) {
 //         $returnArray = array();
