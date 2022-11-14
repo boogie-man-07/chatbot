@@ -1674,7 +1674,7 @@ class access {
     if (!$statement) {
         throw new Exception($statement->error);
     }
-    $statement->bind_param("ssi", $pollInfo['poll_state'], $userId, $pollInfo['poll_id']);
+    $statement->bind_param("isi", (int)$pollInfo['poll_state'], $userId, $pollInfo['poll_id']);
     $returnValue = $statement->execute();
     return $returnValue;
 //         $sql = "UPDATE polls_user_data SET poll_state = ? where poll_id = ? and user_id = ?";
