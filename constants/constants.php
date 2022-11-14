@@ -244,15 +244,15 @@ class constants {
     }
 
     function getSkolkovoMapUrl() {
-        return "https://sigmabot.ddns.net/hrbot/files/skolkovo_map.jpg";
+        return "https://sigmabot.ddns.net/files/skolkovo_map.jpg";
     }
 
     function getOskolMapUrl() {
-        return "https://sigmabot.ddns.net/hrbot/files/greenhouse_map.jpg";
+        return "https://sigmabot.ddns.net/files/greenhouse_map.jpg";
     }
 
     function getSaratovMapUrl() {
-        return "https://sigmabot.ddns.net/hrbot/files/diall_map.jpg";
+        return "https://sigmabot.ddns.net/files/diall_map.jpg";
     }
 
     function getPhoneCardPrivelegesError($firstname) {
