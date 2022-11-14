@@ -1584,11 +1584,8 @@ class access {
         $returnArray = array();
         $sql = "SELECT * from polls_reply_options WHERE poll_id = $pollId";
         $result = $this->conn->query($sql);
-        if ($result != null && (mysqli_num_rows($result) >= 1 )) {
-            $row = $result->fetch_array(MYSQLI_ASSOC);
-            if (!empty($row)) {
-                array_push($returnArray, $row);
-            }
+        while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
+            array_push($returnArray, $row);
         }
         return $returnArray;
     }
