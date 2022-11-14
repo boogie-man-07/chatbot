@@ -474,12 +474,11 @@ class AuthorizedUserScenario {
                             exit;
                         case $this->states['dmsPoolReplyWaitingState']:
                             $selectedOption = substr($text, 0, 1);
-                            sendMessage($this->chatID, $this->salaryRoute->isCorrectDigit($text), null); exit;
-//                             if ($this->salaryRoute->isCorrectDigit($text) {
-//                                 //
-//                             } else {
-//                                 // format not good
-//                             }
+                            if ($this->salaryRoute->isCorrectDigit($text) {
+                                sendMessage($this->chatID, 'digit', null); exit;
+                            } else {
+                                sendMessage($this->chatID, ' not digit', null); exit;
+                            }
 //                             $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
 //                             $pollQuestionInfo = $this->access->getDmsPollQuestionsInfo(1);
 //                             $isOptionSaved = $this->access->setSelectedDmsPollOption($this->user['user_id'], $pollInfo, $pollQuestionInfo, (int)$selectedOption);
