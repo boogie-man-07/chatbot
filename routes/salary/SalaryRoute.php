@@ -209,6 +209,10 @@ class SalaryRoute {
         return preg_match('/^([1-9]\d?)$/', $text);
     }
 
+    function isCorrectDigit($text) {
+        return is_numeric($text);
+    }
+
     function isDateNotInPast($text) {
         $postponedStartDate = new DateTime($text);
         $currentDate = new DateTime();

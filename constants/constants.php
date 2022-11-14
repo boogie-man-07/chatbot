@@ -361,7 +361,7 @@ class constants {
         foreach ($replyOptions['options'] as $key=>$value) {
             $responses .= (string)$value['id'].". ".$value['title']."\n";
         }
-        return "Вопрос №".$pollQuestionData['question_id']."\n".$pollQuestionData['question_text']."\n\nВарианты ответа:\n".$responses;
+        return "Вопрос №".$pollQuestionData['question_id']."\n".$pollQuestionData['question_text']."\n\nВарианты ответа:\n".$responses."\n\nДля ответа на вопрос отправьте цифру с вариантом ответа.";
     }
 
     function getReplyForAskADmsQuestion() {
