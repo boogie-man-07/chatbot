@@ -219,7 +219,7 @@ class SalaryRoute {
     }
 
     function shouldGoToNextQuestion($pollInfo, $pollQuestionInfo) {
-        $id = $pollInfo['poll_state'];
+        $id = $pollInfo['poll_state'] + 1;
         return $id < array_count_values(array_column($pollQuestionInfo, 'question_id'));
     }
 
