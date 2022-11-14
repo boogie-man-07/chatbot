@@ -474,7 +474,7 @@ class AuthorizedUserScenario {
                             exit;
                         case $this->states['dmsPoolReplyWaitingState']:
                             $selectedOption = substr($text, 0, 1);
-                            if ($this->salaryRoute->isCorrectDigit($text) {
+                            if ($this->salaryRoute->isCorrectDigit($text)) {
                                 sendMessage($this->chatID, 'digit', null); exit;
                             } else {
                                 sendMessage($this->chatID, ' not digit', null); exit;
