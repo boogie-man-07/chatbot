@@ -826,7 +826,7 @@ class AuthorizedUserScenario {
                         $pollQuestionInfo = $this->access->getDmsPollQuestionsInfo(1);
                         //$isSelected = $pollInfo['poll_state'] == 0 ? false : true;
                         $this->access->setState($this->chatID, $this->states['dmsPoolReplyWaitingState'], true);
-                        $this->salaryRoute->triggerActionForAskDmsPollNextQuestion($this->chatID, $this->user['user_id'], $pollInfo, $pollQuestionInfo, false);
+                        $this->salaryRoute->triggerActionForAskDmsPollNextQuestion($this->chatID, $this->user['user_id'], $pollInfo, $pollQuestionInfo, true);
                         answerCallbackQuery($this->query["id"], "Загружен следующий вопрос!");
                         exit;
                     } else {
