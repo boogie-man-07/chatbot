@@ -823,10 +823,10 @@ class AuthorizedUserScenario {
                     $isStateIncreased = $this->access->increaseUserDmsPollState($this->user['user_id'], $pollInfo);
                     if ($isStateIncreased) {
                         $newPollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
-                        $newPollQuestionInfo = $this->access->getDmsPollQuestionsInfo(1);
+                        sendMessage($this->chatID, json_encode($newPollInfo), null);
                         //$isSelected = $pollInfo['poll_state'] == 0 ? false : true;
-                        $this->access->setState($this->chatID, $this->states['dmsPoolReplyWaitingState'], true);
-                        $this->salaryRoute->triggerActionForAskDmsPollNextQuestion($this->chatID, $this->user['user_id'], $newPollInfo, $newPollQuestionInfo, false);
+//                         $this->access->setState($this->chatID, $this->states['dmsPoolReplyWaitingState'], true);
+                        $this->salaryRoute->triggerActionForAskDmsPollNextQuestion($this->chatID, $this->user['user_id'], $newPollInfo, $pollQuestionInfo, false);
                         answerCallbackQuery($this->query["id"], "Загружен следующий вопрос!");
                         exit;
                     } else {
