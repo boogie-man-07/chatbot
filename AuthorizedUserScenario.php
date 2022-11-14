@@ -822,9 +822,9 @@ class AuthorizedUserScenario {
                 if ($isCouldBeAccepted) {
                     $isStateIncreased = $this->access->increaseUserDmsPollState($this->user['user_id'], $pollInfo);
                     if ($isStateIncreased) {
-                        $isSelected = $pollInfo['poll_state'] == 0 ? false : true;
+                        //$isSelected = $pollInfo['poll_state'] == 0 ? false : true;
                         $this->access->setState($this->chatID, $this->states['dmsPoolReplyWaitingState'], true);
-                        $this->salaryRoute->triggerActionForAskDmsPollQuestion($this->chatID, $this->user['user_id'], $pollInfo, $pollQuestionInfo, $isSelected);
+                        $this->salaryRoute->triggerActionForAskDmsPollNextQuestion($this->chatID, $this->user['user_id'], $pollInfo, $pollQuestionInfo, false);
                         answerCallbackQuery($this->query["id"], "Загружен следующий вопрос!");
                         exit;
                     } else {
