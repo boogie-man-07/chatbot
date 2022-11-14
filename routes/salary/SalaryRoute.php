@@ -221,7 +221,7 @@ class SalaryRoute {
     function shouldGoToNextQuestion($pollInfo, $pollQuestionInfo) {
         $id = $pollInfo['poll_state'] + 1;
 //         return $id < array_count_values(array_column($pollQuestionInfo, 'question_id'));
-        return "id id: $id and count is: ".array_count_values(array_column($pollQuestionInfo, 'question_id'));
+        return "id id: $id and count is: ".count($pollQuestionInfo);
     }
 
     function isDateNotInPast($text) {
