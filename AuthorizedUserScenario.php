@@ -821,7 +821,9 @@ class AuthorizedUserScenario {
                 $isCouldBeAccepted = $this->salaryRoute->isDmsPollReplyCouldBeAccepted($this->user['user_id'], $pollInfo, $pollOptions);
                 if ($isCouldBeAccepted) {
                     $isStateIncreased = $this->access->increaseUserDmsPollState($this->user['user_id'], $pollInfo);
-                    sendMessage($this->chatID, (string)$isStateIncreased, null); exit;
+                    sendMessage($this->chatID, (string)$isStateIncreased, null);
+                    answerCallbackQuery($this->query["id"], "Не удалось сохранить ответ на вопрос!");
+                    exit;
 //                     if ($isStateIncreased) {
 //                         $isSelected = $pollInfo['poll_state'] == 0 ? false : true;
 //                         $this->access->setState($this->chatID, $this->states['dmsPoolReplyWaitingState'], true);
