@@ -518,10 +518,10 @@ class keyboards {
         ));
     }
 
-    function getInlineKeyboardForAskADmsPollQuestion($userId, $pollInfo, $pollQuestionInfo, $isSelected) {
+    function getInlineKeyboardForAskADmsPollQuestion($userId, $pollInfo, $pollQuestionInfo, $isQuestionStartedEarlier) {
         $replyList = array();
         $id = $pollInfo['poll_state'];
-        $options = json_decode(($isSelected ? $pollQuestionInfo[$id]['responses'] : $pollQuestionInfo[$id]['reply_options']), true);
+        $options = json_decode(($isQuestionStartedEarlier ? $pollQuestionInfo[$id]['responses'] : $pollQuestionInfo[$id]['reply_options']), true);
         $nextButtonText = $pollQuestionInfo[$id]['question_id'] >= array_count_values(array_column($pollQuestionInfo, 'question_id')) ? "Завершить" : "Продолжить";
         $nextButtonCallbackData =  $pollQuestionInfo[$id]['question_id'] >= array_count_values(array_column($pollQuestionInfo, 'question_id')) ? 'finishDmsPoll' : 'nextDmsPollOption';
         foreach($options['options'] as $key=>$value) {
