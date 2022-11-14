@@ -1673,10 +1673,12 @@ class access {
         $statement = $this->conn->prepare($sql);
 
         if (!$statement) {
-            throw new Exception($statement->error);
+            $returnValue = new Exception($statement->error);
+            return (string)$returnValue;
+//             throw new Exception($statement->error);
         }
-        $statement->bind_param("iis", 1, 1, $userId);
+        $statement->bind_param("iis", $pollInfo['poll_state'] + 1, $pollInfo['poll_id'], $userId);
         $returnValue = $statement->execute();
-        return $returnValue;
+        return (string)$returnValue;
     }
 }
