@@ -484,7 +484,7 @@ class AuthorizedUserScenario {
                                 $this->salaryRoute->triggerActionForDmsSendingConfirmation($this->chatID);
                                 exit;
                             } else {
-                                $this->commonmistakeroute->triggerActionForIncorrectEmailFormat();
+                                $this->commonmistakeroute->triggerActionForIncorrectEmailFormat($this->chatID);
                                 exit;
                             }
                         case $this->states['dmsPoolReplyWaitingState']:
