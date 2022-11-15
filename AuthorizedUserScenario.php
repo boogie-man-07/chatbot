@@ -532,18 +532,18 @@ class AuthorizedUserScenario {
         }
         switch ($text) {
             // remove
-            case $this->commands['calendarInline']:
-                $this->salaryRoute->triggerNextCalendarAction($this->chatID, $this->messageId, "Февраль");
-                // start delete segment
-                $vacationInfo = $this->vacationInfo->getRestVacationCountByUserId($this->user['user_id']);
-                $calendarEmployee = $this->calendarInfo->getMonthlyDataForEmployee();
-                $calendarOffice = $this->calendarInfo->getMonthlyDataForOffice();
-                sendMessage($this->chatID, json_encode($vacationInfo), null);
-                sendMessage($this->chatID, json_encode($calendarEmployee), null);
-                sendMessage($this->chatID, json_encode($calendarOffice), null);
-                // end delete segment
-                answerCallbackQuery($this->query["id"], "Получены данные за февраль!");
-                exit;
+//             case $this->commands['calendarInline']:
+//                 $this->salaryRoute->triggerNextCalendarAction($this->chatID, $this->messageId, "Февраль");
+//                 // start delete segment
+//                 $vacationInfo = $this->vacationInfo->getRestVacationCountByUserId($this->user['user_id']);
+//                 $calendarEmployee = $this->calendarInfo->getMonthlyDataForEmployee();
+//                 $calendarOffice = $this->calendarInfo->getMonthlyDataForOffice();
+//                 sendMessage($this->chatID, json_encode($vacationInfo), null);
+//                 sendMessage($this->chatID, json_encode($calendarEmployee), null);
+//                 sendMessage($this->chatID, json_encode($calendarOffice), null);
+//                 // end delete segment
+//                 answerCallbackQuery($this->query["id"], "Получены данные за февраль!");
+//                 exit;
             case $this->commands['userFullCardInline']:
                 $userForFind = $this->access->getFindUserData($this->chatID);
                 if ($userForFind) {
