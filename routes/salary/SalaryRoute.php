@@ -339,7 +339,8 @@ class SalaryRoute {
             'waiting for postponed separate vacation duration',
             'waiting for vacation form sending',
             'waiting for choose dms pool reply',
-            'waiting for dms question'
+            'waiting for dms question',
+            'waiting for email for dms question reply'
         );
         if (in_array($currentState, $dialogState)) {
             return true;
