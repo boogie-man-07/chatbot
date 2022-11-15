@@ -139,7 +139,8 @@ class AuthorizedUserScenario {
                 $this->salaryRoute->triggerActionForShowSalaryMenu($this->chatID);
                 exit;
             case $this->commands['dmsInformation']:
-                $this->salaryRoute->triggerActionForShowDmsMenu($this->chatID, $this->user['dms_type'], false);
+                $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
+                $this->salaryRoute->triggerActionForShowDmsMenu($this->chatID, $this->user['firstname'], $this->user['dms_type'], $pollInfo['is_finished']);
                 exit;
             case $this->commands['dmsMemo']:
                 $this->salaryRoute->triggerActionForSendDmsMemo($this->chatID, $this->user['dms_type']);

@@ -313,7 +313,7 @@ class keyboards {
         ));
     }
 
-    function getDmsMenuKeyboard($dmsType, $isSurveyFinished) {
+    function getDmsMenuKeyboard($dmsType, $isPollFinished) {
         if ($dmsType == 0) {
             return json_encode(array(
                 "keyboard" => array(
@@ -326,7 +326,7 @@ class keyboards {
                 "one_time_keyboard" => false
             ));
         } else {
-            if (!$isSurveyFinished) {
+            if (!$isPollFinished) {
                 return json_encode(array(
                     "keyboard" => array(
                         array(
