@@ -834,15 +834,15 @@ class AuthorizedUserScenario {
                     $isSended = $this->swiftmailer->sendDmsQuestion(
                         $this->user['company_id'],
                         'booogie.man.07@gmail.com',
-                        $questionInfo['email'] ? $questionInfo['email'] : $this->user['email'],
+                        $questionInfo['response_email'] ? $questionInfo['response_email'] : $this->user['email'],
                         "Вопрос в рамках ДМС (Персональный ассистент работника)",
                         $template
                     );
                     if ($isSended) {
-                        answerCallbackQuery($this->query["id"], "Ваш вопрос успешно отправлен!");
                         $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
                         $this->access->removeDmsQuestionInfo($this->chatID);
                         $this->salaryRoute->triggerActionForDmsQuestionIsSended($this->chatID);
+                        answerCallbackQuery($this->query["id"], "Ваш вопрос успешно отправлен!");
                         exit;
                     } else {
                         answerCallbackQuery($this->query["id"], "Не удалось отправить вопрос, попробуйте еще раз!");
