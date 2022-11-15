@@ -289,7 +289,7 @@ class constants {
     }
 
     function getReplyForDmsSending() {
-        return "Ваше сообщение будет направлено специалисту.";
+        return "Ваш вопрос будет направлен специалисту.";
     }
 
     function getReplyForFeedbackIsSent() {
@@ -365,7 +365,7 @@ class constants {
     }
 
     function getReplyForAskADmsQuestion() {
-        return "Сформулируйте интересующий Вас вопрос максимально подробно.";
+        return "Вы можете задать интересующий Вас вопрос по ДМС, ответ будет направлен на Ваш адрес электронной почты.";
     }
 
     function getReplyForMainSalaryInformation($companyId) {
