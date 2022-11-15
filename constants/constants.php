@@ -296,12 +296,12 @@ class constants {
         return "Сообщение успешно отправлено, номер зарегистрированного обращения придет на почту.";
     }
 
-    function getReplyForDmsIsSent($hasEmail) {
-        if ($hasEmail) {
-            return "Ваш вопрос успешно отправлен специалисту, ожидайте ответ в ближайшее время.";
-        } else {
-            return "Ваш вопрос успешно отправлен специалисту. К сожалению, сотрудник не имеет возможности ответить Вам по email, так как у Вас не указан адрес электронной почты.";
-        }
+    function getReplyForDmsEmptyEmail() {
+        return "К сожалению, я не нашел Вашего адреса электронной почты, введите, пожалуйста, email, на который сотрудник сможет направить ответ.";
+    }
+
+    function getReplyForDmsIsSent() {
+        return "Ваш вопрос успешно отправлен, специалист ответит в ближайшее время.";
     }
 
     function gerReplyForSendFeedbackError() {
@@ -507,5 +507,9 @@ class constants {
 
     function getReplyCheckPostponedVacationDuration($restDuration) {
         return "У Вас еще остались дни в данном отпуске, которые необходимо перенесети. Количество оставшихся дней: $restDuration.Пожалуйста, укажите дату начала отпуска.\nПример: <b>1.01.2023 или 01.01.2023</b>";
+    }
+
+    function getReplyForIncorrectEmailFormatError() {
+        return "К сожалению, введенный адрес электронной почты некорректен. Попробуйте еще раз!";
     }
 }

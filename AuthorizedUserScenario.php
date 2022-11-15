@@ -470,8 +470,23 @@ class AuthorizedUserScenario {
                             exit;
                         case $this->states['dmsQuestionWaitingState']:
                             $this->access->setDmsQuestionInfo($this->chatID, $text);
-                            $this->salaryRoute->triggerActionForDmsSendingConfirmation($this->chatID);
-                            exit;
+                            if($this->user['email' != ''] {
+                                $this->salaryRoute->triggerActionForDmsSendingConfirmation($this->chatID);
+                                exit;
+                            } else {
+                                $this->access->setState($this->chatID, $this->states['dmsEmailWaitingState']);
+                                $this->salaryRoute->triggerActionForDmsEmptyEmail($this->chatID);
+                                exit;
+                            }
+                        case $this->states['dmsEmailWaitingState']:
+                            if ($this->salaryRoute->isCorrectEmailFormat($text)) {
+                                $this->access->addEmailToDmsQuestionInfo($this->chatID, $text);
+                                $this->salaryRoute->triggerActionForDmsSendingConfirmation($this->chatID);
+                                exit;
+                            } else {
+                                $this->commonmistakeroute->triggerActionForIncorrectEmailFormat();
+                                exit;
+                            }
                         case $this->states['dmsPoolReplyWaitingState']:
                             $selectedOption = substr($text, 0, 1);
                             if ($this->salaryRoute->isCorrectDigit($text)) {
@@ -819,7 +834,7 @@ class AuthorizedUserScenario {
                     $isSended = $this->swiftmailer->sendDmsQuestion(
                         $this->user['company_id'],
                         'booogie.man.07@gmail.com',
-                        $this->user['email'] == '' ? null : $this->user['email'],
+                        $questionInfo['email'] ? $questionInfo['email'] : $this->user['email'],
                         "Вопрос в рамках ДМС (Персональный ассистент работника)",
                         $template
                     );
@@ -827,7 +842,7 @@ class AuthorizedUserScenario {
                         answerCallbackQuery($this->query["id"], "Ваш вопрос успешно отправлен!");
                         $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
                         $this->access->removeDmsQuestionInfo($this->chatID);
-                        $this->salaryRoute->triggerActionForDmsQuestionIsSended($this->chatID, $hasEmail);
+                        $this->salaryRoute->triggerActionForDmsQuestionIsSended($this->chatID);
                         exit;
                     } else {
                         answerCallbackQuery($this->query["id"], "Не удалось отправить вопрос, попробуйте еще раз!");

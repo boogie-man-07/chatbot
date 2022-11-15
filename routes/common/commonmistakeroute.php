@@ -87,6 +87,11 @@ class commonmistakeroute {
         sendMessage($chatID, $reply, null);
     }
 
+    function triggerActionForIncorrectEmailFormat($chatID) {
+        $reply = $this->constants->getReplyForIncorrectEmailFormatError();
+        sendMessage($chatID, $reply, null);
+    }
+
     function triggerErrorForSendFeedback($chatID) {
         $reply = $this->constants::gerReplyForSendFeedbackError();
         sendMessage($chatID, $reply, null);

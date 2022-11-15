@@ -1483,6 +1483,11 @@ class access {
         return $returnValue;
     }
 
+    function addEmailToDmsQuestionInfo($tg_chat_id, $email) {
+        $sql = "UPDATE dms_question_info SET email='".$email."' WHERE tg_chat_id='".$tg_chat_id."'";
+        $this->conn->query($sql);
+    }
+
     function getDmsQuestionInfo($tg_chat_id) {
         $returnArray = array();
         $sql = "SELECT * FROM dms_question_info WHERE tg_chat_id='".$tg_chat_id."'";
