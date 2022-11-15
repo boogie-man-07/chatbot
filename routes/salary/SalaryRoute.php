@@ -68,8 +68,13 @@ class SalaryRoute {
         sendMessage($chatID, $reply, $keyboard);
     }
 
-    function triggerActionForDmsQuestionIsSended($chatID, $hasEmail) {
-        $reply = $this->constants->getReplyForDmsIsSent($hasEmail);
+    function triggerActionForDmsEmptyEmail($chatID) {
+        $reply = $this->constants->getReplyForDmsEmptyEmail();
+        sendMessage($chatID, $reply, null);
+    }
+
+    function triggerActionForDmsQuestionIsSended($chatID) {
+        $reply = $this->constants->getReplyForDmsIsSent();
         sendMessage($chatID, $reply, null);
     }
 
@@ -208,6 +213,10 @@ class SalaryRoute {
 
     function isCorrectDateFormat($text) {
         return preg_match('/(0[1-9]|1[0-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}$/', $text);
+    }
+
+    function isCorrectEmailFormat($text) {
+        return preg_match('/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/', $text);
     }
 
     function isCorrectVacationDurationFormat($text) {
