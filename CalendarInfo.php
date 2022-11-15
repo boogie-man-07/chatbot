@@ -45,10 +45,10 @@ class CalendarInfo {
         foreach($workingData as $key=>$value) {
             if($value['VidVremeni'] == 'Вахта') {
                 $totalWorkDays++;
-                $totalDayWorkHours += (float) $value['Hours'];
+                $totalDayWorkHours += floatval($value['Hours']);
             } else if ($value['VidVremeni'] == 'Ночные часы (вахта)') {
                 $totalWorkNights++;
-                $totalNightWorkHours += (float) $value['Hours'];
+                $totalNightWorkHours += floatval($value['Hours']);
             }
         }
 
