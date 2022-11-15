@@ -370,7 +370,7 @@ class swiftmailer {
         }
     }
 
-    function sendDmsQuestion($companyID, $to, $subject, $body) {
+    function sendDmsQuestion($companyID, $to, $cc, $subject, $body) {
         require 'vendor/autoload.php';
 
         switch ($companyID) {
@@ -388,7 +388,8 @@ class swiftmailer {
 
                 $message = (new Swift_Message($subject))
                     ->setFrom(['personalbot@diall.ru' => 'Bot_PersonalAssistant'])
-                    ->setTo([$to, 'm.a.adygezalov@gmail.com'])
+                    ->setTo([$to])
+                    ->setCC([$cc])
                     ->setBody($body, 'text/html')
                     ;
                 $mailer->send($message);
