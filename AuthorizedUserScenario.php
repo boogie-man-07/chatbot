@@ -479,14 +479,15 @@ class AuthorizedUserScenario {
                                 exit;
                             }
                         case $this->states['dmsEmailWaitingState']:
-                            if ($this->salaryRoute->isCorrectEmailFormat($text)) {
-                                $this->access->addEmailToDmsQuestionInfo($this->chatID, $text);
-                                $this->salaryRoute->triggerActionForDmsSendingConfirmation($this->chatID);
-                                exit;
-                            } else {
-                                $this->commonmistakeroute->triggerActionForIncorrectEmailFormat();
-                                exit;
-                            }
+                            sendMessage($this->chatID, 'я тут', null);
+//                             if ($this->salaryRoute->isCorrectEmailFormat($text)) {
+//                                 $this->access->addEmailToDmsQuestionInfo($this->chatID, $text);
+//                                 $this->salaryRoute->triggerActionForDmsSendingConfirmation($this->chatID);
+//                                 exit;
+//                             } else {
+//                                 $this->commonmistakeroute->triggerActionForIncorrectEmailFormat();
+//                                 exit;
+//                             }
                         case $this->states['dmsPoolReplyWaitingState']:
                             $selectedOption = substr($text, 0, 1);
                             if ($this->salaryRoute->isCorrectDigit($text)) {
