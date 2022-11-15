@@ -389,7 +389,7 @@ class swiftmailer {
                 $message = (new Swift_Message($subject))
                     ->setFrom(['personalbot@diall.ru' => 'Bot_PersonalAssistant'])
                     ->setTo([$to])
-                    ->setCC(null)
+                    ->setCC($cc)
                     ->setBody($body, 'text/html')
                     ;
                 $mailer->send($message);
