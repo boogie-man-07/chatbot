@@ -21,7 +21,7 @@ class SalaryRoute {
     }
 
     function triggerActionForShowDmsMenu($chatID, $firstname, $dmsType, $isPollFinished) {
-        $reply = $this->constants->getReplyForEnterDmsMenu($firstname, $dmsType);
+        $reply = $this->constants->getReplyForEnterDmsMenu($firstname, $dmsType, $isPollFinished);
         $keyboard = $this->keyboards->getDmsMenuKeyboard($dmsType, $isPollFinished);
         sendMessage($chatID, $reply, $keyboard);
     }
