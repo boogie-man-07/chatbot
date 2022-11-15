@@ -216,7 +216,11 @@ class SalaryRoute {
     }
 
     function isCorrectEmailFormat($text) {
-        return preg_match('/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/', $text);
+        if(filter_var($text, FILTER_VALIDATE_EMAIL)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     function isCorrectVacationDurationFormat($text) {
