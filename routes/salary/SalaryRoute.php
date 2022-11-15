@@ -37,7 +37,7 @@ class SalaryRoute {
     }
 
     function triggerActionForSendDmsContacts($chatID, $dmsType) {
-        $reply = $this->constants->getUrlForSendDmsContacts($dmsType);
+        $reply = $this->constants->getDmsContacts($dmsType);
         sendMessage($chatID, $reply, null);
     }
 

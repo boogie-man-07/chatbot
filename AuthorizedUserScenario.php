@@ -155,14 +155,16 @@ class AuthorizedUserScenario {
                 if ($pollInfo) {
                     if ($pollInfo['is_finished']) {
                         sendMessage($this->chatID, 'Вы уже прошли данный опрос, спасибо за уделенное время!', null);
+                        exit;
                     } else {
                         $this->salaryRoute->triggerActionForProceedDmsSurvey($this->chatID, $pollInfo['poll_state']);
+                        exit;
                     }
                 } else {
                     $this->access->setDmsPollInfo($this->user['user_id'], 0, 0);
                     $this->salaryRoute->triggerActionForProceedDmsSurvey($this->chatID, 0);
+                    exit;
                 }
-                exit;
             case $this->commands['dmsAskAQuestion']:
                 $this->access->setState($this->chatID, $this->states['dmsQuestionWaitingState']);
                 $this->salaryRoute->triggerActionForAskADmsQuestion($this->chatID);
