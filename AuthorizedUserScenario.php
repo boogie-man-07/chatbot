@@ -485,6 +485,7 @@ class AuthorizedUserScenario {
                                         $this->salaryRoute->triggerActionForAskNextDmsPollQuestion($this->chatID, $this->user['user_id'], $newPollInfo, $pollQuestionInfo);
                                         exit;
                                     } else {
+                                        $this->access->increaseUserDmsPollState($this->user['user_id'], $pollInfo);
                                         $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
                                         $this->access->setPollAsFinished($this->user['user_id'], $pollInfo);
                                         sendMessage($this->chatID, 'Это были все вопросы! Спасибо за уделенное время!', null);
