@@ -470,7 +470,7 @@ class AuthorizedUserScenario {
                             exit;
                         case $this->states['dmsQuestionWaitingState']:
                             $this->access->setDmsQuestionInfo($this->chatID, $text);
-                            if($this->user['email' != ''] {
+                            if($this->user['email' != '']) {
                                 $this->salaryRoute->triggerActionForDmsSendingConfirmation($this->chatID);
                                 exit;
                             } else {
