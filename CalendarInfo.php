@@ -28,7 +28,7 @@ class CalendarInfo {
             return "Извините, но что-то пошло не так, попробуйте повторить позднее.";
         } else {
             $result = json_decode($response, true);
-            $convertedResult = convertedResponse($result);
+            $convertedResult = $this->convertedResponse($result);
             return $convertedResult;
         }
     }
