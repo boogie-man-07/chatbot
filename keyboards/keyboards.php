@@ -97,33 +97,20 @@ class keyboards {
         $keyboard = array(
             "keyboard" => array(
                 array(
-                    array(
-                        "text" => "Телефонный справочник"
-                    ),
-                    array(
-                        "text" => "КДП и Заработная плата"
-                    )
+                    array("text" => "Телефонный справочник"),
+                    array("text" => "КДП и Заработная плата")
                 ),
                 array(
-                    array(
-                        "text" => "Наши ценности"
-                    ),
-                    array(
-                        "text" => "Общая информация"
-                    )
+                    array("text" => "Наши ценности"),
+                    array("text" => "Общая информация")
                 ),
                 array(
-                    array(
-                        "text" => "Правила"
-                    ),
-                    array(
-                        "text" => "Помощь ИТ специалиста"
-                    )
+                    array("text" => "Правила"),
+                    array("text" => "Помощь ИТ специалиста")
                 ),
                 array(
-                    array(
-                        "text" => "Выход"
-                    )
+                    array("text" => "ДМС"),
+                    array("text" => "Выход")
                 )
             ),
             "resize_keyboard" => true,
@@ -318,7 +305,6 @@ class keyboards {
                 ),
                 array(
                     array("text" => "Календарь"),
-                    array("text" => "ДМС"),
                     array("text" => "Назад")
                 )
             ),
