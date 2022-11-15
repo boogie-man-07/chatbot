@@ -35,7 +35,7 @@ class CalendarInfo {
 
     function convertedResponse($response) {
         $isRotational = $response['Vahta'] == "1";
-        $workingData = $response['Graphincs'];
+        $workingData = $response['Graphics'];
         $totalWorkDays = 0;
         $totalWorkNights = 0;
         $totalDayWorkHours = 0.00;
