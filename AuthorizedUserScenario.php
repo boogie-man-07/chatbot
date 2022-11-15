@@ -819,7 +819,7 @@ class AuthorizedUserScenario {
                     $isSended = $this->swiftmailer->sendDmsQuestion(
                         $this->user['company_id'],
                         'booogie.man.07@gmail.com',
-                        'm.a.adygezalov@gmail.com',
+                        $this->user['email'] ? $this->user['email'] : '',
                         "Вопрос в рамках ДМС (Персональный ассистент работника)",
                         $template
                     );
