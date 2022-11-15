@@ -1484,7 +1484,7 @@ class access {
     }
 
     function addEmailToDmsQuestionInfo($tg_chat_id, $email) {
-        $sql = "UPDATE dms_question_info SET email='".$email."' WHERE tg_chat_id='".$tg_chat_id."'";
+        $sql = "UPDATE dms_question_info SET response_email='".$email."' WHERE tg_chat_id='".$tg_chat_id."'";
         $this->conn->query($sql);
     }
 
