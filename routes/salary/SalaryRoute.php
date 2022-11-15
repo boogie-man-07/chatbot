@@ -68,8 +68,8 @@ class SalaryRoute {
         sendMessage($chatID, $reply, $keyboard);
     }
 
-    function triggerActionForDmsQuestionIsSended($chatID) {
-        $reply = $this->constants->getReplyForDmsIsSent();
+    function triggerActionForDmsQuestionIsSended($chatID, $hasEmail) {
+        $reply = $this->constants->getReplyForDmsIsSent($hasEmail);
         sendMessage($chatID, $reply, null);
     }
 
