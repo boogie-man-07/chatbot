@@ -53,14 +53,14 @@ class CalendarInfo {
             }
 
             $separatedDate = substr($value['Date'], 0, 2);
-            $dateNumber = $separatedDate[0] == "0" ? (int)$separatedDate[1] : (int)$separatedDate;
-            array_push($daysData, array('dateNumber' => $dateNumber);
+            $dateNumber = $separatedDate[0] == "0" ? $separatedDate[1] : $separatedDate;
+            array_push($daysData, array('dateNumber' => (int)$dateNumber);
         }
 
-        "dateNumber": ,
-        "dayOfTheWeek": "Пн",
-        "dayHours": 4,
-        "nightHours": 7
+//         "dateNumber": ,
+//         "dayOfTheWeek": "Пн",
+//         "dayHours": 4,
+//         "nightHours": 7
 
         $returnArray = array(
             'isRotational' => $isRotational,
