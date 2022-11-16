@@ -40,8 +40,6 @@ class CalendarInfo {
         $totalWorkNights = 0;
         $totalDayWorkHours = 0.00;
         $totalNightWorkHours = 0.00;
-        $dayEmoji = hex2bin("E29880");
-        $nightEmoji = hex2bin("F09F8C99");
         foreach($workingData as $key=>$value) {
             if($value['VidVremeni'] == 'Вахта') {
                 $totalWorkDays++;
@@ -51,24 +49,34 @@ class CalendarInfo {
                 $totalNightWorkHours += floatval($value['Hours']);
             }
 
-            $dateNumber = substr($value['Date'], 0, 1) == "0" ? substr(substr($value['Date'], 0, 2), 1) : substr($value['Date'], 0, 2);
+            $countedValue = $value['Date'];
+            $dateNumber = substr($countedValue, 0, 1) == "0" ? substr(substr($countedValue, 0, 2), 1) : substr($countedValue, 0, 2);
             $isWorkingDay = $value['VidVremeni'] == 'Выходные дни' ? false : true;
+            $hasWorkingNight = array_count_values(array_column($value, 'Date'))[$countedValue] > 1);
+
+//             if (array_count_values(array_column($hasWorkingNight, 'Date'))[$countedValue] > 1) {
+//                 $value['hasWorkingNight'] = true;
+//             } else {
+//                 $value['hasWorkingNight'] = false;
+//             }
+
             array_push($daysData, array(
                 'dateNumber' => $dateNumber,
-                'isWorkingDay' => $isWorkingDay
+                'isWorkingDay' => $isWorkingDay,
+                'hasWorkingNight' => $hasWorkingNight
             ));
         }
 
-        foreach($daysData as $key=>$value) {
-            $countedValue = $value['Date'];
-            if (array_count_values(array_column($daysData, 'Date'))[$countedValue] > 1) {
-                array_push($value, array('hasWorkingNight' => true));
+//         foreach($daysData as $key=>$value) {
+//             $countedValue = $value['Date'];
+//             if (array_count_values(array_column($daysData, 'Date'))[$countedValue] > 1) {
+//                 array_push($value, array('hasWorkingNight' => true));
+//                 $value['hasWorkingNight'] = true;
+//             } else {
+//                 array_push($value, array('hasWorkingNight' => false));
 //                 $value['hasWorkingNight'] = false;
-            } else {
-                array_push($value, array('hasWorkingNight' => false));
-//                 $value['hasWorkingNight'] = false;
-            }
-        }
+//             }
+//         }
 
         $returnArray = array(
             'isRotational' => $isRotational,
