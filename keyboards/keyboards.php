@@ -547,9 +547,6 @@ class keyboards {
                     array("text" => "Пт", "callback_data" => "defaultCallbackResponse"),
                     array("text" => "Сб", "callback_data" => "defaultCallbackResponse"),
                     array("text" => "Вс", "callback_data" => "defaultCallbackResponse")
-                ),
-                array(
-                    $data
                 )
             )
         ));
