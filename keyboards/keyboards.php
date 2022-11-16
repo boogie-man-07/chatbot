@@ -537,6 +537,15 @@ class keyboards {
                         "text" => "Дней ".hex2bin("E29880")." ".$monthlyWorkData['totalWorkDays']." = ".$monthlyWorkData['totalDayWorkHours']." ч / Ночей ".hex2bin("F09F8C99")." ".$monthlyWorkData['totalWorkNights']." = ".$monthlyWorkData['totalNightWorkHours']." ч",
                         "callback_data" => "noAction"
                     )
+                ),
+                array(
+                    array("text" => "Пн", "callback_data" => "noAction"),
+                    array("text" => "Вт", "callback_data" => "noAction"),
+                    array("text" => "Ср", "callback_data" => "noAction"),
+                    array("text" => "Чт", "callback_data" => "noAction"),
+                    array("text" => "Пт", "callback_data" => "noAction"),
+                    array("text" => "Сб", "callback_data" => "noAction"),
+                    array("text" => "Вс", "callback_data" => "noAction")
                 )
             )
         ));
