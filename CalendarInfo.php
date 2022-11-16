@@ -52,18 +52,13 @@ class CalendarInfo {
                 $totalNightWorkHours += floatval($value['Hours']);
             }
 
-            $dateNumber = substr($value['Date'], 0, 1) == "0" ? substr($value['Date'], 0, 2) : substr($value['Date'], 0, 1);
+//             $dateNumber = substr($value['Date'], 0, 1) == "0" ? substr($value['Date'], 0, 2) : substr($value['Date'], 0, 1);
             $isWorkingDay = $value['VidVremeni'] == 'Выходные дни' ? true : false;
             array_push($daysData, array(
-                'dateNumber' => $dateNumber,
+//                 'dateNumber' => $dateNumber,
                 'isWorkingDay' => $isWorkingDay
             );
         }
-
-//         "dateNumber": ,
-//         "dayOfTheWeek": "Пн",
-//         "dayHours": 4,
-//         "nightHours": 7
 
         $returnArray = array(
             'isRotational' => $isRotational,
