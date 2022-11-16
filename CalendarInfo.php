@@ -52,12 +52,20 @@ class CalendarInfo {
             }
 
             $dateNumber = substr($value['Date'], 0, 1) == "0" ? substr(substr($value['Date'], 0, 2), 1) : substr($value['Date'], 0, 2);
-            $isWorkingDay = $value['VidVremeni'] == 'Выходные дни' ? true : false;
+            $isWorkingDay = $value['VidVremeni'] == 'Выходные дни' ? false : true;
             array_push($daysData, array(
                 'dateNumber' => $dateNumber,
-                'isWorkingDay' => $isWorkingDay
+                'isWorkingDay' => $isWorkingDay,
+                'hasWorkingNight' => false
             ));
         }
+
+//         foreach($daysData as $key=>$value) {
+//             $countedValue = $value['Date'];
+//             if (array_count_values(array_column($daysData, 'Date'))[$countedValue] > 1) {
+//                 $daysData
+//             }
+//         }
 
         $returnArray = array(
             'isRotational' => $isRotational,
