@@ -549,6 +549,8 @@ class keyboards {
 //     }
 
     function getCalendar($month) {
+        $dayEmoji = hex2bin("E29880");
+        $nightEmoji = hex2bin("F09F8C99");
         return json_encode(array(
             "inline_keyboard" => array(
                 array(
