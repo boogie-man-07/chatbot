@@ -59,12 +59,14 @@ class CalendarInfo {
 //             } else {
 //                 $value['hasWorkingNight'] = false;
 //             }
+            if (!in_array($countedValue, $daysData)) {
+                array_push($daysData, array(
+                    'dateNumber' => (int)$dateNumber,
+                    'isWorkingDay' => $isWorkingDay,
+                    'hasWorkingNight' => $hasWorkingNight
+                ));
+            }
 
-            array_push($daysData, array(
-                'dateNumber' => (int)$dateNumber,
-                'isWorkingDay' => $isWorkingDay,
-                'hasWorkingNight' => $hasWorkingNight
-            ));
         }
 
 //         foreach($daysData as $key=>$value) {
@@ -85,7 +87,7 @@ class CalendarInfo {
             'totalDayWorkHours' => $totalDayWorkHours,
             'totalNightWorkHours' => $totalNightWorkHours,
             'getFirstDayOfMonthWeekIndex' => $this->getFirstDayOfMonthsWeekIndex(),
-            'daysList' => $this->unique_multidim_array($daysData, 'dateNumber')
+            'daysList' => $daysData
         );
 
         return $returnArray;
@@ -112,19 +114,26 @@ class CalendarInfo {
         }
     }
 
-    function unique_multidim_array($array, $key) {
-        $temp_array = array();
-        $i = 0;
-        $key_array = array();
+//     function unique_multidim_array($array, $key) {
+//         $temp_array = array();
+//         $i = 0;
+//         $key_array = array();
+//
+//         foreach($array as $val) {
+//             if (!in_array($val[$key], $key_array)) {
+//                 $key_array[$i] = $val[$key];
+//                 $temp_array[$i] = $val;
+//             }
+//             $i++;
+//         }
+//         return $temp_array;
+//     }
 
-        foreach($array as $val) {
-            if (!in_array($val[$key], $key_array)) {
-                $key_array[$i] = $val[$key];
-                $temp_array[$i] = $val;
-            }
-            $i++;
-        }
-        return $temp_array;
+    function array_unique_multidimensional($input)
+    {
+        $serialized = array_map('serialize', $input);
+        $unique = array_unique($serialized);
+        return array_intersect_key($input, $unique);
     }
 }
 
