@@ -56,7 +56,7 @@ class CalendarInfo {
             $checkedForDuplicateDate = substr($countedValue, 0, 2);
 
             if (!in_array($dateNumber, $daysData)) {
-                array_push($daysData, array(
+                array_push((int)$daysData, array(
                     'dateNumber' => (int)$dateNumber,
                     'isWorkingDay' => $isWorkingDay,
                     'hasWorkingNight' => $hasWorkingNight
