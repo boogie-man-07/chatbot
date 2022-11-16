@@ -55,17 +55,18 @@ class CalendarInfo {
             $isWorkingDay = $value['VidVremeni'] == 'Выходные дни' ? false : true;
             array_push($daysData, array(
                 'dateNumber' => $dateNumber,
-                'isWorkingDay' => $isWorkingDay,
-                'hasWorkingNight' => false
+                'isWorkingDay' => $isWorkingDay
             ));
         }
 
         foreach($daysData as $key=>$value) {
             $countedValue = $value['Date'];
             if (array_count_values(array_column($daysData, 'Date'))[$countedValue] > 1) {
-                $value['hasWorkingNight'] = true;
+                array_push($value, array('hasWorkingNight' => true));
+//                 $value['hasWorkingNight'] = false;
             } else {
-                $value['hasWorkingNight'] = false;
+                array_push($value, array('hasWorkingNight' => false));
+//                 $value['hasWorkingNight'] = false;
             }
         }
 
