@@ -558,6 +558,7 @@ class keyboards {
         $itemsCount = count($monthlyWorkData['daysList']);
         $startCell = $monthlyWorkData['firstDayOfMonthWeekIndex'];
         $mainArray = array();
+        $firstRowArray = array();
         $i = 0;
         $foreach ($daysList as $key=>$value) {
             while ($i < $startCell) {
