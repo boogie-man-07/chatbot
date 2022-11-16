@@ -52,12 +52,12 @@ class CalendarInfo {
                 $totalNightWorkHours += floatval($value['Hours']);
             }
 
-//             $dateNumber = substr($value['Date'], 0, 1) == "0" ? substr($value['Date'], 0, 2) : substr($value['Date'], 0, 1);
-//             $isWorkingDay = $value['VidVremeni'] == 'Выходные дни' ? true : false;
-//             array_push($daysData, array(
-//                 'dateNumber' => $dateNumber,
-//                 'isWorkingDay' => $isWorkingDay
-//             );
+            $dateNumber = substr($value['Date'], 0, 1) == "0" ? substr($value['Date'], 0, 2) : substr($value['Date'], 0, 1);
+            $isWorkingDay = $value['VidVremeni'] == 'Выходные дни' ? true : false;
+            array_push($daysData, array(
+                'dateNumber' => $dateNumber,
+                'isWorkingDay' => $isWorkingDay
+            );
         }
 
         $returnArray = array(
@@ -67,7 +67,7 @@ class CalendarInfo {
             'totalDayWorkHours' => $totalDayWorkHours,
             'totalNightWorkHours' => $totalNightWorkHours,
             'getFirstDayOfMonthWeekIndex' => $this->getFirstDayOfMonthsWeekIndex()
-//             'daysList' => $daysData
+            'daysList' => array($daysData)
         );
 
         return $returnArray;
