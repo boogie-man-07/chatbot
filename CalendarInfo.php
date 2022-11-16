@@ -28,8 +28,7 @@ class CalendarInfo {
             return "Извините, но что-то пошло не так, попробуйте повторить позднее.";
         } else {
             $result = json_decode($response, true);
-            $convertedResult = $this->convertedResponse($result);
-            return $convertedResult;
+            return $this->convertedResponse($result);
         }
     }
 
@@ -52,12 +51,12 @@ class CalendarInfo {
                 $totalNightWorkHours += floatval($value['Hours']);
             }
 
-            $dateNumber = substr($value['Date'], 0, 1) == "0" ? substr($value['Date'], 0, 2) : substr($value['Date'], 0, 1);
+            $dateNumber = substr($value, 0, 1) == "0" ? substr(substr($value, 0, 2), 1) : substr($value, 0, 2);
             $isWorkingDay = $value['VidVremeni'] == 'Выходные дни' ? true : false;
             array_push($daysData, array(
                 'dateNumber' => $dateNumber,
                 'isWorkingDay' => $isWorkingDay
-            );
+            ));
         }
 
         $returnArray = array(
@@ -67,7 +66,7 @@ class CalendarInfo {
             'totalDayWorkHours' => $totalDayWorkHours,
             'totalNightWorkHours' => $totalNightWorkHours,
             'getFirstDayOfMonthWeekIndex' => $this->getFirstDayOfMonthsWeekIndex()
-            'daysList' => array($daysData)
+            'daysList' => $daysData
         );
 
         return $returnArray;
