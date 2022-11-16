@@ -53,30 +53,16 @@ class CalendarInfo {
             $dateNumber = substr($countedValue, 0, 1) == "0" ? substr(substr($countedValue, 0, 2), 1) : substr($countedValue, 0, 2);
             $isWorkingDay = $value['VidVremeni'] == 'Выходные дни' ? false : true;
             $hasWorkingNight = array_count_values(array_column($workingData, 'Date'))[$countedValue] > 1;
+            $checkedForDuplicateDate = substr($countedValue, 0, 2);
 
-//             if (array_count_values(array_column($hasWorkingNight, 'Date'))[$countedValue] > 1) {
-//                 $value['hasWorkingNight'] = true;
-//             } else {
-//                 $value['hasWorkingNight'] = false;
-//             }
-
-            array_push($daysData, array(
-                'dateNumber' => (int)$dateNumber,
-                'isWorkingDay' => $isWorkingDay,
-                'hasWorkingNight' => $hasWorkingNight
-            ));
+            if (!in_array($dateNumber, $daysData)) {
+                array_push($daysData, array(
+                    'dateNumber' => (int)$dateNumber,
+                    'isWorkingDay' => $isWorkingDay,
+                    'hasWorkingNight' => $hasWorkingNight
+                ));
+            }
         }
-
-//         foreach($daysData as $key=>$value) {
-//             $countedValue = $value['Date'];
-//             if (array_count_values(array_column($daysData, 'Date'))[$countedValue] > 1) {
-//                 array_push($value, array('hasWorkingNight' => true));
-//                 $value['hasWorkingNight'] = true;
-//             } else {
-//                 array_push($value, array('hasWorkingNight' => false));
-//                 $value['hasWorkingNight'] = false;
-//             }
-//         }
 
         $returnArray = array(
             'isRotational' => $isRotational,
@@ -85,7 +71,7 @@ class CalendarInfo {
             'totalDayWorkHours' => $totalDayWorkHours,
             'totalNightWorkHours' => $totalNightWorkHours,
             'getFirstDayOfMonthWeekIndex' => $this->getFirstDayOfMonthsWeekIndex(),
-            'daysList' => $this->unique_multidim_array($daysData, 'dateNumber')
+            'daysList' => $daysData
         );
 
         return $returnArray;
@@ -110,21 +96,6 @@ class CalendarInfo {
             case 'Sun':
                 return 6;
         }
-    }
-
-    function unique_multidim_array($array, $key) {
-        $temp_array = array();
-        $i = 0;
-        $key_array = array();
-
-        foreach($array as $val) {
-            if (!in_array($val[$key], $key_array)) {
-                $key_array[$i] = $val[$key];
-                $temp_array[$i] = $val;
-            }
-            $i++;
-        }
-        return $temp_array;
     }
 }
 
