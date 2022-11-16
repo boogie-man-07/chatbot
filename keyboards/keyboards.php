@@ -529,24 +529,18 @@ class keyboards {
 //         ));
 //     }
 
-//     function getEmployeeMonthlyWorkdaysCalendar($monthlyWorkDays) {
-//         $numberOfWorkingDays = 0.00;
-//         $nimberOfWorkingNights = 0.00;
-//         foreach ($monthlyWorkDays['Graphics'] as $key=>$value) {
-//
-//         }
-//
-//         return json_encode(array(
-//             "inline_keyboard" => array(
-//                 array(
-//                     array(
-//                         "text" => "Дней ".hex2bin("E29880")." 18 = 113,67 ч / Ночей ".hex2bin("F09F8C99")." 11 = 75,33 ч",
-//                         "callback_data" => "noAction"
-//                     )
-//                 )
-//             )
-//         ));
-//     }
+    function getEmployeeMonthlyWorkdaysCalendar($monthlyWorkData) {
+        return json_encode(array(
+            "inline_keyboard" => array(
+                array(
+                    array(
+                        "text" => "Дней ".hex2bin("E29880")." ".$monthlyWorkData['totalWorkDays']." = ".$monthlyWorkData['totalDayWorkHours']." ч / Ночей ".hex2bin("F09F8C99")." ".$monthlyWorkData['totalWorkNights']." = ".$monthlyWorkData['totalNightWorkHours']." ч",
+                        "callback_data" => "noAction"
+                    )
+                )
+            )
+        ));
+    }
 
     function getCalendar($month) {
         $dayEmoji = hex2bin("E29880");
