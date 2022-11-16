@@ -62,11 +62,7 @@ class CalendarInfo {
             ));
         }
 
-        for ($i = 0; $i < count($daysData); $i++) {
-            if (array_search($daysData[$i]['dateNumber'], array_column($daysData, 'dateNumber')) >= 0) {
-                unset($daysData[$i]);
-            }
-        }
+        $uniqueDaysData = array_unique($daysData,SORT_REGULAR);
 
         $returnArray = array(
             'isRotational' => $isRotational,
@@ -75,7 +71,7 @@ class CalendarInfo {
             'totalDayWorkHours' => $totalDayWorkHours,
             'totalNightWorkHours' => $totalNightWorkHours,
             'getFirstDayOfMonthWeekIndex' => $this->getFirstDayOfMonthsWeekIndex(),
-            'daysList' => $daysData
+            'daysList' => $uniqueDaysData
         );
 
         return $returnArray;
