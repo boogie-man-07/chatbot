@@ -63,7 +63,7 @@ class CalendarInfo {
         }
 
         for ($i = 0; $i < count($daysData); $i++) {
-            if $daysData[$i]['dateNumber'] == $daysData[$i + 1]['dateNumber'] {
+            if ($daysData[$i]['dateNumber'] === $daysData[$i + 1]['dateNumber']) {
                 unset($daysData[$i + 1]);
             }
         }
