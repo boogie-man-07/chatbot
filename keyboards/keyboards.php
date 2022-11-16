@@ -566,8 +566,10 @@ class keyboards {
             }
             while ($i <= 7) {
                 array_push($firstRowArray, array(
-                "text" => $value['isWorkingDay'] ? ($value['hasWorkingNight'] ? hex2bin("F09F8C99") : hex2bin("E29880")) : (string)$value['dateNumber'],
-                "callback_data" => "defaultCallbackResponse"));
+                    "text" => $value['isWorkingDay'] ? ($value['hasWorkingNight'] ? hex2bin("F09F8C99") : hex2bin("E29880")) : (string)$value['dateNumber'],
+                    "callback_data" => "defaultCallbackResponse")
+                );
+                $i++;
             }
         }
 
