@@ -559,7 +559,7 @@ class keyboards {
         $mainArray = array();
         $firstRowArray = array();
         $i = 0;
-        $foreach ($daysList as $key=>$value) {
+        foreach ($daysList as $key=>$value) {
             while ($i < $startCell) {
                 array_push($firstRowArray, array("text" => " ", "callback_data" => "defaultCallbackResponse"));
                 $i++;
