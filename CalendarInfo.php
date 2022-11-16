@@ -61,7 +61,7 @@ class CalendarInfo {
 //             }
 
             array_push($daysData, array(
-                'dateNumber' => $dateNumber,
+                'dateNumber' => (int)$dateNumber,
                 'isWorkingDay' => $isWorkingDay,
                 'hasWorkingNight' => $hasWorkingNight
             ));
@@ -85,7 +85,7 @@ class CalendarInfo {
             'totalDayWorkHours' => $totalDayWorkHours,
             'totalNightWorkHours' => $totalNightWorkHours,
             'getFirstDayOfMonthWeekIndex' => $this->getFirstDayOfMonthsWeekIndex(),
-            'daysList' => $this->unique_multidim_array($daysData, 'dateNumber');
+            'daysList' => $this->unique_multidim_array($daysData, 'dateNumber')
         );
 
         return $returnArray;
