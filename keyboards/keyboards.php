@@ -535,20 +535,42 @@ class keyboards {
                 array(
                     array(
                         "text" => "Дней ".hex2bin("E29880")." ".$monthlyWorkData['totalWorkDays']." = ".$monthlyWorkData['totalDayWorkHours']." ч / Ночей ".hex2bin("F09F8C99")." ".$monthlyWorkData['totalWorkNights']." = ".$monthlyWorkData['totalNightWorkHours']." ч",
-                        "callback_data" => "noAction"
+                        "callback_data" => "defaultCallbackResponse"
                     )
                 ),
                 array(
-                    array("text" => "Пн", "callback_data" => "noAction"),
-                    array("text" => "Вт", "callback_data" => "noAction"),
-                    array("text" => "Ср", "callback_data" => "noAction"),
-                    array("text" => "Чт", "callback_data" => "noAction"),
-                    array("text" => "Пт", "callback_data" => "noAction"),
-                    array("text" => "Сб", "callback_data" => "noAction"),
-                    array("text" => "Вс", "callback_data" => "noAction")
-                )
+                    array("text" => "Пн", "callback_data" => "defaultCallbackResponse"),
+                    array("text" => "Вт", "callback_data" => "defaultCallbackResponse"),
+                    array("text" => "Ср", "callback_data" => "defaultCallbackResponse"),
+                    array("text" => "Чт", "callback_data" => "defaultCallbackResponse"),
+                    array("text" => "Пт", "callback_data" => "defaultCallbackResponse"),
+                    array("text" => "Сб", "callback_data" => "defaultCallbackResponse"),
+                    array("text" => "Вс", "callback_data" => "defaultCallbackResponse")
+                ),
+                $this->createdCalendar($monthlyWorkData)
             )
         ));
+    }
+
+    function $createdCalendar($monthlyWorkData) {
+        $daysList = $monthlyWorkData['daysList'];
+        $itemsCount = count($monthlyWorkData['daysList']);
+        $startCell = $monthlyWorkData['firstDayOfMonthWeekIndex'];
+        $mainArray = array();
+        $i = 0;
+        $foreach ($daysList as $key=>$value) {
+            while ($i < $startCell) {
+                array_push($firstRowArray, array("text" => " ", "callback_data" => "defaultCallbackResponse"));
+            }
+            while ($i <= 7) {
+                array_push($firstRowArray, array(
+                "text" => $value['isWorkingDay'] ? ($value['hasWorkingNight'] ? hex2bin("F09F8C99") : hex2bin("E29880")) : (string)$value['dateNumber'],
+                "callback_data" => "defaultCallbackResponse"));
+            }
+        }
+
+        array_push($mainArray, $firstRowArray);
+        return $mainArray;
     }
 
     function getCalendar($month) {
