@@ -36,6 +36,7 @@ class CalendarInfo {
     function convertedResponse($response) {
         $isRotational = $response['Vahta'] == "1";
         $workingData = $response['Graphics'];
+        $daysData = array();
         $totalWorkDays = 0;
         $totalWorkNights = 0;
         $totalDayWorkHours = 0.00;
@@ -57,10 +58,35 @@ class CalendarInfo {
             'totalWorkDays' => $totalWorkDays,
             'totalWorkNights' => $totalWorkNights,
             'totalDayWorkHours' => $totalDayWorkHours,
-            'totalNightWorkHours' => $totalNightWorkHours
+            'totalNightWorkHours' => $totalNightWorkHours,
+            'getFirstDayOfMonthWeekIndex' => $this->getFirstDayOfMonthsWeekIndex()
+            //'days' => $daysData;
         );
 
         return $returnArray;
+    }
+
+    function getFirstDayOfMonthsWeekIndex() {
+        $firstDay = strtotime('first day of this month', time());
+        $firstDayWeekDayName = date('D', $firstDay);
+        switch ($firstDayWeekDayName) {
+            case 'Mon':
+                return 0;
+            case 'Mon':
+                return 1;
+            case 'Mon':
+                return 2;
+            case 'Mon':
+                return 3;
+            case 'Mon':
+                return 4;
+            case 'Mon':
+                return 5;
+            case 'Mon':
+                return 6;
+            case 'Mon':
+                return 7;
+        }
     }
 }
 
