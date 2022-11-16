@@ -69,23 +69,21 @@ class CalendarInfo {
     function getFirstDayOfMonthsWeekIndex() {
         $firstDay = strtotime('first day of this month', time());
         $firstDayWeekDayName = date('D', $firstDay);
-        switch ($firstDayWeekDayName) {
+        switch ((string)$firstDayWeekDayName) {
             case 'Mon':
                 return 0;
-            case 'Mon':
+            case 'Tue':
                 return 1;
-            case 'Mon':
+            case 'Wed':
                 return 2;
-            case 'Mon':
+            case 'Thu':
                 return 3;
-            case 'Mon':
+            case 'Fri':
                 return 4;
-            case 'Mon':
+            case 'Sat':
                 return 5;
-            case 'Mon':
+            case 'Sun':
                 return 6;
-            case 'Mon':
-                return 7;
         }
     }
 }
