@@ -574,7 +574,7 @@ class keyboards {
             }
         }
 
-        array_push($mainArray, $firstRowArray);
+        array_push($mainArray, array('firstRow' => $firstRowArray));
         return $mainArray;
     }
 
