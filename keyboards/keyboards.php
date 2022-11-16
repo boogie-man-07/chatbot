@@ -548,9 +548,7 @@ class keyboards {
                     array("text" => "Сб", "callback_data" => "defaultCallbackResponse"),
                     array("text" => "Вс", "callback_data" => "defaultCallbackResponse")
                 ),
-                array(
-                    $data
-                )
+                $data
             )
         ));
     }
@@ -576,8 +574,8 @@ class keyboards {
 //             }
         }
 
-        array_push($mainArray, $firstRowArray);
-        return $mainArray;
+//         array_push($mainArray, $firstRowArray);
+        return $firstRowArray;
     }
 
     function getCalendar($month) {
