@@ -48,22 +48,23 @@ class CalendarInfo {
                 $totalWorkNights++;
                 $totalNightWorkHours += floatval($value['Hours']);
             }
+
+            $countedValue = $value['Date'];
+            $dateNumber = substr($countedValue, 0, 1) == "0" ? substr(substr($countedValue, 0, 2), 1) : substr($countedValue, 0, 2);
+            $isWorkingDay = $value['VidVremeni'] == 'Выходные дни' ? false : true;
+            $hasWorkingNight = array_count_values(array_column($workingData, 'Date'))[$countedValue] > 1;
+            $checkedForDuplicateDate = substr($countedValue, 0, 2);
+
+            array_push($daysData, array(
+                'dateNumber' => (int)$dateNumber,
+                'isWorkingDay' => $isWorkingDay,
+                'hasWorkingNight' => $hasWorkingNight
+            ));
         }
 
         for ($i = 0; $i < count($workingData); $i++) {
             if ($workingData[$i]['Date'] === $workingData[$i + 1]['Date']) {
-                unset($workingData[$i + 1]);
-            } else {
-                $countedValue = $workingData[$i]['Date'];
-                $dateNumber = substr($countedValue, 0, 1) == "0" ? substr(substr($countedValue, 0, 2), 1) : substr($countedValue, 0, 2);
-                $isWorkingDay = $workingData[$i]['VidVremeni'] == 'Выходные дни' ? false : true;
-                $hasWorkingNight = array_count_values(array_column($workingData, 'Date'))[$countedValue] > 1;
-                $checkedForDuplicateDate = substr($countedValue, 0, 2);
-                array_push($daysData, array(
-                    'dateNumber' => (int)$dateNumber,
-                    'isWorkingDay' => $isWorkingDay,
-                    'hasWorkingNight' => $hasWorkingNight
-                ));
+                unset($daysData[$i + 1]);
             }
         }
 
