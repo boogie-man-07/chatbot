@@ -54,7 +54,11 @@ class CalendarInfo {
 
             $separatedDate = substr($value['Date'], 0, 2);
             $dateNumber = $separatedDate[0] == "0" ? $separatedDate[1] : $separatedDate;
-            array_push($daysData, array('dateNumber' => (int)$dateNumber);
+            $isWorkingDay = $value['VidVremeni'] == 'Выходные дни' ? true : false;
+            array_push($daysData, array(
+                'dateNumber' => $dateNumber,
+                'isWorkingDay' => $isWorkingDay
+            );
         }
 
 //         "dateNumber": ,
