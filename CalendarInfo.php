@@ -52,8 +52,7 @@ class CalendarInfo {
                 $totalNightWorkHours += floatval($value['Hours']);
             }
 
-            $separatedDate = substr($value['Date'], 0, 2);
-            $dateNumber = $separatedDate[0] == "0" ? $separatedDate[1] : $separatedDate;
+            $dateNumber = substr($value['Date'], 0, 1) == "0" ? substr($value['Date'], 0, 2) : substr($value['Date'], 0, 1);
             $isWorkingDay = $value['VidVremeni'] == 'Выходные дни' ? true : false;
             array_push($daysData, array(
                 'dateNumber' => $dateNumber,
