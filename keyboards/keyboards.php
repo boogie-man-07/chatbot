@@ -563,10 +563,11 @@ class keyboards {
         $foreach ($daysList as $key=>$value) {
             while ($i < $startCell) {
                 array_push($firstRowArray, array("text" => " ", "callback_data" => "defaultCallbackResponse"));
+                $i++;
             }
             while ($i <= 7) {
                 array_push($firstRowArray, array(
-                    "text" => $value['isWorkingDay'] ? ($value['hasWorkingNight'] ? hex2bin("F09F8C99") : hex2bin("E29880")) : (string)$value['dateNumber'],
+                    "text" => $value['isWorkingDay'] ? ($value['hasWorkingNight'] ? (string)hex2bin("F09F8C99") : (string)hex2bin("E29880")) : (string)$value['dateNumber'],
                     "callback_data" => "defaultCallbackResponse")
                 );
                 $i++;
