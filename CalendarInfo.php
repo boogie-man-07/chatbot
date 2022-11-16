@@ -55,12 +55,16 @@ class CalendarInfo {
             $hasWorkingNight = array_count_values(array_column($workingData, 'Date'))[$countedValue] > 1;
             $checkedForDuplicateDate = substr($countedValue, 0, 2);
 
-            if (!in_array((int)$dateNumber, $daysData)) {
-                array_push($daysData, array(
-                    'dateNumber' => (int)$dateNumber,
-                    'isWorkingDay' => $isWorkingDay,
-                    'hasWorkingNight' => $hasWorkingNight
-                ));
+            array_push($daysData, array(
+                'dateNumber' => (int)$dateNumber,
+                'isWorkingDay' => $isWorkingDay,
+                'hasWorkingNight' => $hasWorkingNight
+            ));
+        }
+
+        for ($i = 0; $i < count($daysData); $i++) {
+            if $daysData[$i]['dateNumber'] == $daysData[$i + 1]['dateNumber'] {
+                unset($daysData[$i + 1]);
             }
         }
 
