@@ -63,7 +63,7 @@ class CalendarInfo {
         }
 
         for ($i = 0; $i < count($daysData); $i++) {
-            if (array_search('blue', array_column($daysData, 'dateNumber')) >= 0) {
+            if (array_search($daysData[$i]['dateNumber'], array_column($daysData, 'dateNumber')) >= 0) {
                 unset($daysData[$i]);
             }
         }
