@@ -71,7 +71,7 @@ class CalendarInfo {
             'totalDayWorkHours' => $totalDayWorkHours,
             'totalNightWorkHours' => $totalNightWorkHours,
             'firstDayOfMonthWeekIndex' => $this->getFirstDayOfMonthsWeekIndex(),
-            'daysList' => $uniqueDaysData
+            ''daysList'' => $uniqueDaysData
         );
 
         return $returnArray;

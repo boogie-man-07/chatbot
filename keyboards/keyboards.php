@@ -530,6 +530,7 @@ class keyboards {
 //     }
 
     function getEmployeeMonthlyWorkdaysCalendar($monthlyWorkData) {
+        $data = $this->createdCalendar($monthlyWorkData);
         return json_encode(array(
             "inline_keyboard" => array(
                 array(
@@ -546,32 +547,31 @@ class keyboards {
                     array("text" => "Пт", "callback_data" => "defaultCallbackResponse"),
                     array("text" => "Сб", "callback_data" => "defaultCallbackResponse"),
                     array("text" => "Вс", "callback_data" => "defaultCallbackResponse")
-                ),
-                $this->createdCalendar($monthlyWorkData)
+                )//,$data
             )
         ));
     }
 
-    function $createdCalendar($monthlyWorkData) {
-        $daysList = $monthlyWorkData['daysList'];
-        $itemsCount = count($monthlyWorkData['daysList']);
-        $startCell = $monthlyWorkData['firstDayOfMonthWeekIndex'];
-        $mainArray = array();
-        $i = 0;
-        $foreach ($daysList as $key=>$value) {
-            while ($i < $startCell) {
-                array_push($firstRowArray, array("text" => " ", "callback_data" => "defaultCallbackResponse"));
-            }
-            while ($i <= 7) {
-                array_push($firstRowArray, array(
-                "text" => $value['isWorkingDay'] ? ($value['hasWorkingNight'] ? hex2bin("F09F8C99") : hex2bin("E29880")) : (string)$value['dateNumber'],
-                "callback_data" => "defaultCallbackResponse"));
-            }
-        }
-
-        array_push($mainArray, $firstRowArray);
-        return $mainArray;
-    }
+//     function $createdCalendar($monthlyWorkData) {
+//         $daysList = $monthlyWorkData['daysList'];
+//         $itemsCount = count($monthlyWorkData['daysList']);
+//         $startCell = $monthlyWorkData['firstDayOfMonthWeekIndex'];
+//         $mainArray = array();
+//         $i = 0;
+//         $foreach ($daysList as $key=>$value) {
+//             while ($i < $startCell) {
+//                 array_push($firstRowArray, array("text" => " ", "callback_data" => "defaultCallbackResponse"));
+//             }
+//             while ($i <= 7) {
+//                 array_push($firstRowArray, array(
+//                 "text" => $value['isWorkingDay'] ? ($value['hasWorkingNight'] ? hex2bin("F09F8C99") : hex2bin("E29880")) : (string)$value['dateNumber'],
+//                 "callback_data" => "defaultCallbackResponse"));
+//             }
+//         }
+//
+//         array_push($mainArray, $firstRowArray);
+//         return $mainArray;
+//     }
 
     function getCalendar($month) {
         $dayEmoji = hex2bin("E29880");
