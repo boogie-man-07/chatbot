@@ -51,7 +51,16 @@ class CalendarInfo {
                 $totalWorkNights++;
                 $totalNightWorkHours += floatval($value['Hours']);
             }
+
+            $separatedDate = substr($value['Date'], 0, 2);
+            $dateNumber = $separatedDate[0] == "0" ? (int)$separatedDate[1] : (int)$separatedDate;
+            array_push($daysData, array('dateNumber' => $dateNumber);
         }
+
+        "dateNumber": ,
+        "dayOfTheWeek": "Пн",
+        "dayHours": 4,
+        "nightHours": 7
 
         $returnArray = array(
             'isRotational' => $isRotational,
@@ -60,7 +69,7 @@ class CalendarInfo {
             'totalDayWorkHours' => $totalDayWorkHours,
             'totalNightWorkHours' => $totalNightWorkHours,
             'getFirstDayOfMonthWeekIndex' => $this->getFirstDayOfMonthsWeekIndex()
-            //'days' => $daysData;
+            'daysList' => $daysData;
         );
 
         return $returnArray;
