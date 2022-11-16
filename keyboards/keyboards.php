@@ -547,8 +547,7 @@ class keyboards {
                     array("text" => "Пт", "callback_data" => "defaultCallbackResponse"),
                     array("text" => "Сб", "callback_data" => "defaultCallbackResponse"),
                     array("text" => "Вс", "callback_data" => "defaultCallbackResponse")
-                ),
-                $data
+                )
             )
         ));
     }
@@ -574,7 +573,7 @@ class keyboards {
 //             }
         }
 
-        array_push($mainArray, array('firstRow' => $firstRowArray));
+        array_push($mainArray, $firstRowArray);
         return $mainArray;
     }
 
