@@ -63,9 +63,9 @@ class CalendarInfo {
         foreach($daysData as $key=>$value) {
             $countedValue = $value['Date'];
             if (array_count_values(array_column($daysData, 'Date'))[$countedValue] > 1) {
-                $value['hasWorkingNight'] = true
+                $value['hasWorkingNight'] = true;
             } else {
-                $value['hasWorkingNight'] = false
+                $value['hasWorkingNight'] = false;
             }
         }
 
