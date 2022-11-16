@@ -201,11 +201,11 @@ class SalaryRoute {
         sendMessage($chatID, $reply, $keyboard);
     }
     // remove
-    function triggerCalendarAction($chatID, $monthlyWorkData) {
-        $reply = "Ваши рабочие дни в этом месяце. Вы можете посмотреть другие месяцы, нажав соответствующую кнопку вперед/назад.";
-        $keyboard = $this->keyboards->getEmployeeMonthlyWorkdaysCalendar($monthlyWorkData);
-        sendMessage($chatID, $reply, $keyboard);
-    }
+//     function triggerCalendarAction($chatID, $monthlyWorkData) {
+//         $reply = "Ваши рабочие дни в этом месяце. Вы можете посмотреть другие месяцы, нажав соответствующую кнопку вперед/назад.";
+//         $keyboard = $this->keyboards->getEmployeeMonthlyWorkdaysCalendar($monthlyWorkData);
+//         sendMessage($chatID, $reply, $keyboard);
+//     }
 
 //     function triggerNextCalendarAction($chatID, $messageId, $month) {
 //         $keyboard = $this->keyboards->getCalendar($month);
