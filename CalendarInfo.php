@@ -49,24 +49,27 @@ class CalendarInfo {
                 $totalNightWorkHours += floatval($value['Hours']);
             }
 
-            $countedValue = $value['Date'];
-            $dateNumber = substr($countedValue, 0, 1) == "0" ? substr(substr($countedValue, 0, 2), 1) : substr($countedValue, 0, 2);
-            $isWorkingDay = $value['VidVremeni'] == 'Выходные дни' ? false : true;
-            $hasWorkingNight = array_count_values(array_column($workingData, 'Date'))[$countedValue] > 1;
-            $checkedForDuplicateDate = substr($countedValue, 0, 2);
-
-            array_push($daysData, array(
-                'dateNumber' => (int)$dateNumber,
-                'isWorkingDay' => $isWorkingDay,
-                'hasWorkingNight' => $hasWorkingNight
-            ));
-        }
-
-        for ($i = 0; $i < count($daysData); $i++) {
-            if ($daysData[$i]['dateNumber'] === $daysData[$i + 1]['dateNumber']) {
-                unset($daysData[$i + 1]);
+            for ($i = 0; $i < count($workingData); $i++) {
+                if ($workingData[$i]['Date'] === $workingData[$i + 1]['Date']) {
+                    unset($workingData[$i + 1]);
+                } else {
+                    $countedValue = $value['Date'];
+                    $dateNumber = substr($countedValue, 0, 1) == "0" ? substr(substr($countedValue, 0, 2), 1) : substr($countedValue, 0, 2);
+                    $isWorkingDay = $value['VidVremeni'] == 'Выходные дни' ? false : true;
+                    $hasWorkingNight = array_count_values(array_column($workingData, 'Date'))[$countedValue] > 1;
+                    $checkedForDuplicateDate = substr($countedValue, 0, 2);
+                    array_push($daysData, array(
+                        'dateNumber' => (int)$dateNumber,
+                        'isWorkingDay' => $isWorkingDay,
+                        'hasWorkingNight' => $hasWorkingNight
+                    ));
+                }
             }
+
+
         }
+
+
 
         $returnArray = array(
             'isRotational' => $isRotational,
