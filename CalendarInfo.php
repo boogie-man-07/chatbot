@@ -53,11 +53,11 @@ class CalendarInfo {
             }
 
 //             $dateNumber = substr($value['Date'], 0, 1) == "0" ? substr($value['Date'], 0, 2) : substr($value['Date'], 0, 1);
-            $isWorkingDay = $value['VidVremeni'] == 'Выходные дни' ? true : false;
-            array_push($daysData, array(
+//             $isWorkingDay = $value['VidVremeni'] == 'Выходные дни' ? true : false;
+//             array_push($daysData, array(
 //                 'dateNumber' => $dateNumber,
-                'isWorkingDay' => $isWorkingDay
-            );
+//                 'isWorkingDay' => $isWorkingDay
+//             );
         }
 
         $returnArray = array(
@@ -66,8 +66,8 @@ class CalendarInfo {
             'totalWorkNights' => $totalWorkNights,
             'totalDayWorkHours' => $totalDayWorkHours,
             'totalNightWorkHours' => $totalNightWorkHours,
-            'getFirstDayOfMonthWeekIndex' => $this->getFirstDayOfMonthsWeekIndex(),
-            'daysList' => $daysData
+            'getFirstDayOfMonthWeekIndex' => $this->getFirstDayOfMonthsWeekIndex()
+//             'daysList' => $daysData
         );
 
         return $returnArray;
