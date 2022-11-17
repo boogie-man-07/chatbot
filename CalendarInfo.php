@@ -53,7 +53,7 @@ class CalendarInfo {
             $countedValue = $value['Date'];
             $dateNumber = substr($countedValue, 0, 1) == "0" ? substr(substr($countedValue, 0, 2), 1) : substr($countedValue, 0, 2);
             $isWorkingDay = $value['VidVremeni'] == 'Выходные дни' ? false : true;
-            $hasWorkingNight = array_count_values(array_column($workingData, 'Date'))[$countedValue] > 1;
+            $hasWorkingNight = array_count_values(array_column($workingData, 'Date'))[$countedValue] > 1 ? true; false;
             $checkedForDuplicateDate = substr($countedValue, 0, 2);
 
             if ($isWorkingDay) {
