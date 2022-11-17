@@ -59,7 +59,7 @@ class CalendarInfo {
                 'dateNumber' => (int)$dateNumber,
                 'isWorkingDay' => $isWorkingDay,
                 'hasWorkingNight' => $hasWorkingNight,
-                'buttonText' => $isWorkingDay ? ($hasWorkingNight ? 'нс' : 'дс') : $dateNumber
+                'buttonText' => $isWorkingDay ? ($hasWorkingNight ? 'night' : 'day') : $dateNumber
 //                 'buttonText' => $isWorkingDay ? ($hasWorkingNight ? hex2bin("F09F8C99") : hex2bin("E29880")) : $dateNumber
             ));
         }
