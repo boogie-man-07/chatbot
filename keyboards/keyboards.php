@@ -580,7 +580,7 @@ class keyboards {
                         break;
                 }
                 array_push($firstRowArray, array(
-                    "text" => (string)$value['dateNumber'],
+                    "text" => (string)$key,
                     "callback_data" => "defaultCallbackResponse")
                 );
                 $i++;
