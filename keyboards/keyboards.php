@@ -567,7 +567,7 @@ class keyboards {
 
         for ($i = $startCell; $i < 7; $i++) {
             $c = 0;
-            switch ($daysList[$c]['buttonId']) {
+            switch ($daysList[$c]['buttonText']) {
                 case 0:
                     $buttonId = (string)$daysList[$c]['dateNumber'];
                     break;
