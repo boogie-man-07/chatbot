@@ -107,7 +107,7 @@ class CalendarInfo {
 
     function getMonthByIndex() {
         $firstDay = strtotime('first day of this month', time());
-        $monthIndex = date('M', $firstDay);
+        $monthIndex = date('m', $firstDay);
         $yearIndex = date('Y', $firstDay);
         switch ((string)$monthIndex) {
             case '01':
@@ -130,7 +130,7 @@ class CalendarInfo {
                 return "Сентябрь $yearIndex";
             case '10':
                 return "Октябрь $yearIndex";
-            case 11:
+            case '11':
                 return "Ноябрь $yearIndex";
             case '12':
                 return "Декабрь $yearIndex";
