@@ -855,7 +855,7 @@ class AuthorizedUserScenario {
             case $this->commands['nextMonthCalendarInline']:
                 $nextMonth = $this->salaryRoute->getNextMonth(1);
                 $monthlyWorkData = $this->calendarInfo->getRawMonthlyData('37e79227-62e3-11eb-a20a-00155d93a613', $nextMonth);
-                sendMessage($this->chatID, json_encode($monthlyWorkData), null);
+                sendMessage($this->chatID, $monthlyWorkData, null);
 //                 $this->salaryRoute->triggerCalendarAction($this->chatID, $this->messageId, $monthlyWorkData);
                 answerCallbackQuery($this->query["id"], "Загружены данные для N + 1 месяца!");
                 exit;
