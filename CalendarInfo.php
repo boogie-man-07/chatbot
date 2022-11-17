@@ -27,9 +27,8 @@ class CalendarInfo {
         if ($err) {
             return "Извините, но что-то пошло не так, попробуйте повторить позднее.";
         } else {
-//             $result = json_decode($response, true);
-            return $response;
-//             return $this->convertedResponse($result);
+            $result = json_decode($response, true);
+            return $this->convertedResponse($result);
         }
     }
 
@@ -53,7 +52,7 @@ class CalendarInfo {
             $countedValue = $value['Date'];
             $dateNumber = substr($countedValue, 0, 1) == "0" ? substr(substr($countedValue, 0, 2), 1) : substr($countedValue, 0, 2);
             $isWorkingDay = $value['VidVremeni'] == 'Выходные дни' ? false : true;
-            $hasWorkingNight = array_count_values(array_column($workingData, 'Date'))[$countedValue] > 1;
+            $hasWorkingNight = array_count_values(array_column($workingData, 'Date'))[$countedValue] > 1 ? true; false;
             $checkedForDuplicateDate = substr($countedValue, 0, 2);
 
             if ($isWorkingDay) {
