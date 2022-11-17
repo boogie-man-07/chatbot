@@ -60,8 +60,9 @@ class AuthorizedUserScenario {
         switch ($text) {
             // remove
             case $this->commands['calendar']:
-                // определить текущий месяц и передать в следующий метод
-                $monthlyWorkData = $this->calendarInfo->getMonthlyData('37e79227-62e3-11eb-a20a-00155d93a613', $this->salaryRoute->getCurrentMonth());
+                $currentMonth = $this->salaryRoute->getCurrentMonth();
+                // сохранить в БД для вычисления следующего
+                $monthlyWorkData = $this->calendarInfo->getMonthlyData('37e79227-62e3-11eb-a20a-00155d93a613', $currentMonth);
                 sendMessage($this->chatID, json_encode($monthlyWorkData), null);
                 $this->salaryRoute->triggerCalendarAction($this->chatID, $monthlyWorkData);
                 exit;
@@ -531,10 +532,6 @@ class AuthorizedUserScenario {
             $this->logs->logCustom($text, $this->user['fullname']);
         }
         switch ($text) {
-            // remove
-            case $this->commands['calendarInline']:
-                answerCallbackQuery($this->query["id"], "Данные загружены!");
-                exit;
             case $this->commands['userFullCardInline']:
                 $userForFind = $this->access->getFindUserData($this->chatID);
                 if ($userForFind) {
@@ -848,6 +845,16 @@ class AuthorizedUserScenario {
                     $this->commonmistakeroute->triggerErrorForSendFeedback();
                     exit;
                 }
+            case $this->commands['previousMonthCalendarInline']:
+                answerCallbackQuery($this->query["id"], "Загружены данные для N - 1 месяца!");
+                exit;
+            case $this->commands['nextMonthCalendarInline']:
+                $nextMonth = $this->salaryRoute->getNextMonth($offset);
+                $monthlyWorkData = $this->calendarInfo->getMonthlyData('37e79227-62e3-11eb-a20a-00155d93a613', $currentMonth);
+                sendMessage($this->chatID, json_encode($monthlyWorkData), null);
+                $this->salaryRoute->triggerCalendarAction($this->chatID, $this->messageId, $monthlyWorkData);
+                answerCallbackQuery($this->query["id"], "Загружены данные для N + 1 месяца!");
+                exit;
             default:
                 switch ($this->state) {
                     case $this->states['postponedVacationChooseVacationState']:
