@@ -61,7 +61,7 @@
         "proceedDmsSurveyInline": "proceedDmsSurvey",
         "nextDmsPollOptionInline": "nextDmsPollOption",
         "finishDmsPollInline": "finishDmsPoll",
-        "calendarInline": "emptyAction"
+        "calendarInline": "defaultCallbackResponse"
     },
 
     "mainKeyboard": {

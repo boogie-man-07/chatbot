@@ -58,7 +58,8 @@ class CalendarInfo {
             array_push($daysData, array(
                 'dateNumber' => (int)$dateNumber,
                 'isWorkingDay' => $isWorkingDay,
-                'hasWorkingNight' => $hasWorkingNight
+                'hasWorkingNight' => $hasWorkingNight,
+                'buttonText' => $value['isWorkingDay'] ? ($value['hasWorkingNight'] ? (string)hex2bin("F09F8C99") : (string)hex2bin("E29880")) : (string)$value['dateNumber']
             ));
         }
 
