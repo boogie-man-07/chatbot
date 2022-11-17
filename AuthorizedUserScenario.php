@@ -846,11 +846,15 @@ class AuthorizedUserScenario {
                     exit;
                 }
             case $this->commands['previousMonthCalendarInline']:
+//                 $PreviousMonth = $this->salaryRoute->getNextMonth($offset);
+//                 $monthlyWorkData = $this->calendarInfo->getMonthlyData('37e79227-62e3-11eb-a20a-00155d93a613', $currentMonth);
+//                 sendMessage($this->chatID, json_encode($monthlyWorkData), null);
+//                 $this->salaryRoute->triggerCalendarAction($this->chatID, $this->messageId, $monthlyWorkData);
                 answerCallbackQuery($this->query["id"], "Загружены данные для N - 1 месяца!");
                 exit;
             case $this->commands['nextMonthCalendarInline']:
                 $nextMonth = $this->salaryRoute->getNextMonth($offset);
-                $monthlyWorkData = $this->calendarInfo->getMonthlyData('37e79227-62e3-11eb-a20a-00155d93a613', $currentMonth);
+                $monthlyWorkData = $this->calendarInfo->getMonthlyData('37e79227-62e3-11eb-a20a-00155d93a613', $nextMonth);
                 sendMessage($this->chatID, json_encode($monthlyWorkData), null);
                 $this->salaryRoute->triggerCalendarAction($this->chatID, $this->messageId, $monthlyWorkData);
                 answerCallbackQuery($this->query["id"], "Загружены данные для N + 1 месяца!");
