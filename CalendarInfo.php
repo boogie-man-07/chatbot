@@ -2,11 +2,11 @@
 
 class CalendarInfo {
 
-    function getMonthlyData() {
+    function getMonthlyData($userId, $currentMonth) {
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_PORT => "11180",
-            CURLOPT_URL => "http://office.diall.ru:11180/DA_ERP/hs/Staff/Grafic/?GUID=37e79227-62e3-11eb-a20a-00155d93a613&Month=01.11.2022",
+            CURLOPT_URL => "http://office.diall.ru:11180/DA_ERP/hs/Staff/Grafic/?GUID=$userId&Month=$currentMonth",
             CURLOPT_USERPWD => "Web1C:67z%Cc#2",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",

@@ -257,6 +257,10 @@ class SalaryRoute {
         return $nArray[0]." ".$nameFirstLetter.".".$middlenameFirstLetter.".";
     }
 
+    function getCurrentMonth() {
+
+    }
+
     function formatDate($text) {
         $date = strstr($text, '.', true);
         $correctDate = mb_strlen($date) == 1 ? '0'.$date : $date;
