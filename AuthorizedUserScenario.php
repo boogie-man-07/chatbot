@@ -63,7 +63,7 @@ class AuthorizedUserScenario {
                 // определить текущий месяц и передать в следующий метод
                 $monthlyWorkData = $this->calendarInfo->getMonthlyData();
                 sendMessage($this->chatID, json_encode($monthlyWorkData['daysList'][0]), null);
-//                 $this->salaryRoute->triggerCalendarAction($this->chatID, $monthlyWorkData);
+                $this->salaryRoute->triggerCalendarAction($this->chatID, $monthlyWorkData);
                 exit;
             case $this->commands['start']:
                 $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
