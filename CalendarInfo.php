@@ -130,7 +130,7 @@ class CalendarInfo {
                 return "Сентябрь $yearIndex";
             case '10':
                 return "Октябрь $yearIndex";
-            case '11':
+            case 11:
                 return "Ноябрь $yearIndex";
             case '12':
                 return "Декабрь $yearIndex";
