@@ -567,16 +567,14 @@ class keyboards {
 
         for ($i = $startCell; $i < 7; $i++) {
             $c = 0;
-            switch ($daysList[$c]['buttonText']) {
-                case 0:
-                    $buttonId = (string)$daysList[$c]['dateNumber'];
-                    break;
-                case 1:
-                    $buttonId = hex2bin("F09F8C99");
-                    break;
-                case 2:
-                    $buttonId = hex2bin("E29880");
-                    break;
+
+            $buttonId = 0;
+            if ($daysList[$c]['buttonText'] == 0) {
+                $buttonId = (string)$daysList[$c]['dateNumber'];
+            } else if ($daysList[$c]['buttonText'] == 1) {
+                $buttonId = hex2bin("F09F8C99");
+            } else {
+                $buttonId = hex2bin("E29880");
             }
             array_push($firstRowArray, array(
                 "text" => (string)$buttonId,
