@@ -569,15 +569,15 @@ class keyboards {
             $c = 0;
 
             $buttonId = 0;
-            if ($daysList[$c]['buttonText'] == 0) {
-                $buttonId = (string)$daysList[$c]['dateNumber'];
-            } else if ($daysList[$c]['buttonText'] == 1) {
+            if ($monthlyWorkData['daysList'][$c]['buttonText'] == 0) {
+                $buttonId = (string)$monthlyWorkData['daysList'][$c]['dateNumber'];
+            } else if ($monthlyWorkData['daysList'][$c]['buttonText'] == 1) {
                 $buttonId = hex2bin("F09F8C99");
             } else {
                 $buttonId = hex2bin("E29880");
             }
             array_push($firstRowArray, array(
-                "text" => (string)$i,
+                "text" => $buttonId,
                 "callback_data" => "defaultCallbackResponse")
             );
             $c++;
