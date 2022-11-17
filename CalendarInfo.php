@@ -55,23 +55,23 @@ class CalendarInfo {
             $hasWorkingNight = array_count_values(array_column($workingData, 'Date'))[$countedValue] > 1 ? false : true;
             $checkedForDuplicateDate = substr($countedValue, 0, 2);
 
-            $buttonText = $isWorkingDay ? ($hasWorkingNight ? hex2bin("F09F8C99") : hex2bin("E29880")) : $dateNumber;
-
-//             if ($isWorkingDay) {
-//                 if($hasWorkingNight) {
-//                     $buttonText = hex2bin("F09F8C99");
-//                 } else {
-//                     $buttonText = hex2bin("E29880");
-//                 }
-//             } else {
-//                 $buttonText = $dateNumber;
-//             }
+//             $buttonText = $isWorkingDay ? ($hasWorkingNight ? hex2bin("F09F8C99") : hex2bin("E29880")) : $dateNumber;
+            $buttonId = 0;
+            if ($isWorkingDay) {
+                if($hasWorkingNight) {
+                    $buttonId = 2;
+                } else {
+                    $buttonId = 1;
+                }
+            } else {
+                $buttonId = 0;
+            }
 
             array_push($daysData, array(
                 'dateNumber' => (int)$dateNumber,
                 'isWorkingDay' => $isWorkingDay,
                 'hasWorkingNight' => $hasWorkingNight,
-                'buttonText' => $buttonText
+                'buttonText' => $buttonId
             ));
         }
 

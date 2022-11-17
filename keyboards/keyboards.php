@@ -568,9 +568,19 @@ class keyboards {
                 $i++;
             }
             while ($i < 7 && $c < $itemsCount) {
-//                 $buttonText = $value['hasWorkingNight'] ? hex2bin("F09F8C99") : hex2bin("E29880");
+                switch ($value['buttonId']) {
+                    case 0:
+                        $buttonId = (string)$value['dateNumber'];
+                        break;
+                    case 1:
+                        $buttonId = hex2bin("F09F8C99");
+                        break;
+                    case 2:
+                        $buttonId = hex2bin("E29880");
+                        break;
+                }
                 array_push($firstRowArray, array(
-                    "text" => $value['buttonText'],
+                    "text" => $buttonId,
                     "callback_data" => "defaultCallbackResponse")
                 );
                 $i++;
