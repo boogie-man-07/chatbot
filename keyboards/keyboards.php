@@ -568,7 +568,7 @@ class keyboards {
             }
             while ($i < 7 && $c < $itemsCount) {
                 array_push($firstRowArray, array(
-                    "text" => $daysList['buttonText'],
+                    "text" => $value['buttonText'],
                     "callback_data" => "defaultCallbackResponse")
                 );
                 $i++;
