@@ -577,7 +577,7 @@ class keyboards {
                 $buttonId = hex2bin("E29880");
             }
             array_push($firstRowArray, array(
-                "text" => (string)$buttonId,
+                "text" => $buttonId,
                 "callback_data" => "defaultCallbackResponse")
             );
             $c++;
