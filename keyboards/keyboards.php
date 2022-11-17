@@ -577,7 +577,7 @@ class keyboards {
                 $buttonId = hex2bin("E29880");
             }
             array_push($firstRowArray, array(
-                "text" => $monthlyWorkData['daysList'][$c],
+                "text" => json_encode($monthlyWorkData['daysList'][$c]),
                 "callback_data" => "defaultCallbackResponse")
             );
             $c++;
