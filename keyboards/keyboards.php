@@ -565,7 +565,7 @@ class keyboards {
             array_push($firstRowArray, array("text" => " ", "callback_data" => "defaultCallbackResponse"));
         }
 
-        for ($i = $startCell; $i < 7; $i++) {
+        for ($i = $startCell; $i <= 7; $i++) {
 
 
             $buttonId = 0;
