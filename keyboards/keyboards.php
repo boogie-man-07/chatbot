@@ -561,34 +561,28 @@ class keyboards {
         $firstRowArray = array();
         $i = 0;
         $c = 0;
-        for ($m = 0; $m < count($daysList); $m++) {
-
-            while ($i < $startCell) {
-                array_push($firstRowArray, array("text" => " ", "callback_data" => "defaultCallbackResponse"));
-                $i++;
-            }
-
+        for ($i = 0; $i < $startCell; $i++) {
+            array_push($firstRowArray, array("text" => " ", "callback_data" => "defaultCallbackResponse"));
         }
 
-        for ($m = $i; $m < count($daysList); $m++) {
-            while ($i < 7) {
-                switch ($value['buttonId']) {
-                    case 0:
-                        $buttonId = (string)$daysList[$m]['dateNumber'];
-                        break;
-                    case 1:
-                        $buttonId = hex2bin("F09F8C99");
-                        break;
-                    case 2:
-                        $buttonId = hex2bin("E29880");
-                        break;
-                }
-                array_push($firstRowArray, array(
-                    "text" => (string)$m,
-                    "callback_data" => "defaultCallbackResponse")
-                );
-                $i++;
+        for ($m = $i; $m < 7; $m++) {
+            $c = 0;
+            switch ($daysList[$c]['buttonId']) {
+                case 0:
+                    $buttonId = (string)$daysList[$c]['dateNumber'];
+                    break;
+                case 1:
+                    $buttonId = hex2bin("F09F8C99");
+                    break;
+                case 2:
+                    $buttonId = hex2bin("E29880");
+                    break;
             }
+            array_push($firstRowArray, array(
+                "text" => (string)$buttonId,
+                "callback_data" => "defaultCallbackResponse")
+            );
+            $++;
         }
 
 
