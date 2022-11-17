@@ -562,14 +562,13 @@ class keyboards {
         $i = 0;
         $c = 0;
         foreach ($daysList as $key=>$value) {
-            $buttonText = $value['hasWorkingNight'] ? hex2bin("F09F8C99") : hex2bin("E29880");
             while ($i < $startCell) {
                 array_push($firstRowArray, array("text" => " ", "callback_data" => "defaultCallbackResponse"));
                 $i++;
             }
             while ($i < 7 && $c < $itemsCount) {
                 array_push($firstRowArray, array(
-                    "text" => "".$buttonText,
+                    "text" => hex2bin("E29880"),
                     "callback_data" => "defaultCallbackResponse")
                 );
                 $i++;
