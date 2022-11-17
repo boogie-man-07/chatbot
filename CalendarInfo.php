@@ -53,7 +53,6 @@ class CalendarInfo {
             $dateNumber = substr($countedValue, 0, 1) == "0" ? substr(substr($countedValue, 0, 2), 1) : substr($countedValue, 0, 2);
             $isWorkingDay = $value['VidVremeni'] == 'Выходные дни' ? false : true;
             $hasWorkingNight = array_count_values(array_column($workingData, 'Date'))[$countedValue] > 1 ? false : true;
-            $checkedForDuplicateDate = substr($countedValue, 0, 2);
 
 //             $buttonText = $isWorkingDay ? ($hasWorkingNight ? hex2bin("F09F8C99") : hex2bin("E29880")) : $dateNumber;
             $buttonId = 0;
@@ -78,7 +77,7 @@ class CalendarInfo {
         $uniqueDaysData = array_unique($daysData,SORT_REGULAR);
 
         $resultDaysData = array();
-        for ($m = 0; $m < count($uniqueDaysData); $m++) {
+        for ($m = 0; $m <= count($uniqueDaysData); $m++) {
             array_push($resultDaysData, $uniqueDaysData[$m]);
         }
 
