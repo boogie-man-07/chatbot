@@ -555,7 +555,7 @@ class keyboards {
 
     function createdCalendar($monthlyWorkData) {
         $daysList = $monthlyWorkData['daysList'];
-        $itemsCount = count($monthlyWorkData['daysList']);
+        $itemsCount = count($daysList);
         $startCell = $monthlyWorkData['firstDayOfMonthWeekIndex'];
         $mainArray = array();
         $firstRowArray = array();
@@ -567,7 +567,11 @@ class keyboards {
                 array_push($firstRowArray, array("text" => " ", "callback_data" => "defaultCallbackResponse"));
                 $i++;
             }
-            while ($i < 7 && $c < $itemsCount) {
+
+        }
+
+        for ($m = $i; $m < count($daysList); $m++) {
+            while ($i < 7) {
                 switch ($value['buttonId']) {
                     case 0:
                         $buttonId = (string)$daysList[$m]['dateNumber'];
@@ -584,9 +588,10 @@ class keyboards {
                     "callback_data" => "defaultCallbackResponse")
                 );
                 $i++;
-                $c++;
             }
         }
+
+
         array_push($mainArray, $firstRowArray);
 
 
