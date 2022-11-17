@@ -76,6 +76,11 @@ class CalendarInfo {
 
         $uniqueDaysData = array_unique($daysData,SORT_REGULAR);
 
+        $resultDaysData = array();
+        for ($m = 0; $m < count($uniqueDaysData); $m++) {
+            array_push($resultDaysData, $uniqueDaysData[$m]);
+        }
+
         $returnArray = array(
             'isRotational' => $isRotational,
             'totalWorkDays' => $totalWorkDays,
@@ -83,7 +88,7 @@ class CalendarInfo {
             'totalDayWorkHours' => $totalDayWorkHours,
             'totalNightWorkHours' => $totalNightWorkHours,
             'firstDayOfMonthWeekIndex' => $this->getFirstDayOfMonthsWeekIndex(),
-            'daysList' => array($uniqueDaysData)
+            'daysList' => $resultDaysData
         );
 
         return $returnArray;
