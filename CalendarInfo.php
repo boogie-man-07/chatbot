@@ -77,6 +77,7 @@ class CalendarInfo {
             'totalDayWorkHours' => $totalDayWorkHours,
             'totalNightWorkHours' => $totalNightWorkHours,
             'firstDayOfMonthWeekIndex' => $this->getFirstDayOfMonthsWeekIndex(),
+            'currentMonth' => $this->getMonthByIndex(),
             'daysList' => $resultDaysData
         );
 
@@ -101,6 +102,38 @@ class CalendarInfo {
                 return 5;
             case 'Sun':
                 return 6;
+        }
+    }
+
+    function getMonthByIndex() {
+        $firstDay = strtotime('first day of this month', time());
+        $monthIndex = date('M', $firstDay);
+        $yearIndex = date('Y', $firstDay);
+        switch ((string)$firstDayWeekDayName) {
+            case '01':
+                return "Январь $yearIndex";
+            case '02':
+                return "Февраль $yearIndex";
+            case '03':
+                return "Март $yearIndex";
+            case '04':
+                return "Апрель $yearIndex";
+            case '05':
+                return "Май $yearIndex";
+            case '06':
+                return "Июнь $yearIndex";
+            case '07':
+                return "Июль $yearIndex";
+            case '08':
+                return "Август $yearIndex";
+            case '09':
+                return "Сентябрь $yearIndex";
+            case '10':
+                return "Октябрь $yearIndex";
+            case '11':
+                return "Ноябрь $yearIndex";
+            case '12':
+                return "Декабрь $yearIndex";
         }
     }
 }
