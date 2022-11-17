@@ -561,7 +561,7 @@ class keyboards {
         $firstRowArray = array();
         $i = 0;
         $c = 0;
-        foreach ($daysList as $key=>$value) {
+        for ($m = 0; $m < count($daysList); $m++) {
 
             while ($i < $startCell) {
                 array_push($firstRowArray, array("text" => " ", "callback_data" => "defaultCallbackResponse"));
@@ -570,7 +570,7 @@ class keyboards {
             while ($i < 7 && $c < $itemsCount) {
                 switch ($value['buttonId']) {
                     case 0:
-                        $buttonId = (string)$value['dateNumber'];
+                        $buttonId = (string)$daysList[$m]['dateNumber'];
                         break;
                     case 1:
                         $buttonId = hex2bin("F09F8C99");
@@ -580,7 +580,7 @@ class keyboards {
                         break;
                 }
                 array_push($firstRowArray, array(
-                    "text" => (string)$key,
+                    "text" => (string)$m,
                     "callback_data" => "defaultCallbackResponse")
                 );
                 $i++;
