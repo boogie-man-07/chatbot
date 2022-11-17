@@ -109,7 +109,7 @@ class CalendarInfo {
         $firstDay = strtotime('first day of this month', time());
         $monthIndex = date('M', $firstDay);
         $yearIndex = date('Y', $firstDay);
-        switch ((string)$firstDayWeekDayName) {
+        switch ((string)$monthIndex) {
             case '01':
                 return "Январь $yearIndex";
             case '02':
