@@ -258,7 +258,8 @@ class SalaryRoute {
     }
 
     function getCurrentMonth() {
-
+        $firstDay = strtotime('first day of this month', time());
+        return date('d.m.Y', $firstDay);
     }
 
     function formatDate($text) {
