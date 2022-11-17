@@ -54,23 +54,23 @@ class CalendarInfo {
             $isWorkingDay = $value['VidVremeni'] == 'Выходные дни' ? false : true;
             $hasWorkingNight = array_count_values(array_column($workingData, 'Date'))[$countedValue] > 1 ? true : false;
 
-//             $buttonText = $isWorkingDay ? ($hasWorkingNight ? hex2bin("F09F8C99") : hex2bin("E29880")) : $dateNumber;
-            $buttonId = 0;
-            if ($isWorkingDay) {
-                if($hasWorkingNight) {
-                    $buttonId = 2;
-                } else {
-                    $buttonId = 1;
-                }
-            } else {
-                $buttonId = 0;
-            }
+            $buttonText = $isWorkingDay ? ($hasWorkingNight ? hex2bin("F09F8C99") : hex2bin("E29880")) : $dateNumber;
+//             $buttonId = 0;
+//             if ($isWorkingDay) {
+//                 if($hasWorkingNight) {
+//                     $buttonId = 2;
+//                 } else {
+//                     $buttonId = 1;
+//                 }
+//             } else {
+//                 $buttonId = 0;
+//             }
 
             array_push($daysData, array(
                 'dateNumber' => $dateNumber,
                 'isWorkingDay' => $isWorkingDay,
                 'hasWorkingNight' => $hasWorkingNight,
-                'buttonText' => $buttonId
+                'buttonText' => $buttonText
             ));
         }
 
