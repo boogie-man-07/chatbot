@@ -202,16 +202,16 @@ class SalaryRoute {
     }
     // remove
     function triggerCalendarAction($chatID, $monthlyWorkData) {
-        $reply = "Ваши рабочие дни в этом месяце. Вы можете посмотреть другие месяцы, нажав соответствующую кнопку вперед/назад.";
+        $reply = "Ваши рабочие дни в текущем месяце. Вы можете посмотреть другие месяцы, нажав соответствующую кнопку вперед/назад.";
         $keyboard = $this->keyboards->getEmployeeMonthlyWorkdaysCalendar($monthlyWorkData);
         sendMessage($chatID, $reply, $keyboard);
     }
 
-//     function triggerNextCalendarAction($chatID, $messageId, $month) {
-//         $keyboard = $this->keyboards->getCalendar($month);
-//         editMessageText($chatID, $messageId, "Пробный календарь 2");
-//         editMessageReplyMarkup($chatID, $messageId, $keyboard);
-//     }
+    function triggerNextCalendarAction($chatID, $messageId, $monthlyWorkData) {
+        editMessageText($chatID, $messageId, "Ваши рабочие дни в декабре. Вы можете посмотреть другие месяцы, нажав соответствующую кнопку вперед/назад.");
+        $keyboard = $this->keyboards->getEmployeeMonthlyWorkdaysCalendar($monthlyWorkData);
+        editMessageReplyMarkup($chatID, $messageId, $keyboard);
+    }
 
     function isCorrectDateFormat($text) {
         return preg_match('/(0[1-9]|1[0-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}$/', $text);
@@ -259,6 +259,11 @@ class SalaryRoute {
 
     function getCurrentMonth() {
         $firstDay = strtotime('first day of this month', time());
+        return date('d.m.Y', $firstDay);
+    }
+
+    function getNextMonth($offset) {
+        $firstDay = strtotime("first day of +$offset month", time());
         return date('d.m.Y', $firstDay);
     }
 
