@@ -62,8 +62,8 @@ class AuthorizedUserScenario {
             case $this->commands['calendar']:
                 // определить текущий месяц и передать в следующий метод
                 $monthlyWorkData = $this->calendarInfo->getMonthlyData();
-//                 sendMessage($this->chatID, json_encode($monthlyWorkData['daysList'][0]), null);
-                $this->salaryRoute->triggerCalendarAction($this->chatID, $monthlyWorkData);
+                sendMessage($this->chatID, json_encode($monthlyWorkData['daysList'][0]), null);
+//                 $this->salaryRoute->triggerCalendarAction($this->chatID, $monthlyWorkData);
                 exit;
             case $this->commands['start']:
                 $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
@@ -532,18 +532,9 @@ class AuthorizedUserScenario {
         }
         switch ($text) {
             // remove
-//             case $this->commands['calendarInline']:
-//                 $this->salaryRoute->triggerNextCalendarAction($this->chatID, $this->messageId, "Февраль");
-//                 // start delete segment
-//                 $vacationInfo = $this->vacationInfo->getRestVacationCountByUserId($this->user['user_id']);
-//                 $calendarEmployee = $this->calendarInfo->getMonthlyDataForEmployee();
-//                 $calendarOffice = $this->calendarInfo->getMonthlyDataForOffice();
-//                 sendMessage($this->chatID, json_encode($vacationInfo), null);
-//                 sendMessage($this->chatID, json_encode($calendarEmployee), null);
-//                 sendMessage($this->chatID, json_encode($calendarOffice), null);
-//                 // end delete segment
-//                 answerCallbackQuery($this->query["id"], "Получены данные за февраль!");
-//                 exit;
+            case $this->commands['calendarInline']:
+                answerCallbackQuery($this->query["id"], "Данные загружены!");
+                exit;
             case $this->commands['userFullCardInline']:
                 $userForFind = $this->access->getFindUserData($this->chatID);
                 if ($userForFind) {
