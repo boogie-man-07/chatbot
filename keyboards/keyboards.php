@@ -566,7 +566,7 @@ class keyboards {
         }
 
         for ($i = $startCell; $i < 7; $i++) {
-            $c = 0;
+
 
             $buttonId = 0;
             if ($monthlyWorkData['daysList'][$c]['buttonText'] == 0) {
