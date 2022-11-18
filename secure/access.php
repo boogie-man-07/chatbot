@@ -1665,6 +1665,6 @@ class access {
         while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
             array_push($returnArray, $row);
         }
-        return $returnArray;
+        return $returnArray[0]['offset'];
     }
 }
