@@ -275,7 +275,7 @@ class SalaryRoute {
         } else {
             $offsetToNumber = $offset;
         }
-        $newOffset = (int)$offset + 1;
+        $newOffset = (int)$offsetToNumber + 1;
         $return "+".(string)$newOffset;
     }
 
