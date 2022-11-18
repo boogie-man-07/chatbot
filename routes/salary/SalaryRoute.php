@@ -275,7 +275,7 @@ class SalaryRoute {
             $offsetToNumber = substr($offset, strpos($offset, "+") + 1);
         }
         $newOffset = (int)$offsetToNumber + 1;
-        $return "+".(string)$newOffset;
+        return "+".(string)$newOffset;
     }
 
     function formatDate($text) {
