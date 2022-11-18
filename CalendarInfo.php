@@ -109,7 +109,7 @@ class CalendarInfo {
     }
 
     function getMonthByIndex($indeх) {
-        $firstDay = strtotime("first day of ".$index." month", time());
+        $firstDay = strtotime("first day of +".$index." month", time());
         $monthIndex = date('m', $firstDay);
         $yearIndex = date('Y', $firstDay);
         switch ((string)$monthIndex) {
