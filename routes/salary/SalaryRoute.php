@@ -202,13 +202,13 @@ class SalaryRoute {
     }
     // remove
     function triggerCalendarAction($chatID, $monthlyWorkData) {
-        $reply = "Ваши рабочие дни в текущем месяце. Вы можете посмотреть другие месяцы, нажав соответствующую кнопку вперед/назад.";
+        $reply = "Ваши рабочие дни  на ".$monthlyWorkData['currentMonth']." года.";
         $keyboard = $this->keyboards->getEmployeeMonthlyWorkdaysCalendar($monthlyWorkData);
         sendMessage($chatID, $reply, $keyboard);
     }
 
     function triggerNextCalendarAction($chatID, $messageId, $monthlyWorkData) {
-        editMessageText($chatID, $messageId, "Ваши рабочие дни  на "."<b>".$monthlyWorkData['currentMonth']."</b>");
+        editMessageText($chatID, $messageId, "Ваши рабочие дни  на ".$monthlyWorkData['currentMonth']." года.");
         $keyboard = $this->keyboards->getEmployeeMonthlyWorkdaysCalendar($monthlyWorkData);
         editMessageReplyMarkup($chatID, $messageId, $keyboard);
     }
