@@ -567,35 +567,34 @@ class keyboards {
         $c = 0;
         $count = 0;
         for ($i = 0; $i < $startCell; $i++) {
-            $count++;
             array_push($firstRowArray, array("text" => " ", "callback_data" => "defaultCallbackResponse"));
+            $count++;
         }
 
         for ($m = $startCell; $m < 7; $m++) {
-            $count++;
             array_push($firstRowArray, array(
                 "text" => (string)$daysList[$c]['buttonText'],
                 "callback_data" => "defaultCallbackResponse")
             );
             $c++;
+            $count++;
         }
-
-        array_push($mainArray, $firstRowArray);
-
-        while ($count < 14) {
-            $rowArray = array();
-            while ($count < 7) {
-                array_push($rowArray, array(
-                    "text" => (string)$daysList[$count]['buttonText'],
-                    "callback_data" => "defaultCallbackResponse")
-                );
-                $c++;
-                $count++;
-            }
-            array_push($mainArray, $rowArray);
-        }
-
-        return $mainArray;
+//         array_push($mainArray, $firstRowArray);
+//
+//         while ($count < 7) {
+//             $rowArray = array();
+//             while ($count < 7) {
+//                 array_push($rowArray, array(
+//                     "text" => (string)$daysList[$count]['buttonText'],
+//                     "callback_data" => "defaultCallbackResponse")
+//                 );
+//                 $c++;
+//                 $count++;
+//             }
+//             array_push($mainArray, $rowArray);
+//         }
+//
+//         return $mainArray;
     }
 
     function getCalendar($month) {
