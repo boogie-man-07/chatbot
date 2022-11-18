@@ -70,8 +70,8 @@ class CalendarInfo {
             array_push($resultDaysData, $uniqueDaysData[$m]);
         }
 
-        $requestedMonth = substr($data, strpos($currentMonth, ".") + 1);
-        $requestedMonthIndex = substr($requestedMonth, 0, strpos($requestedMonth, '.'));
+//         $requestedMonth = substr($data, strpos($currentMonth, ".") + 1);
+//         $requestedMonthIndex = substr($requestedMonth, 0, strpos($requestedMonth, '.'));
 
         $returnArray = array(
             'isRotational' => $isRotational,
@@ -80,7 +80,7 @@ class CalendarInfo {
             'totalDayWorkHours' => $totalDayWorkHours,
             'totalNightWorkHours' => $totalNightWorkHours,
             'firstDayOfMonthWeekIndex' => $this->getFirstDayOfMonthsWeekIndex(),
-            'currentMonth' => $this->getMonthByIndex($requestedMonthIndex),
+            'currentMonth' => $this->getMonthByIndex(1),
             'daysList' => $resultDaysData
         );
 
