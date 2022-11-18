@@ -263,7 +263,7 @@ class SalaryRoute {
     }
 
     function getNextMonth($offset) {
-        $firstDay = strtotime("first day of +$offset month", time());
+        $firstDay = strtotime("first day of +".$offset." month", time());
         return date('d.m.Y', $firstDay);
     }
 
