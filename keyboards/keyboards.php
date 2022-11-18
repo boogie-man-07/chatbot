@@ -569,7 +569,7 @@ class keyboards {
             array_push($firstRowArray, array("text" => " ", "callback_data" => "defaultCallbackResponse"));
         }
 
-        for ($m = $startCell; $m < 7; $m++) {
+        for ($m = 1; $m < 7; $m++) {
             array_push($firstRowArray, array(
                 "text" => (string)$daysList[$c]['buttonText'],
                 "callback_data" => "defaultCallbackResponse")
