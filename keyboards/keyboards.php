@@ -565,25 +565,25 @@ class keyboards {
         $mainArray = array();
         $firstRowArray = array();
         $c = 0;
-        for ($i = 0; $i < $startCell; $i++) {
-            array_push($firstRowArray, array("text" => " ", "callback_data" => "defaultCallbackResponse"));
-        }
-
-//         for ($i = $startCell; $i < 7; $i++) {
-//             $buttonId = 0;
-//             if ($monthlyWorkData['daysList'][$c]['buttonText'] == 0) {
-//                 $buttonId = (string)$monthlyWorkData['daysList'][$c]['dateNumber'];
-//             } else if ($monthlyWorkData['daysList'][$c]['buttonText'] == 1) {
-//                 $buttonId = hex2bin("F09F8C99");
-//             } else {
-//                 $buttonId = hex2bin("E29880");
-//             }
-//             array_push($firstRowArray, array(
-//                 "text" => (string)$daysList[$c]['buttonText'],
-//                 "callback_data" => "defaultCallbackResponse")
-//             );
-//             $c++;
+//         for ($i = 0; $i < $startCell; $i++) {
+//             array_push($firstRowArray, array("text" => " ", "callback_data" => "defaultCallbackResponse"));
 //         }
+
+        for ($i = $startCell; $i < 7; $i++) {
+            $buttonId = 0;
+            if ($monthlyWorkData['daysList'][$c]['buttonText'] == 0) {
+                $buttonId = (string)$monthlyWorkData['daysList'][$c]['dateNumber'];
+            } else if ($monthlyWorkData['daysList'][$c]['buttonText'] == 1) {
+                $buttonId = hex2bin("F09F8C99");
+            } else {
+                $buttonId = hex2bin("E29880");
+            }
+            array_push($firstRowArray, array(
+                "text" => (string)$daysList[$c]['buttonText'],
+                "callback_data" => "defaultCallbackResponse")
+            );
+            $c++;
+        }
 
         array_push($mainArray, $firstRowArray);
         return $mainArray;
