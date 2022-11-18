@@ -550,7 +550,6 @@ class keyboards {
                 ),
                 $data[0],
                 $data[1],
-                $data[2],
                 array(
                     array("text" => "<<", "callback_data" => "previousMonthCalendarDataAction"),
                     array("text" => $monthlyWorkData['currentMonth'], "callback_data" => "defaultCallbackResponse"),
