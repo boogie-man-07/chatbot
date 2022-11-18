@@ -1663,7 +1663,7 @@ class access {
         $sql = "SELECT * from calendar_offset WHERE user_id = $userId";
         $result = $this->conn->query($sql);
         while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
-            array_push($returnArray, array('offset' => $row['offset']));
+            array_push($returnArray, $row);
         }
         return $returnArray;
     }
