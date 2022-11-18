@@ -202,13 +202,13 @@ class SalaryRoute {
     }
     // remove
     function triggerCalendarAction($chatID, $monthlyWorkData) {
-        $reply = "Ваши рабочие дни  на ".$monthlyWorkData['currentMonth']." года.";
+        $reply = "Ваши рабочие дни на ".$monthlyWorkData['currentMonth']." года.";
         $keyboard = $this->keyboards->getEmployeeMonthlyWorkdaysCalendar($monthlyWorkData);
         sendMessage($chatID, $reply, $keyboard);
     }
 
     function triggerNextCalendarAction($chatID, $messageId, $monthlyWorkData) {
-        editMessageText($chatID, $messageId, "Ваши рабочие дни  на ".$monthlyWorkData['currentMonth']." года.");
+        editMessageText($chatID, $messageId, "Ваши рабочие дни на ".$monthlyWorkData['currentMonth']." года.");
         $keyboard = $this->keyboards->getEmployeeMonthlyWorkdaysCalendar($monthlyWorkData);
         editMessageReplyMarkup($chatID, $messageId, $keyboard);
     }
@@ -297,7 +297,7 @@ class SalaryRoute {
             $number = +abs(substr($offset, strpos($offset, "+") + 1));
         }
         $newOffset = $number + 1;
-        return $newOffset < 0 ? "-".(string)$newOffset : ($newOffset > 0 ? "+".(string)$newOffset : $newOffset);
+        return $newOffset > 0 ? "+".(string)$newOffset : (string)$newOffset;
     }
 
     function generatePreviousOffset($offset) {
