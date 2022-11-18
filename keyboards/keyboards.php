@@ -564,7 +564,6 @@ class keyboards {
         $startCell = $monthlyWorkData['firstDayOfMonthWeekIndex'];
         $mainArray = array();
         $firstRowArray = array();
-        $i = 0;
         $c = 0;
         for ($i = 0; $i < $startCell; $i++) {
             array_push($firstRowArray, array("text" => " ", "callback_data" => "defaultCallbackResponse"));
