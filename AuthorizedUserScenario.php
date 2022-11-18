@@ -854,8 +854,8 @@ class AuthorizedUserScenario {
                 answerCallbackQuery($this->query["id"], "Загружены данные для N - 1 месяца!");
                 exit;
             case $this->commands['nextMonthCalendarInline']:
-//                 $offset = $this->access->getCalendarOffset($this->user['userId']);
-//                 $nextMonth = $this->salaryRoute->getNextMonth($offset);
+                $offset = $this->access->getCalendarOffset($this->user['userId']);
+                $nextMonth = $this->salaryRoute->getNextMonth($offset);
 //                 $nextOffset = $this->salaryRoute->generateNextOffset($offset);
 //                 $offset = $this->access->setCalendarOffset($this->user['userId'], $nextOffset);
 //                 $monthlyWorkData = $this->calendarInfo->getMonthlyData('37e79227-62e3-11eb-a20a-00155d93a613', $nextMonth, $nextOffset);
