@@ -569,7 +569,7 @@ class keyboards {
 //             array_push($firstRowArray, array("text" => " ", "callback_data" => "defaultCallbackResponse"));
 //         }
 
-        for ($m = $startCell; $m < 7; $m++) {
+        for ($m = 0; $m < 7; $m++) {
             $buttonId = 0;
             if ($monthlyWorkData['daysList'][$c]['buttonText'] == 0) {
                 $buttonId = (string)$monthlyWorkData['daysList'][$c]['dateNumber'];
