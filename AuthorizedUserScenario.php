@@ -860,8 +860,8 @@ class AuthorizedUserScenario {
                 $previousOffset = $this->salaryRoute->generatePreviousOffset($offset);
                 $previousMonth = $this->salaryRoute->getPreviousMonth($previousOffset);
                 $this->access->setCalendarOffset($this->user['user_id'], $previousOffset);
-//                 $monthlyWorkData = $this->calendarInfo->getMonthlyData('37e79227-62e3-11eb-a20a-00155d93a613', $previousMonth, $previousOffset);
-//                 $this->salaryRoute->triggerPreviousCalendarAction($this->chatID, $this->messageId, $monthlyWorkData);
+                $monthlyWorkData = $this->calendarInfo->getMonthlyData('37e79227-62e3-11eb-a20a-00155d93a613', $previousMonth, $previousOffset);
+                $this->salaryRoute->triggerPreviousCalendarAction($this->chatID, $this->messageId, $monthlyWorkData);
                 answerCallbackQuery($this->query["id"], "Данные загружены!");
                 exit;
             default:
