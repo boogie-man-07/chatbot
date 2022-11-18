@@ -63,11 +63,14 @@ class CalendarInfo {
             ));
         }
 
-        $uniqueDaysData = array_unique($daysData,SORT_REGULAR);
+//         $uniqueDaysData = array_unique($daysData,SORT_REGULAR);
+        $uniqueDaysData = array_map("unserialize", array_unique(array_map("serialize", $daysData), SORT_REGULAR));
 
         $resultDaysData = array();
         for ($m = 0; $m <= count($uniqueDaysData); $m++) {
-            array_push($resultDaysData, $uniqueDaysData[$m]);
+            if ($uniqueDaysData[$m]) {
+                array_push($resultDaysData, $uniqueDaysData[$m]);
+            }
         }
 
         $returnArray = array(
