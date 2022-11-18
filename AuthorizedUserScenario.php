@@ -62,7 +62,7 @@ class AuthorizedUserScenario {
             case $this->commands['calendar']:
                 $currentMonth = $this->salaryRoute->getCurrentMonth();
                 $calendarOffset = "0";
-                $this->access->saveCalendarOffset($this->user['user_id'], $calendarOffset);
+                $this->access->setCalendarOffset($this->user['user_id'], $calendarOffset);
                 $monthlyWorkData = $this->calendarInfo->getMonthlyData('37e79227-62e3-11eb-a20a-00155d93a613', $currentMonth, $calendarOffset);
 //                 sendMessage($this->chatID, json_encode($monthlyWorkData), null);
                 $this->salaryRoute->triggerCalendarAction($this->chatID, $monthlyWorkData);
@@ -857,7 +857,7 @@ class AuthorizedUserScenario {
                 $offset = $this->access->getCalendarOffset($this->user['user_id']);
                 $nextOffset = $this->salaryRoute->generateNextOffset($offset);
                 $nextMonth = $this->salaryRoute->getNextMonth($nextOffset);
-                $this->access->setCalendarOffset($this->user['user_id'], (string)$nextOffset);
+                $this->access->setCalendarOffset($this->user['user_id'], $nextOffset);
 //                 $monthlyWorkData = $this->calendarInfo->getMonthlyData('37e79227-62e3-11eb-a20a-00155d93a613', $nextMonth, $nextOffset);
 //                 $this->salaryRoute->triggerNextCalendarAction($this->chatID, $this->messageId, $monthlyWorkData);
                 answerCallbackQuery($this->query["id"], "Загружены данные для N + 1 месяца!");
