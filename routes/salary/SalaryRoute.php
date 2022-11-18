@@ -268,6 +268,7 @@ class SalaryRoute {
     }
 
     function generateNextOffset($offset) {
+        $offsetToNumber = "";
         if (strpos($offset, "+")) {
             $offsetToNumber = substr($offset, strpos($offset, "+") + 1);
         } else if (strpos($offset, "-")) {
