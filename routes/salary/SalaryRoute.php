@@ -278,15 +278,26 @@ class SalaryRoute {
         return date('d.m.Y', $firstDay);
     }
 
+//     function generateNextOffset($offset) {
+//         $offsetToNumber = "0";
+//         if (strpos($offset, "+") === false) {
+//             $offsetToNumber = substr($offset, strpos($offset, "-") + 1);
+//         } else if (strpos($offset, "-") === false) {
+//             $offsetToNumber = substr($offset, strpos($offset, "+") + 1);
+//         }
+//         $newOffset = (int)$offsetToNumber + 1;
+//         return "+".(string)$newOffset;
+//     }
+
     function generateNextOffset($offset) {
-        $offsetToNumber = "0";
+        $number = "0";
         if (strpos($offset, "+") === false) {
-            $offsetToNumber = substr($offset, strpos($offset, "-") + 1);
+            $number = -abs(substr($offset, strpos($offset, "-") + 1));
         } else if (strpos($offset, "-") === false) {
-            $offsetToNumber = substr($offset, strpos($offset, "+") + 1);
+            $number = +abs(substr($offset, strpos($offset, "+") + 1));
         }
-        $newOffset = (int)$offsetToNumber + 1;
-        return "+".(string)$newOffset;
+        $newOffset = $number + 1;
+        return $newOffset < 0 ? "-".(string)$newOffset : ($newOffset > 0 ? "+".(string)$newOffset : $newOffset);
     }
 
     function generatePreviousOffset($offset) {
@@ -297,7 +308,7 @@ class SalaryRoute {
             $number = -abs(substr($offset, strpos($offset, "-") + 1));
         }
         $newOffset = $number - 1;
-        return $newOffset > 0 ? "+".(string)$newOffset : (string)$newOffset;
+        return $newOffset > 0 ? "+".(string)$newOffset : ($newOffset < 0 ? "-".(string)$newOffset : $newOffset);
     }
 
     function formatDate($text) {
