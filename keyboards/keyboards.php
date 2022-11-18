@@ -593,7 +593,7 @@ class keyboards {
                 $c++;
 
             }
-            array_push($mainArray, $firstRowArray);
+            array_push($mainArray, $rowArray);
         }
 
         return $mainArray;
