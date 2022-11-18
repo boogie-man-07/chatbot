@@ -855,7 +855,8 @@ class AuthorizedUserScenario {
                 exit;
             case $this->commands['nextMonthCalendarInline']:
                 $offset = $this->access->getCalendarOffset($this->user['user_id']);
-                $nextMonth = $this->salaryRoute->getNextMonth($offset['offset']);
+                sendMessage($this->chatID, json_encode($offset), null);
+//                 $nextMonth = $this->salaryRoute->getNextMonth($offset['offset']);
 //                 $nextOffset = $this->salaryRoute->generateNextOffset($offset['offset']);
 //                 $offset = $this->access->setCalendarOffset($this->user['userId'], $nextOffset);
 //                 $monthlyWorkData = $this->calendarInfo->getMonthlyData('37e79227-62e3-11eb-a20a-00155d93a613', $nextMonth, $nextOffset);
