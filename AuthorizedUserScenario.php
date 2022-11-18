@@ -846,13 +846,6 @@ class AuthorizedUserScenario {
                     $this->commonmistakeroute->triggerErrorForSendFeedback();
                     exit;
                 }
-            case $this->commands['previousMonthCalendarInline']:
-//                 $PreviousMonth = $this->salaryRoute->getNextMonth($offset);
-//                 $monthlyWorkData = $this->calendarInfo->getMonthlyData('37e79227-62e3-11eb-a20a-00155d93a613', $currentMonth, 1);
-//                 sendMessage($this->chatID, json_encode($monthlyWorkData), null);
-//                 $this->salaryRoute->triggerCalendarAction($this->chatID, $this->messageId, $monthlyWorkData);
-                answerCallbackQuery($this->query["id"], "Загружены данные для N - 1 месяца!");
-                exit;
             case $this->commands['nextMonthCalendarInline']:
                 $offset = $this->access->getCalendarOffset($this->user['user_id']);
                 $nextOffset = $this->salaryRoute->generateNextOffset($offset);
@@ -860,7 +853,16 @@ class AuthorizedUserScenario {
                 $this->access->setCalendarOffset($this->user['user_id'], $nextOffset);
                 $monthlyWorkData = $this->calendarInfo->getMonthlyData('37e79227-62e3-11eb-a20a-00155d93a613', $nextMonth, $nextOffset);
                 $this->salaryRoute->triggerNextCalendarAction($this->chatID, $this->messageId, $monthlyWorkData);
-                answerCallbackQuery($this->query["id"], "Загружены данные для N + 1 месяца!");
+                answerCallbackQuery($this->query["id"], "Данные загружены!");
+                exit;
+            case $this->commands['previousMonthCalendarInline']:
+                $offset = $this->access->getCalendarOffset($this->user['user_id']);
+                $previousOffset = $this->salaryRoute->generatePreviousOffset($offset);
+                $previousMonth = $this->salaryRoute->getPreviousMonth($previousOffset);
+                $this->access->setCalendarOffset($this->user['user_id'], $previousOffset);
+//                 $monthlyWorkData = $this->calendarInfo->getMonthlyData('37e79227-62e3-11eb-a20a-00155d93a613', $previousMonth, $previousOffset);
+//                 $this->salaryRoute->triggerPreviousCalendarAction($this->chatID, $this->messageId, $monthlyWorkData);
+                answerCallbackQuery($this->query["id"], "Данные загружены!");
                 exit;
             default:
                 switch ($this->state) {
