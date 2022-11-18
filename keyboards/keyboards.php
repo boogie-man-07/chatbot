@@ -548,7 +548,9 @@ class keyboards {
                     array("text" => "Сб", "callback_data" => "defaultCallbackResponse"),
                     array("text" => "Вс", "callback_data" => "defaultCallbackResponse")
                 ),
-                $data,
+                $data[0],
+                $data[1],
+                $data[2],
                 array(
                     array("text" => "<<", "callback_data" => "previousMonthCalendarDataAction"),
                     array("text" => $monthlyWorkData['currentMonth'], "callback_data" => "defaultCallbackResponse"),
@@ -566,22 +568,22 @@ class keyboards {
         $firstRowArray = array();
         $c = 0;
         $count = 0;
-//         for ($i = 0; $i < $startCell; $i++) {
-//             $count++;
-//             array_push($firstRowArray, array("text" => " ", "callback_data" => "defaultCallbackResponse"));
-//         }
-//
-//         for ($m = $startCell; $m < 7; $m++) {
-//             $count++;
-//             array_push($firstRowArray, array(
-//                 "text" => (string)$daysList[$c]['buttonText'],
-//                 "callback_data" => "defaultCallbackResponse")
-//             );
-//             $c++;
-//         }
-//
-//         array_push($mainArray, $firstRowArray);
-        $middleArray = array();
+        for ($i = 0; $i < $startCell; $i++) {
+            $count++;
+            array_push($firstRowArray, array("text" => " ", "callback_data" => "defaultCallbackResponse"));
+        }
+
+        for ($m = $startCell; $m < 7; $m++) {
+            $count++;
+            array_push($firstRowArray, array(
+                "text" => (string)$daysList[$c]['buttonText'],
+                "callback_data" => "defaultCallbackResponse")
+            );
+            $c++;
+        }
+
+        array_push($mainArray, $firstRowArray);
+
         while ($count < 14) {
             $rowArray = array();
             while ($count < 7) {
@@ -592,9 +594,9 @@ class keyboards {
                 $c++;
                 $count++;
             }
-            array_push($middleArray, $rowArray);
+            array_push($mainArray, $rowArray);
         }
-        array_push($mainArray, $middleArray);
+
         return $mainArray;
     }
 
