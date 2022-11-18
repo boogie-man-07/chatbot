@@ -80,7 +80,7 @@ class CalendarInfo {
             'totalDayWorkHours' => $totalDayWorkHours,
             'totalNightWorkHours' => $totalNightWorkHours,
             'firstDayOfMonthWeekIndex' => $this->getFirstDayOfMonthsWeekIndex(),
-            'currentMonth' => $this->getMonthByIndex($offset),
+            'currentMonth' => $this->getMonthByIndex((string)$offset),
             'daysList' => $resultDaysData
         );
 
