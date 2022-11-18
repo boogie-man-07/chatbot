@@ -1652,7 +1652,7 @@ class access {
             if (!$statement) {
                 throw new Exception($statement->error);
             }
-            $statement->bind_param("ss", $userId, );
+            $statement->bind_param("ss", $userId, $offset);
             $returnValue = $statement->execute();
         }
         return $returnValue;
