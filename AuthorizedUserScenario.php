@@ -855,11 +855,12 @@ class AuthorizedUserScenario {
                 exit;
             case $this->commands['nextMonthCalendarInline']:
                 $offset = $this->access->getCalendarOffset($this->user['user_id']);
-                $nextMonth = $this->salaryRoute->getNextMonth($offset);
-                $nextOffset = $this->salaryRoute->generateNextOffset($offset);
+                $nextMonth = $this->salaryRoute->getNextMonth($offset['offset']);
+//                 $nextOffset = $this->salaryRoute->generateNextOffset($offset['offset']);
 //                 $offset = $this->access->setCalendarOffset($this->user['userId'], $nextOffset);
 //                 $monthlyWorkData = $this->calendarInfo->getMonthlyData('37e79227-62e3-11eb-a20a-00155d93a613', $nextMonth, $nextOffset);
 //                 $this->salaryRoute->triggerNextCalendarAction($this->chatID, $this->messageId, $monthlyWorkData);
+                sendMessage($this->chatID, $offset, null);
                 answerCallbackQuery($this->query["id"], "Загружены данные для N + 1 месяца!");
                 exit;
             default:
@@ -872,7 +873,8 @@ class AuthorizedUserScenario {
                             exit;
                         }
                     default:
-                        answerCallbackQuery($this->query["id"], "Default finished inline");
+
+                        sendMessage($this->chatID, "Default finished inline", null);
                         exit;
                 }
         }
