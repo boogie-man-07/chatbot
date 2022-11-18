@@ -584,18 +584,16 @@ class keyboards {
 
         while ($count < $itemsCount) {
             $rowArray = array();
-            while (($count % 7) !== 0) {
-                array_push($mainArray, $firstRowArray);
-                $rowArray = array();
-            } else {
+            while ($count < 14) {
                 $count++;
                 array_push($rowArray, array(
                     "text" => (string)$daysList[$count]['buttonText'],
                     "callback_data" => "defaultCallbackResponse")
                 );
                 $c++;
-            }
 
+            }
+            array_push($mainArray, $firstRowArray);
         }
 
         return $mainArray;
