@@ -585,13 +585,12 @@ class keyboards {
         while ($count < 7) {
             $rowArray = array();
             while ($count < 7) {
-                $count++;
                 array_push($rowArray, array(
                     "text" => (string)$daysList[$count]['buttonText'],
                     "callback_data" => "defaultCallbackResponse")
                 );
                 $c++;
-
+                $count++;
             }
             array_push($mainArray, $rowArray);
         }
