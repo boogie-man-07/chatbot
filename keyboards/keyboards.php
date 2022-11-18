@@ -565,11 +565,11 @@ class keyboards {
         $mainArray = array();
         $firstRowArray = array();
         $c = 0;
-//         for ($i = 0; $i < $startCell; $i++) {
-//             array_push($firstRowArray, array("text" => " ", "callback_data" => "defaultCallbackResponse"));
-//         }
+        for ($i = 0; $i < $startCell; $i++) {
+            array_push($firstRowArray, array("text" => " ", "callback_data" => "defaultCallbackResponse"));
+        }
 
-        for ($m = 0; $m < $itemsCount; $m++) {
+        for ($m = $startCell; $m < $itemsCount; $m++) {
             array_push($firstRowArray, array(
                 "text" => (string)$daysList[$c]['buttonText'],
                 "callback_data" => "defaultCallbackResponse")
