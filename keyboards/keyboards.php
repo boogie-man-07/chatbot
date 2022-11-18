@@ -567,17 +567,19 @@ class keyboards {
         $c = 0;
         $count = 0;
         for ($i = 0; $i < $startCell; $i++) {
-            array_push($firstRowArray, array("text" => " ", "callback_data" => "defaultCallbackResponse"));
             $count++;
+            array_push($firstRowArray, array("text" => " ", "callback_data" => "defaultCallbackResponse"));
+
         }
 
         for ($m = $startCell; $m < 7; $m++) {
+            $count++;
             array_push($firstRowArray, array(
                 "text" => (string)$daysList[$c]['buttonText'],
                 "callback_data" => "defaultCallbackResponse")
             );
             $c++;
-            $count++;
+
         }
 //         array_push($mainArray, $firstRowArray);
 //
