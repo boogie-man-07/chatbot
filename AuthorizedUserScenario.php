@@ -857,10 +857,10 @@ class AuthorizedUserScenario {
                 $offset = $this->access->getCalendarOffset($this->user['user_id']);
                 $nextOffset = $this->salaryRoute->generateNextOffset($offset);
                 $nextMonth = $this->salaryRoute->getNextMonth($nextOffset);
+                sendMessage($this->chatID, $nextOffset, null);
                 $this->access->setCalendarOffset($this->user['user_id'], $nextOffset);
 //                 $monthlyWorkData = $this->calendarInfo->getMonthlyData('37e79227-62e3-11eb-a20a-00155d93a613', $nextMonth, $nextOffset);
 //                 $this->salaryRoute->triggerNextCalendarAction($this->chatID, $this->messageId, $monthlyWorkData);
-                sendMessage($this->chatID, $offset, null);
                 answerCallbackQuery($this->query["id"], "Загружены данные для N + 1 месяца!");
                 exit;
             default:
