@@ -1639,7 +1639,7 @@ class access {
         $sql = "SELECT * FROM calendar_offset WHERE user_id = '".$userId."'";
         $result = $this->conn->query($sql);
         if ($result != null && (mysqli_num_rows($result) >= 1 )) {
-            $sql = "UPDATE calendar_offset SET offset = '".$offset."' where user_id = '".$userId."'";
+            $sql = "UPDATE calendar_offset SET offset = '+1' where user_id = '".$userId."'";
             $returnValue = $this->conn->query($sql);
         } else {
             $sql = "INSERT INTO calendar_offset SET user_id = '".$userId."', offset = '".$offset."'";
