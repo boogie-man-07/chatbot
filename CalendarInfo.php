@@ -85,7 +85,7 @@ class CalendarInfo {
     }
 
     function getFirstDayOfMonthsWeekIndex($offset) {
-        $firstDay = strtotime("first day of +".$offset." month", time());
+        $firstDay = strtotime("first day of $offset month", time());
         $firstDayWeekDayName = date('D', $firstDay);
         switch ((string)$firstDayWeekDayName) {
             case 'Mon':
@@ -106,7 +106,7 @@ class CalendarInfo {
     }
 
     function getMonthByIndex($offset) {
-        $firstDay = strtotime("first day of +".$offset." month", time());
+        $firstDay = strtotime("first day of $offset month", time());
         $monthIndex = date('m', $firstDay);
         $yearIndex = date('Y', $firstDay);
         switch ((string)$monthIndex) {
