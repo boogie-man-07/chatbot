@@ -548,8 +548,7 @@ class keyboards {
                     array("text" => "Сб", "callback_data" => "defaultCallbackResponse"),
                     array("text" => "Вс", "callback_data" => "defaultCallbackResponse")
                 ),
-                $data[0],
-                $data[1],
+                $data[0]
                 array(
                     array("text" => "<<", "callback_data" => "previousMonthCalendarDataAction"),
                     array("text" => $monthlyWorkData['currentMonth'], "callback_data" => "defaultCallbackResponse"),
@@ -586,10 +585,10 @@ class keyboards {
         while ($count < 14) {
             $rowArray = array();
             while ($count < 7) {
-                array_push($rowArray, array(
+                array_push($rowArray, array(array(
                     "text" => (string)$daysList[$count]['buttonText'],
                     "callback_data" => "defaultCallbackResponse")
-                );
+                ));
                 $c++;
                 $count++;
             }
