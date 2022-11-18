@@ -213,6 +213,12 @@ class SalaryRoute {
         editMessageReplyMarkup($chatID, $messageId, $keyboard);
     }
 
+    function triggerPreviousCalendarAction($chatID, $messageId, $monthlyWorkData) {
+        editMessageText($chatID, $messageId, "Ваши рабочие дни  на ".$monthlyWorkData['currentMonth']." года.");
+        $keyboard = $this->keyboards->getEmployeeMonthlyWorkdaysCalendar($monthlyWorkData);
+        editMessageReplyMarkup($chatID, $messageId, $keyboard);
+    }
+
     function isCorrectDateFormat($text) {
         return preg_match('/(0[1-9]|1[0-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}$/', $text);
     }
@@ -267,6 +273,11 @@ class SalaryRoute {
         return date('d.m.Y', $firstDay);
     }
 
+    function getPreviousMonth($offset) {
+        $firstDay = strtotime("first day of $offset month", time());
+        return date('d.m.Y', $firstDay);
+    }
+
     function generateNextOffset($offset) {
         $offsetToNumber = "0";
         if (strpos($offset, "+") === false) {
@@ -276,6 +287,17 @@ class SalaryRoute {
         }
         $newOffset = (int)$offsetToNumber + 1;
         return "+".(string)$newOffset;
+    }
+
+    function generatePreviousOffset($offset) {
+        $number = "0";
+        if (strpos($offset, "-") === false) {
+            $number = +abs(substr($offset, strpos($offset, "+") + 1));
+        } else if (strpos($offset, "+") === false) {
+            $number = -abs(substr($offset, strpos($offset, "-") + 1));
+        }
+        $newOffset = $number - 1;
+        return $newOffset > 0 ? "+".(string)$newOffset : (string)$newOffset;
     }
 
     function formatDate($text) {
