@@ -548,7 +548,9 @@ class keyboards {
                     array("text" => "Сб", "callback_data" => "defaultCallbackResponse"),
                     array("text" => "Вс", "callback_data" => "defaultCallbackResponse")
                 ),
-                $data,
+                array(
+                    $data
+                ),
                 array(
                     array("text" => "<<", "callback_data" => "previousMonthCalendarDataAction"),
                     array("text" => $monthlyWorkData['currentMonth'], "callback_data" => "defaultCallbackResponse"),
