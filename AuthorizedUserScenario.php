@@ -62,7 +62,7 @@ class AuthorizedUserScenario {
             case $this->commands['calendar']:
                 $currentMonth = $this->salaryRoute->getCurrentMonth();
                 // сохранить в БД для вычисления следующего
-                $monthlyWorkData = $this->calendarInfo->getMonthlyData('37e79227-62e3-11eb-a20a-00155d93a613', $currentMonth);
+                $monthlyWorkData = $this->calendarInfo->getMonthlyData('37e79227-62e3-11eb-a20a-00155d93a613', $currentMonth, 0);
 //                 sendMessage($this->chatID, json_encode($monthlyWorkData), null);
                 $this->salaryRoute->triggerCalendarAction($this->chatID, $monthlyWorkData);
                 exit;
@@ -847,15 +847,14 @@ class AuthorizedUserScenario {
                 }
             case $this->commands['previousMonthCalendarInline']:
 //                 $PreviousMonth = $this->salaryRoute->getNextMonth($offset);
-//                 $monthlyWorkData = $this->calendarInfo->getMonthlyData('37e79227-62e3-11eb-a20a-00155d93a613', $currentMonth);
+//                 $monthlyWorkData = $this->calendarInfo->getMonthlyData('37e79227-62e3-11eb-a20a-00155d93a613', $currentMonth, 1);
 //                 sendMessage($this->chatID, json_encode($monthlyWorkData), null);
 //                 $this->salaryRoute->triggerCalendarAction($this->chatID, $this->messageId, $monthlyWorkData);
                 answerCallbackQuery($this->query["id"], "Загружены данные для N - 1 месяца!");
                 exit;
             case $this->commands['nextMonthCalendarInline']:
                 $nextMonth = $this->salaryRoute->getNextMonth(1);
-                $monthlyWorkData = $this->calendarInfo->getMonthlyData('37e79227-62e3-11eb-a20a-00155d93a613', $nextMonth);
-//                 sendMessage($this->chatID, (string)$this->messageId, null);
+                $monthlyWorkData = $this->calendarInfo->getMonthlyData('37e79227-62e3-11eb-a20a-00155d93a613', $nextMonth, 1);
                 $this->salaryRoute->triggerNextCalendarAction($this->chatID, $this->messageId, $monthlyWorkData);
                 answerCallbackQuery($this->query["id"], "Загружены данные для N + 1 месяца!");
                 exit;

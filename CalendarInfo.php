@@ -2,7 +2,7 @@
 
 class CalendarInfo {
 
-    function getMonthlyData($userId, $currentMonth) {
+    function getMonthlyData($userId, $currentMonth, $offset) {
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_PORT => "11180",
@@ -80,15 +80,15 @@ class CalendarInfo {
             'totalDayWorkHours' => $totalDayWorkHours,
             'totalNightWorkHours' => $totalNightWorkHours,
             'firstDayOfMonthWeekIndex' => $this->getFirstDayOfMonthsWeekIndex(),
-            'currentMonth' => $this->getMonthByIndex(1),
+            'currentMonth' => $this->getMonthByIndex($offset),
             'daysList' => $resultDaysData
         );
 
         return $returnArray;
     }
 
-    function getFirstDayOfMonthsWeekIndex() {
-        $firstDay = strtotime('first day of this month', time());
+    function getFirstDayOfMonthsWeekIndex($offset) {
+        $firstDay = strtotime("first day of +".$offset." month", time());
         $firstDayWeekDayName = date('D', $firstDay);
         switch ((string)$firstDayWeekDayName) {
             case 'Mon':
@@ -108,8 +108,8 @@ class CalendarInfo {
         }
     }
 
-    function getMonthByIndex($indeх) {
-        $firstDay = strtotime("first day of +".$index." month", time());
+    function getMonthByIndex($offset) {
+        $firstDay = strtotime("first day of +".$offset." month", time());
         $monthIndex = date('m', $firstDay);
         $yearIndex = date('Y', $firstDay);
         switch ((string)$monthIndex) {
