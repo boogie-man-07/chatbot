@@ -204,14 +204,13 @@ class SalaryRoute {
     function triggerCalendarAction($chatID, $monthlyWorkData) {
         $reply = "Ваши рабочие дни в текущем месяце. Вы можете посмотреть другие месяцы, нажав соответствующую кнопку вперед/назад.";
         $keyboard = $this->keyboards->getEmployeeMonthlyWorkdaysCalendar($monthlyWorkData);
-        sendMessage($chatID, $reply, $keyboard);
+        sendMessage($chatID, (string)$keyboard, $keyboard);
     }
 
     function triggerNextCalendarAction($chatID, $messageId, $monthlyWorkData) {
-//         editMessageText($chatID, $messageId, "Ваши рабочие дни в декабре. Вы можете посмотреть другие месяцы, нажав соответствующую кнопку вперед/назад.");
+        editMessageText($chatID, $messageId, "Ваши рабочие дни в декабре. Вы можете посмотреть другие месяцы, нажав соответствующую кнопку вперед/назад.");
         $keyboard = $this->keyboards->getEmployeeMonthlyWorkdaysCalendar($monthlyWorkData);
-//         editMessageReplyMarkup($chatID, $messageId, $keyboard);
-        sendMessage($chatID, $keyboard, $keyboard);
+        editMessageReplyMarkup($chatID, $messageId, $keyboard);
     }
 
     function isCorrectDateFormat($text) {
