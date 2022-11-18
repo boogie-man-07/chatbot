@@ -548,9 +548,7 @@ class keyboards {
                     array("text" => "Сб", "callback_data" => "defaultCallbackResponse"),
                     array("text" => "Вс", "callback_data" => "defaultCallbackResponse")
                 ),
-                array(
-                    $data
-                ),
+                $data[0],
                 array(
                     array("text" => "<<", "callback_data" => "previousMonthCalendarDataAction"),
                     array("text" => $monthlyWorkData['currentMonth'], "callback_data" => "defaultCallbackResponse"),
@@ -568,21 +566,21 @@ class keyboards {
         $firstRowArray = array();
         $c = 0;
         $count = 0;
-        for ($i = 0; $i < $startCell; $i++) {
-            $count++;
-            array_push($firstRowArray, array("text" => " ", "callback_data" => "defaultCallbackResponse"));
-        }
-
-        for ($m = $startCell; $m < 7; $m++) {
-            $count++;
-            array_push($firstRowArray, array(
-                "text" => (string)$daysList[$c]['buttonText'],
-                "callback_data" => "defaultCallbackResponse")
-            );
-            $c++;
-        }
-
-        array_push($mainArray, $firstRowArray);
+//         for ($i = 0; $i < $startCell; $i++) {
+//             $count++;
+//             array_push($firstRowArray, array("text" => " ", "callback_data" => "defaultCallbackResponse"));
+//         }
+//
+//         for ($m = $startCell; $m < 7; $m++) {
+//             $count++;
+//             array_push($firstRowArray, array(
+//                 "text" => (string)$daysList[$c]['buttonText'],
+//                 "callback_data" => "defaultCallbackResponse")
+//             );
+//             $c++;
+//         }
+//
+//         array_push($mainArray, $firstRowArray);
 
         while ($count < $itemsCount) {
             $rowArray = array();
