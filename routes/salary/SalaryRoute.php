@@ -204,9 +204,7 @@ class SalaryRoute {
     function triggerCalendarAction($chatID, $monthlyWorkData) {
         $reply = "Ваши рабочие дни в текущем месяце. Вы можете посмотреть другие месяцы, нажав соответствующую кнопку вперед/назад.";
         $keyboard = $this->keyboards->getEmployeeMonthlyWorkdaysCalendar($monthlyWorkData);
-        $keyboardd = json_decode($keyboard, true);
-        $keyboarddd = json_encode($keyboardd);
-        sendMessage($chatID, json_encode($keyboarddd), null);
+        sendMessage($chatID, $reply, $keyboard);
     }
 
     function triggerNextCalendarAction($chatID, $messageId, $monthlyWorkData) {
