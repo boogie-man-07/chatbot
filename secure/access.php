@@ -1634,4 +1634,37 @@ class access {
         $result = $this->conn->query($sql);
         return $result;
     }
+
+    function saveCalendarOffset($userId, $offset) {
+        $sql = "SELECT * FROM calendar_offset WHERE user_id='".$userId."'";
+        $result = $this->conn->query($sql);
+        if ($result != null && (mysqli_num_rows($result) >= 1 )) {
+            $sql = "UPDATE calendar_offset SET offset = ? where user_id = ?";
+            $statement = $this->conn->prepare($sql);
+            if (!$statement) {
+                throw new Exception($statement->error);
+            }
+            $statement->bind_param("ss", $offset, $userId);
+            $returnValue = $statement->execute();
+        } else {
+            $sql = "INSERT INTO calendar_offset SET user_id = ?, offset = ?";
+            $statement = $this->conn->prepare($sql);
+            if (!$statement) {
+                throw new Exception($statement->error);
+            }
+            $statement->bind_param("ss", $userId, );
+            $returnValue = $statement->execute();
+        }
+        return $returnValue;
+    }
+
+    function getCalendarOffset($userId) {
+        $returnArray = array();
+        $sql = "SELECT * from calendar_offset WHERE user_id = $userId";
+        $result = $this->conn->query($sql);
+        while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
+            array_push($returnArray, array('offset' => $row['offset']));
+        }
+        return $returnArray;
+    }
 }

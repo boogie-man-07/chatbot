@@ -267,6 +267,18 @@ class SalaryRoute {
         return date('d.m.Y', $firstDay);
     }
 
+    function generateNextOffset($offset) {
+        if (strpos($offset, "+")) {
+            $offsetToNumber = substr($offset, strpos($offset, "+") + 1);
+        } else if (strpos($offset, "-")) {
+            $offsetToNumber = substr($offset, strpos($offset, "-") + 1);
+        } else {
+            $offsetToNumber = $offset;
+        }
+        $newOffset = (int)$offset + 1;
+        $return "+".(string)$newOffset;
+    }
+
     function formatDate($text) {
         $date = strstr($text, '.', true);
         $correctDate = mb_strlen($date) == 1 ? '0'.$date : $date;

@@ -61,8 +61,9 @@ class AuthorizedUserScenario {
             // remove
             case $this->commands['calendar']:
                 $currentMonth = $this->salaryRoute->getCurrentMonth();
-                // сохранить в БД для вычисления следующего
-                $monthlyWorkData = $this->calendarInfo->getMonthlyData('37e79227-62e3-11eb-a20a-00155d93a613', $currentMonth, 0);
+                $calendarOffset = "0";
+                $this->access->saveCalendarOffset($this->user['user_id'], $calendarOffset);
+                $monthlyWorkData = $this->calendarInfo->getMonthlyData('37e79227-62e3-11eb-a20a-00155d93a613', $currentMonth, $calendarOffset);
 //                 sendMessage($this->chatID, json_encode($monthlyWorkData), null);
                 $this->salaryRoute->triggerCalendarAction($this->chatID, $monthlyWorkData);
                 exit;
@@ -853,8 +854,11 @@ class AuthorizedUserScenario {
                 answerCallbackQuery($this->query["id"], "Загружены данные для N - 1 месяца!");
                 exit;
             case $this->commands['nextMonthCalendarInline']:
-                $nextMonth = $this->salaryRoute->getNextMonth(1);
-                $monthlyWorkData = $this->calendarInfo->getMonthlyData('37e79227-62e3-11eb-a20a-00155d93a613', $nextMonth, 1);
+                $offset = $this->access->getCalendarOffset($this->user['userId']);
+                $nextMonth = $this->salaryRoute->getNextMonth($offset);
+                $nextOffset = $this->salaryRoute->generateNextOffset($offset);
+                $offset = $this->access->setCalendarOffset($this->user['userId'], $nextOffset);
+                $monthlyWorkData = $this->calendarInfo->getMonthlyData('37e79227-62e3-11eb-a20a-00155d93a613', $nextMonth, $nextOffset);
 //                 sendMessage($this->chatID, json_encode($monthlyWorkData), null);
                 $this->salaryRoute->triggerNextCalendarAction($this->chatID, $this->messageId, $monthlyWorkData);
                 answerCallbackQuery($this->query["id"], "Загружены данные для N + 1 месяца!");
