@@ -584,7 +584,7 @@ class keyboards {
 
         while ($count < $itemsCount) {
             $rowArray = array();
-            if (($count % 7) !== 0) {
+            while (($count % 7) !== 0) {
                 array_push($mainArray, $firstRowArray);
                 $rowArray = array();
             } else {
