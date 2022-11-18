@@ -584,7 +584,7 @@ class keyboards {
 
         while ($count < $itemsCount) {
             $rowArray = array();
-            while ($count < 14) {
+            while ($count < 7) {
                 $count++;
                 array_push($rowArray, array(
                     "text" => (string)$daysList[$count]['buttonText'],
