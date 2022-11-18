@@ -582,19 +582,24 @@ class keyboards {
 
         array_push($mainArray, $firstRowArray);
 
+        for () {
+
+        }
+
         while ($count < $itemsCount) {
             $rowArray = array();
-            if ($count % 7 == 0) {
+            if (($count % 7) !== 0) {
                 array_push($mainArray, $firstRowArray);
                 $rowArray = array();
+            } else {
+                $count++;
+                array_push($rowArray, array(
+                    "text" => (string)$daysList[$count]['buttonText'],
+                    "callback_data" => "defaultCallbackResponse")
+                );
+                $c++;
             }
-            $count++;
-            $row = array();
-            array_push($row, array(
-                "text" => (string)$daysList[$count]['buttonText'],
-                "callback_data" => "defaultCallbackResponse")
-            );
-            $c++;
+
         }
 
         return $mainArray;
