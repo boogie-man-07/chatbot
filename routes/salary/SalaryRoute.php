@@ -208,9 +208,10 @@ class SalaryRoute {
     }
 
     function triggerNextCalendarAction($chatID, $messageId, $monthlyWorkData) {
-        editMessageText($chatID, $messageId, "Ваши рабочие дни в декабре. Вы можете посмотреть другие месяцы, нажав соответствующую кнопку вперед/назад.");
+//         editMessageText($chatID, $messageId, "Ваши рабочие дни в декабре. Вы можете посмотреть другие месяцы, нажав соответствующую кнопку вперед/назад.");
         $keyboard = $this->keyboards->getEmployeeMonthlyWorkdaysCalendar($monthlyWorkData);
-        editMessageReplyMarkup($chatID, $messageId, $keyboard);
+//         editMessageReplyMarkup($chatID, $messageId, $keyboard);
+        sendMessage($chatID, $keyboard, $keyboard);
     }
 
     function isCorrectDateFormat($text) {
