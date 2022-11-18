@@ -564,12 +564,12 @@ class keyboards {
         $startCell = $monthlyWorkData['firstDayOfMonthWeekIndex'];
         $mainArray = array();
         $firstRowArray = array();
-        $c = 0;
 //         for ($i = 0; $i < $startCell; $i++) {
 //             array_push($firstRowArray, array("text" => " ", "callback_data" => "defaultCallbackResponse"));
 //         }
 
         for ($i = $startCell; $i < 7; $i++) {
+            $c = 0;
             $buttonId = 0;
             if ($monthlyWorkData['daysList'][$c]['buttonText'] == 0) {
                 $buttonId = (string)$monthlyWorkData['daysList'][$c]['dateNumber'];
