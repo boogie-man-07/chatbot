@@ -579,8 +579,8 @@ class keyboards {
             $c++;
             $count++;
         }
-//         array_push($mainArray, $firstRowArray);
-//
+        array_push($mainArray, $firstRowArray);
+
 //         while ($count < 7) {
 //             $rowArray = array();
 //             while ($count < 7) {
@@ -593,8 +593,8 @@ class keyboards {
 //             }
 //             array_push($mainArray, $rowArray);
 //         }
-//
-//         return $mainArray;
+
+        return $mainArray;
     }
 
     function getCalendar($month) {
