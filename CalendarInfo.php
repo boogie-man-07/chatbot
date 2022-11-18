@@ -32,7 +32,7 @@ class CalendarInfo {
         }
     }
 
-    function convertedResponse($response) {
+    function convertedResponse($response, $offset) {
         $isRotational = $response['Vahta'] == "1";
         $workingData = $response['Graphics'];
         $daysData = array();
