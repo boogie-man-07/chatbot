@@ -582,7 +582,7 @@ class keyboards {
 //
 //         array_push($mainArray, $firstRowArray);
 
-        while ($count < 7) {
+        while ($count < 14) {
             $rowArray = array();
             while ($count < 7) {
                 array_push($rowArray, array(
