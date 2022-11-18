@@ -268,13 +268,11 @@ class SalaryRoute {
     }
 
     function generateNextOffset($offset) {
-        $offsetToNumber = "";
-        if (strpos($offset, "+")) {
-            $offsetToNumber = substr($offset, strpos($offset, "+") + 1);
-        } else if (strpos($offset, "-")) {
+        $offsetToNumber = "0";
+        if (strpos($offset, "+") === false) {
             $offsetToNumber = substr($offset, strpos($offset, "-") + 1);
-        } else {
-            $offsetToNumber = $offset;
+        } else if (strpos($offset, "-") === false) {
+            $offsetToNumber = substr($offset, strpos($offset, "+") + 1);
         }
         $newOffset = (int)$offsetToNumber + 1;
         $return "+".(string)$newOffset;
