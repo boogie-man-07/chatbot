@@ -1635,7 +1635,7 @@ class access {
         return $result;
     }
 
-    function saveCalendarOffset($userId, $offset) {
+    function setCalendarOffset($userId, $offset) {
         $sql = "SELECT * FROM calendar_offset WHERE user_id = '".$userId."'";
         $result = $this->conn->query($sql);
         if ($result != null && (mysqli_num_rows($result) >= 1 )) {
