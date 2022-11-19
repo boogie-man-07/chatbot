@@ -643,6 +643,8 @@ class keyboards {
 //             }
 
         }
+
+        array_push($mainArray[count($mainArray) - 1], array("text" => " ", "callback_data" => "defaultCallbackResponse"));
         return $mainArray;
     }
 
