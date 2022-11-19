@@ -644,10 +644,10 @@ class keyboards {
 //             }
 
         }
-        array_push($mainArray[count($mainArray - 1)], array(
-            "text" => " ",
-            "callback_data" => "defaultCallbackResponse")
-        );
+//         array_push($mainArray[count($mainArray - 1)], array(
+//             "text" => " ",
+//             "callback_data" => "defaultCallbackResponse")
+//         );
         return $mainArray;
         //$lastArrayLength = (string)count($mainArray[count($mainArray) - 1]);
         //array_push($mainArray, array(array("text" => $lastArrayLength, "callback_data" => "defaultCallbackResponse")));
