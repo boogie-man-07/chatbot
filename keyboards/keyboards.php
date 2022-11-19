@@ -557,7 +557,7 @@ class keyboards {
         array_push($mainArray, $headerArray);
         array_push($mainArray, $weeksDayArray);
         foreach ($data as $value) {
-            array($mainArray, $value);
+            array_push($mainArray, $value);
         }
         array_push($mainArray, $footerArray);
 
