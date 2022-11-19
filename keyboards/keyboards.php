@@ -626,29 +626,22 @@ class keyboards {
                 $c++;
                 $count++;
             }
+            $offset += 7;
+            if (count($rowArray) < 7) {
+                $rest = 7 - count($rowArray);
+                while (count($rowArray) < 7) {
+                    array_push($rowArray, array(
+                        "text" => " ",
+                        "callback_data" => "defaultCallbackResponse")
+                    );
+                }
 
-            array_push($mainArray, $rowArray);
-//             $offset += 7;
-//             if (count($rowArray) < $offset) {
-//                 $rest = 7 - count($rowArray);
-//                 while (count($rowArray) < 7) {
-//                     array_push($rowArray, array(
-//                         "text" => " ",
-//                         "callback_data" => "defaultCallbackResponse")
-//                     );
-//                 }
-//
-//                 array_push($mainArray, $rowArray);
-//             } else {
-//                 array_push($mainArray, $rowArray);
-//             }
+                array_push($mainArray, $rowArray);
+            } else {
+                array_push($mainArray, $rowArray);
+            }
 
         }
-//         array_push($mainArray[count($mainArray - 1)], array(
-//             "text" => " ",
-//             "callback_data" => "defaultCallbackResponse")
-//         );
-        return $mainArray;
         //$lastArrayLength = (string)count($mainArray[count($mainArray) - 1]);
         //array_push($mainArray, array(array("text" => $lastArrayLength, "callback_data" => "defaultCallbackResponse")));
 
@@ -685,6 +678,8 @@ class keyboards {
 //             $count++;
 //         }
 //         array_push($mainArray, $rowArray);
+
+        return $mainArray;
     }
 
     function getCalendar($month) {
