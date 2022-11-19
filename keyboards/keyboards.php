@@ -614,7 +614,7 @@ class keyboards {
         array_push($mainArray, $firstRowArray);
 
         $rowArray = array();
-        while ($count < 14) {
+        while ($count < 13) {
             array_push($rowArray, array(
                 "text" => (string)$daysList[$count]['buttonText'],
                 "callback_data" => "defaultCallbackResponse")
