@@ -672,11 +672,8 @@ class keyboards {
 
 
         $rest = $b2 - $b1;
-//         array_push($mainArray[count($mainArray) - 1], array("text" => (string)$a, "callback_data" => "defaultCallbackResponse"));
-        if ($rest < 7) {
-            for ($i = $rest; $i <= 7; $i++) {
-                array_push($mainArray[count($mainArray) - 1], array("text" => (string)$rest, "callback_data" => "defaultCallbackResponse"));
-            }
+        for ($i = 0; $i < $rest; $i++) {
+            array_push($mainArray[count($mainArray) - 1], array("text" => " ", "callback_data" => "defaultCallbackResponse"));
         }
 
         return $mainArray;
