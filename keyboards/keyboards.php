@@ -556,6 +556,9 @@ class keyboards {
 
         array_push($mainArray, $headerArray);
         array_push($mainArray, $weeksDayArray);
+        foreach ($data as $value) {
+            array($mainArray, $value);
+        }
         array_push($mainArray, $footerArray);
 
         return json_encode(array("inline_keyboard" => $mainArray));
