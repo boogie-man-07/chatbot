@@ -644,19 +644,29 @@ class keyboards {
 
         }
 //         $rest = count($mainArray[count($mainArray) - 1]);
-        $temp = $mainArray[count($mainArray) - 1];
-        $a = 0;
-        for ($i = 0; $i < 7; $i++) {
-            if ($temp[$i]['text'] != '') {
-                $a++;
+
+
+//         $temp = $mainArray[count($mainArray) - 1];
+//         $a = 0;
+//         for ($i = 0; $i < 7; $i++) {
+//             if ($temp[$i]['text'] != '') {
+//                 $a++;
+//             }
+//         }
+//         $rest = 7 - $a;
+        $b = 0;
+        foreach($mainArray as $value) {
+            foreach($value as $value2) {
+                $b++;
             }
         }
-        $rest = 7 - $a;
+
+
 //         $rest = count($mainArray[count($mainArray) - 1]);
 //         array_push($mainArray[count($mainArray) - 1], array("text" => (string)$a, "callback_data" => "defaultCallbackResponse"));
         if ($rest < 7) {
             for ($i = $rest; $i <= 7; $i++) {
-                array_push($mainArray[count($mainArray) - 1], array("text" => (string)$count, "callback_data" => "defaultCallbackResponse"));
+                array_push($mainArray[count($mainArray) - 1], array("text" => (string)$b, "callback_data" => "defaultCallbackResponse"));
             }
         }
 
