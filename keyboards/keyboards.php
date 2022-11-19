@@ -654,23 +654,28 @@ class keyboards {
 //             }
 //         }
 //         $rest = 7 - $a;
-        $b = 0;
+        $b1 = 0;
         foreach($mainArray as $value) {
             foreach($value as $value2) {
                 if ($value2['text'] != '') {
-                    $b++;
+                    $b1++;
                 }
             }
         }
 
-        $rest = $b - $itemsCount;
+        $b2 = 0;
+        foreach($mainArray as $value) {
+            foreach($value as $value2) {
+                $b2++;
+            }
+        }
 
 
 //         $rest = count($mainArray[count($mainArray) - 1]);
 //         array_push($mainArray[count($mainArray) - 1], array("text" => (string)$a, "callback_data" => "defaultCallbackResponse"));
         if ($rest < 7) {
             for ($i = $rest; $i <= 7; $i++) {
-                array_push($mainArray[count($mainArray) - 1], array("text" => (string)$itemsCount, "callback_data" => "defaultCallbackResponse"));
+                array_push($mainArray[count($mainArray) - 1], array("text" => (string)$b1." ".$b2, "callback_data" => "defaultCallbackResponse"));
             }
         }
 
