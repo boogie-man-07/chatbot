@@ -531,31 +531,60 @@ class keyboards {
 
     function getEmployeeMonthlyWorkdaysCalendar($monthlyWorkData) {
         $data = $this->createdCalendar($monthlyWorkData);
-        return json_encode(array(
-            "inline_keyboard" => array(
-                array(
-                    array(
-                        "text" => "Дней ".hex2bin("E29880")." ".$monthlyWorkData['totalWorkDays']." = ".$monthlyWorkData['totalDayWorkHours']." ч / Ночей ".hex2bin("F09F8C99")." ".$monthlyWorkData['totalWorkNights']." = ".$monthlyWorkData['totalNightWorkHours']." ч",
-                        "callback_data" => "defaultCallbackResponse"
-                    )
-                ),
-                array(
-                    array("text" => "Пн", "callback_data" => "defaultCallbackResponse"),
-                    array("text" => "Вт", "callback_data" => "defaultCallbackResponse"),
-                    array("text" => "Ср", "callback_data" => "defaultCallbackResponse"),
-                    array("text" => "Чт", "callback_data" => "defaultCallbackResponse"),
-                    array("text" => "Пт", "callback_data" => "defaultCallbackResponse"),
-                    array("text" => "Сб", "callback_data" => "defaultCallbackResponse"),
-                    array("text" => "Вс", "callback_data" => "defaultCallbackResponse")
-                ),
-                $data[0],
-                array(
-                    array("text" => "<<", "callback_data" => "previousMonthCalendarDataAction"),
-                    array("text" => $monthlyWorkData['currentMonth'], "callback_data" => "defaultCallbackResponse"),
-                    array("text" => ">>","callback_data" => "nextMonthCalendarDataAction")
-                )
-            )
-        ));
+        $mainArray = array();
+
+        $headerArray = array(
+             array(
+                 "text" => "Дней ".hex2bin("E29880")." ".$monthlyWorkData['totalWorkDays']." = ".$monthlyWorkData['totalDayWorkHours']." ч / Ночей ".hex2bin("F09F8C99")." ".$monthlyWorkData['totalWorkNights']." = ".$monthlyWorkData['totalNightWorkHours']." ч",
+                 "callback_data" => "defaultCallbackResponse"
+             )
+         );
+        $weeksDayArray = array(
+            array("text" => "Пн", "callback_data" => "defaultCallbackResponse"),
+            array("text" => "Вт", "callback_data" => "defaultCallbackResponse"),
+            array("text" => "Ср", "callback_data" => "defaultCallbackResponse"),
+            array("text" => "Чт", "callback_data" => "defaultCallbackResponse"),
+            array("text" => "Пт", "callback_data" => "defaultCallbackResponse"),
+            array("text" => "Сб", "callback_data" => "defaultCallbackResponse"),
+            array("text" => "Вс", "callback_data" => "defaultCallbackResponse")
+        );
+        $footerArray = array(
+            array("text" => "<<", "callback_data" => "previousMonthCalendarDataAction"),
+            array("text" => $monthlyWorkData['currentMonth'], "callback_data" => "defaultCallbackResponse"),
+            array("text" => ">>","callback_data" => "nextMonthCalendarDataAction")
+        );
+
+        array_push($mainArray, $headerArray);
+        array_push($mainArray, $weeksDayArray);
+        array_push($mainArray, $footerArray);
+
+        return json_encode(array("inline_keyboard" => $mainArray));
+
+//         return json_encode(array(
+//             "inline_keyboard" => array(
+//                 array(
+//                     array(
+//                         "text" => "Дней ".hex2bin("E29880")." ".$monthlyWorkData['totalWorkDays']." = ".$monthlyWorkData['totalDayWorkHours']." ч / Ночей ".hex2bin("F09F8C99")." ".$monthlyWorkData['totalWorkNights']." = ".$monthlyWorkData['totalNightWorkHours']." ч",
+//                         "callback_data" => "defaultCallbackResponse"
+//                     )
+//                 ),
+//                 array(
+//                     array("text" => "Пн", "callback_data" => "defaultCallbackResponse"),
+//                     array("text" => "Вт", "callback_data" => "defaultCallbackResponse"),
+//                     array("text" => "Ср", "callback_data" => "defaultCallbackResponse"),
+//                     array("text" => "Чт", "callback_data" => "defaultCallbackResponse"),
+//                     array("text" => "Пт", "callback_data" => "defaultCallbackResponse"),
+//                     array("text" => "Сб", "callback_data" => "defaultCallbackResponse"),
+//                     array("text" => "Вс", "callback_data" => "defaultCallbackResponse")
+//                 ),
+//                 $data[0],
+//                 array(
+//                     array("text" => "<<", "callback_data" => "previousMonthCalendarDataAction"),
+//                     array("text" => $monthlyWorkData['currentMonth'], "callback_data" => "defaultCallbackResponse"),
+//                     array("text" => ">>","callback_data" => "nextMonthCalendarDataAction")
+//                 )
+//             )
+//         ));
     }
 
     function createdCalendar($monthlyWorkData) {
