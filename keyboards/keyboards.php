@@ -598,6 +598,7 @@ class keyboards {
         $firstRowArray = array();
         $c = 0;
         $count = 0;
+        $offset = 14;
         for ($i = 0; $i < $startCell; $i++) {
             array_push($firstRowArray, array("text" => " ", "callback_data" => "defaultCallbackResponse"));
             $count++;
@@ -613,38 +614,52 @@ class keyboards {
         }
         array_push($mainArray, $firstRowArray);
 
-        $rowArray = array();
-        while ($count < 14) {
-            array_push($rowArray, array(
-                "text" => (string)$daysList[$c]['buttonText'],
-                "callback_data" => "defaultCallbackResponse")
-            );
-            $c++;
-            $count++;
+        while($count <= 28) {
+            $rowArray = array();
+            while ($count < $offset) {
+                array_push($rowArray, array(
+                    "text" => (string)$daysList[$c]['buttonText'],
+                    "callback_data" => "defaultCallbackResponse")
+                );
+                $c++;
+                $count++;
+            }
+            array_push($mainArray, $rowArray);
+            $offset += 7;
         }
-        array_push($mainArray, $rowArray);
 
-        $rowArray = array();
-        while ($count < 21) {
-            array_push($rowArray, array(
-                "text" => (string)$daysList[$c]['buttonText'],
-                "callback_data" => "defaultCallbackResponse")
-            );
-            $c++;
-            $count++;
-        }
-        array_push($mainArray, $rowArray);
-
-        $rowArray = array();
-        while ($count < 28) {
-            array_push($rowArray, array(
-                "text" => (string)$daysList[$c]['buttonText'],
-                "callback_data" => "defaultCallbackResponse")
-            );
-            $c++;
-            $count++;
-        }
-        array_push($mainArray, $rowArray);
+//         $rowArray = array();
+//         while ($count < 14) {
+//             array_push($rowArray, array(
+//                 "text" => (string)$daysList[$c]['buttonText'],
+//                 "callback_data" => "defaultCallbackResponse")
+//             );
+//             $c++;
+//             $count++;
+//         }
+//         array_push($mainArray, $rowArray);
+//
+//         $rowArray = array();
+//         while ($count < 21) {
+//             array_push($rowArray, array(
+//                 "text" => (string)$daysList[$c]['buttonText'],
+//                 "callback_data" => "defaultCallbackResponse")
+//             );
+//             $c++;
+//             $count++;
+//         }
+//         array_push($mainArray, $rowArray);
+//
+//         $rowArray = array();
+//         while ($count < 28) {
+//             array_push($rowArray, array(
+//                 "text" => (string)$daysList[$c]['buttonText'],
+//                 "callback_data" => "defaultCallbackResponse")
+//             );
+//             $c++;
+//             $count++;
+//         }
+//         array_push($mainArray, $rowArray);
 
         return $mainArray;
     }
