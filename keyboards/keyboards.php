@@ -613,7 +613,7 @@ class keyboards {
         }
         array_push($mainArray, $firstRowArray);
 
-//         $rowArray = array();
+        $rowArray = array();
         while ($count < 14) {
             array_push($rowArray, array(
                 "text" => (string)$daysList[$count]['buttonText'],
