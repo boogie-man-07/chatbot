@@ -63,7 +63,7 @@ class CalendarInfo {
             ));
         }
 
-        $resultDaysData = unique_key($daysData, 'dateNumber');
+        $resultDaysData = $this->unique_key($daysData, 'dateNumber');
 
 //         $uniqueDaysData = array_map("unserialize", array_unique(array_map("serialize", $daysData), SORT_REGULAR));
 //         $resultDaysData = array();
@@ -140,10 +140,10 @@ class CalendarInfo {
         }
     }
 
-    function unique_key($array,$keyname){
+    function unique_key($array, $keyname) {
         $new_array = array();
-        foreach($array as $key=>$value){
-            if(!isset($new_array[$value[$keyname]])){
+        foreach($array as $key=>$value) {
+            if(!isset($new_array[$value[$keyname]])) {
                 $new_array[$value[$keyname]] = $value;
             }
         }
