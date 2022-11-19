@@ -627,58 +627,22 @@ class keyboards {
                 $count++;
             }
             $offset += 7;
-            if (count($rowArray) < 7) {
-                $rest = 7 - count($rowArray);
-                while (count($rowArray) < 7) {
-                    array_push($rowArray, array(
-                        "text" => " ",
-                        "callback_data" => "defaultCallbackResponse")
-                    );
-                }
-
-                array_push($mainArray, $rowArray);
-            } else {
-                array_push($mainArray, $rowArray);
-            }
+            array_push($mainArray, $rowArray);
+//             if (count($rowArray) < 7) {
+//                 $rest = 7 - count($rowArray);
+//                 while (count($rowArray) < 7) {
+//                     array_push($rowArray, array(
+//                         "text" => " ",
+//                         "callback_data" => "defaultCallbackResponse")
+//                     );
+//                 }
+//
+//                 array_push($mainArray, $rowArray);
+//             } else {
+//                 array_push($mainArray, $rowArray);
+//             }
 
         }
-        //$lastArrayLength = (string)count($mainArray[count($mainArray) - 1]);
-        //array_push($mainArray, array(array("text" => $lastArrayLength, "callback_data" => "defaultCallbackResponse")));
-
-
-//         $rowArray = array();
-//         while ($count < 14) {
-//             array_push($rowArray, array(
-//                 "text" => (string)$daysList[$c]['buttonText'],
-//                 "callback_data" => "defaultCallbackResponse")
-//             );
-//             $c++;
-//             $count++;
-//         }
-//         array_push($mainArray, $rowArray);
-//
-//         $rowArray = array();
-//         while ($count < 21) {
-//             array_push($rowArray, array(
-//                 "text" => (string)$daysList[$c]['buttonText'],
-//                 "callback_data" => "defaultCallbackResponse")
-//             );
-//             $c++;
-//             $count++;
-//         }
-//         array_push($mainArray, $rowArray);
-//
-//         $rowArray = array();
-//         while ($count < 28) {
-//             array_push($rowArray, array(
-//                 "text" => (string)$daysList[$c]['buttonText'],
-//                 "callback_data" => "defaultCallbackResponse")
-//             );
-//             $c++;
-//             $count++;
-//         }
-//         array_push($mainArray, $rowArray);
-
         return $mainArray;
     }
 
