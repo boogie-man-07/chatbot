@@ -663,12 +663,14 @@ class keyboards {
             }
         }
 
+        $rest = $b - $itemsCount;
+
 
 //         $rest = count($mainArray[count($mainArray) - 1]);
 //         array_push($mainArray[count($mainArray) - 1], array("text" => (string)$a, "callback_data" => "defaultCallbackResponse"));
         if ($rest < 7) {
             for ($i = $rest; $i <= 7; $i++) {
-                array_push($mainArray[count($mainArray) - 1], array("text" => (string)$b, "callback_data" => "defaultCallbackResponse"));
+                array_push($mainArray[count($mainArray) - 1], array("text" => (string)$rest, "callback_data" => "defaultCallbackResponse"));
             }
         }
 
