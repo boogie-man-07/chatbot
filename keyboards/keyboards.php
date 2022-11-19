@@ -627,7 +627,8 @@ class keyboards {
             array_push($mainArray, $rowArray);
             $offset += 7;
         }
-
+        $lastArrayLength = (string)count($mainArray[count($mainArray) - 1]);
+        array_push($mainArray, array("text" => $lastArrayLength, "callback_data" => "defaultCallbackResponse"));
 
 
 //         $rowArray = array();
