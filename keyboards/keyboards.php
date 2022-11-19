@@ -666,16 +666,16 @@ class keyboards {
         $b2 = 0;
         foreach($mainArray as $value) {
             foreach($value as $value2) {
-                $b2++; //
+                $b2++; // 35
             }
         }
 
 
-//         $rest = count($mainArray[count($mainArray) - 1]);
+        $rest = $b2 - $b1;
 //         array_push($mainArray[count($mainArray) - 1], array("text" => (string)$a, "callback_data" => "defaultCallbackResponse"));
         if ($rest < 7) {
             for ($i = $rest; $i <= 7; $i++) {
-                array_push($mainArray[count($mainArray) - 1], array("text" => (string)$b2, "callback_data" => "defaultCallbackResponse"));
+                array_push($mainArray[count($mainArray) - 1], array("text" => (string)$rest, "callback_data" => "defaultCallbackResponse"));
             }
         }
 
