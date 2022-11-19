@@ -643,7 +643,7 @@ class keyboards {
 //             }
 
         }
-        $rest = array_count_values(array_column($mainArray[count($mainArray) - 1], 'dateNumber'));
+        $rest = count($mainArray[count($mainArray) - 1]);
 //         $rest = count($mainArray[count($mainArray) - 1]);
         array_push($mainArray[count($mainArray) - 1], array("text" => (string)$rest, "callback_data" => "defaultCallbackResponse"));
 //         if ($rest < 7) {
