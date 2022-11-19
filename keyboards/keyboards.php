@@ -605,7 +605,7 @@ class keyboards {
 
         for ($m = $startCell; $m < 7; $m++) {
             array_push($firstRowArray, array(
-                "text" => (string)$daysList[$c]['buttonText'],
+                "text" => (string)$daysList[$count]['buttonText'],
                 "callback_data" => "defaultCallbackResponse")
             );
             $c++;
@@ -614,7 +614,7 @@ class keyboards {
         array_push($mainArray, $firstRowArray);
 
         $rowArray = array();
-        while ($count < 13) {
+        while ($count < 14) {
             array_push($rowArray, array(
                 "text" => (string)$daysList[$count]['buttonText'],
                 "callback_data" => "defaultCallbackResponse")
