@@ -629,7 +629,7 @@ class keyboards {
                 $rest = 7 - count($rowArray);
                 while (count($rowArray) < 7) {
                     array_push($rowArray, array(
-                        "text" => (string)$daysList[$c]['buttonText'],
+                        "text" => " ",
                         "callback_data" => "defaultCallbackResponse")
                     );
                 }
