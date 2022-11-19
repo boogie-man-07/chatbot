@@ -647,7 +647,7 @@ class keyboards {
         $temp = $mainArray[count($mainArray) - 1];
         $a = 0;
         for ($i = 0; $i < 7; $i++) {
-            if ($temp[$i]) {
+            if ($temp[$i]['text'] != '') {
                 $a++;
             }
         }
