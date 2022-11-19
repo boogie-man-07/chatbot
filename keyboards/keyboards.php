@@ -657,7 +657,9 @@ class keyboards {
         $b = 0;
         foreach($mainArray as $value) {
             foreach($value as $value2) {
-                $b++;
+                if ($value2['text'] != '') {
+                    $b++;
+                }
             }
         }
 
