@@ -646,7 +646,7 @@ class keyboards {
         $rest = count($mainArray[count($mainArray) - 1]);
         $temp = $mainArray[count($mainArray) - 1];
 //         $rest = count($mainArray[count($mainArray) - 1]);
-        array_push($mainArray[count($mainArray) - 1], array("text" => json_encode($temp[2]), "callback_data" => "defaultCallbackResponse"));
+        array_push($mainArray[count($mainArray) - 1], array("text" => (string)count($temp), "callback_data" => "defaultCallbackResponse"));
 //         if ($rest < 7) {
 //             while ($rest < 7) {
 //                 array_push($mainArray[count($mainArray) - 1], array("text" => " ", "callback_data" => "defaultCallbackResponse"));
