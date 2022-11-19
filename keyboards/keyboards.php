@@ -613,18 +613,18 @@ class keyboards {
         }
         array_push($mainArray, $firstRowArray);
 
-//         while ($count < 7) {
-//             $rowArray = array();
-//             while ($count < 7) {
-//                 array_push($rowArray, array(
-//                     "text" => (string)$daysList[$count]['buttonText'],
-//                     "callback_data" => "defaultCallbackResponse")
-//                 );
-//                 $c++;
-//                 $count++;
-//             }
-//             array_push($mainArray, $rowArray);
-//         }
+        while ($count < 7) {
+            $rowArray = array();
+            while ($count < 7) {
+                array_push($rowArray, array(
+                    "text" => (string)$daysList[$count]['buttonText'],
+                    "callback_data" => "defaultCallbackResponse")
+                );
+                $c++;
+                $count++;
+            }
+            array_push($mainArray, $rowArray);
+        }
 
         return $mainArray;
     }
