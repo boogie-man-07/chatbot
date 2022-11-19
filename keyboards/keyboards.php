@@ -626,20 +626,25 @@ class keyboards {
                 $c++;
                 $count++;
             }
-            $offset += 7;
-            if (count($rowArray) < 7) {
-                $rest = 7 - count($rowArray);
-                while (count($rowArray) < 7) {
-                    array_push($rowArray, array(
-                        "text" => " ",
-                        "callback_data" => "defaultCallbackResponse")
-                    );
-                }
-
-                array_push($mainArray, $rowArray);
-            } else {
-                array_push($mainArray, $rowArray);
-            }
+            array_push($rowArray, array(
+                "text" => " ",
+                "callback_data" => "defaultCallbackResponse")
+            );
+            array_push($mainArray, $rowArray);
+//             $offset += 7;
+//             if (count($rowArray) < $offset) {
+//                 $rest = 7 - count($rowArray);
+//                 while (count($rowArray) < 7) {
+//                     array_push($rowArray, array(
+//                         "text" => " ",
+//                         "callback_data" => "defaultCallbackResponse")
+//                     );
+//                 }
+//
+//                 array_push($mainArray, $rowArray);
+//             } else {
+//                 array_push($mainArray, $rowArray);
+//             }
 
         }
         //$lastArrayLength = (string)count($mainArray[count($mainArray) - 1]);
