@@ -63,13 +63,15 @@ class CalendarInfo {
             ));
         }
 
-        $uniqueDaysData = array_map("unserialize", array_unique(array_map("serialize", $daysData), SORT_REGULAR));
-        $resultDaysData = array();
-        for ($m = 0; $m <= count($uniqueDaysData); $m++) {
-            if ($uniqueDaysData[$m]) {
-                array_push($resultDaysData, $uniqueDaysData[$m]);
-            }
-        }
+        $resultDaysData = unique_key($daysData, 'dateNumber');
+
+//         $uniqueDaysData = array_map("unserialize", array_unique(array_map("serialize", $daysData), SORT_REGULAR));
+//         $resultDaysData = array();
+//         for ($m = 0; $m <= count($uniqueDaysData); $m++) {
+//             if ($uniqueDaysData[$m]) {
+//                 array_push($resultDaysData, $uniqueDaysData[$m]);
+//             }
+//         }
 
         $returnArray = array(
             'isRotational' => $isRotational,
@@ -136,6 +138,17 @@ class CalendarInfo {
             case '12':
                 return "Декабрь $yearIndex";
         }
+    }
+
+    function unique_key($array,$keyname){
+        $new_array = array();
+        foreach($array as $key=>$value){
+            if(!isset($new_array[$value[$keyname]])){
+                $new_array[$value[$keyname]] = $value;
+            }
+        }
+        $new_array = array_values($new_array);
+        return $new_array;
     }
 }
 
