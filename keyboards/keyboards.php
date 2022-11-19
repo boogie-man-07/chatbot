@@ -598,10 +598,12 @@ class keyboards {
         $firstRowArray = array();
         $c = 0;
         $count = 0;
+        $headerIndex = 0;
         $offset = 14;
         for ($i = 0; $i < $startCell; $i++) {
             array_push($firstRowArray, array("text" => " ", "callback_data" => "defaultCallbackResponse"));
             $count++;
+            $headerIndex = $count;
         }
 
         for ($m = $startCell; $m < 7; $m++) {
@@ -614,7 +616,7 @@ class keyboards {
         }
         array_push($mainArray, $firstRowArray);
 
-        while($count <= $itemsCount) {
+        while($count <= ($itemsCount + $headerIndex)) {
             $rowArray = array();
             while ($count < $offset) {
                 array_push($rowArray, array(
