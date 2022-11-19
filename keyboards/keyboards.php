@@ -614,7 +614,7 @@ class keyboards {
         }
         array_push($mainArray, $firstRowArray);
 
-        while($count <= 28) {
+        while($count <= $itemsCount) {
             $rowArray = array();
             while ($count < $offset) {
                 array_push($rowArray, array(
