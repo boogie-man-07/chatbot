@@ -503,31 +503,34 @@ class keyboards {
         ));
     }
 
-//     function getInlineKeyboardForAskADmsPollQuestion($userId, $pollInfo, $pollQuestionInfo, $isQuestionStartedEarlier) {
-//         $replyList = array();
-//         $id = $pollInfo['poll_state'];
-//         $options = json_decode(($isQuestionStartedEarlier ? $pollQuestionInfo[$id]['responses'] : $pollQuestionInfo[$id]['reply_options']), true);
+    function getInlineKeyboardForAskADmsPollQuestion($userId, $pollInfo, $pollQuestionInfo) {
+        $replyList = array();
+        $replyAggregation = array();
+        $id = $pollInfo['poll_state'];
+        $options = json_decode($pollQuestionInfo[$id]['reply_options'], true);
 //         $nextButtonText = $pollQuestionInfo[$id]['question_id'] >= array_count_values(array_column($pollQuestionInfo, 'question_id')) ? "Завершить" : "Продолжить";
 //         $nextButtonCallbackData =  $pollQuestionInfo[$id]['question_id'] >= array_count_values(array_column($pollQuestionInfo, 'question_id')) ? 'finishDmsPoll' : 'nextDmsPollOption';
-//         foreach($options['options'] as $key=>$value) {
+        foreach($options['options'] as $key=>$value) {
 //             $itemTitle = $value['isSelected'] ? $value['title']." ".hex2bin('E29C85') : $value['title'];
-//             $callbackData = $userId."_".$pollQuestionInfo[$id]['poll_id'].$pollQuestionInfo[$id]['question_id']."*".$value['id'];
-//             $replyItem = array(array(
-//                 "text" => $itemTitle,
-//                 "callback_data" => $callbackData
-//             ));
-//             array_push($replyList, $replyItem);
-//         }
+            $itemTitle = (string)$value['id'];
+            $callbackData = $userId."_".$pollQuestionInfo[$id]['poll_id'].$pollQuestionInfo[$id]['question_id']."*".$value['id'];
+            $replyItem = array(array(
+                "text" => $itemTitle,
+                "callback_data" => $callbackData
+            ));
+            array_push($replyAggregation, $replyItem);
+        }
+        array_push($replyList, $replyAggregation);
 //         $nextButtonItem = array(array(
 //             "text" => $nextButtonText,
 //             "callback_data" => $nextButtonCallbackData
 //         ));
 //         array_push($replyList, $nextButtonItem);
-//
-//         return json_encode(array(
-//             "inline_keyboard" => $replyList
-//         ));
-//     }
+
+        return json_encode(array(
+            "inline_keyboard" => $replyList
+        ));
+    }
 
     function getEmployeeMonthlyWorkdaysCalendar($monthlyWorkData) {
         $data = $this->createdCalendar($monthlyWorkData);
@@ -562,32 +565,6 @@ class keyboards {
         array_push($mainArray, $footerArray);
 
         return json_encode(array("inline_keyboard" => $mainArray));
-
-//         return json_encode(array(
-//             "inline_keyboard" => array(
-//                 array(
-//                     array(
-//                         "text" => "Дней ".hex2bin("E29880")." ".$monthlyWorkData['totalWorkDays']." = ".$monthlyWorkData['totalDayWorkHours']." ч / Ночей ".hex2bin("F09F8C99")." ".$monthlyWorkData['totalWorkNights']." = ".$monthlyWorkData['totalNightWorkHours']." ч",
-//                         "callback_data" => "defaultCallbackResponse"
-//                     )
-//                 ),
-//                 array(
-//                     array("text" => "Пн", "callback_data" => "defaultCallbackResponse"),
-//                     array("text" => "Вт", "callback_data" => "defaultCallbackResponse"),
-//                     array("text" => "Ср", "callback_data" => "defaultCallbackResponse"),
-//                     array("text" => "Чт", "callback_data" => "defaultCallbackResponse"),
-//                     array("text" => "Пт", "callback_data" => "defaultCallbackResponse"),
-//                     array("text" => "Сб", "callback_data" => "defaultCallbackResponse"),
-//                     array("text" => "Вс", "callback_data" => "defaultCallbackResponse")
-//                 ),
-//                 $data[0],
-//                 array(
-//                     array("text" => "<<", "callback_data" => "previousMonthCalendarDataAction"),
-//                     array("text" => $monthlyWorkData['currentMonth'], "callback_data" => "defaultCallbackResponse"),
-//                     array("text" => ">>","callback_data" => "nextMonthCalendarDataAction")
-//                 )
-//             )
-//         ));
     }
 
     function createdCalendar($monthlyWorkData) {
@@ -628,32 +605,8 @@ class keyboards {
             }
             $offset += 7;
             array_push($mainArray, $rowArray);
-//             if (count($rowArray) < 7) {
-//                 $rest = 7 - count($rowArray);
-//                 while (count($rowArray) < 7) {
-//                     array_push($rowArray, array(
-//                         "text" => " ",
-//                         "callback_data" => "defaultCallbackResponse")
-//                     );
-//                 }
-//
-//                 array_push($mainArray, $rowArray);
-//             } else {
-//                 array_push($mainArray, $rowArray);
-//             }
-
         }
-//         $rest = count($mainArray[count($mainArray) - 1]);
 
-
-//         $temp = $mainArray[count($mainArray) - 1];
-//         $a = 0;
-//         for ($i = 0; $i < 7; $i++) {
-//             if ($temp[$i]['text'] != '') {
-//                 $a++;
-//             }
-//         }
-//         $rest = 7 - $a;
         $b1 = 0;
         foreach($mainArray as $value) {
             foreach($value as $value2) {
@@ -677,214 +630,5 @@ class keyboards {
         }
 
         return $mainArray;
-    }
-
-    function getCalendar($month) {
-        $dayEmoji = hex2bin("E29880");
-        $nightEmoji = hex2bin("F09F8C99");
-        return json_encode(array(
-            "inline_keyboard" => array(
-                array(
-                    array(
-                        "text" => "Дней ".hex2bin("E29880")." 18 = 113,67 ч / Ночей ".hex2bin("F09F8C99")." 11 = 75,33 ч",
-                        "callback_data" => "noAction"
-                    )
-                ),
-                array(
-                    array(
-                        "text" => "Пн",
-                        "callback_data" => "noAction"
-                    ),
-                    array(
-                        "text" => "Вт",
-                        "callback_data" => "noAction"
-                    ),
-                    array(
-                        "text" => "Ср",
-                        "callback_data" => "noAction"
-                    ),
-                    array(
-                        "text" => "Чт",
-                        "callback_data" => "noAction"
-                    ),
-                    array(
-                        "text" => "Пт",
-                        "callback_data" => "noAction"
-                    ),
-                    array(
-                        "text" => "Сб",
-                        "callback_data" => "noAction"
-                    ),
-                    array(
-                        "text" => "Вс",
-                        "callback_data" => "noAction"
-                    )
-                ),
-                array(
-                    array(
-                        "text" => " ",
-                        "callback_data" => "noAction"
-                    ),
-                    array(
-                        "text" => "1",
-                        "callback_data" => "noAction"
-                    ),
-                    array(
-                        "text" => hex2bin("E29880"),
-                        "callback_data" => "noAction"
-                    ),
-                    array(
-                        "text" => hex2bin("E29880"),
-                        "callback_data" => "noAction"
-                    ),
-                    array(
-                        "text" => hex2bin("E29880"),
-                        "callback_data" => "noAction"
-                    ),
-                    array(
-                        "text" => hex2bin("E29880"),
-                        "callback_data" => "noAction"
-                    ),
-                    array(
-                        "text" => hex2bin("E29880"),
-                        "callback_data" => "noAction"
-                    )
-                ),
-                array(
-                    array(
-                        "text" => hex2bin("E29880"),
-                        "callback_data" => "noAction"
-                    ),
-                    array(
-                        "text" => hex2bin("E29880"),
-                        "callback_data" => "noAction"
-                    ),
-                    array(
-                        "text" => hex2bin("E29880"),
-                        "callback_data" => "noAction"
-                    ),
-                    array(
-                        "text" => hex2bin("E29880"),
-                        "callback_data" => "noAction"
-                    ),
-                    array(
-                        "text" => hex2bin("E29880"),
-                        "callback_data" => "noAction"
-                    ),
-                    array(
-                        "text" => hex2bin("E29880"),
-                        "callback_data" => "noAction"
-                    ),
-                    array(
-                        "text" => hex2bin("E29880"),
-                        "callback_data" => "noAction"
-                    )
-                ),
-                array(
-                    array(
-                        "text" => hex2bin("E29880"),
-                        "callback_data" => "noAction"
-                    ),
-                    array(
-                        "text" => hex2bin("E29880"),
-                        "callback_data" => "noAction"
-                    ),
-                    array(
-                        "text" => hex2bin("E29880"),
-                        "callback_data" => "noAction"
-                    ),
-                    array(
-                        "text" => "17",
-                        "callback_data" => "noAction"
-                    ),
-                    array(
-                        "text" => "18",
-                        "callback_data" => "noAction"
-                    ),
-                    array(
-                        "text" => "19",
-                        "callback_data" => "noAction"
-                    ),
-                    array(
-                        "text" => "20",
-                        "callback_data" => "noAction"
-                    )
-                ),
-                array(
-                    array(
-                        "text" => "21",
-                        "callback_data" => "noAction"
-                    ),
-                    array(
-                        "text" => "22",
-                        "callback_data" => "noAction"
-                    ),
-                    array(
-                        "text" => "23",
-                        "callback_data" => "noAction"
-                    ),
-                    array(
-                        "text" => "24",
-                        "callback_data" => "noAction"
-                    ),
-                    array(
-                        "text" => "25",
-                        "callback_data" => "noAction"
-                    ),
-                    array(
-                        "text" => "26",
-                        "callback_data" => "noAction"
-                    ),
-                    array(
-                        "text" => "27",
-                        "callback_data" => "noAction"
-                    )
-                ),
-                array(
-                    array(
-                        "text" => hex2bin("F09F8C99"),
-                        "callback_data" => "noAction"
-                    ),
-                    array(
-                        "text" => hex2bin("F09F8C99"),
-                        "callback_data" => "noAction"
-                    ),
-                    array(
-                        "text" => hex2bin("F09F8C99"),
-                        "callback_data" => "noAction"
-                    ),
-                    array(
-                        "text" => hex2bin("F09F8C99"),
-                        "callback_data" => "noAction"
-                    ),
-                    array(
-                        "text" => " ",
-                        "callback_data" => "noAction"
-                    ),
-                    array(
-                        "text" => " ",
-                        "callback_data" => "noAction"
-                    ),
-                    array(
-                        "text" => " ",
-                        "callback_data" => "noAction"
-                    )
-                ),
-                array(
-                    array(
-                        "text" => "<<",
-                        "callback_data" => "noAction"
-                    ),
-                    array(
-                        "text" => $month,
-                        "callback_data" => "emptyAction"
-                    ),
-                    array(
-                        "text" => ">>",
-                        "callback_data" => "noAction"
-                    )
-                )
-            )
-        ));
     }
 }
