@@ -886,14 +886,16 @@ class AuthorizedUserScenario {
                                 answerCallbackQuery($this->query["id"], "Ответ сохранен!");
                                 exit;
                             } else {
-//                                 $this->access->increaseUserDmsPollState($this->user['user_id'], $pollInfo);
-//                                 $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
-//                                 $this->access->setPollAsFinished($this->user['user_id'], $pollInfo);
+                                $this->access->increaseUserDmsPollState($this->user['user_id'], $pollInfo);
+                                $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
+                                $this->access->setPollAsFinished($this->user['user_id'], $pollInfo);
+                                // todo change send message with action
                                 sendMessage($this->chatID, 'Это были все вопросы! Спасибо за уделенное время!', null);
                                 answerCallbackQuery($this->query["id"], "Опрос завершен!");
                                 exit;
                             }
                         } else {
+                            // todo error action
                             sendMessage($this->chatID, 'Не удалось сохранить ответ. Введите, пожалуйста, цифру еще раз!', null);
                             answerCallbackQuery($this->query["id"], "Не удалось сохранить ответ!");
                             exit;
