@@ -881,8 +881,8 @@ class AuthorizedUserScenario {
                         if ($isOptionSaved) {
                             if ($this->salaryRoute->shouldGoToNextQuestion($pollInfo, $pollQuestionInfo)) {
                                 $this->access->increaseUserDmsPollState($this->user['user_id'], $pollInfo);
-//                                 $newPollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
-//                                 $this->salaryRoute->triggerActionForAskNextDmsPollQuestion($this->chatID, $this->user['user_id'], $newPollInfo, $pollQuestionInfo);
+                                $newPollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
+                                $this->salaryRoute->triggerActionForAskDmsPollQuestion($this->chatID, $newPollInfo, $pollQuestionInfo);
                                 answerCallbackQuery($this->query["id"], "Ответ сохранен!");
                                 exit;
                             } else {
