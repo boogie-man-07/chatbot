@@ -505,7 +505,6 @@ class keyboards {
 
     function getInlineKeyboardForAskADmsPollQuestion($userId, $pollInfo, $pollQuestionInfo) {
         $replyList = array();
-        $replyAggregation = array();
         $id = $pollInfo['poll_state'];
         $options = json_decode($pollQuestionInfo[$id]['reply_options'], true);
 //         $nextButtonText = $pollQuestionInfo[$id]['question_id'] >= array_count_values(array_column($pollQuestionInfo, 'question_id')) ? "Завершить" : "Продолжить";
@@ -518,9 +517,8 @@ class keyboards {
                 "text" => $itemTitle,
                 "callback_data" => $callbackData
             ));
-            array_push($replyAggregation, $replyItem);
+            array_push($replyList, $replyItem);
         }
-        array_push($replyList, $replyAggregation);
 //         $nextButtonItem = array(array(
 //             "text" => $nextButtonText,
 //             "callback_data" => $nextButtonCallbackData
