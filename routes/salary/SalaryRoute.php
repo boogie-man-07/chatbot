@@ -49,7 +49,8 @@ class SalaryRoute {
 
     function triggerActionForAskDmsPollQuestion($chatID, $userId, $pollInfo, $pollQuestionInfo) {
         $reply = $this->constants->getReplyForAskADmsPollQuestion($pollInfo, $pollQuestionInfo);
-        sendMessage($chatID, $reply, null);
+        $keyboard = getInlineKeyboardForAskADmsPollQuestion($userId, $pollInfo, $pollQuestionInfo);
+        sendMessage($chatID, $reply, $keyboard);
     }
 
     function triggerActionForAskNextDmsPollQuestion($chatID, $userId, $pollInfo, $pollQuestionInfo) {
@@ -277,17 +278,6 @@ class SalaryRoute {
         $firstDay = strtotime("first day of $offset month", time());
         return date('d.m.Y', $firstDay);
     }
-
-//     function generateNextOffset($offset) {
-//         $offsetToNumber = "0";
-//         if (strpos($offset, "+") === false) {
-//             $offsetToNumber = substr($offset, strpos($offset, "-") + 1);
-//         } else if (strpos($offset, "-") === false) {
-//             $offsetToNumber = substr($offset, strpos($offset, "+") + 1);
-//         }
-//         $newOffset = (int)$offsetToNumber + 1;
-//         return "+".(string)$newOffset;
-//     }
 
     function generateNextOffset($offset) {
         $number = "0";
