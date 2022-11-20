@@ -53,6 +53,16 @@ class SalaryRoute {
         sendMessage($chatID, $reply, $keyboard);
     }
 
+    function triggerActionForFinishDmsPollQuestion($chatID) {
+        $reply = $this->constants->getReplyForFinishDmsPoll();
+        sendMessage($chatID, $reply, null);
+    }
+
+    function triggerActionForPollIsAlreadyFinished($chatID) {
+        $reply = $this->constants->getReplyForPollIsAlreadyFinished();
+        sendMessage($chatID, $reply, null);
+    }
+
 //     function triggerActionForAskNextDmsPollQuestion($chatID, $userId, $pollInfo, $pollQuestionInfo) {
 //         $reply = $this->constants->getReplyForAskADmsPollQuestion($pollInfo, $pollQuestionInfo);
 //         sendMessage($chatID, $reply, null);

@@ -131,6 +131,11 @@ class commonmistakeroute {
        $reply = $this->constants->getVacationDurationLimitErrorText($restVacationDuration);
        sendMessage($chatID, $reply, null);
    }
+
+   function triggerErrorForSaveDmsPollReply($chatID) {
+       $reply = $this->constants->getErrorForSaveDmsPollReply();
+       sendMessage($chatID, $reply, null);
+   }
 }
 
 

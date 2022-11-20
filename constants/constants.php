@@ -378,6 +378,18 @@ class constants {
         return "<b>Вопрос №".$pollQuestionData['question_id']."</b>\n".$pollQuestionData['question_text']."\n\nВарианты ответа:\n".$responses."\n\nДля ответа на вопрос отправьте цифру с вариантом ответа.";
     }
 
+    function getReplyForFinishDmsPoll() {
+        return "Это были все вопросы! Спасибо за уделенное время!";
+    }
+
+    function getReplyForPollIsAlreadyFinished() {
+        return "Вы уже прошли данный опрос, спасибо за уделенное время!";
+    }
+
+    function getErrorForSaveDmsPollReply() {
+        return "Не удалось сохранить ответ. Введите, пожалуйста, цифру еще раз!";
+    }
+
     function getReplyForAskADmsQuestion() {
         return "Вы можете задать интересующий Вас вопрос по ДМС, ответ будет направлен на Ваш адрес электронной почты.";
     }
