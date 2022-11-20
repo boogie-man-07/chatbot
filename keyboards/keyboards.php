@@ -519,7 +519,7 @@ class keyboards {
             );
             $replyItem = array(
                 "text" => $itemTitle,
-                "callback_data" => $callbackData
+                "callback_data" => json_encode($callbackData)
             );
             array_push($replyList, $replyItem);
         }
