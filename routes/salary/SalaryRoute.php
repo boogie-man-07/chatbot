@@ -47,9 +47,9 @@ class SalaryRoute {
         sendMessage($chatID, $reply, $keyboard);
     }
 
-    function triggerActionForAskDmsPollQuestion($chatID, $userId, $pollInfo, $pollQuestionInfo) {
+    function triggerActionForAskDmsPollQuestion($chatID, $pollInfo, $pollQuestionInfo) {
         $reply = $this->constants->getReplyForAskADmsPollQuestion($pollInfo, $pollQuestionInfo);
-        $keyboard = $this->keyboards->getInlineKeyboardForAskADmsPollQuestion($userId, $pollInfo, $pollQuestionInfo);
+        $keyboard = $this->keyboards->getInlineKeyboardForAskADmsPollQuestion($pollInfo, $pollQuestionInfo);
         sendMessage($chatID, $reply, $keyboard);
     }
 
@@ -236,9 +236,9 @@ class SalaryRoute {
         return preg_match('/^([1-9]\d?)$/', $text);
     }
 
-    function isCorrectDigit($text) {
-        return preg_match('/^([1-9]\d?)$/', $text);
-    }
+//     function isCorrectDigit($text) {
+//         return preg_match('/^([1-9]\d?)$/', $text);
+//     }
 
     function shouldGoToNextQuestion($pollInfo, $pollQuestionInfo) {
         $id = $pollInfo['poll_state'] + 1;

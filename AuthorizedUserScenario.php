@@ -493,33 +493,33 @@ class AuthorizedUserScenario {
                                 $this->commonmistakeroute->triggerActionForIncorrectEmailFormat($this->chatID);
                                 exit;
                             }
-                        case $this->states['dmsPoolReplyWaitingState']:
-                            $selectedOption = substr($text, 0, 1);
-                            if ($this->salaryRoute->isCorrectDigit($text)) {
-                                $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
-                                $pollQuestionInfo = $this->access->getDmsPollQuestionsInfo(1);
-                                $isOptionSaved = $this->access->setSelectedDmsPollOption($this->user['user_id'], $pollInfo, $pollQuestionInfo, (int)$selectedOption);
-                                if ($isOptionSaved) {
-                                    if ($this->salaryRoute->shouldGoToNextQuestion($pollInfo, $pollQuestionInfo)) {
-                                        $this->access->increaseUserDmsPollState($this->user['user_id'], $pollInfo);
-                                        $newPollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
-                                        $this->salaryRoute->triggerActionForAskNextDmsPollQuestion($this->chatID, $this->user['user_id'], $newPollInfo, $pollQuestionInfo);
-                                        exit;
-                                    } else {
-                                        $this->access->increaseUserDmsPollState($this->user['user_id'], $pollInfo);
-                                        $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
-                                        $this->access->setPollAsFinished($this->user['user_id'], $pollInfo);
-                                        sendMessage($this->chatID, 'Это были все вопросы! Спасибо за уделенное время!', null);
-                                        exit;
-                                    }
-                                } else {
-                                    sendMessage($this->chatID, 'Не удалось сохранить ответ. Введите, пожалуйста, цифру еще раз!', null);
-                                    exit;
-                                }
-                            } else {
-                                // todo move to salaryRoute
-                                sendMessage($this->chatID, 'Формат неверен. Введите корректную цифру с выбраннным ответом!', null);
-                            }
+//                         case $this->states['dmsPoolReplyWaitingState']:
+//                             $selectedOption = substr($text, 0, 1);
+//                             if ($this->salaryRoute->isCorrectDigit($text)) {
+//                                 $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
+//                                 $pollQuestionInfo = $this->access->getDmsPollQuestionsInfo(1);
+//                                 $isOptionSaved = $this->access->setSelectedDmsPollOption($this->user['user_id'], $pollInfo, $pollQuestionInfo, (int)$selectedOption);
+//                                 if ($isOptionSaved) {
+//                                     if ($this->salaryRoute->shouldGoToNextQuestion($pollInfo, $pollQuestionInfo)) {
+//                                         $this->access->increaseUserDmsPollState($this->user['user_id'], $pollInfo);
+//                                         $newPollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
+//                                         $this->salaryRoute->triggerActionForAskNextDmsPollQuestion($this->chatID, $this->user['user_id'], $newPollInfo, $pollQuestionInfo);
+//                                         exit;
+//                                     } else {
+//                                         $this->access->increaseUserDmsPollState($this->user['user_id'], $pollInfo);
+//                                         $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
+//                                         $this->access->setPollAsFinished($this->user['user_id'], $pollInfo);
+//                                         sendMessage($this->chatID, 'Это были все вопросы! Спасибо за уделенное время!', null);
+//                                         exit;
+//                                     }
+//                                 } else {
+//                                     sendMessage($this->chatID, 'Не удалось сохранить ответ. Введите, пожалуйста, цифру еще раз!', null);
+//                                     exit;
+//                                 }
+//                             } else {
+//                                 // todo move to salaryRoute
+//                                 sendMessage($this->chatID, 'Формат неверен. Введите корректную цифру с выбраннным ответом!', null);
+//                             }
                         default:
                             $this->commonmistakeroute->triggerActionForCommonMistake($this->chatID);
                             exit;
@@ -814,8 +814,8 @@ class AuthorizedUserScenario {
             case $this->commands['proceedDmsSurveyInline']:
                 $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
                 $pollQuestionInfo = $this->access->getDmsPollQuestionsInfo(1);
-                //$this->access->setState($this->chatID, $this->states['dmsPoolReplyWaitingState']);
-                $this->salaryRoute->triggerActionForAskDmsPollQuestion($this->chatID, $this->user['user_id'], $pollInfo, $pollQuestionInfo);
+                $this->access->setState($this->chatID, $this->states['dmsPoolReplyWaitingState']);
+                $this->salaryRoute->triggerActionForAskDmsPollQuestion($this->chatID, $pollInfo, $pollQuestionInfo);
                 answerCallbackQuery($this->query["id"], "Вопрос загружен!");
                 exit;
             case $this->commands['sendDmsQuestionInline']:
@@ -871,6 +871,28 @@ class AuthorizedUserScenario {
                             $this->access->setSelectedVacation($this->chatID, $text);
                             $this->access->setState($this->chatID, $this->states['postponedVacationNewStartDateWaitingState']);
                             $this->salaryRoute->triggerActionForSetPostponedVacationNewStartDate($this->chatID);
+                            exit;
+                        }
+                    case $this->states['dmsPoolReplyWaitingState']:
+                        sendMessage($this->chatID, json_encode($text), null); exit;
+                        $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
+                        $pollQuestionInfo = $this->access->getDmsPollQuestionsInfo(1);
+                        $isOptionSaved = $this->access->setSelectedDmsPollOption($this->user['user_id'], $pollInfo, $pollQuestionInfo, (int)$selectedOption);
+                        if ($isOptionSaved) {
+                            if ($this->salaryRoute->shouldGoToNextQuestion($pollInfo, $pollQuestionInfo)) {
+                                $this->access->increaseUserDmsPollState($this->user['user_id'], $pollInfo);
+                                $newPollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
+                                $this->salaryRoute->triggerActionForAskNextDmsPollQuestion($this->chatID, $this->user['user_id'], $newPollInfo, $pollQuestionInfo);
+                                exit;
+                            } else {
+                                $this->access->increaseUserDmsPollState($this->user['user_id'], $pollInfo);
+                                $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
+                                $this->access->setPollAsFinished($this->user['user_id'], $pollInfo);
+                                sendMessage($this->chatID, 'Это были все вопросы! Спасибо за уделенное время!', null);
+                                exit;
+                            }
+                        } else {
+                            sendMessage($this->chatID, 'Не удалось сохранить ответ. Введите, пожалуйста, цифру еще раз!', null);
                             exit;
                         }
                     default:
