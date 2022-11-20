@@ -871,13 +871,15 @@ class AuthorizedUserScenario {
                             $this->access->setSelectedVacation($this->chatID, $text);
                             $this->access->setState($this->chatID, $this->states['postponedVacationNewStartDateWaitingState']);
                             $this->salaryRoute->triggerActionForSetPostponedVacationNewStartDate($this->chatID);
+                            answerCallbackQuery($this->query["id"], "Данные загружены!");
                             exit;
                         }
                     case $this->states['dmsPoolReplyWaitingState']:
-                        sendMessage($this->chatID, json_encode($text), null); exit;
-                        $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
-                        $pollQuestionInfo = $this->access->getDmsPollQuestionsInfo(1);
-                        $isOptionSaved = $this->access->setSelectedDmsPollOption($this->user['user_id'], $pollInfo, $pollQuestionInfo, (int)$selectedOption);
+                        //$pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
+                        //$pollQuestionInfo = $this->access->getDmsPollQuestionsInfo(1);
+                        $isOptionSaved = $this->access->setSelectedDmsPollOption($this->user['user_id'], $text);
+                        answerCallbackQuery($this->query["id"], "Данные загружены!");
+                        exit;
                         if ($isOptionSaved) {
                             if ($this->salaryRoute->shouldGoToNextQuestion($pollInfo, $pollQuestionInfo)) {
                                 $this->access->increaseUserDmsPollState($this->user['user_id'], $pollInfo);
@@ -893,6 +895,7 @@ class AuthorizedUserScenario {
                             }
                         } else {
                             sendMessage($this->chatID, 'Не удалось сохранить ответ. Введите, пожалуйста, цифру еще раз!', null);
+                            answerCallbackQuery($this->query["id"], "Ошибка загрузки данных!");
                             exit;
                         }
                     default:
