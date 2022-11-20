@@ -503,7 +503,7 @@ class keyboards {
         ));
     }
 
-    function getInlineKeyboardForAskADmsPollQuestion($userId, $pollInfo, $pollQuestionInfo) {
+    function getInlineKeyboardForAskADmsPollQuestion($pollInfo, $pollQuestionInfo) {
         $replyList = array();
         $id = $pollInfo['poll_state'];
         $options = json_decode($pollQuestionInfo[$id]['reply_options'], true);
@@ -512,7 +512,11 @@ class keyboards {
         foreach($options['options'] as $key=>$value) {
 //             $itemTitle = $value['isSelected'] ? $value['title']." ".hex2bin('E29C85') : $value['title'];
             $itemTitle = (string)$value['id'];
-            $callbackData = $userId."_".$pollQuestionInfo[$id]['poll_id'].$pollQuestionInfo[$id]['question_id']."*".$value['id'];
+            $callbackData = array(
+                'pollId'=> $pollQuestionInfo[$id]['poll_id'],
+                'questionId' => $pollQuestionInfo[$id]['question_id'],
+                'selectedReplyId' => $value['id']
+            );
             $replyItem = array(
                 "text" => $itemTitle,
                 "callback_data" => $callbackData
