@@ -875,27 +875,27 @@ class AuthorizedUserScenario {
                             exit;
                         }
                     case $this->states['dmsPoolReplyWaitingState']:
-                        //$pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
-                        //$pollQuestionInfo = $this->access->getDmsPollQuestionsInfo(1);
+                        $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
+                        $pollQuestionInfo = $this->access->getDmsPollQuestionsInfo(1);
                         $isOptionSaved = $this->access->setSelectedDmsPollOption($this->user['user_id'], $text);
-                        answerCallbackQuery($this->query["id"], "Данные загружены!");
-                        exit;
                         if ($isOptionSaved) {
                             if ($this->salaryRoute->shouldGoToNextQuestion($pollInfo, $pollQuestionInfo)) {
                                 $this->access->increaseUserDmsPollState($this->user['user_id'], $pollInfo);
-                                $newPollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
-                                $this->salaryRoute->triggerActionForAskNextDmsPollQuestion($this->chatID, $this->user['user_id'], $newPollInfo, $pollQuestionInfo);
+//                                 $newPollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
+//                                 $this->salaryRoute->triggerActionForAskNextDmsPollQuestion($this->chatID, $this->user['user_id'], $newPollInfo, $pollQuestionInfo);
+                                answerCallbackQuery($this->query["id"], "Ответ сохранен!");
                                 exit;
                             } else {
-                                $this->access->increaseUserDmsPollState($this->user['user_id'], $pollInfo);
-                                $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
-                                $this->access->setPollAsFinished($this->user['user_id'], $pollInfo);
+//                                 $this->access->increaseUserDmsPollState($this->user['user_id'], $pollInfo);
+//                                 $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
+//                                 $this->access->setPollAsFinished($this->user['user_id'], $pollInfo);
                                 sendMessage($this->chatID, 'Это были все вопросы! Спасибо за уделенное время!', null);
+                                answerCallbackQuery($this->query["id"], "Опрос завершен!");
                                 exit;
                             }
                         } else {
                             sendMessage($this->chatID, 'Не удалось сохранить ответ. Введите, пожалуйста, цифру еще раз!', null);
-                            answerCallbackQuery($this->query["id"], "Ошибка загрузки данных!");
+                            answerCallbackQuery($this->query["id"], "Не удалось сохранить ответ!");
                             exit;
                         }
                     default:
