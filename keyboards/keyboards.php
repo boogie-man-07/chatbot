@@ -513,10 +513,10 @@ class keyboards {
 //             $itemTitle = $value['isSelected'] ? $value['title']." ".hex2bin('E29C85') : $value['title'];
             $itemTitle = (string)$value['id'];
             $callbackData = $userId."_".$pollQuestionInfo[$id]['poll_id'].$pollQuestionInfo[$id]['question_id']."*".$value['id'];
-            $replyItem = array(array(
+            $replyItem = array(
                 "text" => $itemTitle,
                 "callback_data" => $callbackData
-            ));
+            );
             array_push($replyList, array($replyItem));
         }
 //         $nextButtonItem = array(array(
