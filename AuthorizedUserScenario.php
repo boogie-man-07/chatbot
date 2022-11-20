@@ -64,7 +64,6 @@ class AuthorizedUserScenario {
                 $calendarOffset = "0";
                 $this->access->setCalendarOffset($this->user['user_id'], $calendarOffset);
                 $monthlyWorkData = $this->calendarInfo->getMonthlyData('37e79227-62e3-11eb-a20a-00155d93a613', $currentMonth, $calendarOffset);
-//                 sendMessage($this->chatID, json_encode($monthlyWorkData), null);
                 $this->salaryRoute->triggerCalendarAction($this->chatID, $monthlyWorkData);
                 exit;
             case $this->commands['start']:
@@ -158,7 +157,7 @@ class AuthorizedUserScenario {
                 $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
                 if ($pollInfo) {
                     if ($pollInfo['is_finished']) {
-                        sendMessage($this->chatID, 'Вы уже прошли данный опрос, спасибо за уделенное время!', null);
+                        $this->salaryRoute->triggerActionForPollIsAlreadyFinished($this->chatID);
                         exit;
                     } else {
                         $this->salaryRoute->triggerActionForProceedDmsSurvey($this->chatID, $pollInfo['poll_state']);
@@ -400,7 +399,6 @@ class AuthorizedUserScenario {
                             $restVacationsDuration =  (int)$vacationInfo['amount'] - (int)$totalVacationsDuration;
                             $correctText = $this->salaryRoute->formatDate($text);
                             if ($this->salaryRoute->isCorrectDateFormat($correctText)) {
-                                //sendMessage($this->chatID, $lastSeparateVacation['enddate'], null); exit;
                                 if ($this->salaryRoute->isSeparateVacationDateNotInPast($correctText, $lastSeparateVacation['enddate'])) {
                                     $this->access->saveSeparatedUserVacationStartDate($this->chatID, $correctText, $vacationInfo);
                                     $this->access->setState($this->chatID, $this->states['postponedSeparateVacationDurationWaitingState']);
@@ -776,7 +774,6 @@ class AuthorizedUserScenario {
                 $companyId = $sendData['companyId'];
                 $vacationList = $sendData['vacations'];
 
-                //sendMessage($this->chatID, (string)count($separatedVacationFormData), null);
                 $sendInfo = $this->forms->getPostponeVacationForm($this->chatID, $sendData, $sign);
                 foreach ($sendInfo as $info) {
                     $template = $this->email->generatePostponeVacationForm($this->user['company_id']);
@@ -889,14 +886,12 @@ class AuthorizedUserScenario {
                                 $this->access->increaseUserDmsPollState($this->user['user_id'], $pollInfo);
                                 $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
                                 $this->access->setPollAsFinished($this->user['user_id'], $pollInfo);
-                                // todo change send message with action
-                                sendMessage($this->chatID, 'Это были все вопросы! Спасибо за уделенное время!', null);
+                                $this->salaryRoute->triggerActionForFinishDmsPollQuestion($this->chatID);
                                 answerCallbackQuery($this->query["id"], "Опрос завершен!");
                                 exit;
                             }
                         } else {
-                            // todo error action
-                            sendMessage($this->chatID, 'Не удалось сохранить ответ. Введите, пожалуйста, цифру еще раз!', null);
+                            $this->commonmistakeroute->triggerErrorForSaveDmsPollReply($this->chatID);
                             answerCallbackQuery($this->query["id"], "Не удалось сохранить ответ!");
                             exit;
                         }
