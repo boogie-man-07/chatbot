@@ -545,10 +545,10 @@ class keyboards {
             );
             array_push($replyList, $replyItem);
         }
-        $nextButtonItem = array(
+        $nextButtonItem = array(array(
             "text" => $nextButtonText,
             "callback_data" => $nextButtonCallbackData
-        );
+        ));
         array_push($replyList, $nextButtonItem);
 
         return json_encode(array(
