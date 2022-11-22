@@ -503,14 +503,11 @@ class keyboards {
         ));
     }
 
-    function getInlineKeyboardForAskADmsPollQuestion($pollInfo, $pollQuestionInfo) {
+    function getInlineKeyboardForAskADmsPollQuestionWithSingleChoose($pollInfo, $pollQuestionInfo) {
         $replyList = array();
         $id = $pollInfo['poll_state'];
-        $options = json_decode($pollQuestionInfo[$id]['reply_options'], true);
-//         $nextButtonText = $pollQuestionInfo[$id]['question_id'] >= array_count_values(array_column($pollQuestionInfo, 'question_id')) ? "Завершить" : "Продолжить";
-//         $nextButtonCallbackData =  $pollQuestionInfo[$id]['question_id'] >= array_count_values(array_column($pollQuestionInfo, 'question_id')) ? 'finishDmsPoll' : 'nextDmsPollOption';
+        $options = json_decode($pollQuestionInfo[$id]['responses'], true);
         foreach($options['options'] as $key=>$value) {
-//             $itemTitle = $value['isSelected'] ? $value['title']." ".hex2bin('E29C85') : $value['title'];
             $itemTitle = (string)$value['id'];
             $callbackData = array(
                 'pollId'=> $pollQuestionInfo[$id]['poll_id'],
@@ -523,11 +520,36 @@ class keyboards {
             );
             array_push($replyList, $replyItem);
         }
-//         $nextButtonItem = array(array(
-//             "text" => $nextButtonText,
-//             "callback_data" => $nextButtonCallbackData
-//         ));
-//         array_push($replyList, $nextButtonItem);
+        return json_encode(array(
+            "inline_keyboard" => array($replyList)
+        ));
+    }
+
+    function triggerActionForAskDmsPollQuestionWithMultipleChoose($pollInfo, $pollQuestionInfo) {
+        $replyList = array();
+        $id = $pollInfo['poll_state'];
+        $options = json_decode($pollQuestionInfo[$id]['responses'], true);
+        $nextButtonText = $pollQuestionInfo[$id]['question_id'] >= array_count_values(array_column($pollQuestionInfo, 'question_id')) ? "Завершить" : "Продолжить";
+        $nextButtonCallbackData =  $pollQuestionInfo[$id]['question_id'] >= array_count_values(array_column($pollQuestionInfo, 'question_id')) ? 'finishDmsPoll' : 'nextDmsPollOption';
+        foreach($options['options'] as $key=>$value) {
+            $itemTitle = $value['isSelected'] ? $value['title']." ".hex2bin('E29C85') : $value['title'];
+            $itemTitle = (string)$value['id'];
+            $callbackData = array(
+                'pollId'=> $pollQuestionInfo[$id]['poll_id'],
+                'questionId' => $pollQuestionInfo[$id]['question_id'],
+                'selectedReplyId' => (string)$value['id']
+            );
+            $replyItem = array(
+                "text" => $itemTitle,
+                "callback_data" => json_encode($callbackData)
+            );
+            array_push($replyList, $replyItem);
+        }
+        $nextButtonItem = array(array(
+            "text" => $nextButtonText,
+            "callback_data" => $nextButtonCallbackData
+        ));
+        array_push($replyList, $nextButtonItem);
 
         return json_encode(array(
             "inline_keyboard" => array($replyList)
