@@ -367,15 +367,26 @@ class constants {
         }
     }
 
-    function getReplyForAskADmsPollQuestion($pollInfo, $pollQuestionInfo) {
+    function getReplyForAskADmsPollQuestionWithSingleChoose($pollInfo, $pollQuestionInfo) {
         $id = $pollInfo['poll_state'];
         $pollQuestionData = $pollQuestionInfo[$id];
-        $replyOptions = json_decode($pollQuestionData['reply_options'], true);
+        $replyOptions = json_decode($pollQuestionData['responses'], true);
         $responses = "";
         foreach ($replyOptions['options'] as $key=>$value) {
             $responses .= (string)$value['id'].". ".$value['title']."\n";
         }
         return "<b>Вопрос №".$pollQuestionData['question_id']."</b>\n".$pollQuestionData['question_text']."\n\nВарианты ответа:\n".$responses."\n\nДля ответа на вопрос отправьте цифру с вариантом ответа.";
+    }
+
+    function getReplyForAskADmsPollQuestionWithMultipleChoose($pollInfo, $pollQuestionInfo) {
+        $id = $pollInfo['poll_state'];
+        $pollQuestionData = $pollQuestionInfo[$id];
+        $replyOptions = json_decode($pollQuestionData['responses'], true);
+        $responses = "";
+        foreach ($replyOptions['options'] as $key=>$value) {
+            $responses .= (string)$value['id'].". ".$value['title']."\n";
+        }
+        return "<b>Вопрос №".$pollQuestionData['question_id']."</b>\n".$pollQuestionData['question_text']."\n\nВарианты ответа:\n".$responses."\n\nПожалуйста, отметьте все релевантные пункты. Если Вы не пользовались отдельными блоками, пропустите их.";
     }
 
     function getReplyForFinishDmsPoll() {
