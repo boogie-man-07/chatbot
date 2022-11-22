@@ -549,7 +549,7 @@ class keyboards {
             "text" => $nextButtonText,
             "callback_data" => $nextButtonCallbackData
         ));
-        array_push($replyList, $nextButtonItem);
+//         array_push($replyList, $nextButtonItem);
 
         return json_encode(array(
             "inline_keyboard" => array($replyList, $nextButtonItem)
