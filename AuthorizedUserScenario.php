@@ -823,8 +823,10 @@ class AuthorizedUserScenario {
                         answerCallbackQuery($this->query["id"], "Вопрос загружен!");
                         exit;
                     case 3:
+                        answerCallbackQuery($this->query["id"], "Вопрос загружен!");
                         exit;
                     case 4:
+                        answerCallbackQuery($this->query["id"], "Вопрос загружен!");
                         exit;
                 }
             case $this->commands['nextDmsPollOptionInline']:
@@ -897,9 +899,22 @@ class AuthorizedUserScenario {
                             if ($this->salaryRoute->shouldGoToNextQuestion($pollInfo, $pollQuestionInfo)) {
                                 $this->access->increaseUserDmsPollState($this->user['user_id'], $pollInfo);
                                 $newPollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
-                                $this->salaryRoute->triggerActionForAskDmsPollQuestion($this->chatID, $newPollInfo, $pollQuestionInfo);
-                                answerCallbackQuery($this->query["id"], "Ответ сохранен!");
-                                exit;
+                                switch ($pollQuestionInfo[$id]['question_type']) {
+                                    case 1:
+                                        $this->salaryRoute->triggerActionForAskDmsPollQuestionWithSingleChoose($this->chatID, $pollInfo, $pollQuestionInfo);
+                                        answerCallbackQuery($this->query["id"], "ОтветСохранен!");
+                                        exit;
+                                    case 2:
+                                        $this->salaryRoute->triggerActionForAskDmsPollQuestionWithMultipleChoose($this->chatID, $pollInfo, $pollQuestionInfo);
+                                        answerCallbackQuery($this->query["id"], "ОтветСохранен!");
+                                        exit;
+                                    case 3:
+                                        answerCallbackQuery($this->query["id"], "ОтветСохранен!");
+                                        exit;
+                                    case 4:
+                                        answerCallbackQuery($this->query["id"], "ОтветСохранен!");
+                                        exit;
+                                }
                             } else {
                                 $this->access->increaseUserDmsPollState($this->user['user_id'], $pollInfo);
                                 $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
