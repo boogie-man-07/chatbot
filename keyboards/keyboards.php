@@ -525,7 +525,7 @@ class keyboards {
         ));
     }
 
-    function triggerActionForAskDmsPollQuestionWithMultipleChoose($pollInfo, $pollQuestionInfo) {
+    function getInlineKeyboardForAskADmsPollQuestionWithMultipleChoose($pollInfo, $pollQuestionInfo) {
         $replyList = array();
         $id = $pollInfo['poll_state'];
         $options = json_decode($pollQuestionInfo[$id]['responses'], true);
