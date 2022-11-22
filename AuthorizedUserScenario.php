@@ -903,17 +903,17 @@ class AuthorizedUserScenario {
                                 switch ($pollQuestionInfo[$id]['question_type']) {
                                     case 1:
                                         $this->salaryRoute->triggerActionForAskDmsPollQuestionWithSingleChoose($this->chatID, $pollInfo, $pollQuestionInfo);
-                                        answerCallbackQuery($this->query["id"], "Ответ cохранен!");
+                                        answerCallbackQuery($this->query["id"], "Ответ cохранен1!");
                                         exit;
                                     case 2:
                                         $this->salaryRoute->triggerActionForAskDmsPollQuestionWithMultipleChoose($this->chatID, $newPollInfo, $pollQuestionInfo);
-                                        answerCallbackQuery($this->query["id"], "Ответ cохранен!");
+                                        answerCallbackQuery($this->query["id"], "Ответ cохранен2!");
                                         exit;
                                     case 3:
-                                        answerCallbackQuery($this->query["id"], "Ответ cохранен!");
+                                        answerCallbackQuery($this->query["id"], "Ответ cохранен3!");
                                         exit;
                                     case 4:
-                                        answerCallbackQuery($this->query["id"], "Ответ cохранен!");
+                                        answerCallbackQuery($this->query["id"], "Ответ cохранен4!");
                                         exit;
                                 }
                             } else {
