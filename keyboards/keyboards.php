@@ -552,7 +552,7 @@ class keyboards {
         array_push($replyList, $nextButtonItem);
 
         return json_encode(array(
-            "inline_keyboard" => array($replyList)
+            "inline_keyboard" => array($replyList, $nextButtonItem)
         ));
     }
 
