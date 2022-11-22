@@ -893,6 +893,7 @@ class AuthorizedUserScenario {
                         }
                     case $this->states['dmsPoolReplyWaitingState']:
                         $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
+                        $id = $pollInfo['poll_state'];
                         $pollQuestionInfo = $this->access->getDmsPollQuestionsInfo(1);
                         $isOptionSaved = $this->access->setSelectedDmsPollOption($this->user['user_id'], $text);
                         if ($isOptionSaved) {
