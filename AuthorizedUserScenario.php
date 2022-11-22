@@ -810,9 +810,10 @@ class AuthorizedUserScenario {
                 }
             case $this->commands['proceedDmsSurveyInline']:
                 $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
+                $id = $pollInfo['poll_state'];
                 $pollQuestionInfo = $this->access->getDmsPollQuestionsInfo(1);
                 $this->access->setState($this->chatID, $this->states['dmsPoolReplyWaitingState']);
-                switch ($pollQuestionInfo['question_type']) {
+                switch ($pollQuestionInfo[$id]['question_type']) {
                     case 1:
                         $this->salaryRoute->triggerActionForAskDmsPollQuestionWithSingleChoose($this->chatID, $pollInfo, $pollQuestionInfo);
                         answerCallbackQuery($this->query["id"], "Вопрос загружен!");
