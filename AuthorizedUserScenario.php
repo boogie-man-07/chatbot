@@ -900,13 +900,14 @@ class AuthorizedUserScenario {
                         if ($this->salaryRoute->shouldGoToNextQuestion($pollInfo, $pollQuestionInfo)) {
                             $this->access->increaseUserDmsPollState($this->user['user_id'], $pollInfo);
                             $newPollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
+                            $newPollQuestionInfo = $this->access->getDmsPollQuestionsInfo(1);
                             $newId = $newPollInfo['poll_state'];
 
                             sendMessage($this->chatID, json_encode($pollQuestionInfo[$id]['responses']), null);
                             if ($pollQuestionInfo[$id]['question_type'] == 1) {
                                 $this->access->setSelectedDmsPollOption($this->user['user_id'], $text);
                             } else if ($pollQuestionInfo[$id]['question_type'] == 2) {
-                                $this->access->setSelectedDmsPollOptionForMultipleChoose($this->user['user_id'], $text, $newPollInfo, $pollQuestionInfo);
+                                $this->access->setSelectedDmsPollOptionForMultipleChoose($this->user['user_id'], $text, $newPollInfo, $newPollQuestionInfo);
                                 sendMessage($this->chatID, 'after save response', null);
                                 exit;
                             } else if ($pollQuestionInfo[$id]['question_type'] == 3) {
