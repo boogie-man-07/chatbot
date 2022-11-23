@@ -896,15 +896,14 @@ class AuthorizedUserScenario {
                         $pollQuestionInfo = $this->access->getDmsPollQuestionsInfo(1);
                         $id = $pollInfo['poll_state'];
                         if ($pollQuestionInfo[$id]['question_type'] == 1) {
-                            answerCallbackQuery($this->query["id"], "case 1-1");
                             $this->access->setSelectedDmsPollOption($this->user['user_id'], $text);
                         } else if ($pollQuestionInfo[$id]['question_type'] == 2) {
-                            answerCallbackQuery($this->query["id"], "case 2-1");
                             $this->access->setSelectedDmsPollOptionForMultipleChoose($this->user['user_id'], $text, $pollInfo, $pollQuestionInfo);
+                            exit;
                         } else if ($pollQuestionInfo[$id]['question_type'] == 3) {
-                            answerCallbackQuery($this->query["id"], "case 3-1");
+
                         } else if ($pollQuestionInfo[$id]['question_type'] == 4) {
-                            answerCallbackQuery($this->query["id"], "case 4-1");
+
                         }
 
                         if ($this->salaryRoute->shouldGoToNextQuestion($pollInfo, $pollQuestionInfo)) {
