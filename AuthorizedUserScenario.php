@@ -894,42 +894,36 @@ class AuthorizedUserScenario {
                     case $this->states['dmsPoolReplyWaitingState']:
                         $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
                         $pollQuestionInfo = $this->access->getDmsPollQuestionsInfo(1);
-                        $isOptionSaved = $this->access->setSelectedDmsPollOption($this->user['user_id'], $text);
-                        if ($isOptionSaved) {
-                            if ($this->salaryRoute->shouldGoToNextQuestion($pollInfo, $pollQuestionInfo)) {
-                                $this->access->increaseUserDmsPollState($this->user['user_id'], $pollInfo);
-                                $newPollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
-                                $id = $newPollInfo['poll_state'];
-                                switch ($pollQuestionInfo[$id]['question_type']) {
-                                    case 1:
-                                        $this->salaryRoute->triggerActionForAskDmsPollQuestionWithSingleChoose($this->chatID, $pollInfo, $pollQuestionInfo);
-                                        answerCallbackQuery($this->query["id"], "Ответ cохранен!");
-                                        exit;
-                                    case 2:
-                                        $this->access->setSelectedDmsPollOptionForMultipleChoose($this->user['user_id'], $text, $pollInfo, $pollQuestionInfo);
+                        if ($this->salaryRoute->shouldGoToNextQuestion($pollInfo, $pollQuestionInfo)) {
+                            $this->access->increaseUserDmsPollState($this->user['user_id'], $pollInfo);
+                            $newPollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
+                            $id = $newPollInfo['poll_state'];
+                            switch ($pollQuestionInfo[$id]['question_type']) {
+                                case 1:
+                                    $this->access->setSelectedDmsPollOption($this->user['user_id'], $text);
+                                    $this->salaryRoute->triggerActionForAskDmsPollQuestionWithSingleChoose($this->chatID, $pollInfo, $pollQuestionInfo);
+                                    answerCallbackQuery($this->query["id"], "Ответ cохранен!");
+                                    exit;
+                                case 2:
+                                    $this->access->setSelectedDmsPollOptionForMultipleChoose($this->user['user_id'], $text, $pollInfo, $pollQuestionInfo);
 //                                         $this->access->getSelectedDmsPollOptionForMultipleChoose($userId, $newPollInfo, $pollQuestionInfo);
-                                        // todo get and update the keyboard
-                                        $this->salaryRoute->triggerActionForAskDmsPollQuestionWithMultipleChoose($this->chatID, $newPollInfo, $pollQuestionInfo);
-                                        answerCallbackQuery($this->query["id"], "Ответ cохранен!");
-                                        exit;
-                                    case 3:
-                                        answerCallbackQuery($this->query["id"], "Ответ cохранен!");
-                                        exit;
-                                    case 4:
-                                        answerCallbackQuery($this->query["id"], "Ответ cохранен!");
-                                        exit;
-                                }
-                            } else {
-                                $this->access->increaseUserDmsPollState($this->user['user_id'], $pollInfo);
-                                $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
-                                $this->access->setPollAsFinished($this->user['user_id'], $pollInfo);
-                                $this->salaryRoute->triggerActionForFinishDmsPollQuestion($this->chatID);
-                                answerCallbackQuery($this->query["id"], "Опрос завершен!");
-                                exit;
+                                    // todo get and update the keyboard
+                                    $this->salaryRoute->triggerActionForAskDmsPollQuestionWithMultipleChoose($this->chatID, $newPollInfo, $pollQuestionInfo);
+                                    answerCallbackQuery($this->query["id"], "Ответ cохранен!");
+                                    exit;
+                                case 3:
+                                    answerCallbackQuery($this->query["id"], "Ответ cохранен!");
+                                    exit;
+                                case 4:
+                                    answerCallbackQuery($this->query["id"], "Ответ cохранен!");
+                                    exit;
                             }
                         } else {
-                            $this->commonmistakeroute->triggerErrorForSaveDmsPollReply($this->chatID);
-                            answerCallbackQuery($this->query["id"], "Не удалось сохранить ответ!");
+                            $this->access->increaseUserDmsPollState($this->user['user_id'], $pollInfo);
+                            $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
+                            $this->access->setPollAsFinished($this->user['user_id'], $pollInfo);
+                            $this->salaryRoute->triggerActionForFinishDmsPollQuestion($this->chatID);
+                            answerCallbackQuery($this->query["id"], "Опрос завершен!");
                             exit;
                         }
                     default:
