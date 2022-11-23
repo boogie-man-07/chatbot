@@ -905,7 +905,7 @@ class AuthorizedUserScenario {
                                 $this->access->setSelectedDmsPollOption($this->user['user_id'], $text);
                             } else if ($pollQuestionInfo[$id]['question_type'] == 2) {
                                 $this->access->setSelectedDmsPollOptionForMultipleChoose($this->user['user_id'], $text, $pollInfo, $pollQuestionInfo);
-                                sendMessage($this->chatID, 'after save response', null);
+                                sendMessage($this->chatID, $text, null);
                                 exit;
                             } else if ($pollQuestionInfo[$id]['question_type'] == 3) {
 
