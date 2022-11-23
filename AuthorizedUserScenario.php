@@ -895,6 +895,7 @@ class AuthorizedUserScenario {
                         $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
                         $pollQuestionInfo = $this->access->getDmsPollQuestionsInfo(1);
                         $id = $pollInfo['poll_state'];
+                        sendMessage($this->chatID, json_encode($pollQuestionInfo[$id]['responses']), null);
                         if ($pollQuestionInfo[$id]['question_type'] == 1) {
                             $this->access->setSelectedDmsPollOption($this->user['user_id'], $text);
                         } else if ($pollQuestionInfo[$id]['question_type'] == 2) {
