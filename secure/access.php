@@ -1606,7 +1606,7 @@ class access {
         return $returnValue;
     }
 
-    function setSelectedDmsPollOptionForMultipleChoose($userId, $text, $newPollInfo, $pollQuestionInfo) {
+    function setSelectedDmsPollOptionForMultipleChoose($userId, $text, $pollInfo, $pollQuestionInfo) {
         $returnArray = array();
         $id = $pollInfo['poll_state'];
         $pollQuestionData = $pollQuestionInfo[$id];
