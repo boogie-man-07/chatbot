@@ -894,21 +894,20 @@ class AuthorizedUserScenario {
                     case $this->states['dmsPoolReplyWaitingState']:
                         $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
                         $pollQuestionInfo = $this->access->getDmsPollQuestionsInfo(1);
+                        $id = $pollInfo['poll_state'];
+                        if ($pollQuestionInfo[$id]['question_type'] == 1) {
+                            $this->access->setSelectedDmsPollOption($this->user['user_id'], $text);
+                        } else if ($pollQuestionInfo[$id]['question_type'] == 2) {
+                            $this->access->setSelectedDmsPollOptionForMultipleChoose($this->user['user_id'], $text, $pollInfo, $pollQuestionInfo);
+                        } else if ($pollQuestionInfo[$id]['question_type'] == 3) {
+
+                        } else if ($pollQuestionInfo[$id]['question_type'] == 4) {
+
+                        }
+
                         if ($this->salaryRoute->shouldGoToNextQuestion($pollInfo, $pollQuestionInfo)) {
                             $this->access->increaseUserDmsPollState($this->user['user_id'], $pollInfo);
                             $newPollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
-
-                            $id = $pollInfo['poll_state'];
-                            if ($pollQuestionInfo[$id]['question_type'] == 1) {
-                                $this->access->setSelectedDmsPollOption($this->user['user_id'], $text);
-                            } else if ($pollQuestionInfo[$id]['question_type'] == 2) {
-                                $this->access->setSelectedDmsPollOptionForMultipleChoose($this->user['user_id'], $text, $pollInfo, $pollQuestionInfo);
-                            } else if ($pollQuestionInfo[$id]['question_type'] == 3) {
-
-                            } else if ($pollQuestionInfo[$id]['question_type'] == 4) {
-
-                            }
-
                             $newId = $newPollInfo['poll_state'];
                             switch ($pollQuestionInfo[$newId]['question_type']) {
                                 case 1:
