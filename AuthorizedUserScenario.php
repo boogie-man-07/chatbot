@@ -896,13 +896,15 @@ class AuthorizedUserScenario {
                         $pollQuestionInfo = $this->access->getDmsPollQuestionsInfo(1);
                         $id = $pollInfo['poll_state'];
                         if ($pollQuestionInfo[$id]['question_type'] == 1) {
+                            answerCallbackQuery($this->query["id"], "case 1-1");
                             $this->access->setSelectedDmsPollOption($this->user['user_id'], $text);
                         } else if ($pollQuestionInfo[$id]['question_type'] == 2) {
+                            answerCallbackQuery($this->query["id"], "case 2-1");
                             $this->access->setSelectedDmsPollOptionForMultipleChoose($this->user['user_id'], $text, $pollInfo, $pollQuestionInfo);
                         } else if ($pollQuestionInfo[$id]['question_type'] == 3) {
-
+                            answerCallbackQuery($this->query["id"], "case 3-1");
                         } else if ($pollQuestionInfo[$id]['question_type'] == 4) {
-
+                            answerCallbackQuery($this->query["id"], "case 4-1");
                         }
 
                         if ($this->salaryRoute->shouldGoToNextQuestion($pollInfo, $pollQuestionInfo)) {
@@ -912,19 +914,19 @@ class AuthorizedUserScenario {
                             switch ($pollQuestionInfo[$newId]['question_type']) {
                                 case 1:
                                     $this->salaryRoute->triggerActionForAskDmsPollQuestionWithSingleChoose($this->chatID, $newPollInfo, $pollQuestionInfo);
-                                    answerCallbackQuery($this->query["id"], "Ответ cохранен!");
+                                    answerCallbackQuery($this->query["id"], "case 1-2");
                                     exit;
                                 case 2:
 //                                         $this->access->getSelectedDmsPollOptionForMultipleChoose($userId, $newPollInfo, $pollQuestionInfo);
                                     // todo get and update the keyboard
-                                    //$this->salaryRoute->triggerActionForAskDmsPollQuestionWithMultipleChoose($this->chatID, $newPollInfo, $pollQuestionInfo);
-                                    answerCallbackQuery($this->query["id"], "Ответ cохранен!");
+                                    $this->salaryRoute->triggerActionForAskDmsPollQuestionWithMultipleChoose($this->chatID, $newPollInfo, $pollQuestionInfo);
+                                    answerCallbackQuery($this->query["id"], "case 2-2");
                                     exit;
                                 case 3:
-                                    answerCallbackQuery($this->query["id"], "Ответ cохранен!");
+                                    answerCallbackQuery($this->query["id"], "case 3-2");
                                     exit;
                                 case 4:
-                                    answerCallbackQuery($this->query["id"], "Ответ cохранен!");
+                                    answerCallbackQuery($this->query["id"], "case 4-2");
                                     exit;
                             }
                         } else {
