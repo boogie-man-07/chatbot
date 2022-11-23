@@ -1643,9 +1643,9 @@ class access {
             $responses = json_decode($pollQuestionData['responses'], true);
             $createdResponsesList = array();
             foreach ($responses['options'] as $key=>$value) {
-                if ($value['id'] != 5) {
+                if ($value['id'] != $replyInfo['selectedReplyId']) {
                     array_push($createdResponsesList, $value);
-                } else if ($value['id'] == 5) {
+                } else if ($value['id'] == $replyInfo['selectedReplyId']) {
                     array_push($createdResponsesList, array(
                         'id' => $value['id'],
                         'title' => $value['title'],
@@ -1659,7 +1659,7 @@ class access {
             if (!$statement) {
                 throw new Exception($statement->error);
             }
-            $statement->bind_param("siis", $userId, $pollQuestionData['poll_id'], $pollQuestionData['question_id'], $createdResponses);
+            $statement->bind_param("siis", $userId, $pollQuestionData['poll_id'], $pollQuestionData['question_id'], (string)$createdResponses);
             $returnValue = $statement->execute();
         }
         return $returnValue;
