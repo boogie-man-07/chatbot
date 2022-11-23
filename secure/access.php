@@ -1654,12 +1654,12 @@ class access {
 //                 }
 //             }
 //             $createdResponses = json_encode(array('options' => $createdResponsesList));
-            $sql = "INSERT INTO polls_user_responses SET user_id = ?, poll_id = 1, question_id = 1, responses = 's', created = CURRENT_TIMESTAMP, updated = CURRENT_TIMESTAMP";
+            $sql = "INSERT INTO polls_user_responses SET user_id = ?, poll_id = ?, question_id = ?, responses = 's', created = CURRENT_TIMESTAMP, updated = CURRENT_TIMESTAMP";
             $statement = $this->conn->prepare($sql);
             if (!$statement) {
                 throw new Exception($statement->error);
             }
-            $statement->bind_param("s", $userId);
+            $statement->bind_param("sii", $userId, $pollQuestionData['poll_id'], $pollQuestionData['question_id']);
             $returnValue = $statement->execute();
         }
         return $returnValue;
