@@ -1640,7 +1640,7 @@ class access {
             $statement->bind_param("ssii", $updatedResponses, $userId, $pollQuestionData['pollId'], $pollQuestionData['questionId']);
             $returnValue = $statement->execute();
         } else {
-            $responses = json_decode($pollQuestionData['reply_options'], true);
+            $responses = json_decode($pollQuestionData['responses'], true);
             $createdResponsesList = array();
             foreach ($responses['options'] as $key=>$value) {
                 if ($value['id'] != $replyInfo['selectedReplyId']) {
