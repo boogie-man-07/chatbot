@@ -1637,7 +1637,7 @@ class access {
             if (!$statement) {
                 throw new Exception($statement->error);
             }
-            $statement->bind_param("ssii", $updatedResponses, $userId, $pollQuestionData['pollId'], $pollQuestionData['questionId']);
+            $statement->bind_param("ssii", $updatedResponses, $userId, $replyInfo['pollId'], $replyInfo['questionId']);
             $returnValue = $statement->execute();
         } else {
             $responses = json_decode($pollQuestionData['responses'], true);
