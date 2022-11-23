@@ -906,6 +906,9 @@ class AuthorizedUserScenario {
                                         answerCallbackQuery($this->query["id"], "Ответ cохранен!");
                                         exit;
                                     case 2:
+                                        $this->access->setSelectedDmsPollOptionForMultipleChoose($userId, $text, $pollInfo, $pollQuestionInfo);
+//                                         $this->access->getSelectedDmsPollOptionForMultipleChoose($userId, $newPollInfo, $pollQuestionInfo);
+                                        // todo get and update the keyboard
                                         $this->salaryRoute->triggerActionForAskDmsPollQuestionWithMultipleChoose($this->chatID, $newPollInfo, $pollQuestionInfo);
                                         answerCallbackQuery($this->query["id"], "Ответ cохранен!");
                                         exit;
