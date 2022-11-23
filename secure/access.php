@@ -1608,10 +1608,10 @@ class access {
 
     function setSelectedDmsPollOptionForMultipleChoose($userId, $text, $pollInfo, $pollQuestionInfo) {
         $returnArray = array();
-        $id = $pollInfo['poll_state'];
-        $pollQuestionData = $pollQuestionInfo[$id];
         $replyInfo = json_decode($text, true);
-        $sql = "SELECT * FROM polls_user_responses WHERE user_id='".$userId."' and poll_id='".$pollQuestionData['poll_id']."' and question_id='".$pollQuestionData['question_id']."'";
+        $id = $pollInfo['poll_state'];
+        $pollQuestionData = $pollQuestionInfo[$replyInfo['questionId'] - 1];
+        $sql = "SELECT * FROM polls_user_responses WHERE user_id='".$userId."' and poll_id='".$replyInfo['pollId']."' and question_id='".$replyInfo['questionId']."'";
         $result = $this->conn->query($sql);
         if ($result != null && (mysqli_num_rows($result) >= 1 )) {
             $row = $result->fetch_array(MYSQLI_ASSOC);
@@ -1637,7 +1637,7 @@ class access {
             if (!$statement) {
                 throw new Exception($statement->error);
             }
-            $statement->bind_param("ssii", $updatedResponses, $userId, $pollQuestionData['poll_id'], $pollQuestionData['question_id']);
+            $statement->bind_param("ssii", $updatedResponses, $userId, $replyInfo['pollId'], $replyInfo['questionId']);
             $returnValue = $statement->execute();
         } else {
             $responses = json_decode($pollQuestionData['responses'], true);
@@ -1659,7 +1659,7 @@ class access {
             if (!$statement) {
                 throw new Exception($statement->error);
             }
-            $statement->bind_param("siis", $userId, $pollQuestionData['poll_id'], $pollQuestionData['question_id'], $createdResponses);
+            $statement->bind_param("siis", $userId, $replyInfo['pollId'], $replyInfo['questionId'], $createdResponses);
             $returnValue = $statement->execute();
         }
         return $returnValue;
