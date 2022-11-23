@@ -899,9 +899,6 @@ class AuthorizedUserScenario {
 
                         if ($this->salaryRoute->shouldGoToNextQuestion($pollInfo, $pollQuestionInfo)) {
                             $this->access->increaseUserDmsPollState($this->user['user_id'], $pollInfo);
-                            $newPollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
-                            $newPollQuestionInfo = $this->access->getDmsPollQuestionsInfo(1);
-                            $newId = $newPollInfo['poll_state'];
 
                             sendMessage($this->chatID, json_encode($pollQuestionInfo[$id]['responses']), null);
                             if ($pollQuestionInfo[$id]['question_type'] == 1) {
@@ -915,6 +912,10 @@ class AuthorizedUserScenario {
                             } else if ($pollQuestionInfo[$id]['question_type'] == 4) {
 
                             }
+
+                            $newPollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
+                            $newPollQuestionInfo = $this->access->getDmsPollQuestionsInfo(1);
+                            $newId = $newPollInfo['poll_state'];
 
                             switch ($pollQuestionInfo[$newId]['question_type']) {
                                 case 1:
