@@ -1609,7 +1609,7 @@ class access {
     function setSelectedDmsPollOptionForMultipleChoose($userId, $text, $pollInfo, $pollQuestionInfo) {
         $returnArray = array();
         $replyInfo = json_decode($text, true);
-        $id = $pollInfo['poll_state'];
+//         $id = $pollInfo['poll_state'];
         $pollQuestionData = $pollQuestionInfo[$replyInfo['questionId'] - 1];
         $sql = "SELECT * FROM polls_user_responses WHERE user_id='".$userId."' and poll_id='".$replyInfo['pollId']."' and question_id='".$replyInfo['questionId']."'";
         $result = $this->conn->query($sql);
