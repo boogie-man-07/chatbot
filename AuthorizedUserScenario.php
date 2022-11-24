@@ -895,7 +895,6 @@ class AuthorizedUserScenario {
                         $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
                         $pollQuestionInfo = $this->access->getDmsPollQuestionsInfo(1);
                         $id = $pollInfo['poll_state'];
-                        $shouldBeUpdated = false;
 
                         if ($this->salaryRoute->shouldGoToNextQuestion($pollInfo, $pollQuestionInfo)) {
                             $this->access->increaseUserDmsPollState($this->user['user_id'], $pollInfo);
@@ -919,12 +918,9 @@ class AuthorizedUserScenario {
                                     answerCallbackQuery($this->query["id"], "case 1-2");
                                     exit;
                                 case 2:
-                                    $options = $this->access->getSelectedDmsPollOptionForMultipleChoose($userId, $newPollInfo, $pollQuestionInfo);
+//                                     $options = $this->access->getSelectedDmsPollOptionForMultipleChoose($userId, $newPollInfo, $pollQuestionInfo);
                                     // todo get and update the keyboard
-                                    if ($options) {
-                                        $shouldBeUpdated = true;
-                                    }
-                                    $this->salaryRoute->triggerActionForAskDmsPollQuestionWithMultipleChoose($this->chatID, $this->messageId, $newPollInfo, $pollQuestionInfo, $shouldBeUpdated);
+                                    $this->salaryRoute->triggerActionForAskDmsPollQuestionWithMultipleChoose($this->chatID, $newPollInfo, $pollQuestionInfo);
                                     answerCallbackQuery($this->query["id"], "case 2-2");
                                     exit;
                                 case 3:
