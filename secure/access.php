@@ -1609,7 +1609,7 @@ class access {
     function setSelectedDmsPollOptionForMultipleChoose($userId, $text, $pollQuestionInfo) {
         $returnArray = array();
         $replyInfo = json_decode($text, true);
-        $pollQuestionData = $pollQuestionInfo[1];
+        $pollQuestionData = $pollQuestionInfo[$replyInfo['selectedReplyId'] - 1];
         $sql = "SELECT * FROM polls_user_responses WHERE user_id='".$userId."' and poll_id='".$replyInfo['pollId']."' and question_id='".$replyInfo['questionId']."'";
         $result = $this->conn->query($sql);
         if ($result != null && (mysqli_num_rows($result) >= 1 )) {
@@ -1664,6 +1664,32 @@ class access {
         return $returnValue;
     }
 
+    function setSelectedDmsPollOptionForFreeReply($userId, $text, $pollInfo, $pollQuestionInfo) {
+        $returnArray = array();
+        $id = $pollInfo['poll_state'];
+        $pollQuestionData = $pollQuestionInfo[$id];
+        $sql = "SELECT * FROM polls_user_responses WHERE user_id='".$userId."' and poll_id='".$pollQuestionData['poll_id']."' and question_id='".$pollQuestionData['question_id']."'";
+        $result = $this->conn->query($sql);
+        if ($result != null && (mysqli_num_rows($result) >= 1 )) {
+            $sql = "UPDATE polls_user_responses SET responses = ?, updated = CURRENT_TIMESTAMP where user_id = ? and poll_id = ? and question_id = ?";
+            $statement = $this->conn->prepare($sql);
+            if (!$statement) {
+                throw new Exception($statement->error);
+            }
+            $statement->bind_param("ssii", $text, $userId, $pollQuestionData['poll_id'], $pollQuestionData['question_id']);
+            $returnValue = $statement->execute();
+        } else {
+            $sql = "INSERT INTO polls_user_responses SET user_id = ?, poll_id = ?, question_id = ?, responses = ?, created = CURRENT_TIMESTAMP, updated = CURRENT_TIMESTAMP";
+            $statement = $this->conn->prepare($sql);
+            if (!$statement) {
+                throw new Exception($statement->error);
+            }
+            $statement->bind_param("siis", $userId, $pollQuestionData['poll_id'], $pollQuestionData['question_id'], $text);
+            $returnValue = $statement->execute();
+        }
+        return $returnValue;
+    }
+
 //     function getSelectedDmsPollOptionForMultipleChoose($userId, $pollInfo, $pollQuestionInfo) {
 //         $returnArray = array();
 //         $id = $pollInfo['poll_state'];
@@ -1678,6 +1704,8 @@ class access {
 //         }
 //         return $returnArray;
 //     }
+
+
 
     function increaseUserDmsPollState($userId, $pollInfo) {
         $nextPollQuestion = $pollInfo['poll_state'] + 1;
