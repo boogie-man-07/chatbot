@@ -493,6 +493,54 @@ class AuthorizedUserScenario {
                             }
                         case $this->states['dmsPoolReplyWaitingState']:
                             sendMessage($this->chatID, 'Hello', null);
+                            $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
+                            $pollQuestionInfo = $this->access->getDmsPollQuestionsInfo(1);
+                            $id = $pollInfo['poll_state'];
+
+                            if ($this->salaryRoute->shouldGoToNextQuestion($pollInfo, $pollQuestionInfo)) {
+                                $this->access->increaseUserDmsPollState($this->user['user_id'], $pollInfo);
+                                if ($pollQuestionInfo[$id]['question_type'] == 1) {
+                                    $this->access->setSelectedDmsPollOption($this->user['user_id'], $text);
+                                } else if ($pollQuestionInfo[$id]['question_type'] == 2) {
+                                    $this->access->setSelectedDmsPollOptionForMultipleChoose($this->user['user_id'], $text, $pollQuestionInfo);
+                                } else if ($pollQuestionInfo[$id]['question_type'] == 3) {
+                                    $this->access->setSelectedDmsPollOptionForFreeReply($this->user['user_id'], $text, $pollInfo, $pollQuestionInfo);
+                                    answerCallbackQuery($this->query["id"], "case 3-1");
+                                } else if ($pollQuestionInfo[$id]['question_type'] == 4) {
+
+                                }
+
+                                $newPollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
+                                $newPollQuestionInfo = $this->access->getDmsPollQuestionsInfo(1);
+                                $newId = $newPollInfo['poll_state'];
+
+                                switch ($pollQuestionInfo[$newId]['question_type']) {
+                                    case 1:
+                                        $this->salaryRoute->triggerActionForAskDmsPollQuestionWithSingleChoose($this->chatID, $newPollInfo, $pollQuestionInfo);
+                                        answerCallbackQuery($this->query["id"], "case 1-2");
+                                        exit;
+                                    case 2:
+    //                                     $options = $this->access->getSelectedDmsPollOptionForMultipleChoose($userId, $newPollInfo, $pollQuestionInfo);
+                                        // todo get and update the keyboard
+                                        $this->salaryRoute->triggerActionForAskDmsPollQuestionWithMultipleChoose($this->chatID, $newPollInfo, $pollQuestionInfo);
+                                        answerCallbackQuery($this->query["id"], "case 2-2");
+                                        exit;
+                                    case 3:
+                                        $this->salaryRoute->triggerActionForAskDmsPollQuestionWithFreeReply($this->chatID, $newPollInfo, $pollQuestionInfo);
+                                        answerCallbackQuery($this->query["id"], "case 3-2");
+                                        exit;
+                                    case 4:
+                                        answerCallbackQuery($this->query["id"], "case 4-2");
+                                        exit;
+                                }
+                            } else {
+                                $this->access->increaseUserDmsPollState($this->user['user_id'], $pollInfo);
+                                $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
+                                $this->access->setPollAsFinished($this->user['user_id'], $pollInfo);
+                                $this->salaryRoute->triggerActionForFinishDmsPollQuestion($this->chatID);
+                                answerCallbackQuery($this->query["id"], "Опрос завершен!");
+                                exit;
+                            }
                             exit;
 //                         case $this->states['dmsPoolReplyWaitingState']:
 //                             $selectedOption = substr($text, 0, 1);
