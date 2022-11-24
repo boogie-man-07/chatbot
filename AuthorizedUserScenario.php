@@ -826,6 +826,7 @@ class AuthorizedUserScenario {
                         answerCallbackQuery($this->query["id"], "Вопрос загружен!");
                         exit;
                     case 3:
+                        $this->salaryRoute->triggerActionForAskDmsPollQuestionWithFreeReply($this->chatID, $newPollInfo, $pollQuestionInfo);
                         answerCallbackQuery($this->query["id"], "Вопрос загружен!");
                         exit;
                     case 4:
@@ -906,7 +907,7 @@ class AuthorizedUserScenario {
                             } else if ($pollQuestionInfo[$id]['question_type'] == 2) {
                                 $this->access->setSelectedDmsPollOptionForMultipleChoose($this->user['user_id'], $text, $pollQuestionInfo);
                             } else if ($pollQuestionInfo[$id]['question_type'] == 3) {
-
+                                answerCallbackQuery($this->query["id"], "case 3-1");
                             } else if ($pollQuestionInfo[$id]['question_type'] == 4) {
 
                             }
