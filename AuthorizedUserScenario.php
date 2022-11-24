@@ -491,6 +491,9 @@ class AuthorizedUserScenario {
                                 $this->commonmistakeroute->triggerActionForIncorrectEmailFormat($this->chatID);
                                 exit;
                             }
+                        case $this->states['dmsPoolReplyWaitingState']:
+                            sendMessage($this->chatID, 'Hello', null);
+                            exit;
 //                         case $this->states['dmsPoolReplyWaitingState']:
 //                             $selectedOption = substr($text, 0, 1);
 //                             if ($this->salaryRoute->isCorrectDigit($text)) {
@@ -924,6 +927,7 @@ class AuthorizedUserScenario {
                                     answerCallbackQuery($this->query["id"], "case 2-2");
                                     exit;
                                 case 3:
+                                    $this->salaryRoute->triggerActionForAskDmsPollQuestionWithFreeReply($this->chatID, $newPollInfo, $pollQuestionInfo);
                                     answerCallbackQuery($this->query["id"], "case 3-2");
                                     exit;
                                 case 4:

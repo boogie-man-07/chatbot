@@ -389,6 +389,12 @@ class constants {
         return "<b>Вопрос №".$pollQuestionData['question_id']."</b>\n".$pollQuestionData['question_text']."\n\nВарианты ответа:\n".$responses."\n\nПожалуйста, отметьте все релевантные пункты. Если Вы не пользовались отдельными блоками, пропустите их.";
     }
 
+    function getReplyForAskADmsPollQuestionWithFreeReply($pollInfo, $pollQuestionInfo) {
+        $id = $pollInfo['poll_state'];
+        $pollQuestionData = $pollQuestionInfo[$id];
+        return $pollQuestionData['question_text'];
+    }
+
     function getReplyForFinishDmsPoll() {
         return "Это были все вопросы! Спасибо за уделенное время!";
     }
