@@ -1620,9 +1620,9 @@ class access {
             $responses = json_decode($returnArray['responses'], true);
             $updatedResponsesList = array();
             foreach ($responses['options'] as $key=>$value) {
-                if ($value['id'] != (int)$replyInfo['selectedReplyId']) {
+                if ($value['id'] != $replyInfo['selectedReplyId']) {
                     array_push($updatedResponsesList, $value);
-                } else if ($value['id'] == (int)$replyInfo['selectedReplyId']) {
+                } else if ($value['id'] == $replyInfo['selectedReplyId']) {
                     array_push($updatedResponsesList, array(
                         'id' => $value['id'],
                         'title' => $value['title'],
@@ -1642,9 +1642,9 @@ class access {
             $responses = json_decode($pollQuestionData['responses'], true);
             $createdResponsesList = array();
             foreach ($responses['options'] as $key=>$value) {
-                if ($value['id'] != (int)$replyInfo['selectedReplyId']) {
+                if ($value['id'] != $replyInfo['selectedReplyId']) {
                     array_push($createdResponsesList, $value);
-                } else if ($value['id'] == (int)$replyInfo['selectedReplyId']) {
+                } else if ($value['id'] == $replyInfo['selectedReplyId']) {
                     array_push($createdResponsesList, array(
                         'id' => $value['id'],
                         'title' => $value['title'],
