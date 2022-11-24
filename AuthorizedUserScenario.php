@@ -492,7 +492,6 @@ class AuthorizedUserScenario {
                                 exit;
                             }
                         case $this->states['dmsPoolReplyWaitingState']:
-                            sendMessage($this->chatID, 'Hello', null);
                             $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
                             $pollQuestionInfo = $this->access->getDmsPollQuestionsInfo(1);
                             $id = $pollInfo['poll_state'];
@@ -500,14 +499,17 @@ class AuthorizedUserScenario {
                             if ($this->salaryRoute->shouldGoToNextQuestion($pollInfo, $pollQuestionInfo)) {
                                 $this->access->increaseUserDmsPollState($this->user['user_id'], $pollInfo);
                                 if ($pollQuestionInfo[$id]['question_type'] == 1) {
+                                    sendMessage($this->chatID, "case not-inline 1-1", null);
                                     $this->access->setSelectedDmsPollOption($this->user['user_id'], $text);
                                 } else if ($pollQuestionInfo[$id]['question_type'] == 2) {
+                                    sendMessage($this->chatID, "case not-inline 2-1", null);
                                     $this->access->setSelectedDmsPollOptionForMultipleChoose($this->user['user_id'], $text, $pollQuestionInfo);
                                 } else if ($pollQuestionInfo[$id]['question_type'] == 3) {
+                                    sendMessage($this->chatID, "case not-inline 3-1", null);
                                     $this->access->setSelectedDmsPollOptionForFreeReply($this->user['user_id'], $text, $pollInfo, $pollQuestionInfo);
                                     answerCallbackQuery($this->query["id"], "case 3-1");
                                 } else if ($pollQuestionInfo[$id]['question_type'] == 4) {
-
+                                    sendMessage($this->chatID, "case not-inline 4-1", null);
                                 }
 
                                 $newPollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
@@ -517,20 +519,20 @@ class AuthorizedUserScenario {
                                 switch ($pollQuestionInfo[$newId]['question_type']) {
                                     case 1:
                                         $this->salaryRoute->triggerActionForAskDmsPollQuestionWithSingleChoose($this->chatID, $newPollInfo, $pollQuestionInfo);
-                                        answerCallbackQuery($this->query["id"], "case 1-2");
+                                        sendMessage($this->chatID, "case not-inline 1-2", null);
                                         exit;
                                     case 2:
     //                                     $options = $this->access->getSelectedDmsPollOptionForMultipleChoose($userId, $newPollInfo, $pollQuestionInfo);
                                         // todo get and update the keyboard
                                         $this->salaryRoute->triggerActionForAskDmsPollQuestionWithMultipleChoose($this->chatID, $newPollInfo, $pollQuestionInfo);
-                                        answerCallbackQuery($this->query["id"], "case 2-2");
+                                        sendMessage($this->chatID, "case not-inline 2-2", null);
                                         exit;
                                     case 3:
                                         $this->salaryRoute->triggerActionForAskDmsPollQuestionWithFreeReply($this->chatID, $newPollInfo, $pollQuestionInfo);
-                                        answerCallbackQuery($this->query["id"], "case 3-2");
+                                        sendMessage($this->chatID, "case not-inline 3-2", null);
                                         exit;
                                     case 4:
-                                        answerCallbackQuery($this->query["id"], "case 4-2");
+                                        sendMessage($this->chatID, "case not-inline 4-2", null);
                                         exit;
                                 }
                             } else {
