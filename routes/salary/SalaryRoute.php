@@ -64,6 +64,11 @@ class SalaryRoute {
         sendMessage($chatID, $reply, $keyboard);
     }
 
+    function triggerActionForAskDmsPollQuestionWithFreeReply() {
+        $reply = $this->constants->getReplyForAskADmsPollQuestionWithFreeReply($pollInfo, $pollQuestionInfo);
+        sendMessage($chatID, $reply, null);
+    }
+
     function triggerActionForFinishDmsPollQuestion($chatID) {
         $reply = $this->constants->getReplyForFinishDmsPoll();
         sendMessage($chatID, $reply, null);
