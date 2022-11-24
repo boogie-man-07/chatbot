@@ -1658,7 +1658,7 @@ class access {
             if (!$statement) {
                 throw new Exception($statement->error);
             }
-            $statement->bind_param("siis", $userId, $replyInfo['pollId'], $replyInfo['questionId'], $createdResponses);
+            $statement->bind_param("siis", $userId, (int)$replyInfo['pollId'], (int)$replyInfo['questionId'], $createdResponses);
             $returnValue = $statement->execute();
         }
         return $returnValue;
