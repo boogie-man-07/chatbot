@@ -895,17 +895,14 @@ class AuthorizedUserScenario {
                         $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
                         $pollQuestionInfo = $this->access->getDmsPollQuestionsInfo(1);
                         $id = $pollInfo['poll_state'];
-
+                        $shouldBeUpdated = false;
 
                         if ($this->salaryRoute->shouldGoToNextQuestion($pollInfo, $pollQuestionInfo)) {
                             $this->access->increaseUserDmsPollState($this->user['user_id'], $pollInfo);
-
-                            sendMessage($this->chatID, json_encode($pollQuestionInfo[$id]['responses']), null);
                             if ($pollQuestionInfo[$id]['question_type'] == 1) {
                                 $this->access->setSelectedDmsPollOption($this->user['user_id'], $text);
                             } else if ($pollQuestionInfo[$id]['question_type'] == 2) {
                                 $this->access->setSelectedDmsPollOptionForMultipleChoose($this->user['user_id'], $text, $pollQuestionInfo);
-                                sendMessage($this->chatID, $text, null);
                             } else if ($pollQuestionInfo[$id]['question_type'] == 3) {
 
                             } else if ($pollQuestionInfo[$id]['question_type'] == 4) {
@@ -922,9 +919,12 @@ class AuthorizedUserScenario {
                                     answerCallbackQuery($this->query["id"], "case 1-2");
                                     exit;
                                 case 2:
-//                                         $this->access->getSelectedDmsPollOptionForMultipleChoose($userId, $newPollInfo, $pollQuestionInfo);
+                                    $options = $this->access->getSelectedDmsPollOptionForMultipleChoose($userId, $newPollInfo, $pollQuestionInfo);
                                     // todo get and update the keyboard
-                                    $this->salaryRoute->triggerActionForAskDmsPollQuestionWithMultipleChoose($this->chatID, $newPollInfo, $pollQuestionInfo);
+                                    if ($options) {
+                                        $shouldBeUpdated = true;
+                                    }
+                                    $this->salaryRoute->triggerActionForAskDmsPollQuestionWithMultipleChoose($this->chatID, $this->messageId, $newPollInfo, $pollQuestionInfo, $shouldBeUpdated);
                                     answerCallbackQuery($this->query["id"], "case 2-2");
                                     exit;
                                 case 3:
