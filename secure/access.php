@@ -1653,12 +1653,12 @@ class access {
                 }
             }
             $createdResponses = json_encode(array('options' => $createdResponsesList));
-            $sql = "INSERT INTO polls_user_responses SET user_id = ?, poll_id = ?, question_id = ?, responses = '".$createdResponses."', created = CURRENT_TIMESTAMP, updated = CURRENT_TIMESTAMP";
+            $sql = "INSERT INTO polls_user_responses SET user_id = ?, poll_id = ?, question_id = ?, responses = ?, created = CURRENT_TIMESTAMP, updated = CURRENT_TIMESTAMP";
             $statement = $this->conn->prepare($sql);
             if (!$statement) {
                 throw new Exception($statement->error);
             }
-            $statement->bind_param("sii", $userId, $replyInfo['pollId'], $replyInfo['questionId']);
+            $statement->bind_param("siis", $userId, $replyInfo['pollId'], $replyInfo['questionId'], $createdResponses);
             $returnValue = $statement->execute();
         }
         return $returnValue;
