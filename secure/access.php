@@ -1609,7 +1609,7 @@ class access {
     function setSelectedDmsPollOptionForMultipleChoose($userId, $text, $pollQuestionInfo) {
         $returnArray = array();
         $replyInfo = json_decode($text, true);
-        $pollQuestionData = $pollQuestionInfo[$replyInfo['questionId'] - 1];
+        $pollQuestionData = $pollQuestionInfo[1];
         $sql = "SELECT * FROM polls_user_responses WHERE user_id='".$userId."' and poll_id='".$replyInfo['pollId']."' and question_id='".$replyInfo['questionId']."'";
         $result = $this->conn->query($sql);
         if ($result != null && (mysqli_num_rows($result) >= 1 )) {
@@ -1658,7 +1658,7 @@ class access {
             if (!$statement) {
                 throw new Exception($statement->error);
             }
-            $statement->bind_param("siis", $userId, (int)$replyInfo['pollId'], (int)$replyInfo['questionId'], $createdResponses);
+            $statement->bind_param("siis", $userId, $replyInfo['pollId'], $replyInfo['questionId'], $createdResponses);
             $returnValue = $statement->execute();
         }
         return $returnValue;
