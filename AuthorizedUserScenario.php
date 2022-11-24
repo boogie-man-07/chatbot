@@ -507,7 +507,6 @@ class AuthorizedUserScenario {
                                 } else if ($pollQuestionInfo[$id]['question_type'] == 3) {
                                     sendMessage($this->chatID, "case not-inline 3-1", null);
                                     $this->access->setSelectedDmsPollOptionForFreeReply($this->user['user_id'], $text, $pollInfo, $pollQuestionInfo);
-                                    answerCallbackQuery($this->query["id"], "case 3-1");
                                 } else if ($pollQuestionInfo[$id]['question_type'] == 4) {
                                     sendMessage($this->chatID, "case not-inline 4-1", null);
                                 }
@@ -532,6 +531,7 @@ class AuthorizedUserScenario {
                                         sendMessage($this->chatID, "case not-inline 3-2", null);
                                         exit;
                                     case 4:
+                                        $this->salaryRoute->triggerActionForAskDmsPollQuestionWithScaleChoose($this->chatID, $newPollInfo, $pollQuestionInfo);
                                         sendMessage($this->chatID, "case not-inline 4-2", null);
                                         exit;
                                 }
@@ -953,13 +953,16 @@ class AuthorizedUserScenario {
                         if ($this->salaryRoute->shouldGoToNextQuestion($pollInfo, $pollQuestionInfo)) {
                             $this->access->increaseUserDmsPollState($this->user['user_id'], $pollInfo);
                             if ($pollQuestionInfo[$id]['question_type'] == 1) {
+                                answerCallbackQuery($this->query["id"], "case inline 1-1");
                                 $this->access->setSelectedDmsPollOption($this->user['user_id'], $text);
                             } else if ($pollQuestionInfo[$id]['question_type'] == 2) {
+                                answerCallbackQuery($this->query["id"], "case inline 2-1");
                                 $this->access->setSelectedDmsPollOptionForMultipleChoose($this->user['user_id'], $text, $pollQuestionInfo);
                             } else if ($pollQuestionInfo[$id]['question_type'] == 3) {
-                                answerCallbackQuery($this->query["id"], "case 3-1");
+                                answerCallbackQuery($this->query["id"], "case inline 3-1");
+                                $this->access->setSelectedDmsPollOptionForFreeReply($this->user['user_id'], $text, $pollInfo, $pollQuestionInfo);
                             } else if ($pollQuestionInfo[$id]['question_type'] == 4) {
-
+                                answerCallbackQuery($this->query["id"], "case inline 4-1");
                             }
 
                             $newPollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
@@ -982,6 +985,7 @@ class AuthorizedUserScenario {
                                     answerCallbackQuery($this->query["id"], "case 3-2");
                                     exit;
                                 case 4:
+                                    $this->salaryRoute->triggerActionForAskDmsPollQuestionWithScaleChoose($this->chatID, $newPollInfo, $pollQuestionInfo);
                                     answerCallbackQuery($this->query["id"], "case 4-2");
                                     exit;
                             }

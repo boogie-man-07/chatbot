@@ -395,6 +395,12 @@ class constants {
         return $pollQuestionData['question_text'];
     }
 
+    function getReplyForAskADmsPollQuestionWithScaleChoose($pollInfo, $pollQuestionInfo) {
+        $id = $pollInfo['poll_state'];
+        $pollQuestionData = $pollQuestionInfo[$id];
+        return $pollQuestionData['question_text'];
+    }
+
     function getReplyForFinishDmsPoll() {
         return "Это были все вопросы! Спасибо за уделенное время!";
     }
