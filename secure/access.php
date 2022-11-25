@@ -1561,6 +1561,16 @@ class access {
         return $returnArray;
     }
 
+    function getDmsUserPollQuestionsInfo($pollId) {
+        $returnArray = array();
+        $sql = "SELECT * from polls_user_responses WHERE poll_id = $pollId";
+        $result = $this->conn->query($sql);
+        while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
+            array_push($returnArray, $row);
+        }
+        return $returnArray;
+    }
+
 //     function resetPollOptionState($userId, $pollInfo, $pollQuestionInfo) {
 //         $id = $pollInfo['poll_state'];
 //         $pollQuestionData = $pollQuestionInfo[$id];
