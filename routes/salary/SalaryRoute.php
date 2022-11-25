@@ -60,7 +60,9 @@ class SalaryRoute {
     }
 
     function triggerActionForUpdateDmsPollQuestionWithMultipleChoose($chatID, $messageId, $pollInfo, $pollQuestionInfo) {
+        $reply = $this->constants->getReplyForAskADmsPollQuestionWithMultipleChoose($pollInfo, $pollQuestionInfo);
         $keyboard = $this->keyboards->getInlineKeyboardForAskADmsPollQuestionWithMultipleChoose($pollInfo, $pollQuestionInfo);
+        editMessageText($chatID, $messageId, $reply);
         editMessageReplyMarkup($chatID, $messageId, $keyboard);
     }
 
