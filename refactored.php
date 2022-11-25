@@ -109,7 +109,7 @@ function sendMessage($chatID, $text, $keyboard) {
 }
 
 function editMessageText($chatID, $messageId, $text) {
- $url = $GLOBALS[website]."/editMessageText?chat_id=$chatID&message_id=$messageId&text=".urlencode($text);
+ $url = $GLOBALS[website]."/editMessageText?chat_id=$chatID&message_id=$messageId&parse_mode=HTML&text=".urlencode($text);
  file_get_contents($url);
 }
 
@@ -134,7 +134,7 @@ function answerCallbackQuery($callbackQueryId, $text) {
 }
 
 function editMessageReplyMarkup($chatID, $messageId, $keyboard) {
-   $url = $GLOBALS[website]."/editMessageReplyMarkup?chat_id=$chatID&message_id=$messageId&reply_markup=$keyboard";
+   $url = $GLOBALS[website]."/editMessageReplyMarkup?chat_id=$chatID&message_id=$messageId&reply_markup=$keyboard&parse_mode=HTML";
    file_get_contents($url);
 }
 
