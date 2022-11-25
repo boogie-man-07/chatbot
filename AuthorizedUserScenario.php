@@ -989,7 +989,7 @@ class AuthorizedUserScenario {
                                     if ($isUpdatable) {
                                         sendMessage($this->chatID, 'обновляю клавиатуру', null); exit;
                                     } else {
-                                        sendMessage($this->chatID, 'создаю новую клавиатуру', null); exit;
+                                        sendMessage($this->chatID, 'создаю новую клавиатуру', null);
                                     }
                                     // todo get and update the keyboard
                                     $this->salaryRoute->triggerActionForAskDmsPollQuestionWithMultipleChoose($this->chatID, $newPollInfo, $pollQuestionInfo);
