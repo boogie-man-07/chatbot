@@ -532,7 +532,7 @@ class keyboards {
         $nextButtonText = $pollQuestionInfo[$id]['question_id'] >= array_count_values(array_column($pollQuestionInfo, 'question_id')) ? "Завершить" : "Продолжить";
         $nextButtonCallbackData =  $pollQuestionInfo[$id]['question_id'] >= array_count_values(array_column($pollQuestionInfo, 'question_id')) ? 'finishDmsPoll' : 'dmsPoolReplyWaitingState';
         foreach($options['options'] as $key=>$value) {
-            $itemTitle = $value['isSelected'] == true ? hex2bin("E29C85") : (string)$value['id'];
+            $itemTitle = $value['isSelected'] ? hex2bin("E29C85") : (string)$value['isSelected'];
 //             $itemTitle = (string)$value['id'];
             $callbackData = array(
                 'pollId'=> $pollQuestionInfo[$id]['poll_id'],
