@@ -1690,11 +1690,11 @@ class access {
         return $returnValue;
     }
 
-    function getSelectedDmsPollOptionForMultipleChoose($userId, $text) {
+    function getSelectedDmsPollOptionForMultipleChoose($userId, $pollInfo, $pollQuestionInfo) {
         $returnArray = array();
-//         $id = $pollInfo['poll_state'];
-//         $pollQuestionData = $pollQuestionInfo[$id];
-        $sql = "SELECT * from polls_user_responses WHERE poll_id = '".$text['pollId']."' and question_id = '".$text['questionId']."'";
+        $id = $pollInfo['poll_state'];
+        $pollQuestionData = $pollQuestionInfo[$id];
+        $sql = "SELECT * from polls_user_responses WHERE poll_id = '".$pollQuestionData['poll_id']."' and question_id = '".$pollQuestionData['question_id']."'";
         $result = $this->conn->query($sql);
         if ($result != null && (mysqli_num_rows($result) >= 1 )) {
             $row = $result->fetch_array(MYSQLI_ASSOC);
