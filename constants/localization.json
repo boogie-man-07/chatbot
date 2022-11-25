@@ -103,7 +103,8 @@
         "vacationFormSendingWaitingState": "waiting for vacation form sending",
         "dmsQuestionWaitingState": "waiting for dms question",
         "dmsEmailWaitingState": "waiting for email for dms question reply",
-        "dmsPoolReplyWaitingState": "waiting for choose dms pool reply"
+        "dmsPoolReplyWaitingState": "waiting for choose dms pool reply",
+        "dmsMultipleKeyboardChooseWaitingState": "waiting for multiple keyboard choose"
     },
 
     "constants": {
