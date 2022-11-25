@@ -1001,7 +1001,11 @@ class AuthorizedUserScenario {
                             exit;
                         }
                     case $this->states['dmsMultipleKeyboardChooseWaitingState']:
-                        sendMessage($this->chatID, $text, null);
+                        $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
+                        $pollQuestionInfo = $this->access->getDmsPollQuestionsInfo(1);
+                        $id = $pollInfo['poll_state'];
+                        $this->salaryRoute->triggerActionForUpdateDmsPollQuestionWithMultipleChoose($this->chatID, $this->messageId, $pollInfo, $pollQuestionInfo);
+                        answerCallbackQuery($this->query["id"], "dmsMultipleKeyboardChooseWaitingState");
                         exit;
                     default:
                         sendMessage($this->chatID, "Default finished inline", null);
