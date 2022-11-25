@@ -556,10 +556,10 @@ class keyboards {
         ));
     }
 
-    function getInlineKeyboardForUpdateADmsPollQuestionWithMultipleChoose($pollInfo, $pollQuestionInfo) {
+    function getInlineKeyboardForUpdateADmsPollQuestionWithMultipleChoose($pollInfo, $pollQuestionInfo, $pollUserQuestionInfo) {
         $replyList = array();
         $id = $pollInfo['poll_state'];
-        $options = json_decode($pollQuestionInfo[$id]['responses'], true);
+        $options = json_decode($pollUserQuestionInfo[$id]['responses'], true);
         $nextButtonText = $pollQuestionInfo[$id]['question_id'] >= array_count_values(array_column($pollQuestionInfo, 'question_id')) ? "Завершить" : "Продолжить";
         $nextButtonCallbackData =  $pollQuestionInfo[$id]['question_id'] >= array_count_values(array_column($pollQuestionInfo, 'question_id')) ? 'finishDmsPoll' : 'dmsPoolReplyWaitingState';
         foreach($options['options'] as $key=>$value) {
