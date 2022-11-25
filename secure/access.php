@@ -1692,9 +1692,10 @@ class access {
 
     function getSelectedDmsPollOptionForMultipleChoose($userId, $pollInfo, $pollQuestionInfo) {
         $returnArray = array();
-        $id = $pollInfo['poll_state'] + 1;
+        $id = $pollInfo['poll_state'];
         $pollQuestionData = $pollQuestionInfo[$id];
-        $sql = "SELECT * from polls_user_responses WHERE user_id = '".$userId."' and poll_id = '".$pollQuestionData['poll_id']."'";
+        $questionId =
+        $sql = "SELECT * from polls_user_responses WHERE user_id = '".$userId."' and poll_id = '".$pollQuestionData['poll_id']."' and poll_id = '".$pollQuestionData['question_id']."'";
         $result = $this->conn->query($sql);
         if ($result != null && (mysqli_num_rows($result) >= 1 )) {
             $row = $result->fetch_array(MYSQLI_ASSOC);

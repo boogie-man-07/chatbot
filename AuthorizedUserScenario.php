@@ -958,7 +958,14 @@ class AuthorizedUserScenario {
                                 $this->access->setSelectedDmsPollOption($this->user['user_id'], $text);
                             } else if ($pollQuestionInfo[$id]['question_type'] == 2) {
                                 answerCallbackQuery($this->query["id"], "case inline 2-1");
-                                $this->access->setSelectedDmsPollOptionForMultipleChoose($this->user['user_id'], $text, $pollQuestionInfo);
+                                $isUpdatable = false;
+                                $options = $this->access->getSelectedDmsPollOptionForMultipleChoose($this->user['user_id'], $newPollInfo, $pollQuestionInfo);
+                                if (count($options) == 0) {
+                                    $this->access->setSelectedDmsPollOptionForMultipleChoose($this->user['user_id'], $text, $pollQuestionInfo);
+                                } else {
+                                    $isUpdatable = true;
+                                }
+
                             } else if ($pollQuestionInfo[$id]['question_type'] == 3) {
                                 answerCallbackQuery($this->query["id"], "case inline 3-1");
                                 $this->access->setSelectedDmsPollOptionForFreeReply($this->user['user_id'], $text, $pollInfo, $pollQuestionInfo);
@@ -977,9 +984,9 @@ class AuthorizedUserScenario {
                                     answerCallbackQuery($this->query["id"], "case 1-2");
                                     exit;
                                 case 2:
-                                    $options = $this->access->getSelectedDmsPollOptionForMultipleChoose($this->user['user_id'], $newPollInfo, $pollQuestionInfo);
+                                    //$options = $this->access->getSelectedDmsPollOptionForMultipleChoose($this->user['user_id'], $newPollInfo, $pollQuestionInfo);
                                     sendMessage($this->chatID, json_encode($options), null);
-                                    if ($options) {
+                                    if ($isUpdatable) {
                                         sendMessage($this->chatID, 'обновляю клавиатуру', null); exit;
                                     } else {
                                         sendMessage($this->chatID, 'создаю новую клавиатуру', null); exit;
