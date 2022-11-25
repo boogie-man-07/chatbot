@@ -1690,20 +1690,20 @@ class access {
         return $returnValue;
     }
 
-//     function getSelectedDmsPollOptionForMultipleChoose($userId, $pollInfo, $pollQuestionInfo) {
-//         $returnArray = array();
-//         $id = $pollInfo['poll_state'];
-//         $pollQuestionData = $pollQuestionInfo[$id];
-//         $sql = "SELECT * from polls_user_responses WHERE poll_id = '".$pollQuestionData['poll_id']."'";
-//         $result = $this->conn->query($sql);
-//         if ($result != null && (mysqli_num_rows($result) >= 1 )) {
-//             $row = $result->fetch_array(MYSQLI_ASSOC);
-//             if (!empty($row)) {
-//                 array_push($returnArray, $row);
-//             }
-//         }
-//         return $returnArray;
-//     }
+    function getSelectedDmsPollOptionForMultipleChoose($userId, $text) {
+        $returnArray = array();
+        $id = $pollInfo['poll_state'];
+        $pollQuestionData = $pollQuestionInfo[$id];
+        $sql = "SELECT * from polls_user_responses WHERE poll_id = '".$text['pollId']."' and question_id = '".$text['questionId']."'";
+        $result = $this->conn->query($sql);
+        if ($result != null && (mysqli_num_rows($result) >= 1 )) {
+            $row = $result->fetch_array(MYSQLI_ASSOC);
+            if (!empty($row)) {
+                array_push($returnArray, $row);
+            }
+        }
+        return $returnArray;
+    }
 
 
 
