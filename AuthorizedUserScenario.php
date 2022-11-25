@@ -1001,10 +1001,9 @@ class AuthorizedUserScenario {
                             exit;
                         }
                     case $this->states['dmsMultipleKeyboardChooseWaitingState']:
-                        sendMessage($this->chatID, 'trrrrrrr', null);
+                        sendMessage($this->chatID, $text, null);
                         exit;
                     default:
-
                         sendMessage($this->chatID, "Default finished inline", null);
                         exit;
                 }
