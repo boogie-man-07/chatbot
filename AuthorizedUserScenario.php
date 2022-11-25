@@ -977,7 +977,8 @@ class AuthorizedUserScenario {
                                     answerCallbackQuery($this->query["id"], "case 1-2");
                                     exit;
                                 case 2:
-//                                     $options = $this->access->getSelectedDmsPollOptionForMultipleChoose($userId, $newPollInfo, $pollQuestionInfo);
+                                    $options = $this->access->getSelectedDmsPollOptionForMultipleChoose($userId, $newPollInfo, $pollQuestionInfo);
+                                    sendMessage($this->chatID, json_encode($options), null);
                                     // todo get and update the keyboard
                                     $this->salaryRoute->triggerActionForAskDmsPollQuestionWithMultipleChoose($this->chatID, $newPollInfo, $pollQuestionInfo);
                                     answerCallbackQuery($this->query["id"], "case 2-2");
