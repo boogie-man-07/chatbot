@@ -545,6 +545,9 @@ class AuthorizedUserScenario {
                                 exit;
                             }
                             exit;
+                        $this->states['dmsMultipleKeyboardChooseWaitingState']:
+                            sendMessage($this->chatID, 'trrrrrrr', null);
+                            exit;
 //                         case $this->states['dmsPoolReplyWaitingState']:
 //                             $selectedOption = substr($text, 0, 1);
 //                             if ($this->salaryRoute->isCorrectDigit($text)) {
@@ -958,14 +961,7 @@ class AuthorizedUserScenario {
                                 $this->access->setSelectedDmsPollOption($this->user['user_id'], $text);
                             } else if ($pollQuestionInfo[$id]['question_type'] == 2) {
                                 answerCallbackQuery($this->query["id"], "case inline 2-1");
-                                $isUpdatable = false;
-                                $options = $this->access->getSelectedDmsPollOptionForMultipleChoose($this->user['user_id'], $newPollInfo, $pollQuestionInfo);
-                                if (count($options) == 0) {
-                                    $this->access->setSelectedDmsPollOptionForMultipleChoose($this->user['user_id'], $text, $pollQuestionInfo);
-                                } else {
-                                    $isUpdatable = true;
-                                }
-
+                                $this->access->setSelectedDmsPollOptionForMultipleChoose($this->user['user_id'], $text, $pollQuestionInfo);
                             } else if ($pollQuestionInfo[$id]['question_type'] == 3) {
                                 answerCallbackQuery($this->query["id"], "case inline 3-1");
                                 $this->access->setSelectedDmsPollOptionForFreeReply($this->user['user_id'], $text, $pollInfo, $pollQuestionInfo);
@@ -984,14 +980,9 @@ class AuthorizedUserScenario {
                                     answerCallbackQuery($this->query["id"], "case 1-2");
                                     exit;
                                 case 2:
-                                    //$options = $this->access->getSelectedDmsPollOptionForMultipleChoose($this->user['user_id'], $newPollInfo, $pollQuestionInfo);
-                                    sendMessage($this->chatID, json_encode($options), null);
-                                    if ($isUpdatable) {
-                                        sendMessage($this->chatID, 'обновляю клавиатуру', null); exit;
-                                    } else {
-                                        sendMessage($this->chatID, 'создаю новую клавиатуру', null);
-                                    }
+//                                     $options = $this->access->getSelectedDmsPollOptionForMultipleChoose($this->user['user_id'], $newPollInfo, $pollQuestionInfo);
                                     // todo get and update the keyboard
+                                    $this->access->setState($this->chatID, $this->states['dmsMultipleKeyboardChooseWaitingState']);
                                     $this->salaryRoute->triggerActionForAskDmsPollQuestionWithMultipleChoose($this->chatID, $newPollInfo, $pollQuestionInfo);
                                     answerCallbackQuery($this->query["id"], "case 2-2");
                                     exit;
