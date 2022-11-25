@@ -1694,7 +1694,7 @@ class access {
         $returnArray = array();
         $id = $pollInfo['poll_state'];
         $pollQuestionData = $pollQuestionInfo[$id];
-        $sql = "SELECT * from polls_user_responses WHERE poll_id = '".$pollQuestionData['poll_id']."' and question_id = '".$pollQuestionData['question_id']."'";
+        $sql = "SELECT * from polls_user_responses WHERE user_id = '".$userId."' and poll_id = '".$pollQuestionData['poll_id']."'";
         $result = $this->conn->query($sql);
         if ($result != null && (mysqli_num_rows($result) >= 1 )) {
             $row = $result->fetch_array(MYSQLI_ASSOC);

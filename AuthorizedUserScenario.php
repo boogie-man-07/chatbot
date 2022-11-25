@@ -978,7 +978,12 @@ class AuthorizedUserScenario {
                                     exit;
                                 case 2:
                                     $options = $this->access->getSelectedDmsPollOptionForMultipleChoose($userId, $newPollInfo, $pollQuestionInfo);
-                                    sendMessage($this->chatID, json_encode($options), null); exit;
+                                    sendMessage($this->chatID, json_encode($options), null);
+                                    if ($options) {
+                                        sendMessage($this->chatID, 'обновляю клавиатуру', null); exit;
+                                    } else {
+                                        sendMessage($this->chatID, 'создаю новую клавиатуру', null); exit;
+                                    }
                                     // todo get and update the keyboard
                                     $this->salaryRoute->triggerActionForAskDmsPollQuestionWithMultipleChoose($this->chatID, $newPollInfo, $pollQuestionInfo);
                                     answerCallbackQuery($this->query["id"], "case 2-2");
