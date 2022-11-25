@@ -545,9 +545,6 @@ class AuthorizedUserScenario {
                                 exit;
                             }
                             exit;
-                        case $this->states['dmsMultipleKeyboardChooseWaitingState']:
-                            sendMessage($this->chatID, 'trrrrrrr', null);
-                            exit;
 //                         case $this->states['dmsPoolReplyWaitingState']:
 //                             $selectedOption = substr($text, 0, 1);
 //                             if ($this->salaryRoute->isCorrectDigit($text)) {
@@ -1003,6 +1000,9 @@ class AuthorizedUserScenario {
                             answerCallbackQuery($this->query["id"], "Опрос завершен!");
                             exit;
                         }
+                    case $this->states['dmsMultipleKeyboardChooseWaitingState']:
+                        sendMessage($this->chatID, 'trrrrrrr', null);
+                        exit;
                     default:
 
                         sendMessage($this->chatID, "Default finished inline", null);
