@@ -545,7 +545,7 @@ class AuthorizedUserScenario {
                                 exit;
                             }
                             exit;
-                        $this->states['dmsMultipleKeyboardChooseWaitingState']:
+                        case $this->states['dmsMultipleKeyboardChooseWaitingState']:
                             sendMessage($this->chatID, 'trrrrrrr', null);
                             exit;
 //                         case $this->states['dmsPoolReplyWaitingState']:
