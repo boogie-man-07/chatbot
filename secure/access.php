@@ -1561,9 +1561,9 @@ class access {
         return $returnArray;
     }
 
-    function getDmsUserPollQuestionsInfo($pollId) {
+    function getDmsUserPollQuestionsInfo($userId, $pollId) {
         $returnArray = array();
-        $sql = "SELECT * from polls_user_responses WHERE poll_id = $pollId";
+        $sql = "SELECT * from polls_user_responses WHERE poll_id = $pollId and user_id='".$userId."'";
         $result = $this->conn->query($sql);
         while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
             array_push($returnArray, $row);
