@@ -880,7 +880,7 @@ class AuthorizedUserScenario {
                 $id = $pollInfo['poll_state'];
                 $pollQuestionInfo = $this->access->getDmsPollQuestionsInfo(1);
                 $this->access->setState($this->chatID, $this->states['dmsPoolReplyWaitingState']);
-                switch ($pollQuestionInfo[$id]['question_type']) {
+                switch ($pollQuestionInfo[$id + 1]['question_type']) {
                     case 1:
                         $this->salaryRoute->triggerActionForAskDmsPollQuestionWithSingleChoose($this->chatID, $pollInfo, $pollQuestionInfo);
                         answerCallbackQuery($this->query["id"], "Вопрос загружен!");
