@@ -497,7 +497,7 @@ class keyboards {
                 array(
                     array(
                         "text" => $title,
-                        "callback_data" => "proceedDmsSurvey"
+                        "callback_data" => $callbackData
                     )
                 )
             )
