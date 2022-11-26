@@ -897,10 +897,10 @@ class AuthorizedUserScenario {
                         $this->access->setSelectedDmsPollOption($this->user['user_id'], $text);
                     } else if ($pollQuestionInfo[$id]['question_type'] == 2) {
                         answerCallbackQuery($this->query["id"], "case inline 2-1.0");
-                        $this->access->setSelectedDmsPollOptionForMultipleChoose($this->user['user_id'], $text, $pollQuestionInfo);
+//                         $this->access->setSelectedDmsPollOptionForMultipleChoose($this->user['user_id'], $text, $pollQuestionInfo);
                     } else if ($pollQuestionInfo[$id]['question_type'] == 3) {
                         answerCallbackQuery($this->query["id"], "case inline 3-1.0");
-//                         $this->access->setSelectedDmsPollOptionForFreeReply($this->user['user_id'], $text, $pollInfo, $pollQuestionInfo);
+                        $this->access->setSelectedDmsPollOptionForFreeReply($this->user['user_id'], $text, $pollInfo, $pollQuestionInfo);
                     } else if ($pollQuestionInfo[$id]['question_type'] == 4) {
                         $this->access->setSelectedDmsPollOption($this->user['user_id'], $text);
                         answerCallbackQuery($this->query["id"], "case inline 4-1.0");
