@@ -897,7 +897,6 @@ class AuthorizedUserScenario {
                         $this->access->setSelectedDmsPollOption($this->user['user_id'], $text);
                     } else if ($pollQuestionInfo[$id]['question_type'] == 2) {
                         answerCallbackQuery($this->query["id"], "case inline 2-1.0");
-                        $this->access->setState($this->chatID, $this->states['dmsPoolReplyWaitingState']);
 //                         $this->access->setSelectedDmsPollOptionForMultipleChoose($this->user['user_id'], $text, $pollQuestionInfo);
                     } else if ($pollQuestionInfo[$id]['question_type'] == 3) {
                         answerCallbackQuery($this->query["id"], "case inline 3-1.0");
@@ -1043,17 +1042,17 @@ class AuthorizedUserScenario {
                         } else {
                             $this->access->increaseUserDmsPollState($this->user['user_id'], $pollInfo);
                             if ($pollQuestionInfo[$id]['question_type'] == 1) {
-                                answerCallbackQuery($this->query["id"], "case inline 1-1.1");
+                                answerCallbackQuery($this->query["id"], "case inline 1-1-");
                                 $this->access->setSelectedDmsPollOption($this->user['user_id'], $text);
                             } else if ($pollQuestionInfo[$id]['question_type'] == 2) {
-                                answerCallbackQuery($this->query["id"], "case inline 2-1.1");
+                                answerCallbackQuery($this->query["id"], "case inline 2-1-");
                                 $this->access->setSelectedDmsPollOptionForMultipleChoose($this->user['user_id'], $text, $pollQuestionInfo);
                             } else if ($pollQuestionInfo[$id]['question_type'] == 3) {
-                                answerCallbackQuery($this->query["id"], "case inline 3-1.1");
+                                answerCallbackQuery($this->query["id"], "case inline 3-1-");
                                 $this->access->setSelectedDmsPollOptionForFreeReply($this->user['user_id'], $text, $pollInfo, $pollQuestionInfo);
                             } else if ($pollQuestionInfo[$id]['question_type'] == 4) {
                                 $this->access->setSelectedDmsPollOption($this->user['user_id'], $text);
-                                answerCallbackQuery($this->query["id"], "case inline 4-1.1");
+                                answerCallbackQuery($this->query["id"], "case inline 4-1-");
                             }
                             $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
                             $this->access->setPollAsFinished($this->user['user_id'], $pollInfo);
