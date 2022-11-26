@@ -491,7 +491,7 @@ class keyboards {
 
     function getProceedDmsSurveyInlineKeyboard($pollState) {
         $title = $pollState == 0 ? "Начать" : "Продолжить";
-        $callbackData = $pollState == 0 ? "proceedDmsSurvey" : "returnToNonFinishedDmsSurvey"
+        $callbackData = $pollState == 0 ? "proceedDmsSurvey" : "returnToNonFinishedDmsSurvey";
         return json_encode(array(
             "inline_keyboard" => array(
                 array(
