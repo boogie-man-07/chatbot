@@ -1022,21 +1022,21 @@ class AuthorizedUserScenario {
 
                             switch ($pollQuestionInfo[$newId]['question_type']) {
                                 case 1:
-                                    $this->salaryRoute->triggerActionForAskDmsPollQuestionWithSingleChoose($this->chatID, $newPollInfo, $pollQuestionInfo);
                                     answerCallbackQuery($this->query["id"], "case 1-2");
+                                    $this->salaryRoute->triggerActionForAskDmsPollQuestionWithSingleChoose($this->chatID, $newPollInfo, $pollQuestionInfo);
                                     exit;
                                 case 2:
+                                    answerCallbackQuery($this->query["id"], "case 2-2");
                                     $this->access->setState($this->chatID, $this->states['dmsMultipleKeyboardChooseWaitingState']);
                                     $this->salaryRoute->triggerActionForAskDmsPollQuestionWithMultipleChoose($this->chatID, $newPollInfo, $pollQuestionInfo);
-                                    answerCallbackQuery($this->query["id"], "case 2-2");
                                     exit;
                                 case 3:
-                                    $this->salaryRoute->triggerActionForAskDmsPollQuestionWithFreeReply($this->chatID, $newPollInfo, $pollQuestionInfo);
                                     answerCallbackQuery($this->query["id"], "case 3-2");
+                                    $this->salaryRoute->triggerActionForAskDmsPollQuestionWithFreeReply($this->chatID, $newPollInfo, $pollQuestionInfo);
                                     exit;
                                 case 4:
-                                    $this->salaryRoute->triggerActionForAskDmsPollQuestionWithScaleChoose($this->chatID, $newPollInfo, $pollQuestionInfo);
                                     answerCallbackQuery($this->query["id"], "case 4-2");
+                                    $this->salaryRoute->triggerActionForAskDmsPollQuestionWithScaleChoose($this->chatID, $newPollInfo, $pollQuestionInfo);
                                     exit;
                             }
                         } else {
