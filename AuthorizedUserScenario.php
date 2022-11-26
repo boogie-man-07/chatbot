@@ -897,6 +897,7 @@ class AuthorizedUserScenario {
                         $this->access->setSelectedDmsPollOption($this->user['user_id'], $text);
                     } else if ($pollQuestionInfo[$id]['question_type'] == 2) {
                         answerCallbackQuery($this->query["id"], "case inline 2-1.0");
+                        $this->access->setState($this->chatID, $this->states['dmsPoolReplyWaitingState']);
 //                         $this->access->setSelectedDmsPollOptionForMultipleChoose($this->user['user_id'], $text, $pollQuestionInfo);
                     } else if ($pollQuestionInfo[$id]['question_type'] == 3) {
                         answerCallbackQuery($this->query["id"], "case inline 3-1.0");
@@ -916,7 +917,6 @@ class AuthorizedUserScenario {
                             answerCallbackQuery($this->query["id"], "case 1-2.0");
                             exit;
                         case 2:
-                            $this->access->setState($this->chatID, $this->states['dmsMultipleKeyboardChooseWaitingState']);
                             $this->salaryRoute->triggerActionForAskDmsPollQuestionWithMultipleChoose($this->chatID, $newPollInfo, $pollQuestionInfo);
                             answerCallbackQuery($this->query["id"], "case 2-2.0");
                             exit;
