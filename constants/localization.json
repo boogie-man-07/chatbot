@@ -59,6 +59,7 @@
         "sendPostponedVacationFormInline": "sendPostponedVacationForm",
         "sendOldPostponedVacationFormInline": "sendOldPostponeVacationForm",
         "proceedDmsSurveyInline": "proceedDmsSurvey",
+        "returnToNonFinishedDmsSurveyInline": "returnToNonFinishedDmsSurvey",
         "nextDmsPollOptionInline": "nextDmsPollOption",
         "finishDmsPollInline": "finishDmsPoll",
         "calendarInline": "defaultCallbackResponse",
