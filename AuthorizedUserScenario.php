@@ -886,6 +886,7 @@ class AuthorizedUserScenario {
                         answerCallbackQuery($this->query["id"], "Вопрос загружен!");
                         exit;
                     case 2:
+                        $this->access->setState($this->chatID, $this->states['dmsMultipleKeyboardChooseWaitingState']);
                         $this->salaryRoute->triggerActionForAskDmsPollQuestionWithMultipleChoose($this->chatID, $pollInfo, $pollQuestionInfo);
                         answerCallbackQuery($this->query["id"], "Вопрос загружен!");
                         exit;
