@@ -186,9 +186,11 @@ class AuthorizedUserScenario {
                 exit;
             case $this->commands['navigateToMainScreen']:
                 $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
-                if ($pollInfo['is_finished'] == 1]) {
-                    $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
-                }
+//                 if ($pollInfo['is_finished'] == 1]) {
+//                     $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
+//                 }
+                sendMessage($this->chatID, json_encode($pollInfo), null);
+                $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
                 $this->access->removeFindUserDataByChatID($this->chatID);
                 $this->access->removeVacationDataByChatID($this->chatID);
                 $this->mainRulesRoute->triggerActionForNavigateBack($this->chatID);
