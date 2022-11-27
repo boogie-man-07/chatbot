@@ -169,10 +169,11 @@ class AuthorizedUserScenario {
                     exit;
                 }
             case $this->commands['dmsAskAQuestion']:
-                $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
-                if (count($pollInfo != 0) && $pollInfo['last_state'] != null) {
-                    $this->access->setDmsPollLastState($this->user['user_id'], $this->state);
-                }
+                sendMessage($this->chatID, "state2 - ".$this->state, null);
+//                 $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
+//                 if (count($pollInfo != 0) && $pollInfo['last_state'] != null) {
+//                     $this->access->setDmsPollLastState($this->user['user_id'], $this->state);
+//                 }
                 $this->access->setState($this->chatID, $this->states['dmsQuestionWaitingState']);
                 $this->salaryRoute->triggerActionForAskADmsQuestion($this->chatID);
                 exit;
@@ -189,10 +190,11 @@ class AuthorizedUserScenario {
                 $this->mainRulesRoute->triggerActionForGetAppearanceInfo($this->chatID, $this->user['firstname']);
                 exit;
             case $this->commands['navigateToMainScreen']:
-                $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
-                if (count($pollInfo != 0) && $pollInfo['last_state'] != null) {
-                    $this->access->setDmsPollLastState($this->user['user_id'], $this->state);
-                }
+                sendMessage($this->chatID, "state1 - ".$this->state, null);
+//                 $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
+//                 if (count($pollInfo != 0) && $pollInfo['last_state'] != null) {
+//                     $this->access->setDmsPollLastState($this->user['user_id'], $this->state);
+//                 }
                 $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
                 $this->access->removeFindUserDataByChatID($this->chatID);
                 $this->access->removeVacationDataByChatID($this->chatID);
