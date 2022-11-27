@@ -169,7 +169,7 @@ class AuthorizedUserScenario {
                     exit;
                 }
             case $this->commands['dmsAskAQuestion']:
-                sendMessage($this->chatID, (string)$pollInfo['last_state'], null);
+                sendMessage($this->chatID, $pollInfo['user_id'], null);
 //                 $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
 //                 if (count($pollInfo != 0) && $pollInfo['last_state'] != null) {
 //                     $this->access->setDmsPollLastState($this->user['user_id'], $this->state);
@@ -190,7 +190,7 @@ class AuthorizedUserScenario {
                 $this->mainRulesRoute->triggerActionForGetAppearanceInfo($this->chatID, $this->user['firstname']);
                 exit;
             case $this->commands['navigateToMainScreen']:
-                sendMessage($this->chatID, (string)$pollInfo['last_state'], null);
+                sendMessage($this->chatID, $pollInfo['user_id'], null);
 //                 $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
 //                 if (count($pollInfo != 0) && $pollInfo[0]['last_state'] != null) {
 //                     $this->access->setDmsPollLastState($this->user['user_id'], $this->state);
