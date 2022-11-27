@@ -170,7 +170,7 @@ class AuthorizedUserScenario {
                 }
             case $this->commands['dmsAskAQuestion']:
                 $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
-                if (count($pollInfo != 0) && $pollInfo['last_state'] != '') {
+                if (count($pollInfo != 0)) {
                     sendMessage($this->chatID, $this->state, null);
                     $this->access->setDmsPollLastState($this->user['user_id'], $this->state);
                 }
@@ -191,7 +191,7 @@ class AuthorizedUserScenario {
                 exit;
             case $this->commands['navigateToMainScreen']:
                 $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
-                if (count($pollInfo != 0) && $pollInfo['last_state'] != '') {
+                if (count($pollInfo != 0)) {
                     sendMessage($this->chatID, $this->state, null);
                     $this->access->setDmsPollLastState($this->user['user_id'], $this->state);
                 }
