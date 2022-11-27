@@ -1572,7 +1572,7 @@ class access {
     }
 
     function resetPollOptionState($userId, $pollInfo, $pollQuestionInfo) {
-        $id = $pollInfo['poll_state'];
+        $id = $pollInfo['poll_state'] + 1;
         $pollQuestionData = $pollQuestionInfo[$id];
         $sql = "SELECT * FROM polls_user_responses WHERE user_id='".$userId."' and poll_id='".$pollQuestionData['poll_id']."' and question_id='".$pollQuestionData['question_id']."'";
         $responses = json_decode($pollQuestionData['responses'], true);
