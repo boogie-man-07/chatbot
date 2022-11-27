@@ -185,11 +185,10 @@ class AuthorizedUserScenario {
                 $this->mainRulesRoute->triggerActionForGetAppearanceInfo($this->chatID, $this->user['firstname']);
                 exit;
             case $this->commands['navigateToMainScreen']:
-                sendMessage($this->chatID, $this->state, null);
-//                 $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
-//                 if (count($pollInfo != 0) && $pollInfo['last_state'] != null) {
-//                     $this->access->setDmsPollLastState($this->user['user_id'], $pollInfo['last_state']);
-//                 }
+                $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
+                if (count($pollInfo != 0) && $pollInfo['last_state'] != null) {
+                    $this->access->setDmsPollLastState($this->user['user_id'], $this->state);
+                }
                 $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
                 $this->access->removeFindUserDataByChatID($this->chatID);
                 $this->access->removeVacationDataByChatID($this->chatID);
@@ -480,7 +479,7 @@ class AuthorizedUserScenario {
                         case $this->states['dmsQuestionWaitingState']:
                             $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
                             if (count($pollInfo != 0) && $pollInfo['last_state'] != null) {
-                                $this->access->setDmsPollLastState($this->user['user_id'], $pollInfo['last_state']);
+                                $this->access->setDmsPollLastState($this->user['user_id'], $this->state);
                             }
                             $this->access->setDmsQuestionInfo($this->chatID, $text);
                             if($this->user['email'] != '') {
