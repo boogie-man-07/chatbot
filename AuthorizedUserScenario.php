@@ -904,7 +904,7 @@ class AuthorizedUserScenario {
                 $id = $pollInfo['poll_state'];
 
                 if ($pollInfo['last_state']) {
-                    $this->access->setState($this->chatID, $this->states['dmsMultipleKeyboardChooseWaitingState']);
+                    $this->access->setState($this->chatID, $pollInfo['last_state']);
                 }
 
                 if ($this->salaryRoute->shouldGoToNextQuestion($pollInfo, $pollQuestionInfo)) {
