@@ -1552,14 +1552,8 @@ class access {
     }
 
     function setDmsPollLastState($userId, $lastState) {
-        $sql = "UPDATE polls_user_data SET last_state = ? where user_id = '".$userId."'";
-        $statement = $this->conn->prepare($sql);
-
-        if (!$statement) {
-            throw new Exception($statement->error);
-        }
-        $statement->bind_param("s", $lastState);
-        $returnValue = $statement->execute();
+        $sql = "UPDATE polls_user_data SET last_state = '".$lastState."' where user_id = '".$userId."'";
+        $this->conn->query($sql);
     }
 
     function getDmsPollQuestionsInfo($pollId) {
