@@ -186,7 +186,7 @@ class AuthorizedUserScenario {
                 exit;
             case $this->commands['navigateToMainScreen']:
                 $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
-                if (!$pollInfo || $pollInfo['is_finished'] == 1]) {
+                if (count($pollInfo) == 0 || $pollInfo['is_finished'] == 1]) {
                     $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
                 }
 //                 sendMessage($this->chatID, $pollInfo['is_finished'], null);
