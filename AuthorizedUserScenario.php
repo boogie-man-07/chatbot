@@ -911,7 +911,7 @@ class AuthorizedUserScenario {
                 $pollQuestionInfo = $this->access->getDmsPollQuestionsInfo(1);
                 $id = $pollInfo['poll_state'];
 
-                if ($pollInfo['last_state']) {
+                if ($pollInfo['last_state'] != null) {
                     $this->access->setState($this->chatID, $pollInfo['last_state']);
                 }
 
