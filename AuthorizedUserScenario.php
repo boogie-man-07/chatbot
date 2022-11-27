@@ -185,12 +185,7 @@ class AuthorizedUserScenario {
                 $this->mainRulesRoute->triggerActionForGetAppearanceInfo($this->chatID, $this->user['firstname']);
                 exit;
             case $this->commands['navigateToMainScreen']:
-                $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
-                if (count($pollInfo) == 0 || $pollInfo['is_finished'] == 1) {
-                    $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
-                }
-//                 sendMessage($this->chatID, $pollInfo['is_finished'], null);
-//                 $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
+                $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
                 $this->access->removeFindUserDataByChatID($this->chatID);
                 $this->access->removeVacationDataByChatID($this->chatID);
                 $this->mainRulesRoute->triggerActionForNavigateBack($this->chatID);
@@ -907,6 +902,10 @@ class AuthorizedUserScenario {
                 $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
                 $pollQuestionInfo = $this->access->getDmsPollQuestionsInfo(1);
                 $id = $pollInfo['poll_state'];
+
+                if ($pollInfo['last_state']) {
+                    $this->access->setState($this->chatID, $this->states['dmsMultipleKeyboardChooseWaitingState']);
+                }
 
                 if ($this->salaryRoute->shouldGoToNextQuestion($pollInfo, $pollQuestionInfo)) {
                     $newPollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
