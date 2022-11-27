@@ -171,7 +171,6 @@ class AuthorizedUserScenario {
             case $this->commands['dmsAskAQuestion']:
                 $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
                 if (count($pollInfo != 0)) {
-                    sendMessage($this->chatID, $this->state, null);
                     $this->access->setDmsPollLastState($this->user['user_id'], $this->state);
                 }
                 $this->access->setState($this->chatID, $this->states['dmsQuestionWaitingState']);
@@ -192,7 +191,6 @@ class AuthorizedUserScenario {
             case $this->commands['navigateToMainScreen']:
                 $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
                 if (count($pollInfo != 0)) {
-                    sendMessage($this->chatID, $this->state, null);
                     $this->access->setDmsPollLastState($this->user['user_id'], $this->state);
                 }
                 $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
@@ -509,17 +507,13 @@ class AuthorizedUserScenario {
                             if ($this->salaryRoute->shouldGoToNextQuestion($pollInfo, $pollQuestionInfo)) {
                                 $this->access->increaseUserDmsPollState($this->user['user_id'], $pollInfo);
                                 if ($pollQuestionInfo[$id]['question_type'] == 1) {
-                                    sendMessage($this->chatID, "case not-inline 1-1", null);
                                     $this->access->setSelectedDmsPollOption($this->user['user_id'], $text);
                                 } else if ($pollQuestionInfo[$id]['question_type'] == 2) {
-                                    sendMessage($this->chatID, "case not-inline 2-1", null);
                                     $this->access->setSelectedDmsPollOptionForMultipleChoose($this->user['user_id'], $text, $pollQuestionInfo);
                                 } else if ($pollQuestionInfo[$id]['question_type'] == 3) {
-                                    sendMessage($this->chatID, "case not-inline 3-1", null);
                                     $this->access->setSelectedDmsPollOptionForFreeReply($this->user['user_id'], $text, $pollInfo, $pollQuestionInfo);
                                 } else if ($pollQuestionInfo[$id]['question_type'] == 4) {
                                     $this->access->setSelectedDmsPollOption($this->user['user_id'], $text);
-                                    sendMessage($this->chatID, "case not-inline 4-1", null);
                                 }
 
                                 $newPollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
@@ -529,37 +523,31 @@ class AuthorizedUserScenario {
                                 switch ($pollQuestionInfo[$newId]['question_type']) {
                                     case 1:
                                         $this->salaryRoute->triggerActionForAskDmsPollQuestionWithSingleChoose($this->chatID, $newPollInfo, $pollQuestionInfo);
-                                        sendMessage($this->chatID, "case not-inline 1-2", null);
+                                        answerCallbackQuery($this->query["id"], "Данные загружены!");
                                         exit;
                                     case 2:
-    //                                     $options = $this->access->getSelectedDmsPollOptionForMultipleChoose($userId, $newPollInfo, $pollQuestionInfo);
-                                        // todo get and update the keyboard
                                         $this->salaryRoute->triggerActionForAskDmsPollQuestionWithMultipleChoose($this->chatID, $newPollInfo, $pollQuestionInfo);
-                                        sendMessage($this->chatID, "case not-inline 2-2", null);
+                                        answerCallbackQuery($this->query["id"], "Данные загружены!");
                                         exit;
                                     case 3:
                                         $this->salaryRoute->triggerActionForAskDmsPollQuestionWithFreeReply($this->chatID, $newPollInfo, $pollQuestionInfo);
-                                        sendMessage($this->chatID, "case not-inline 3-2", null);
+                                        answerCallbackQuery($this->query["id"], "Данные загружены!");
                                         exit;
                                     case 4:
                                         $this->salaryRoute->triggerActionForAskDmsPollQuestionWithScaleChoose($this->chatID, $newPollInfo, $pollQuestionInfo);
-                                        sendMessage($this->chatID, "case not-inline 4-2", null);
+                                        answerCallbackQuery($this->query["id"], "Данные загружены!");
                                         exit;
                                 }
                             } else {
                                 $this->access->increaseUserDmsPollState($this->user['user_id'], $pollInfo);
                                 if ($pollQuestionInfo[$id]['question_type'] == 1) {
-                                    answerCallbackQuery($this->query["id"], "case inline 1-1-");
                                     $this->access->setSelectedDmsPollOption($this->user['user_id'], $text);
                                 } else if ($pollQuestionInfo[$id]['question_type'] == 2) {
-                                    answerCallbackQuery($this->query["id"], "case inline 2-1-");
                                     $this->access->setSelectedDmsPollOptionForMultipleChoose($this->user['user_id'], $text, $pollQuestionInfo);
                                 } else if ($pollQuestionInfo[$id]['question_type'] == 3) {
-                                    answerCallbackQuery($this->query["id"], "case inline 3-1-");
                                     $this->access->setSelectedDmsPollOptionForFreeReply($this->user['user_id'], $text, $pollInfo, $pollQuestionInfo);
                                 } else if ($pollQuestionInfo[$id]['question_type'] == 4) {
                                     $this->access->setSelectedDmsPollOption($this->user['user_id'], $text);
-                                    answerCallbackQuery($this->query["id"], "case inline 4-1-");
                                 }
                                 $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
                                 $this->access->setPollAsFinished($this->user['user_id'], $pollInfo);
@@ -924,38 +912,34 @@ class AuthorizedUserScenario {
 
                     switch ($pollQuestionInfo[$newId]['question_type']) {
                         case 1:
-                            answerCallbackQuery($this->query["id"], "case 1-2");
+                            answerCallbackQuery($this->query["id"], "Данные загружены!");
                             $this->salaryRoute->triggerActionForAskDmsPollQuestionWithSingleChoose($this->chatID, $newPollInfo, $pollQuestionInfo);
                             exit;
                         case 2:
-                            answerCallbackQuery($this->query["id"], "case 2-2-2-2");
+                            answerCallbackQuery($this->query["id"], "Данные загружены!");
                             $this->access->setState($this->chatID, $this->states['dmsMultipleKeyboardChooseWaitingState']);
                             $this->access->resetPollOptionState($this->chatID, $newPollInfo, $pollQuestionInfo);
                             $this->salaryRoute->triggerActionForAskDmsPollQuestionWithMultipleChoose($this->chatID, $newPollInfo, $pollQuestionInfo);
                             exit;
                         case 3:
-                            answerCallbackQuery($this->query["id"], "case 3-2");
+                            answerCallbackQuery($this->query["id"], "Данные загружены!");
                             $this->salaryRoute->triggerActionForAskDmsPollQuestionWithFreeReply($this->chatID, $newPollInfo, $pollQuestionInfo);
                             exit;
                         case 4:
-                            answerCallbackQuery($this->query["id"], "case 4-2");
+                            answerCallbackQuery($this->query["id"], "Данные загружены!");
                             $this->salaryRoute->triggerActionForAskDmsPollQuestionWithScaleChoose($this->chatID, $newPollInfo, $pollQuestionInfo);
                             exit;
                     }
                 } else {
                     $this->access->increaseUserDmsPollState($this->user['user_id'], $pollInfo);
                     if ($pollQuestionInfo[$id]['question_type'] == 1) {
-                        answerCallbackQuery($this->query["id"], "case inline 1-1-");
                         $this->access->setSelectedDmsPollOption($this->user['user_id'], $text);
                     } else if ($pollQuestionInfo[$id]['question_type'] == 2) {
-                        answerCallbackQuery($this->query["id"], "case inline 2-1-");
                         $this->access->setSelectedDmsPollOptionForMultipleChoose($this->user['user_id'], $text, $pollQuestionInfo);
                     } else if ($pollQuestionInfo[$id]['question_type'] == 3) {
-                        answerCallbackQuery($this->query["id"], "case inline 3-1-");
                         $this->access->setSelectedDmsPollOptionForFreeReply($this->user['user_id'], $text, $pollInfo, $pollQuestionInfo);
                     } else if ($pollQuestionInfo[$id]['question_type'] == 4) {
                         $this->access->setSelectedDmsPollOption($this->user['user_id'], $text);
-                        answerCallbackQuery($this->query["id"], "case inline 4-1-");
                     }
                     $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
                     $this->access->setPollAsFinished($this->user['user_id'], $pollInfo);
@@ -972,17 +956,13 @@ class AuthorizedUserScenario {
                 if ($this->salaryRoute->shouldGoToNextQuestion($pollInfo, $pollQuestionInfo)) {
                     $this->access->increaseUserDmsPollState($this->user['user_id'], $pollInfo);
                     if ($pollQuestionInfo[$id]['question_type'] == 1) {
-                        answerCallbackQuery($this->query["id"], "case inline 1-1.0");
                         $this->access->setSelectedDmsPollOption($this->user['user_id'], $text);
                     } else if ($pollQuestionInfo[$id]['question_type'] == 2) {
-                        answerCallbackQuery($this->query["id"], "case inline 2-1.0");
 //                         $this->access->setSelectedDmsPollOptionForMultipleChoose($this->user['user_id'], $text, $pollQuestionInfo);
                     } else if ($pollQuestionInfo[$id]['question_type'] == 3) {
-                        answerCallbackQuery($this->query["id"], "case inline 3-1.0");
                         $this->access->setSelectedDmsPollOptionForFreeReply($this->user['user_id'], $text, $pollInfo, $pollQuestionInfo);
                     } else if ($pollQuestionInfo[$id]['question_type'] == 4) {
                         $this->access->setSelectedDmsPollOption($this->user['user_id'], $text);
-                        answerCallbackQuery($this->query["id"], "case inline 4-1.0");
                     }
 
                     $newPollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
@@ -992,19 +972,19 @@ class AuthorizedUserScenario {
                     switch ($pollQuestionInfo[$newId]['question_type']) {
                         case 1:
                             $this->salaryRoute->triggerActionForAskDmsPollQuestionWithSingleChoose($this->chatID, $newPollInfo, $pollQuestionInfo);
-                            answerCallbackQuery($this->query["id"], "case 1-2.0");
+                            answerCallbackQuery($this->query["id"], "Данные загружены!");
                             exit;
                         case 2:
                             $this->salaryRoute->triggerActionForAskDmsPollQuestionWithMultipleChoose($this->chatID, $newPollInfo, $pollQuestionInfo);
-                            answerCallbackQuery($this->query["id"], "case 2-2.0");
+                            answerCallbackQuery($this->query["id"], "Данные загружены!");
                             exit;
                         case 3:
                             $this->salaryRoute->triggerActionForAskDmsPollQuestionWithFreeReply($this->chatID, $newPollInfo, $pollQuestionInfo);
-                            answerCallbackQuery($this->query["id"], "case 3-2.0");
+                            answerCallbackQuery($this->query["id"], "Данные загружены!");
                             exit;
                         case 4:
                             $this->salaryRoute->triggerActionForAskDmsPollQuestionWithScaleChoose($this->chatID, $newPollInfo, $pollQuestionInfo);
-                            answerCallbackQuery($this->query["id"], "case 4-2.0");
+                            answerCallbackQuery($this->query["id"], "Данные загружены!");
                             exit;
                     }
                 } else {
@@ -1016,7 +996,7 @@ class AuthorizedUserScenario {
                     exit;
                 }
             case $this->commands['finishDmsPollInline']:
-                answerCallbackQuery($this->query["id"], "finishDmsPollInline!");
+                answerCallbackQuery($this->query["id"], "Опрос заврешен!");
                 exit;
             case $this->commands['sendDmsQuestionInline']:
                 $questionInfo = $this->access->getDmsQuestionInfo($this->chatID);
@@ -1082,17 +1062,13 @@ class AuthorizedUserScenario {
                         if ($this->salaryRoute->shouldGoToNextQuestion($pollInfo, $pollQuestionInfo)) {
                             $this->access->increaseUserDmsPollState($this->user['user_id'], $pollInfo);
                             if ($pollQuestionInfo[$id]['question_type'] == 1) {
-                                answerCallbackQuery($this->query["id"], "case inline 1-1");
                                 $this->access->setSelectedDmsPollOption($this->user['user_id'], $text);
                             } else if ($pollQuestionInfo[$id]['question_type'] == 2) {
-                                answerCallbackQuery($this->query["id"], "case inline 2-1");
                                 $this->access->setSelectedDmsPollOptionForMultipleChoose($this->user['user_id'], $text, $pollQuestionInfo);
                             } else if ($pollQuestionInfo[$id]['question_type'] == 3) {
-                                answerCallbackQuery($this->query["id"], "case inline 3-1");
                                 $this->access->setSelectedDmsPollOptionForFreeReply($this->user['user_id'], $text, $pollInfo, $pollQuestionInfo);
                             } else if ($pollQuestionInfo[$id]['question_type'] == 4) {
                                 $this->access->setSelectedDmsPollOption($this->user['user_id'], $text);
-                                answerCallbackQuery($this->query["id"], "case inline 4-1");
                             }
 
                             $newPollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
@@ -1101,37 +1077,33 @@ class AuthorizedUserScenario {
 
                             switch ($pollQuestionInfo[$newId]['question_type']) {
                                 case 1:
-                                    answerCallbackQuery($this->query["id"], "case 1-2");
+                                    answerCallbackQuery($this->query["id"], "Данные загружены!");
                                     $this->salaryRoute->triggerActionForAskDmsPollQuestionWithSingleChoose($this->chatID, $newPollInfo, $pollQuestionInfo);
                                     exit;
                                 case 2:
-                                    answerCallbackQuery($this->query["id"], "case 2-2.--");
+                                    answerCallbackQuery($this->query["id"], "Данные загружены!");
                                     $this->access->setState($this->chatID, $this->states['dmsMultipleKeyboardChooseWaitingState']);
                                     $this->salaryRoute->triggerActionForAskDmsPollQuestionWithMultipleChoose($this->chatID, $newPollInfo, $pollQuestionInfo);
                                     exit;
                                 case 3:
-                                    answerCallbackQuery($this->query["id"], "case 3-2");
+                                    answerCallbackQuery($this->query["id"], "Данные загружены!");
                                     $this->salaryRoute->triggerActionForAskDmsPollQuestionWithFreeReply($this->chatID, $newPollInfo, $pollQuestionInfo);
                                     exit;
                                 case 4:
-                                    answerCallbackQuery($this->query["id"], "case 4-2");
+                                    answerCallbackQuery($this->query["id"], "Данные загружены!");
                                     $this->salaryRoute->triggerActionForAskDmsPollQuestionWithScaleChoose($this->chatID, $newPollInfo, $pollQuestionInfo);
                                     exit;
                             }
                         } else {
                             $this->access->increaseUserDmsPollState($this->user['user_id'], $pollInfo);
                             if ($pollQuestionInfo[$id]['question_type'] == 1) {
-                                answerCallbackQuery($this->query["id"], "case inline 1-1-");
                                 $this->access->setSelectedDmsPollOption($this->user['user_id'], $text);
                             } else if ($pollQuestionInfo[$id]['question_type'] == 2) {
-                                answerCallbackQuery($this->query["id"], "case inline 2-1-");
                                 $this->access->setSelectedDmsPollOptionForMultipleChoose($this->user['user_id'], $text, $pollQuestionInfo);
                             } else if ($pollQuestionInfo[$id]['question_type'] == 3) {
-                                answerCallbackQuery($this->query["id"], "case inline 3-1-");
                                 $this->access->setSelectedDmsPollOptionForFreeReply($this->user['user_id'], $text, $pollInfo, $pollQuestionInfo);
                             } else if ($pollQuestionInfo[$id]['question_type'] == 4) {
                                 $this->access->setSelectedDmsPollOption($this->user['user_id'], $text);
-                                answerCallbackQuery($this->query["id"], "case inline 4-1-");
                             }
                             $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
                             $this->access->setPollAsFinished($this->user['user_id'], $pollInfo);
@@ -1145,10 +1117,11 @@ class AuthorizedUserScenario {
                         $this->access->setSelectedDmsPollOptionForUpdateMultipleChoose($this->user['user_id'], $text, $pollQuestionInfo);
                         $pollUserQuestionInfo = $this->access->getDmsUserPollQuestionsInfo($this->user['user_id'], 1);
                         $this->salaryRoute->triggerActionForUpdateDmsPollQuestionWithMultipleChoose($this->chatID, $this->messageId, $pollInfo, $pollQuestionInfo, $pollUserQuestionInfo);
-                        answerCallbackQuery($this->query["id"], "dmsMultipleKeyboardChooseWaitingState");
+                        answerCallbackQuery($this->query["id"], "Данные обновлены!");
                         exit;
                     default:
-                        sendMessage($this->chatID, "Default finished inline", null);
+                        answerCallbackQuery($this->query["id"], "Хм,интересно...");
+//                         sendMessage($this->chatID, "Default finished inline", null);
                         exit;
                 }
         }
