@@ -169,6 +169,10 @@ class AuthorizedUserScenario {
                     exit;
                 }
             case $this->commands['dmsAskAQuestion']:
+                $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
+                if (count($pollInfo != 0) && $pollInfo['last_state'] != null) {
+                    $this->access->setDmsPollLastState($this->user['user_id'], $this->state);
+                }
                 $this->access->setState($this->chatID, $this->states['dmsQuestionWaitingState']);
                 $this->salaryRoute->triggerActionForAskADmsQuestion($this->chatID);
                 exit;
@@ -477,10 +481,6 @@ class AuthorizedUserScenario {
                             $this->salaryRoute->triggerActionForSendPostponedVacationForm($this->chatID);
                             exit;
                         case $this->states['dmsQuestionWaitingState']:
-                            $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
-                            if (count($pollInfo != 0) && $pollInfo['last_state'] != null) {
-                                $this->access->setDmsPollLastState($this->user['user_id'], $this->state);
-                            }
                             $this->access->setDmsQuestionInfo($this->chatID, $text);
                             if($this->user['email'] != '') {
                                 $this->salaryRoute->triggerActionForDmsSendingConfirmation($this->chatID);
