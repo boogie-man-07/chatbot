@@ -189,7 +189,7 @@ class AuthorizedUserScenario {
 //                 if ($pollInfo['is_finished'] == 1]) {
 //                     $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
 //                 }
-                sendMessage($this->chatID, json_encode($pollInfo), null);
+                sendMessage($this->chatID, $pollInfo['is_finished'], null);
                 $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
                 $this->access->removeFindUserDataByChatID($this->chatID);
                 $this->access->removeVacationDataByChatID($this->chatID);
