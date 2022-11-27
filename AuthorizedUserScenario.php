@@ -915,7 +915,7 @@ class AuthorizedUserScenario {
                             exit;
                         case 2:
                             answerCallbackQuery($this->query["id"], "case 2-2");
-                            $this->access->setState($this->chatID, $this->states['dmsMultipleKeyboardChooseWaitingState']);
+                            $this->access->setState($this->chatID, $this->states['dmsPoolReplyWaitingState']);
                             $this->access->resetPollOptionState($this->chatID, $newPollInfo, $pollQuestionInfo);
                             $this->salaryRoute->triggerActionForAskDmsPollQuestionWithMultipleChoose($this->chatID, $newPollInfo, $pollQuestionInfo);
                             exit;
