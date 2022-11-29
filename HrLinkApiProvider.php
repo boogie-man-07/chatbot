@@ -26,11 +26,8 @@ class HrLinkApiProvider {
             //echo "cURL Error #: ".$err;
             return "Извините, но что-то пошло не так, попробуйте повторить позднее.";
         } else {
-//             $result = json_decode($response, true);
-//             $main = $this->fixComma($result['holiday_main']);
-//             $additional = $this->fixComma($result['holiday_more']);
-//             $restVacation = bcadd($main, $additional);
-            return $response;
+            $result = json_decode($response, true);
+            return $result;
         }
     }
 }
