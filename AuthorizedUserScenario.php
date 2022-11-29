@@ -147,7 +147,7 @@ class AuthorizedUserScenario {
                 $this->salaryRoute->triggerActionForShowDmsMenu($this->chatID, $this->user['firstname'], $this->user['dms_type'], $pollInfo['is_finished']);
                 // to delete
                 $applicationsList = $this->hrLinkApiProvider->getApplicationTypes();
-                sendMessage($this->chatID, $applicationsList, null);
+                sendMessage($this->chatID, json_encode($applicationsList), null);
                 exit;
             case $this->commands['dmsMemo']:
                 $this->salaryRoute->triggerActionForSendDmsMemo($this->chatID, $this->user['dms_type']);
