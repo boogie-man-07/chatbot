@@ -25,8 +25,9 @@ class AuthorizedUserScenario {
     var $query = null;
     var $logs = null;
     var $messageId = null;
+    var $hrLinkApiProvider = null;
 
-    function __construct($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $phonebookroute, $valuesRoute, $mainRulesRoute, $mainInformationRoute, $salaryRoute, $commands, $states, $state, $logics, $forms, $email, $vacationInfo, $calendarInfo, $query, $logs, $messageId) {
+    function __construct($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $phonebookroute, $valuesRoute, $mainRulesRoute, $mainInformationRoute, $salaryRoute, $commands, $states, $state, $logics, $forms, $email, $vacationInfo, $calendarInfo, $query, $logs, $messageId, $hrLinkApiProvider) {
         $this->chatID = $chatID;
         $this->user = $user;
         $this->username = $username;
@@ -50,6 +51,7 @@ class AuthorizedUserScenario {
         $this->query = $query;
         $this->logs = $logs;
         $this->messageId = $messageId;
+        $this->hrLinkApiProvider = $hrLinkApiProvider;
     }
 
     function run($text) {
@@ -143,6 +145,9 @@ class AuthorizedUserScenario {
             case $this->commands['dmsInformation']:
                 $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
                 $this->salaryRoute->triggerActionForShowDmsMenu($this->chatID, $this->user['firstname'], $this->user['dms_type'], $pollInfo['is_finished']);
+                // to delete
+                $applicationsList = $this->hrLinkApiProvider->getApplicationTypes();
+                sendMessage($this->chatID, $applicationsList, null);
                 exit;
             case $this->commands['dmsMemo']:
                 $this->salaryRoute->triggerActionForSendDmsMemo($this->chatID, $this->user['dms_type']);
