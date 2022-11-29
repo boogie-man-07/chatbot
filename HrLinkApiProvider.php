@@ -13,12 +13,11 @@ class HrLinkApiProvider {
             CURLOPT_MAXREDIRS => 10,
             CURLOPT_TIMEOUT => 300,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => {},
+            CURLOPT_CUSTOMREQUEST => "GET",
             CURLOPT_HTTPHEADER => array(
                 "cache-control: no-cache",
                 "Content-Type: application/json",
-                "User-Api-Token": "6255b66b-33c6-424d-8d7f-e85b9e5fc162"
+                "User-Api-Token: 6255b66b-33c6-424d-8d7f-e85b9e5fc162"
             ),
         ));
 
