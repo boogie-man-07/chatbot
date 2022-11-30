@@ -487,12 +487,12 @@ class AuthorizedUserScenario {
                             exit;
                         case $this->states['dmsQuestionWaitingState']:
                             $this->access->setDmsQuestionInfo($this->chatID, $text);
-                            if($this->user['email'] != '') {
-                                $this->salaryRoute->triggerActionForDmsSendingConfirmation($this->chatID);
-                                exit;
-                            } else {
+                            if($this->user['email'] == '' || $this->user['email'] == null) {
                                 $this->access->setState($this->chatID, $this->states['dmsEmailWaitingState']);
                                 $this->salaryRoute->triggerActionForDmsEmptyEmail($this->chatID);
+                                exit;
+                            } else {
+                                $this->salaryRoute->triggerActionForDmsSendingConfirmation($this->chatID);
                                 exit;
                             }
                         case $this->states['dmsEmailWaitingState']:
