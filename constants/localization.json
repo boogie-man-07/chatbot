@@ -35,6 +35,8 @@
         "dmsContacts": "Контакты",
         "dmsGoToSurvey": "Пройти опрос",
         "dmsAskAQuestion": "Задать вопрос",
+        "confirmedExit": "Выйти",
+        "declinedExit": "Остаться",
         "sendCodeInline": "sendConfirmationCode",
         "toStartInline": "goToTheStart",
         "userFullCardInline": "getUserCard",

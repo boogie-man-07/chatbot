@@ -73,12 +73,20 @@ class AuthorizedUserScenario {
                 $this->authroute->triggerActionForBotRestartedByAuthorized($this->chatID, $this->user['fullname']);
                 exit;
             case $this->commands['exit']:
+                $this->authroute->triggerActionForExitConfirmation($this->chatID, $this->user['firstname']);
+                exit;
+            case $this->commands['confirmedExit']:
                 $isUserRemoved = $this->access->removeUserCredentialsByChatID($this->chatID);
                 $isUserStateRemoved = $this->access->removeUserStateByChatID($this->chatID);
                 if ($isUserRemoved && $isUserStateRemoved) {
-                    $this->authroute->triggerActionForGoToTheStart($this->chatID, $this->username);
+                    $this->authroute->triggerActionForGoToTheStart($this->chatID, $this->user['firstname']);
+                    exit;
+                } else {
                     exit;
                 }
+            case $this->commands['declinedExit']:
+                $this->authroute->triggerActionForDeclinedExit($this->chatID, $this->user['firstname']);
+                exit;
             case $this->commands['phones']:
                 $this->access->setState($this->chatID, $this->states['findTelephoneNumberState']);
                 $this->phonebookroute->triggerActionForFindPhoneNumber($this->chatID);
@@ -560,7 +568,6 @@ class AuthorizedUserScenario {
                                 answerCallbackQuery($this->query["id"], "Опрос завершен!");
                                 exit;
                             }
-                            exit;
 //                         case $this->states['dmsPoolReplyWaitingState']:
 //                             $selectedOption = substr($text, 0, 1);
 //                             if ($this->salaryRoute->isCorrectDigit($text)) {
