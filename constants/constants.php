@@ -396,13 +396,13 @@ class constants {
     function getReplyForAskADmsPollQuestionWithFreeReply($pollInfo, $pollQuestionInfo) {
         $id = $pollInfo['poll_state'];
         $pollQuestionData = $pollQuestionInfo[$id];
-        return $pollQuestionData['question_text'];
+        return "<b>Вопрос №".$pollQuestionData['question_id']."</b>\n".$pollQuestionData['question_text'];
     }
 
     function getReplyForAskADmsPollQuestionWithScaleChoose($pollInfo, $pollQuestionInfo) {
         $id = $pollInfo['poll_state'];
         $pollQuestionData = $pollQuestionInfo[$id];
-        return $pollQuestionData['question_text'];
+        return "<b>Вопрос №".$pollQuestionData['question_id']."</b>\n".$pollQuestionData['question_text'];
     }
 
     function getReplyForFinishDmsPoll() {
