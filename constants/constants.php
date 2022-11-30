@@ -29,6 +29,10 @@ class constants {
         return "С возвращением, $username!\n Вы уже авторизованы и можете использовать меня на полную катушку!\nНиже меню с командами, которые я умею выполнять.";
     }
 
+    function getReplyForDeclinedExit($username) {
+        return "Отличное решение!".hex2bin('f09f9982');
+    }
+
     function getReplyForCommonMistake() {
         return "Ничего не понял, но я быстро учусь ".hex2bin('f09f9982').". Пожалуйста, воспользуйтесь командами в меню ниже!";
     }
@@ -556,5 +560,9 @@ class constants {
 
     function getReplyForIncorrectEmailFormatError() {
         return "К сожалению, введенный адрес электронной почты некорректен. Попробуйте еще раз!";
+    }
+
+    function getReplyForExitConfirmation($username) {
+        return "$username, Вы уверены, что хотите выйти?";
     }
 }

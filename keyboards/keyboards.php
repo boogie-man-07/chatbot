@@ -687,4 +687,22 @@ class keyboards {
 
         return $mainArray;
     }
+
+    function exitConfirmationKeyboard() {
+        $keyboard = array(
+            "keyboard" => array(
+                array(
+                    array(
+                        "text" => "Выйти"
+                    ),
+                    array(
+                        "text" => "Остаться"
+                    )
+                )
+            ),
+            "resize_keyboard" => true,
+            "one_time_keyboard" => false
+        );
+        return json_encode($keyboard);
+    }
 }

@@ -58,6 +58,12 @@ class authroute {
         sendMessage($chatID, $reply, $keyboard);
     }
 
+    function triggerActionForDeclinedExit($chatID, $username) {
+        $reply = $this->constants->getReplyForDeclinedExit($username);
+        $keyboard = $this->keyboards->mainKeyboard();
+        sendMessage($chatID, $reply, $keyboard);
+    }
+
     function triggerActionWithSendingConfirmationEmail($chatID, $username) {
         $reply = $this->constants->getReplyForEmailIsSended($username);
         sendMessage($chatID, $reply, null);
@@ -66,6 +72,12 @@ class authroute {
     function triggerActionForGoToTheStart($chatID, $username) {
         $reply = $this->constants->getReplyForGoToTheStart($username);
         $keyboard = $this->keyboards->helloKeyboard();
+        sendMessage($chatID, $reply, $keyboard);
+    }
+
+    function triggerActionForExitConfirmation($chatID, $username) {
+        $reply = $this->constants->getReplyForExitConfirmation($username);
+        $keyboard = $this->keyboards->exitConfirmationKeyboard();
         sendMessage($chatID, $reply, $keyboard);
     }
 
@@ -115,7 +127,11 @@ class authroute {
     }
 
     function isDialogInProgress($currentState) {
-        $dialogState = array('waiting for login', 'waiting for mobile number', 'waiting for confirmation code');
+        $dialogState = array(
+            'waiting for login',
+            'waiting for mobile number',
+            'waiting for confirmation code'
+        );
         if (in_array($currentState, $dialogState)) {
             return true;
         } else {
