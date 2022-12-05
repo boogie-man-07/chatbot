@@ -369,6 +369,10 @@ class SalaryRoute {
         }
     }
 
+    function pollShouldBeContinued($state) {
+        return $state == 'waiting for choose dms pool reply' || $state == 'waiting for multiple keyboard choose';
+    }
+
     function isSalaryMode($state, $states) {
         return $state == $states['salaryState'];
     }
