@@ -183,7 +183,7 @@ class AuthorizedUserScenario {
                 }
             case $this->commands['dmsAskAQuestion']:
                 $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
-                if (count($pollInfo != 0)) {
+                if (count($pollInfo != 0) && $this->salaryRoute->pollShouldBeContinued($this->state)) {
                     $this->access->setDmsPollLastState($this->user['user_id'], $this->state);
                 }
                 $this->access->setState($this->chatID, $this->states['dmsQuestionWaitingState']);
@@ -203,7 +203,7 @@ class AuthorizedUserScenario {
                 exit;
             case $this->commands['navigateToMainScreen']:
                 $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
-                if (count($pollInfo != 0)) {
+                if (count($pollInfo != 0) && $this->salaryRoute->pollShouldBeContinued($this->state)) {
                     $this->access->setDmsPollLastState($this->user['user_id'], $this->state);
                 }
                 $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
@@ -222,7 +222,7 @@ class AuthorizedUserScenario {
                         exit;
                     } else {
                         $this->access->saveFindUserData($this->chatID, $result['firstname'], $result['lastname']);
-                        //todo maybe comment below, need to check how it works
+                        //todo maybe need to comment setState below, need to check how it works
                         $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
                         $this->phonebookroute->triggerActionForGetUserCardOptions($this->chatID);
                         exit;
@@ -245,7 +245,7 @@ class AuthorizedUserScenario {
                                 $result = $this->access->getUserByFirstnameAndLastName($firstname, $lastname, $this->logics->getUserPrivelegesForUserCards($this->user));
                                 if ($result) {
                                     $this->access->saveFindUserData($this->chatID, $result['firstname'], $result['lastname']);
-                                    //todo maybe comment below, need to check how it works
+                                    //todo maybe need to comment setState below, need to check how it works
                                     $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
                                     $this->phonebookroute->triggerActionForGetUserCardOptions($this->chatID);
                                     exit;
