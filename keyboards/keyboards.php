@@ -394,7 +394,24 @@ class keyboards {
                         "callback_data" => "documentsCopiesIssuingCase"
                     )
                 )
-)
+            )
+        ));
+    }
+
+    function getIssuingDocumentsListInlineKeyboard() {
+        return json_encode(array(
+            "inline_keyboard" => array(
+                array(
+                    array("text" => "1", "callback_data" => "regularVacationCase"),
+                    array("text" => "2", "callback_data" => "regularVacationCase"),
+                    array("text" => "3", "callback_data" => "regularVacationCase"),
+                    array("text" => "4", "callback_data" => "regularVacationCase"),
+                    array("text" => "5", "callback_data" => "regularVacationCase"),
+                    array("text" => "6", "callback_data" => "regularVacationCase"),
+                    array("text" => "7", "callback_data" => "regularVacationCase")
+
+                )
+            )
         ));
     }
 
