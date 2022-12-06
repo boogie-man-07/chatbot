@@ -1077,7 +1077,7 @@ class AuthorizedUserScenario {
                     case $this->states['issuingDocumentChooseWaitingState']:
                         sendMessage($this->chatID, $text, null);
                         answerCallbackQuery($this->query["id"], "Данные загружены!");
-                        exit
+                        exit;
                     case $this->states['dmsPoolReplyWaitingState']:
                         $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
                         $pollQuestionInfo = $this->access->getDmsPollQuestionsInfo(1);

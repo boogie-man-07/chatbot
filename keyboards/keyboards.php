@@ -402,13 +402,13 @@ class keyboards {
         return json_encode(array(
             "inline_keyboard" => array(
                 array(
-                    array("text" => "1", "callback_data" => "regularVacationCase"),
-                    array("text" => "2", "callback_data" => "regularVacationCase"),
-                    array("text" => "3", "callback_data" => "regularVacationCase"),
-                    array("text" => "4", "callback_data" => "regularVacationCase"),
-                    array("text" => "5", "callback_data" => "regularVacationCase"),
-                    array("text" => "6", "callback_data" => "regularVacationCase"),
-                    array("text" => "7", "callback_data" => "regularVacationCase")
+                    array("text" => "1", "callback_data" => "1"),
+                    array("text" => "2", "callback_data" => "2"),
+                    array("text" => "3", "callback_data" => "3"),
+                    array("text" => "4", "callback_data" => "4"),
+                    array("text" => "5", "callback_data" => "5"),
+                    array("text" => "6", "callback_data" => "6"),
+                    array("text" => "7", "callback_data" => "7")
 
                 )
             )
