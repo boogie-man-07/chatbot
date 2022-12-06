@@ -1079,16 +1079,16 @@ class AuthorizedUserScenario {
                         }
                     case $this->states['issuingDocumentChooseWaitingState']:
                         $this->access->saveIssuingDocumentData($this->user['user_id'], (int)$text);
-                        switch ((int)$text) {
-                            case 1; case 2; case 3:
+                        switch ($text) {
+                            case "1"; case "2"; case "3":
                                 $this->salaryRoute->triggerActionForIssuingDocumentConfirmSmsSending($this->chatID);
                                 answerCallbackQuery($this->query["id"], "Данные загружены!");
                                 exit;
-                            case 4; case 5; case 6:
+                            case "4"; case "5"; case "6":
                                 // todo
                                 answerCallbackQuery($this->query["id"], "Данные загружены!");
                                 exit;
-                            case 7:
+                            case "7":
                                 // todo
                                 answerCallbackQuery($this->query["id"], "Данные загружены!");
                                 exit;
