@@ -63,8 +63,7 @@ class AuthorizedUserScenario {
             // remove
             case $this->commands['myScheduler']:
                 $currentMonth = $this->salaryRoute->getCurrentMonth();
-                $calendarOffset = "0";
-                $this->access->setCalendarOffset($this->user['user_id'], $calendarOffset);
+                $this->access->setCalendarOffset($this->user['user_id'], "0");
                 $monthlyWorkData = $this->calendarInfo->getMonthlyData($this->user['user_id'], $currentMonth, $calendarOffset);
                 $this->salaryRoute->triggerCalendarAction($this->chatID, $monthlyWorkData);
                 exit;
