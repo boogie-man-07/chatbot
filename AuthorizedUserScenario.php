@@ -885,6 +885,13 @@ class AuthorizedUserScenario {
                     answerCallbackQuery($this->query["id"], "Не удалось отправить письмо, повторите попытку!");
                     exit;
                 }
+            case $this->commands['documentsIssuingCaseInline']:
+                $this->salaryRoute->triggerActionForGetIssuingDocumentsList($this->chatID);
+                answerCallbackQuery($this->query["id"], "Список документов загружен!");
+                exit;
+            case $this->commands['documentsCopiesIssuingCaseInline']:
+                answerCallbackQuery($this->query["id"], "documentsCopiesIssuingCaseInline");
+                exit;
             case $this->commands['proceedDmsSurveyInline']:
                 $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
                 $id = $pollInfo['poll_state'];

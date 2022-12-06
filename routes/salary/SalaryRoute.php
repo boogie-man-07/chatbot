@@ -233,7 +233,13 @@ class SalaryRoute {
         $keyboard = $this->keyboards->getSendPostponedVacationFormInlineKeyboard();
         sendMessage($chatID, $reply, $keyboard);
     }
-    // remove
+
+    function triggerActionForGetIssuingDocumentsList($chatID) {
+        $reply = $this->constants->getIssuingDocumentsListText();
+        $keyboard = $this->keyboards->getIssuingDocumentsListInlineKeyboard();
+        sendMessage($chatID, $reply, $keyboard);
+    }
+
     function triggerCalendarAction($chatID, $monthlyWorkData) {
         $reply = "Ваши рабочие дни на ".$monthlyWorkData['currentMonth']." года.";
         $keyboard = $this->keyboards->getEmployeeMonthlyWorkdaysCalendar($monthlyWorkData);

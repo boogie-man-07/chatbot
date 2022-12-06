@@ -52,6 +52,8 @@
         "sendDmsQuestionInline": "sendDmsQuestion",
         "regularVacationCaseInline": "regularVacationCase",
         "postponedVacationCaseInline": "postponedVacationCase",
+        "documentsIssuingCaseInline": "documentsIssuingCase",
+        "documentsCopiesIssuingCaseInline": "documentsCopiesIssuingCase",
         "triggerMainVacationInline": "triggerMainVacation",
         "triggerAdditionalVacationInline": "triggerAdditionalVacation",
         "triggerNoPaymentVacationInline": "triggerNoPaymentVacation",
