@@ -1527,6 +1527,20 @@ class access {
         return $returnArray;
     }
 
+    function saveIssuingDocumentData($userId, $text) {
+        $sql = "INSERT INTO user_issued_document_data SET user_id=?, issue_type=1, document_type=?";
+        $statement = $this->conn->prepare($sql);
+
+        if (!$statement) {
+            throw new Exception($statement->error);
+        }
+
+        $statement->bind_param("si", $userId, (int)$text);
+        $returnValue = $statement->execute();
+
+        return $returnValue;
+    }
+
     function getDmsPollInfo($userId) {
         $returnArray = array();
         $sql = "SELECT * FROM polls_user_data WHERE poll_id = 1 and user_id = '".$userId."'";
