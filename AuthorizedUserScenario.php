@@ -893,6 +893,9 @@ class AuthorizedUserScenario {
             case $this->commands['documentsCopiesIssuingCaseInline']:
                 answerCallbackQuery($this->query["id"], "documentsCopiesIssuingCaseInline");
                 exit;
+            case $this->commands['sendConfirmationSmsInline']:
+                answerCallbackQuery($this->query["id"], "Код отправлен в SMS!");
+                exit;
             case $this->commands['proceedDmsSurveyInline']:
                 $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
                 $id = $pollInfo['poll_state'];
@@ -1076,8 +1079,20 @@ class AuthorizedUserScenario {
                         }
                     case $this->states['issuingDocumentChooseWaitingState']:
                         $this->access->saveIssuingDocumentData($this->user['user_id'], (int)$text);
-                        answerCallbackQuery($this->query["id"], "Данные загружены!");
-                        exit;
+                        switch ((int)$text) {
+                            case 1; case 2; case 3:
+                                $this->salaryRoute->triggerActionForIssuingDocumentConfirmSmsSending($this->chatID);
+                                answerCallbackQuery($this->query["id"], "Данные загружены!");
+                                exit;
+                            case 4; case 5; case 6:
+                                // todo
+                                answerCallbackQuery($this->query["id"], "Данные загружены!");
+                                exit;
+                            case 7:
+                                // todo
+                                answerCallbackQuery($this->query["id"], "Данные загружены!");
+                                exit;
+                        }
                     case $this->states['dmsPoolReplyWaitingState']:
                         $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
                         $pollQuestionInfo = $this->access->getDmsPollQuestionsInfo(1);

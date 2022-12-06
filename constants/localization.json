@@ -62,6 +62,7 @@
         "sendOldRegularVacationFormInline": "sendOldRegularVacationForm",
         "sendPostponedVacationFormInline": "sendPostponedVacationForm",
         "sendOldPostponedVacationFormInline": "sendOldPostponeVacationForm",
+        "sendConfirmationSmsInline": "sendConfirmationSms",
         "proceedDmsSurveyInline": "proceedDmsSurvey",
         "returnToNonFinishedDmsSurveyInline": "returnToNonFinishedDmsSurvey",
         "nextDmsPollOptionInline": "nextDmsPollOption",
