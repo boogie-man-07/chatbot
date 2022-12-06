@@ -1528,14 +1528,14 @@ class access {
     }
 
     function saveIssuingDocumentData($userId, $text) {
-        $sql = "INSERT INTO user_issued_document_data SET user_id=?, issue_type=1, document_type=?";
+        $sql = "INSERT INTO user_issued_document_data SET user_id=?, issue_type = 1, document_type=?";
         $statement = $this->conn->prepare($sql);
 
         if (!$statement) {
             throw new Exception($statement->error);
         }
 
-        $statement->bind_param("si", $userId, (int)$text);
+        $statement->bind_param("si", $userId, $text);
         $returnValue = $statement->execute();
 
         return $returnValue;

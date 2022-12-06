@@ -1075,7 +1075,7 @@ class AuthorizedUserScenario {
                             exit;
                         }
                     case $this->states['issuingDocumentChooseWaitingState']:
-                        $this->access->saveIssuingDocumentData($this->user['user_id'], $text);
+                        $this->access->saveIssuingDocumentData($this->user['user_id'], (int)$text);
                         answerCallbackQuery($this->query["id"], "Данные загружены!");
                         exit;
                     case $this->states['dmsPoolReplyWaitingState']:
