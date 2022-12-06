@@ -240,6 +240,12 @@ class SalaryRoute {
         sendMessage($chatID, $reply, $keyboard);
     }
 
+    function triggerActionForIssuingDocumentConfirmSmsSending($this->chatID) {
+        $reply = $this->constants->getIssuingDocumentConfirmSmsSendingText();
+        $keyboard = $this->keyboards->getIssuingDocumentsConfirmSmSSendingInlineKeyboard();
+        sendMessage($chatID, $reply, $keyboard);
+    }
+
     function triggerCalendarAction($chatID, $monthlyWorkData) {
         $reply = "Ваши рабочие дни на ".$monthlyWorkData['currentMonth']." года.";
         $keyboard = $this->keyboards->getEmployeeMonthlyWorkdaysCalendar($monthlyWorkData);
