@@ -886,6 +886,7 @@ class AuthorizedUserScenario {
                     exit;
                 }
             case $this->commands['documentsIssuingCaseInline']:
+                $this->access->setState($this->chatID, $this->states['issuingDocumentChooseWaitingState']);
                 $this->salaryRoute->triggerActionForGetIssuingDocumentsList($this->chatID);
                 answerCallbackQuery($this->query["id"], "Список документов загружен!");
                 exit;
@@ -1073,6 +1074,10 @@ class AuthorizedUserScenario {
                             answerCallbackQuery($this->query["id"], "Данные загружены!");
                             exit;
                         }
+                    case $this->states['issuingDocumentChooseWaitingState']:
+                        sendMessage($this->chatID, $text, null);
+                        answerCallbackQuery($this->query["id"], "Данные загружены!");
+                        exit
                     case $this->states['dmsPoolReplyWaitingState']:
                         $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
                         $pollQuestionInfo = $this->access->getDmsPollQuestionsInfo(1);
