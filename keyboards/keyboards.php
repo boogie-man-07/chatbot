@@ -381,8 +381,20 @@ class keyboards {
                         "text" => "Заявление на перенос отпуска",
                         "callback_data" => "postponedVacationCase"
                     )
+                ),
+                array(
+                    array(
+                        "text" => "Заявление на выдачу документов",
+                        "callback_data" => "documentsIssuingCase"
+                    )
+                ),
+                array(
+                    array(
+                        "text" => "Заявление на выдачу копии документов",
+                        "callback_data" => "documentsCopiesIssuingCase"
+                    )
                 )
-            )
+)
         ));
     }
 
