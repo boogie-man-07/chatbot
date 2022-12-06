@@ -240,7 +240,7 @@ class SalaryRoute {
         sendMessage($chatID, $reply, $keyboard);
     }
 
-    function triggerActionForIssuingDocumentConfirmSmsSending($this->chatID) {
+    function triggerActionForIssuingDocumentConfirmSmsSending($chatID) {
         $reply = $this->constants->getIssuingDocumentConfirmSmsSendingText();
         $keyboard = $this->keyboards->getIssuingDocumentsConfirmSmSSendingInlineKeyboard();
         sendMessage($chatID, $reply, $keyboard);
