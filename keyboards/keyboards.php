@@ -593,11 +593,10 @@ class keyboards {
         $mainArray = array();
 
         $headerArray = array(
-             array(
-                 "text" => "Дней ".hex2bin("E29880")." ".$monthlyWorkData['totalWorkDays']." = ".$monthlyWorkData['totalDayWorkHours']." ч / Ночей ".hex2bin("F09F8C99")." ".$monthlyWorkData['totalWorkNights']." = ".$monthlyWorkData['totalNightWorkHours']." ч",
-                 "callback_data" => "defaultCallbackResponse"
-             )
-         );
+            array("text" => "<<", "callback_data" => "previousMonthCalendarDataAction"),
+            array("text" => $monthlyWorkData['currentMonth'], "callback_data" => "defaultCallbackResponse"),
+            array("text" => ">>","callback_data" => "nextMonthCalendarDataAction")
+        );
         $weeksDayArray = array(
             array("text" => "Пн", "callback_data" => "defaultCallbackResponse"),
             array("text" => "Вт", "callback_data" => "defaultCallbackResponse"),
@@ -608,9 +607,10 @@ class keyboards {
             array("text" => "Вс", "callback_data" => "defaultCallbackResponse")
         );
         $footerArray = array(
-            array("text" => "<<", "callback_data" => "previousMonthCalendarDataAction"),
-            array("text" => $monthlyWorkData['currentMonth'], "callback_data" => "defaultCallbackResponse"),
-            array("text" => ">>","callback_data" => "nextMonthCalendarDataAction")
+             array(
+                 "text" => hex2bin("E29880")." Дней ".$monthlyWorkData['totalWorkDays']." = ".$monthlyWorkData['totalDayWorkHours']." ч / ".hex2bin("F09F8C99")." Ночей ".$monthlyWorkData['totalWorkNights']." = ".$monthlyWorkData['totalNightWorkHours']." ч",
+                 "callback_data" => "defaultCallbackResponse"
+             )
         );
 
         array_push($mainArray, $headerArray);
