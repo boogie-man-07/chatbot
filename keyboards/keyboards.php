@@ -420,7 +420,6 @@ class keyboards {
             "inline_keyboard" => array(
                 array(
                     array("text" => "Отправить код", "callback_data" => "sendConfirmationSms")
-
                 )
             )
         ));
