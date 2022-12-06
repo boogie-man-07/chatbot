@@ -61,7 +61,7 @@ class AuthorizedUserScenario {
 
         switch ($text) {
             // remove
-            case $this->commands['myScheduler']:
+            case $this->commands['calendar']:
                 $currentMonth = $this->salaryRoute->getCurrentMonth();
                 $calendarOffset = "0";
                 $this->access->setCalendarOffset($this->user['user_id'], $calendarOffset);
