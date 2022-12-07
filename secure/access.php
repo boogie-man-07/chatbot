@@ -1552,7 +1552,7 @@ class access {
 
     function getIssuingDocumentData($userId, $bossFullName) {
         $returnArray = array();
-        $sql = "SELECT user_id FROM phonebook WHERE fullname like '@".$bossFullName."@'";
+        $sql = "SELECT user_id FROM phonebook WHERE fullname like '%".$bossFullName."%'";
         $result = $this->conn->query($sql);
         if ($result != null && (mysqli_num_rows($result) >= 1 )) {
             $row = $result->fetch_array(MYSQLI_ASSOC);
