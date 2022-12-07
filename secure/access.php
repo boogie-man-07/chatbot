@@ -1556,20 +1556,19 @@ class access {
         $result = $this->conn->query($sql);
         if ($result != null && (mysqli_num_rows($result) >= 1 )) {
             $row = $result->fetch_array(MYSQLI_ASSOC);
-            return $row;
-//             $sql2 = "SELECT * from  user_issued_document_data WHERE user_id = ?";
-//             $result2 = $this->conn->query($sql2);
-//             if ($result2 != null && (mysqli_num_rows($result2) >= 1 )) {
-//                 $row2 = $result2->fetch_array(MYSQLI_ASSOC);
-//                 $item = array(
-//                     'bossId' => $row['boss'],
-//                     'userId' => $row2['user_id']
-//                 );
-//                 array_push($returnArray, $item);
-//                 return $returnArray;
-//             } else {
-//                 return $returnArray;
-//             }
+            $sql2 = "SELECT * from  user_issued_document_data WHERE user_id = ?";
+            $result2 = $this->conn->query($sql2);
+            if ($result2 != null && (mysqli_num_rows($result2) >= 1 )) {
+                $row2 = $result2->fetch_array(MYSQLI_ASSOC);
+                $item = array(
+                    'bossId' => $row['boss'],
+                    'userId' => $row2['user_id']
+                );
+                array_push($returnArray, $item);
+                return $returnArray;
+            } else {
+                return $returnArray;
+            }
         } else {
             return $returnArray;
         }
