@@ -895,6 +895,8 @@ class AuthorizedUserScenario {
                 exit;
             case $this->commands['sendConfirmationSmsInline']:
                 // get userdata including boss user_id as boss external_id
+                $documentData = $this->access->getIssuingDocumentData($this->user['user_id'], $this->user['boss']);
+                sendMessage($this->chatID, json_encode($documentData), null);
                 // todo create document
                 // todo send document to api with one request (generateToken, create fileId, createApplicationGroup, sendSmsCode)
                 // todo trigger action for waiting SMS code entering and validation
