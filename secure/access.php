@@ -1533,7 +1533,6 @@ class access {
         if ($result != null && (mysqli_num_rows($result) >= 1 )) {
             $sql = "UPDATE user_issued_document_data SET document_type = ? WHERE user_id = ?";
             $statement = $this->conn->prepare($sql);
-
             if (!$statement) {
                 throw new Exception($statement->error);
             }
@@ -1549,6 +1548,30 @@ class access {
             $returnValue = $statement->execute();
         }
         return $returnValue;
+    }
+
+    function getIssuingDocumentData($userId, $bossFullName) {
+        $returnArray = array();
+        $sql = "SELECT user_id FROM phonebook WHERE fullname like '@".$bossFullName."@'";
+        $result = $this->conn->query($sql);
+        if ($result != null && (mysqli_num_rows($result) >= 1 )) {
+            $row = $result->fetch_array(MYSQLI_ASSOC);
+            $sql2 = "SELECT * from  user_issued_document_data WHERE user_id = ?";
+            $result2 = $this->conn->query($sql2);
+            if ($result2 != null && (mysqli_num_rows($result2) >= 1 )) {
+                $row2 = $result2->fetch_array(MYSQLI_ASSOC);
+                $item = array(
+                    'bossId' => $row[0]['boss'],
+                    'userId' => $row2[0]['user_id']
+                );
+                array_push($returnArray, $item);
+                return $returnArray;
+            } else {
+                return $returnArray;
+            }
+        } else {
+            return $returnArray;
+        }
     }
 
     function getDmsPollInfo($userId) {
