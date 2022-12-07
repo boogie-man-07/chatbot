@@ -894,6 +894,10 @@ class AuthorizedUserScenario {
                 answerCallbackQuery($this->query["id"], "documentsCopiesIssuingCaseInline");
                 exit;
             case $this->commands['sendConfirmationSmsInline']:
+                // get userdata including boss user_id as boss external_id
+                // todo create document
+                // todo send document to api with one request (generateToken, create fileId, createApplicationGroup, sendSmsCode)
+                // todo trigger action for waiting SMS code entering and validation
                 answerCallbackQuery($this->query["id"], "Код отправлен в SMS!");
                 exit;
             case $this->commands['proceedDmsSurveyInline']:
