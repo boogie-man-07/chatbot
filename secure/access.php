@@ -1556,12 +1556,12 @@ class access {
         $result = $this->conn->query($sql);
         if ($result != null && (mysqli_num_rows($result) >= 1 )) {
             $row = $result->fetch_array(MYSQLI_ASSOC);
-            $sql2 = "SELECT * from  user_issued_document_data WHERE user_id = ?";
+            $sql2 = "SELECT * from  user_issued_document_data WHERE user_id = '".$userId."'";
             $result2 = $this->conn->query($sql2);
             if ($result2 != null && (mysqli_num_rows($result2) >= 1 )) {
                 $row2 = $result2->fetch_array(MYSQLI_ASSOC);
                 $item = array(
-                    'bossId' => $row['boss'],
+                    'bossId' => $row['user_id'],
                     'userId' => $row2['user_id']
                 );
                 array_push($returnArray, $item);
