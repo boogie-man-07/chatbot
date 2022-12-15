@@ -110,7 +110,7 @@ class access {
 
         $returnArray = array();
         //$sql = "SELECT * FROM phonebook WHERE tg_chat_id='".$tg_chat_id."'";
-        $sql = "SELECT ph.*, ed.dms_type FROM phonebook ph left join employee_dms ed ON ph.user_id = ed.user_id WHERE ph.tg_chat_id='".$tg_chat_id."'";
+        $sql = "SELECT ph.*, ed.dms_type, ed.is_poll_available FROM phonebook ph left join employee_dms ed ON ph.user_id = ed.user_id WHERE ph.tg_chat_id='".$tg_chat_id."'";
         $result = $this->conn->query($sql);
 
         // if we have at least 1 result returned
@@ -1587,14 +1587,14 @@ class access {
         return $returnArray;
     }
 
-    function setDmsPollInfo($userId, $pollState, $isFinished) {
-        $sql = "INSERT INTO polls_user_data SET poll_id = 1, user_id = ?, poll_state = ?, is_finished = ?";
+    function setDmsPollInfo($userId, $pollState, $isFinished, $isRelevant) {
+        $sql = "INSERT INTO polls_user_data SET poll_id = 1, user_id = ?, poll_state = ?, is_finished = ?, is_relevant = ?";
         $statement = $this->conn->prepare($sql);
 
         if (!$statement) {
             throw new Exception($statement->error);
         }
-        $statement->bind_param("sii", $userId, $pollState, $isFinished);
+        $statement->bind_param("siii", $userId, $pollState, $isFinished, $isRelevant);
         $returnValue = $statement->execute();
     }
 
