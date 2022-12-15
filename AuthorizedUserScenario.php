@@ -152,7 +152,7 @@ class AuthorizedUserScenario {
                 exit;
             case $this->commands['dmsInformation']:
                 $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
-                $this->salaryRoute->triggerActionForShowDmsMenu($this->chatID, $this->user['firstname'], $this->user['dms_type'], $pollInfo['is_finished']);
+                $this->salaryRoute->triggerActionForShowDmsMenu($this->chatID, $this->user['firstname'], $this->user['dms_type'], $pollInfo['is_finished'], $this->user['is_poll_available']);
                 // to delete
 //                 $applicationsList = $this->hrLinkApiProvider->getApplicationTypes();
 //                 sendMessage($this->chatID, $applicationsList['applicationTypes'][0]['name'], null);
@@ -166,21 +166,9 @@ class AuthorizedUserScenario {
             case $this->commands['dmsContacts']:
                 $this->salaryRoute->triggerActionForSendDmsContacts($this->chatID, $this->user['dms_type']);
                 exit;
-            case $this->commands['dmsGoToSurvey']:
-                $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
-                if ($pollInfo) {
-                    if ($pollInfo['is_finished']) {
-                        $this->salaryRoute->triggerActionForPollIsAlreadyFinished($this->chatID);
-                        exit;
-                    } else {
-                        $this->salaryRoute->triggerActionForProceedDmsSurvey($this->chatID, $pollInfo['poll_state']);
-                        exit;
-                    }
-                } else {
-                    $this->access->setDmsPollInfo($this->user['user_id'], 0, 0);
-                    $this->salaryRoute->triggerActionForProceedDmsSurvey($this->chatID, 0);
-                    exit;
-                }
+            case $this->commands['askForDmsUsage']:
+                $this->salaryRoute->triggerActionForAskToProceedDmsSurvey($this->chatID);
+                exit;
             case $this->commands['dmsAskAQuestion']:
                 $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
                 if (count($pollInfo != 0) && $this->salaryRoute->pollShouldBeContinued($this->state)) {
@@ -901,6 +889,29 @@ class AuthorizedUserScenario {
                 // todo send document to api with one request (generateToken, create fileId, createApplicationGroup, sendSmsCode)
                 // todo trigger action for waiting SMS code entering and validation
                 answerCallbackQuery($this->query["id"], "Код отправлен в SMS!");
+                exit;
+            case $this->commands['dmsGoToSurveyInline']:
+                $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
+                if ($pollInfo) {
+                    if ($pollInfo['is_finished']) {
+                        $this->salaryRoute->triggerActionForPollIsAlreadyFinished($this->chatID);
+                        answerCallbackQuery($this->query["id"], "Данные загружены!");
+                        exit;
+                    } else {
+                        $this->salaryRoute->triggerActionForProceedDmsSurvey($this->chatID, $pollInfo['poll_state']);
+                        answerCallbackQuery($this->query["id"], "Данные загружены!");
+                        exit;
+                    }
+                } else {
+                    $this->access->setDmsPollInfo($this->user['user_id'], 0, 0, 1);
+                    $this->salaryRoute->triggerActionForProceedDmsSurvey($this->chatID, 0);
+                    answerCallbackQuery($this->query["id"], "Данные загружены!");
+                    exit;
+                }
+            case $this->commands['dmsNotRelevantToProceedWithSurveyInline']:
+                $this->access->setDmsPollInfo($this->user['user_id'], 0, 1, 0);
+                $this->salaryRoute->triggerActionForNotRelevantToProceedDmsSurvey($this->chatID);
+                answerCallbackQuery($this->query["id"], "Данные загружены!");
                 exit;
             case $this->commands['proceedDmsSurveyInline']:
                 $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);

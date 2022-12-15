@@ -324,18 +324,18 @@ class constants {
         return "Запрос документа необходимо подтвердить вводом кода подтверждения, полученного в SMS.";
     }
 
-    function getReplyForEnterDmsMenu($firstname, $dmsType, $isPollFinished) {
+    function getReplyForEnterDmsMenu($firstname, $dmsType, $isPollFinished, $isPollAvailable) {
         switch ($dmsType) {
             case 0:
                 return "Добрый день, $firstname. Вы будете подключены к программе ДМС по истечении испытательного срока, информацию о подключении Вы получите на электронную почту, либо Вас уведомит Ваш непосредственный руководитель.";
             case 1:
-                if ($isPollFinished) {
+                if ($isPollFinished && !$isPollAvailable) {
                     return " Добрый день, $firstname. Вы подключены к программе ДМС СК ИНГОССТРАХ. Выберите необходимый пункт меню.";
                 } else {
                     return "Добрый день, $firstname. Вы подключены к программе ДМС СК ИНГОССТРАХ. Предлагаем Вам пройти опрос по удовлетворенности услугами ДМС, для этого выберите пункт меню -  \"Пройти опрос\"";
                 }
             case 2:
-                if ($isPollFinished) {
+                if ($isPollFinished && !$isPollAvailable) {
                     return " Добрый день, $firstname. Вы подключены к программе ДМС СК Согласие. Выберите необходимый пункт меню.";
                 } else {
                     return "Добрый день, $firstname. Вы подключены к программе ДМС СK Согласие. Предлагаем Вам пройти опрос по удовлетворенности услугами ДМС, для этого выберите пункт меню -  \"Пройти опрос\"";
@@ -368,6 +368,14 @@ class constants {
             case 2:
                 return "<b>Серякова Екатерина</b>\nВремя работы: с 8.00 до 17.00\nМоб. телефон: +7(927)119-70-31\nКруглосуточный пульт: +7(800)250-01-01";
         }
+    }
+
+    function getReplyForAskToProceedDmsSurvey() {
+        return "Подскажите, пользовались ли Вы программой ДМС?";
+    }
+
+    function getReplyForNotRelevantToProceedDmsSurvey() {
+        return "Спасибо за участие, в настоящее время Ваш опыт не релевантен для прохождения опроса.";
     }
 
     function getReplyForProceedDmsSurvey($pollState) {
