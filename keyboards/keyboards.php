@@ -313,7 +313,7 @@ class keyboards {
         ));
     }
 
-    function getDmsMenuKeyboard($dmsType, $isPollFinished) {
+    function getDmsMenuKeyboard($dmsType, $isPollFinished, $isPollAvailable) {
         if ($dmsType == 0) {
             return json_encode(array(
                 "keyboard" => array(
@@ -326,7 +326,7 @@ class keyboards {
                 "one_time_keyboard" => false
             ));
         } else {
-            if (!$isPollFinished) {
+            if (!$isPollFinished && $isPollAvailable) {
                 return json_encode(array(
                     "keyboard" => array(
                         array(
@@ -523,6 +523,17 @@ class keyboards {
                         "text" => "Отправить заявление",
                         "callback_data" => "sendPostponedVacationForm"
                     )
+                )
+            )
+        ));
+    }
+
+    function getAskToProceedDmsSurveyInlineKeyboard() {
+        return json_encode(array(
+            "inline_keyboard" => array(
+                array(
+                    array("text" => "Пользовался", "callback_data" => "dmsGoToSurvey"),
+                    array("text" => "Пока нет", "callback_data" => "dmsNotRelevantToProceedWithSurvey")
                 )
             )
         ));

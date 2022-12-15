@@ -20,9 +20,9 @@ class SalaryRoute {
         sendMessage($chatID, $reply, $keyboard);
     }
 
-    function triggerActionForShowDmsMenu($chatID, $firstname, $dmsType, $isPollFinished) {
-        $reply = $this->constants->getReplyForEnterDmsMenu($firstname, $dmsType, $isPollFinished);
-        $keyboard = $this->keyboards->getDmsMenuKeyboard($dmsType, $isPollFinished);
+    function triggerActionForShowDmsMenu($chatID, $firstname, $dmsType, $isPollFinished, $isPollAvailable) {
+        $reply = $this->constants->getReplyForEnterDmsMenu($firstname, $dmsType, $isPollFinished, $isPollAvailable);
+        $keyboard = $this->keyboards->getDmsMenuKeyboard($dmsType, $isPollFinished, $isPollAvailable);
         sendMessage($chatID, $reply, $keyboard);
     }
 
@@ -38,6 +38,17 @@ class SalaryRoute {
 
     function triggerActionForSendDmsContacts($chatID, $dmsType) {
         $reply = $this->constants->getDmsContacts($dmsType);
+        sendMessage($chatID, $reply, null);
+    }
+
+    function triggerActionForAskToProceedDmsSurvey($chatID) {
+        $reply = $this->constants->getReplyForAskToProceedDmsSurvey();
+        $keyboard = $this->keyboards->getAskToProceedDmsSurveyInlineKeyboard();
+        sendMessage($chatID, $reply, $keyboard);
+    }
+
+    function triggerActionForNotRelevantToProceedDmsSurvey($chatID) {
+        $reply = $this->constants->getReplyForNotRelevantToProceedDmsSurvey();
         sendMessage($chatID, $reply, null);
     }
 
