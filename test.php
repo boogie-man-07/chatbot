@@ -1,10 +1,9 @@
 <?Php
 
-// use Firebase\JWT\JWT;
-// use Firebase\JWT\Key;
+include ('vendor/autoload.php');
 
-require('php-jwt-main/src/JWT.php');
-require('php-jwt-main/src/Key.php');
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 
 $privateKey = <<<EOD
 -----BEGIN RSA PRIVATE KEY-----
