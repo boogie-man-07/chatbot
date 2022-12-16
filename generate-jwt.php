@@ -30,8 +30,8 @@ function generateBearerToken() {
     ];
 
     $jwt = JWT::encode($payload, $privateKey, 'RS256');
-    echo "Encode:\n" . print_r($jwt, true) . "\n";
-
+//     echo "Encode:\n" . print_r($jwt, true) . "\n";
+    echo $jwt;
     // $decoded = JWT::decode($jwt, new Key($publicKey, 'RS256'));
 
     /*
