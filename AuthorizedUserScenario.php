@@ -173,13 +173,12 @@ class AuthorizedUserScenario {
                         $this->salaryRoute->triggerActionForPollIsAlreadyFinished($this->chatID);
                         exit;
                     } else {
-                        $this->salaryRoute->triggerActionForProceedDmsSurvey($this->chatID, $pollInfo['poll_state']);
+                        $this->salaryRoute->triggerActionForAskToProceedDmsSurvey($this->chatID);
                         exit;
                     }
                 } else {
-                    $this->access->setDmsPollInfo($this->user['user_id'], 0, 0, 1);
-                    $this->salaryRoute->triggerActionForProceedDmsSurvey($this->chatID, 0);
-                    answerCallbackQuery($this->query["id"], "Данные загружены!");
+//                     $this->access->setDmsPollInfo($this->user['user_id'], 0, 0, 1);
+                    $this->salaryRoute->triggerActionForAskToProceedDmsSurvey($this->chatID);
                     exit;
                 }
             case $this->commands['dmsAskAQuestion']:
