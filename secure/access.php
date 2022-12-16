@@ -1603,6 +1603,11 @@ class access {
         $this->conn->query($sql);
     }
 
+    function disablePollAvailability($userId) {
+        $sql = "UPDATE employee_dms SET is_poll_available = 0 where user_id = '".$userId."'";
+        $this->conn->query($sql);
+    }
+
     function getDmsPollQuestionsInfo($pollId) {
         $returnArray = array();
         $sql = "SELECT * from polls_reply_options WHERE poll_id = $pollId";

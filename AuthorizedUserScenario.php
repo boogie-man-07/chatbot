@@ -167,8 +167,14 @@ class AuthorizedUserScenario {
                 $this->salaryRoute->triggerActionForSendDmsContacts($this->chatID, $this->user['dms_type']);
                 exit;
             case $this->commands['askForDmsUsage']:
-                $this->salaryRoute->triggerActionForAskToProceedDmsSurvey($this->chatID);
-                exit;
+                $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
+                if ($pollInfo['is_finished']) {
+                    $this->salaryRoute->triggerActionForPollIsAlreadyFinished($this->chatID);
+                    exit;
+                } else {
+                    $this->salaryRoute->triggerActionForProceedDmsSurvey($this->chatID, $pollInfo['poll_state']);
+                    exit;
+                }
             case $this->commands['dmsAskAQuestion']:
                 $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
                 if (count($pollInfo != 0) && $this->salaryRoute->pollShouldBeContinued($this->state)) {
@@ -552,6 +558,7 @@ class AuthorizedUserScenario {
                                 }
                                 $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
                                 $this->access->setPollAsFinished($this->user['user_id'], $pollInfo);
+                                $this->access->disablePollAvailability($this->user['user_id']);
                                 $this->salaryRoute->triggerActionForFinishDmsPollQuestion($this->chatID);
                                 answerCallbackQuery($this->query["id"], "Опрос завершен!");
                                 exit;
@@ -910,6 +917,7 @@ class AuthorizedUserScenario {
                 }
             case $this->commands['dmsNotRelevantToProceedWithSurveyInline']:
                 $this->access->setDmsPollInfo($this->user['user_id'], 0, 1, 0);
+                $this->access->disablePollAvailability($this->user['user_id']);
                 $this->salaryRoute->triggerActionForNotRelevantToProceedDmsSurvey($this->chatID);
                 answerCallbackQuery($this->query["id"], "Данные загружены!");
                 exit;
@@ -983,6 +991,7 @@ class AuthorizedUserScenario {
                     }
                     $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
                     $this->access->setPollAsFinished($this->user['user_id'], $pollInfo);
+                    $this->access->disablePollAvailability($this->user['user_id']);
                     $this->salaryRoute->triggerActionForFinishDmsPollQuestion($this->chatID);
                     answerCallbackQuery($this->query["id"], "Опрос завершен!");
                     exit;
@@ -1031,6 +1040,7 @@ class AuthorizedUserScenario {
                     $this->access->increaseUserDmsPollState($this->user['user_id'], $pollInfo);
                     $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
                     $this->access->setPollAsFinished($this->user['user_id'], $pollInfo);
+                    $this->access->disablePollAvailability($this->user['user_id']);
                     $this->salaryRoute->triggerActionForFinishDmsPollQuestion($this->chatID);
                     answerCallbackQuery($this->query["id"], "Опрос завершен!");
                     exit;
@@ -1163,6 +1173,7 @@ class AuthorizedUserScenario {
                             }
                             $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
                             $this->access->setPollAsFinished($this->user['user_id'], $pollInfo);
+                            $this->access->disablePollAvailability($this->user['user_id']);
                             $this->salaryRoute->triggerActionForFinishDmsPollQuestion($this->chatID);
                             answerCallbackQuery($this->query["id"], "Опрос завершен!");
                             exit;
@@ -1176,7 +1187,7 @@ class AuthorizedUserScenario {
                         answerCallbackQuery($this->query["id"], "Данные обновлены!");
                         exit;
                     default:
-                        answerCallbackQuery($this->query["id"], "Хм,интересно...");
+                        answerCallbackQuery($this->query["id"], "Хм, интересно...");
 //                         sendMessage($this->chatID, "Default finished inline", null);
                         exit;
                 }
