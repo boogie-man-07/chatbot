@@ -5,8 +5,8 @@ include ('vendor/autoload.php');
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
-generateBearerToken();
-
+$bearerToken = generateBearerToken();
+generateMasterKey($bearerToken);
 
 function generateBearerToken() {
     $pk = file_get_contents('/var/www/sigmabot.ddns.net/pk.key');
@@ -31,7 +31,7 @@ function generateBearerToken() {
 
     $jwt = JWT::encode($payload, $privateKey, 'RS256');
 //     echo "Encode:\n" . print_r($jwt, true) . "\n";
-    echo $jwt;
+    return $jwt;
     // $decoded = JWT::decode($jwt, new Key($publicKey, 'RS256'));
 
     /*
@@ -41,6 +41,37 @@ function generateBearerToken() {
 
     // $decoded_array = (array) $decoded;
     // echo "Decode:\n" . print_r($decoded_array, true) . "\n";
+}
+
+function generateMasterKey($bearerToken) {
+    $curl = curl_init();
+    curl_setopt_array($curl, array(
+        CURLOPT_URL => 'https://esa.hr-link.ru/api/v1/masterTokens',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'POST',
+        CURLOPT_POSTFIELDS =>'{
+            "tenantHost": "hrlink.diall.ru"
+        }',
+        CURLOPT_HTTPHEADER => array(
+            "Authorization: Bearer $bearerToken",
+            "Content-Type: application/json"
+        ),
+    ));
+
+    $response = curl_exec($curl);
+
+    curl_close($curl);
+    if ($err) {
+        echo "cURL Error #: ".$err;
+//         return "Извините, но что-то пошло не так, попробуйте повторить позднее.";
+    } else {
+        echo $response;
+    }
 }
 
 
