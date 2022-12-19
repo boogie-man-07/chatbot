@@ -18,6 +18,8 @@ $chatID = '37e7921d-62e3-11eb-a20a-00155d93a613';
 $calendarOffset = "0";
 
 $user = $access->getUserByChatID($chatID);
+echo $user; exit;
+
 
 $rotationalWorkerInfo = $calendarInfo->getMonthlyData($user['user_id'], getCurrentMonth(), $offset);
 
