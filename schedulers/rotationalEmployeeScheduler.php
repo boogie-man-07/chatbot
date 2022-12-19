@@ -52,7 +52,8 @@ foreach ($rotationalWorkerInfo['daysList'] as $key=>$value) {
             echo "Рабочий день: <br><br>";
             $previous = $rotationalWorkerInfo['daysList'][$key - 1]['isWorkingDay'] ? true : false;
             $finding = $value['isWorkingDay'] ? true : false;
-            $shouldSendNotification = $previous == false && $finding == true;
+
+            $shouldSendNotification = (!$previous && $finding);
             echo "Предыдущий: ".$previous."<br><br>";
             echo "Искомый: ".$finding."<br><br>";
             echo "Рабочий ли день?: ".$shouldSendNotification."<br><br>";
