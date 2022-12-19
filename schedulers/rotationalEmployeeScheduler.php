@@ -24,8 +24,8 @@ $offset = "0";
 $currentTimestamp = strtotime(date('d.m.Y'));
 $desiredTimestamp = strtotime('+ 3 days', $currentTimestamp);
 $desiredDate = date('d.m.Y', $desiredTimestamp);
-echo "finding day :".$findingDate."<br><br>";
-// $desiredDateFirstDayOfMonth = date('01.m.Y', $desiredTimestamp);
+// echo "finding day :".$findingDate."<br><br>";
+$desiredDateFirstDayOfMonth = date('01.m.Y', $desiredTimestamp);
 // echo "first day of founded month: ".$firstDayDate."<br><br>";
 
 //************
