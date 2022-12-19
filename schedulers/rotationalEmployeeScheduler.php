@@ -50,8 +50,8 @@ foreach ($rotationalWorkerInfo['daysList'] as $key=>$value) {
             echo "<br><br>";
             echo json_encode($value);
             echo "Рабочий день: <br><br>";
-            $previous = $rotationalWorkerInfo['daysList'][$key - 1]['isWorkingDay'] == false;
-            $finding = $value['isWorkingDay'] == true;
+            $previous = $rotationalWorkerInfo['daysList'][$key - 1]['isWorkingDay'] ? true : false;
+            $finding = $value['isWorkingDay'] ? true : false;
             //$shouldSendNotification = $rotationalWorkerInfo['daysList'][$key - 1]['isWorkingDay'] == false && $value['isWorkingDay'] == true;
             echo "Предыдущий: ".$previous."<br><br>";
             echo "Искомый: ".$finding."<br><br>";
