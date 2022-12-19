@@ -26,7 +26,7 @@ $currentTimestamp = strtotime(date('d.m.Y'));
 $desiredTimestamp = strtotime('+ 3 days', $currentTimestamp);
 $desiredDate = date('d.m.Y', $desiredTimestamp);
 $desiredDateFirstDayOfMonth = date('01.m.Y', $desiredTimestamp);
-$message = "Напоминаю, что Ваша вахта начинается через 3 дня, ".$desiredDate." г.";
+$message = "Напоминаю, что Ваша вахта начинается через 3 дня, ".(string)$desiredDate." г.";
 
 foreach ($rotationalWorkersListFromDb as $rotationalWorkerFromDb) {
     $rotationalWorkerInfo = $calendarInfo->getMonthlyData($rotationalWorkerFromDb['user_id'], $desiredDateFirstDayOfMonth, $offset);
