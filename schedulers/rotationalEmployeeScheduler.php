@@ -27,14 +27,25 @@ echo "today: ".date('d.m.Y')."<br><br>";
 
 $timestamp = strtotime(date('d.m.Y'));
 $totalTimeStamp = strtotime('+ 3 days', $timestamp);
-echo "finding day :".date('d.m.Y', $totalTimeStamp)."<br><br>";
+$findingDate = date('d.m.Y', $totalTimeStamp);
+echo "finding day :".$findingDate."<br><br>";
 
-$firstDay = date('01.m.Y', $totalTimeStamp);
+$firstDayDate = date('01.m.Y', $totalTimeStamp);
 
-echo "first day of founded month: ".$firstDay."<br><br>";
+echo "first day of founded month: ".$firstDayDate."<br><br>";
 
 $rotationalWorkerInfo = $calendarInfo->getMonthlyData($user['user_id'], $firstDay, $offset);
 
-echo json_encode($rotationalWorkerInfo);
+echo json_encode($rotationalWorkerInfo)."<br><br>";
+
+$dateNumber = substr($findingDate, 0, 1) == "0" ? substr(substr($findingDate, 0, 2), 1) : substr($findingDate, 0, 2);
+echo $dateNumber."<br><br>";
+// foreach ($rotationalWorkerInfo['daysList'] as $value) {
+//     for ($i = $dateNumber; $i < count($rotationalWorkerInfo['daysList']); $i++) {
+//         foreach ($value['dateNumber'] > 1) {
+//
+//         }
+//     }
+// }
 
 ?>
