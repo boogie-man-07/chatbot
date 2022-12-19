@@ -1,6 +1,6 @@
 <?Php
 
-$file = parse_ini_file("../../Testbotdb.ini");
+$file = parse_ini_file("../../../Testbotdb.ini");
 
 $host = trim($file["dbhost"]);
 $user = trim($file["dbuser"]);
