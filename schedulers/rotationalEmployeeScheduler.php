@@ -41,9 +41,10 @@ echo json_encode($rotationalWorkerInfo)."<br><br>";
 $dateNumber = substr($findingDate, 0, 1) == "0" ? substr(substr($findingDate, 0, 2), 1) : substr($findingDate, 0, 2);
 echo $dateNumber."<br><br>";
 
-foreach ($rotationalWorkerInfo['daysList'] as $value) {
+foreach ($rotationalWorkerInfo['daysList'] as $key=>$value) {
     if ($dateNumber > 1) {
         if ($value['dateNumber'] === $dateNumber) {
+            echo $key;
             echo json_encode($value);
         }
     }
