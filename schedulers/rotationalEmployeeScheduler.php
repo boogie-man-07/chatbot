@@ -28,7 +28,7 @@ $desiredDate = date('d.m.Y', $desiredTimestamp);
 $desiredDateFirstDayOfMonth = date('01.m.Y', $desiredTimestamp);
 
 foreach ($rotationalWorkersListFromDb as $rotationalWorkerFromDb) {
-    $message = $rotationalWorkerFromDb['fullname'].", напоминаю, что Ваша вахта начинается через 3 дня, ".(string)$desiredDate." г.";
+    $message = $rotationalWorkerFromDb['firstname'].", напоминаю, что Ваша вахта начинается через 3 дня, ".(string)$desiredDate." г.";
     $rotationalWorkerInfo = $calendarInfo->getMonthlyData($rotationalWorkerFromDb['user_id'], $desiredDateFirstDayOfMonth, $offset);
     $dateNumber = substr($desiredDate, 0, 1) == "0" ? substr(substr($desiredDate, 0, 2), 1) : substr($desiredDate, 0, 2);
 
@@ -43,8 +43,8 @@ foreach ($rotationalWorkersListFromDb as $rotationalWorkerFromDb) {
 //                     sleep(5);
                 } else {
                     echo "Для работника ".$rotationalWorkerFromDb['fullname']." день ".$desiredDate." не является днем начала ближайшей вахты, отправлять уведомление для telegramId: ".$rotationalWorkerFromDb['tg_chat_id']." не нужно.<br><br>";
-                    sendMessage('5389293300', $message, null);
-                    sleep(5);
+//                     sendMessage('5389293300', $message, null);
+//                     sleep(5);
                 }
             }
         }
