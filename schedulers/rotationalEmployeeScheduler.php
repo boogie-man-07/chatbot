@@ -49,6 +49,8 @@ foreach ($rotationalWorkerInfo['daysList'] as $key=>$value) {
             echo json_encode($rotationalWorkerInfo['daysList'][$key - 1]);
             echo "<br><br>";
             echo json_encode($value);
+            echo "Рабочий день: <br><br>";
+            echo $rotationalWorkerInfo['daysList'][$key - 1]['isWorkingDay'] == false && $value['isWorkingDay'] == true;
         }
     }
 }
