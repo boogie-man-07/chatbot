@@ -15,7 +15,7 @@ require ("../CalendarInfo.php");
 $calendarInfo = new CalendarInfo();
 
 $chatID = '187967374';
-$calendarOffset = "0";
+$offset = "0";
 
 $user = $access->getUserByChatID($chatID);
 
