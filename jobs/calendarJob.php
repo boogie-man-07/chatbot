@@ -11,7 +11,7 @@ require ("../secure/access.php");
 $access = new access($host, $user, $pass, $name);
 $access->connect();
 
-require ("CalendarInfo.php");
+require ("../CalendarInfo.php");
 $calendarInfo = new CalendarInfo();
 
 $chatID = '37e7921d-62e3-11eb-a20a-00155d93a613';
