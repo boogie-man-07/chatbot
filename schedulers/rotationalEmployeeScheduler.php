@@ -34,18 +34,19 @@ $firstDayDate = date('01.m.Y', $totalTimeStamp);
 
 echo "first day of founded month: ".$firstDayDate."<br><br>";
 
-$rotationalWorkerInfo = $calendarInfo->getMonthlyData($user['user_id'], $firstDay, $offset);
+$rotationalWorkerInfo = $calendarInfo->getMonthlyData($user['user_id'], $firstDayDate, $offset);
 
 echo json_encode($rotationalWorkerInfo)."<br><br>";
 
 $dateNumber = substr($findingDate, 0, 1) == "0" ? substr(substr($findingDate, 0, 2), 1) : substr($findingDate, 0, 2);
 echo $dateNumber."<br><br>";
-// foreach ($rotationalWorkerInfo['daysList'] as $value) {
-//     for ($i = $dateNumber; $i < count($rotationalWorkerInfo['daysList']); $i++) {
-//         foreach ($value['dateNumber'] > 1) {
-//
-//         }
-//     }
-// }
+
+foreach ($rotationalWorkerInfo['daysList'] as $value) {
+    if ($dateNumber > 1) {
+        if ($value['dateNumber'] === $dateNumber) {
+            echo $value;
+        }
+    }
+}
 
 ?>
