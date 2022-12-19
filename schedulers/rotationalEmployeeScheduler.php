@@ -44,7 +44,7 @@ echo $dateNumber."<br><br>";
 foreach ($rotationalWorkerInfo['daysList'] as $value) {
     if ($dateNumber > 1) {
         if ($value['dateNumber'] === $dateNumber) {
-            echo $value;
+            echo json_encode($value);
         }
     }
 }
