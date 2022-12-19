@@ -14,12 +14,10 @@ $access->connect();
 require ("../CalendarInfo.php");
 $calendarInfo = new CalendarInfo();
 
-$chatID = '37e7921d-62e3-11eb-a20a-00155d93a613';
+$chatID = '187967374';
 $calendarOffset = "0";
 
 $user = $access->getUserByChatID($chatID);
-echo json_encode($user); exit;
-
 
 $rotationalWorkerInfo = $calendarInfo->getMonthlyData($user['user_id'], getCurrentMonth(), $offset);
 
