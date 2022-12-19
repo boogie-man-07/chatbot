@@ -7,28 +7,26 @@ $host = trim($file["dbhost"]);
 $user = trim($file["dbuser"]);
 $pass = trim($file["dbpass"]);
 $name = trim($file["dbname"]);
+$token = trim($file["token"]);
+
+$website = "https://api.telegram.org/bot".$token;
+
+require ("../CalendarInfo.php");
+$calendarInfo = new CalendarInfo();
 
 require ("../secure/access.php");
 $access = new access($host, $user, $pass, $name);
 $access->connect();
 
-require ("../CalendarInfo.php");
-$calendarInfo = new CalendarInfo();
-
-// Берем из БД всех сотрудников, которые работают вахтовым методом + зарегистрированы в боте
 $rotationalWorkersListFromDb = $access->getRotationalWorkersListFromDb();
-// $chatID = '187967374';
-// $user = $access->getUserByChatID($chatID);
-$offset = "0";
+$access->disconnect();
 
+$offset = "0";
 $currentTimestamp = strtotime(date('d.m.Y'));
 $desiredTimestamp = strtotime('+ 3 days', $currentTimestamp);
 $desiredDate = date('d.m.Y', $desiredTimestamp);
-// echo "finding day :".$findingDate."<br><br>";
 $desiredDateFirstDayOfMonth = date('01.m.Y', $desiredTimestamp);
-// echo "first day of founded month: ".$firstDayDate."<br><br>";
-
-//************
+$message = "Напоминаю, что Ваша вахта начинается через 3 дня, ".$desiredDate." г.";
 
 foreach ($rotationalWorkersListFromDb as $rotationalWorkerFromDb) {
     $rotationalWorkerInfo = $calendarInfo->getMonthlyData($rotationalWorkerFromDb['user_id'], $desiredDateFirstDayOfMonth, $offset);
@@ -41,12 +39,20 @@ foreach ($rotationalWorkersListFromDb as $rotationalWorkerFromDb) {
                 $previousDay = $rotationalWorkerInfo['daysList'][$key - 1]['isWorkingDay'] ? true : false;
                 if ($targetDay && !$previousDay) {
                     echo "Для работника ".$rotationalWorkerFromDb['fullname']." день ".$desiredDate." является днем начала ближайшей вахты, необходимо отправить уведомление для telegramId: ".$rotationalWorkerFromDb['tg_chat_id']."<br><br>";
+//                     sendMessage($rotationalWorkerFromDb['tg_chat_id'], $message, null);
+                    sendMessage('5389293300', $message, null);
+                    sleep(5);
                 } else {
                     echo "Для работника ".$rotationalWorkerFromDb['fullname']." день ".$desiredDate." не является днем начала ближайшей вахты, отправлять уведомление для telegramId: ".$rotationalWorkerFromDb['tg_chat_id']." не нужно.<br><br>";
                 }
             }
         }
     }
+}
+
+function sendMessage($chatID, $text, $keyboard) {
+  $url = $GLOBALS[website]."/sendMessage?chat_id=$chatID&parse_mode=HTML&text=".urlencode($text)."&reply_markup=".$keyboard;
+  file_get_contents($url);
 }
 
 //************
