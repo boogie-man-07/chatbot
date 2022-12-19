@@ -1872,4 +1872,22 @@ class access {
         }
         return $returnArray[0]['offset'];
     }
+
+    function getRotationalWorkersListFromDb() {
+        $returnArray = array();
+        $sql = "SELECT * FROM phonebook where is_authorized = true and is_rotational = true";
+
+        $statement = $this->conn->prepare($sql);
+        if (!$statement) {
+            throw new Exception($statement->error);
+        }
+        $statement->execute();
+        $result = $statement->get_result();
+
+        while ($row = $result->fetch_assoc()) {
+            $returnArray[] = $row;
+        }
+
+        return $returnArray;
+    }
 }
