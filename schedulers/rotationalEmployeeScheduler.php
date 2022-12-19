@@ -57,6 +57,12 @@ foreach ($rotationalWorkerInfo['daysList'] as $key=>$value) {
             echo "Предыдущий: ".$previous."<br><br>";
             echo "Искомый: ".$finding."<br><br>";
             echo "Рабочий ли день?: ".$shouldSendNotification."<br><br>";
+
+            if ($finding && !$previous) {
+                echo "День рабочий, нужно отправить уведомление.<br><br>";
+            } else {
+                echo "День не рабочий, не нужно отправлять уведомление.<br><br>";
+            }
         }
     }
 }
