@@ -2,7 +2,7 @@
 
 class HrLinkApiProvider {
 
-    private var $bearerToken = null;
+    /*private var $bearerToken = null;
     private var $masterToken = null;
 
     function getApplicationTypes() {
@@ -130,7 +130,7 @@ class HrLinkApiProvider {
             );
             return $returnArray;
         }
-    }
+    }*/
 }
 
 ?>
