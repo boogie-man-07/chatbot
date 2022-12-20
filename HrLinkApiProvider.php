@@ -121,13 +121,14 @@ class HrLinkApiProvider {
                 'result' => false,
                 'message' => 'Извините, но что-то пошло не так, попробуйте повторить позднее.'
             );
-            return json_decode($result, true);
+            return $returnArray;
         } else {
             $result = json_decode($response, true);
             $returnArray = array(
                 'result' => $result['result'],
                 'message' => $result['masterToken']
             );
+            return $returnArray;
         }
     }
 }
