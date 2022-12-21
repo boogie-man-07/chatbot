@@ -29,7 +29,7 @@ $desiredDateFirstDayOfMonth = date('01.m.Y', $desiredTimestamp);
 
 foreach ($rotationalWorkersListFromDb as $rotationalWorkerFromDb) {
     $message = $rotationalWorkerFromDb['firstname'].", напоминаю, что Ваша вахта начинается через 3 дня, ".(string)$desiredDate." г.";
-    $rotationalWorkerInfo = $calendarInfo->getMonthlyData($rotationalWorkerFromDb['user_id'], $desiredDateFirstDayOfMonth, $offset);
+    $rotationalWorkerInfo = $calendarInfo->getMonthlyDataMock($rotationalWorkerFromDb['user_id'], $desiredDateFirstDayOfMonth, $offset);
     $dateNumber = substr($desiredDate, 0, 1) == "0" ? substr(substr($desiredDate, 0, 2), 1) : substr($desiredDate, 0, 2);
 
     foreach ($rotationalWorkerInfo['daysList'] as $key=>$value) {
@@ -55,42 +55,5 @@ function sendMessage($chatID, $text, $keyboard) {
   $url = $GLOBALS[website]."/sendMessage?chat_id=$chatID&parse_mode=HTML&text=".urlencode($text)."&reply_markup=".$keyboard;
   file_get_contents($url);
 }
-
-//************
-
-
-
-// $rotationalWorkerInfo = $calendarInfo->getMonthlyData($user['user_id'], $firstDayDate, $offset);
-//
-// echo json_encode($rotationalWorkerInfo)."<br><br>";
-//
-// $dateNumber = substr($findingDate, 0, 1) == "0" ? substr(substr($findingDate, 0, 2), 1) : substr($findingDate, 0, 2);
-// echo $dateNumber."<br><br>";
-//
-// foreach ($rotationalWorkerInfo['daysList'] as $key=>$value) {
-//     if ($dateNumber > 1) {
-//         if ($value['dateNumber'] === $dateNumber) {
-//             echo $key;
-//             echo "<br><br>";
-//             echo json_encode($rotationalWorkerInfo['daysList'][$key - 1]);
-//             echo "<br><br>";
-//             echo json_encode($value)."<br><br>";
-//             echo "Рабочий день: <br><br>";
-//             $previous = $rotationalWorkerInfo['daysList'][$key - 1]['isWorkingDay'] ? true : false;
-//             $finding = $value['isWorkingDay'] ? true : false;
-//
-//             $shouldSendNotification = (!$previous && $finding);
-//             echo "Предыдущий: ".$previous."<br><br>";
-//             echo "Искомый: ".$finding."<br><br>";
-//             echo "Рабочий ли день?: ".$shouldSendNotification."<br><br>";
-//
-//             if ($finding && !$previous) {
-//                 echo "Это первый рабочий день, нужно отправить уведомление.<br><br>";
-//             } else {
-//                 echo "Это не первый рабочий день, не нужно отправлять уведомление.<br><br>";
-//             }
-//         }
-//     }
-// }
 
 ?>
