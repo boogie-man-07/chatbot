@@ -39,12 +39,10 @@ foreach ($rotationalWorkersListFromDb as $rotationalWorkerFromDb) {
                 $previousDay = $rotationalWorkerInfo['daysList'][$key - 1]['isWorkingDay'] ? true : false;
                 if ($targetDay && !$previousDay) {
                     echo "Для работника ".$rotationalWorkerFromDb['fullname']." день ".$desiredDate." является днем начала ближайшей вахты, необходимо отправить уведомление для tg_chat_id: ".$rotationalWorkerFromDb['tg_chat_id']."<br><br>";
-//                     sendMessage($rotationalWorkerFromDb['tg_chat_id'], $message, null);
-//                     sleep(5);
+                    sendMessage($rotationalWorkerFromDb['tg_chat_id'], $message, null);
+                    sleep(5);
                 } else {
                     echo "Для работника ".$rotationalWorkerFromDb['fullname']." день ".$desiredDate." не является днем начала ближайшей вахты, отправлять уведомление для telegramId: ".$rotationalWorkerFromDb['tg_chat_id']." не нужно.<br><br>";
-//                     sendMessage('5389293300', $message, null);
-//                     sleep(5);
                 }
             }
         }
