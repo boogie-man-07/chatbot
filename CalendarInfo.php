@@ -2,6 +2,95 @@
 
 class CalendarInfo {
 
+    function getMonthlyDataMock($userId, $currentMonth, $offset) {
+
+        $daysList = array(
+            array(
+                "dateNumber" => "20",
+                "isWorkingDay" => false,
+                "hasWorkingNight" => false,
+                "buttonText" => "☀"
+            ),
+            array(
+                "dateNumber" => "21",
+                "isWorkingDay" => false,
+                "hasWorkingNight" => false,
+                "buttonText" => "☀"
+            ),
+            array(
+                "dateNumber" => "22",
+                "isWorkingDay" => false,
+                "hasWorkingNight" => false,
+                "buttonText" => "☀"
+            ),
+            array(
+                "dateNumber" => "23",
+                "isWorkingDay" => false,
+                "hasWorkingNight" => false,
+                "buttonText" => "☀"
+            ),
+            array(
+                "dateNumber" => "24",
+                "isWorkingDay" => true,
+                "hasWorkingNight" => false,
+                "buttonText" => "☀"
+            ),
+            array(
+                "dateNumber" => "25",
+                "isWorkingDay" => true,
+                "hasWorkingNight" => false,
+                "buttonText" => "☀"
+            ),
+            array(
+                "dateNumber" => "26",
+                "isWorkingDay" => true,
+                "hasWorkingNight" => false,
+                "buttonText" => "☀"
+            ),
+            array(
+                "dateNumber" => "27",
+                "isWorkingDay" => true,
+                "hasWorkingNight" => false,
+                "buttonText" => "☀"
+            ),
+            array(
+                "dateNumber" => "28",
+                "isWorkingDay" => true,
+                "hasWorkingNight" => false,
+                "buttonText" => "☀"
+            ),
+            array(
+                "dateNumber" => "29",
+                "isWorkingDay" => true,
+                "hasWorkingNight" => false,
+                "buttonText" => "☀"
+            ),
+            array(
+                "dateNumber" => "30",
+                "isWorkingDay" => true,
+                "hasWorkingNight" => false,
+                "buttonText" => "☀"
+            ),
+            array(
+                "dateNumber" => "31",
+                "isWorkingDay" => true,
+                "hasWorkingNight" => false,
+                "buttonText" => "☀"
+            ),
+        );
+
+        return array(
+          "isRotational" => false,
+          "totalWorkDays" => 0,
+          "totalWorkNights" => 0,
+          "totalDayWorkHours" => 0,
+          "totalNightWorkHours" => 0,
+          "firstDayOfMonthWeekIndex" => 3,
+          "currentMonth" => "Декабрь 2022",
+          "daysList" => $daysList
+        );
+    }
+
     function getMonthlyData($userId, $currentMonth, $offset) {
         $curl = curl_init();
         curl_setopt_array($curl, array(
