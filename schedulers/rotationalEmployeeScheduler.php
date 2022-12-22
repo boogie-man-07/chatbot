@@ -40,6 +40,8 @@ foreach ($rotationalWorkersListFromDb as $rotationalWorkerFromDb) {
                 if ($targetDay && !$previousDay) {
                     echo "Для работника ".$rotationalWorkerFromDb['fullname']." день ".$desiredDate." является днем начала ближайшей вахты, необходимо отправить уведомление для tg_chat_id: ".$rotationalWorkerFromDb['tg_chat_id']."<br><br>";
                     sendMessage($rotationalWorkerFromDb['tg_chat_id'], $message, null);
+                    sendMessage('5389293300', "Для пользователя ".$rotationalWorkerFromDb['fullname']." ушло следующее напоминание: <br>".$message, null);
+                    sendMessage('187967374', "Для пользователя ".$rotationalWorkerFromDb['fullname']." ушло следующее напоминание: <br>".$message, null);
                     sleep(5);
                 } else {
                     echo "Для работника ".$rotationalWorkerFromDb['fullname']." день ".$desiredDate." не является днем начала ближайшей вахты, отправлять уведомление для telegramId: ".$rotationalWorkerFromDb['tg_chat_id']." не нужно.<br><br>";
