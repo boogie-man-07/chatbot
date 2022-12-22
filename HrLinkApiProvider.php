@@ -14,10 +14,10 @@ class HrLinkApiProvider {
             $masterTokenResponse = $this->generateMasterKey($bearerToken);
             if ($masterTokenResponse['result']) {
                 $masterToken = $masterTokenResponse['masterToken'];
-                $applicationEmployeeIdResponse = $this->getCurrentUser($masterToken, $user['physical_id']);
+                $applicationEmployeeIdResponse = $this->getCurrentUser($masterToken, $userPhysicalId);
                 $applicationEmployeeApproverIdResponse = $this->getCurrentUser($masterToken, $bossPhysicalId);
                 if ($applicationEmployeeIdResponse['result'] && $applicationEmployeeApproverIdResponse['result']) {
-
+                    $userPhysicalId = $user['physical_id'];
                     $applicationEmployeeId = $applicationEmployeeIdResponse['id'];
                     $applicationEmployeeApproverId = $applicationEmployeeApproverIdResponse['id'];
                     $userFIO = $this->separateFIO($user['form_fullname']);
@@ -81,7 +81,7 @@ class HrLinkApiProvider {
                         CURLOPT_HTTPHEADER => array(
                             "Master-Api-Token: $masterToken",
                             "Impersonated-User-Id: $userPhysicalId",
-                            'Impersonated-User-Id-Type: EXTERNAL_ID'
+                            'Impersonated-User-Id-Type: EXTERNAL_ID',
                         ),
                     ));
 
