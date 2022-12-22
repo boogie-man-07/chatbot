@@ -2,7 +2,7 @@
 
 class HrLinkApiProvider {
 
-    function registerApplication($user, $applicationInfo, $bossPhysicalId, $typeId) {
+    function registerApplication($user, $vacationFormData, $bossPhysicalId, $typeId) {
 
         $bearerTokenResponse = generateBearerToken();
         if ($bearerTokenResponse['result']) {
@@ -46,8 +46,8 @@ class HrLinkApiProvider {
                     );
 
                     $templateFields = array(
-                        array('id' => '462b0c7c-fc3d-4045-b9c8-2d7ca9ad2fe6', 'value' => $applicationInfo['startDate']),
-                        array('id' => 'c6f8f4cc-9b2f-425a-ae14-f77d0f989f12', 'value' => $applicationInfo['duration'])
+                        array('id' => '462b0c7c-fc3d-4045-b9c8-2d7ca9ad2fe6', 'value' => $vacationFormData['vacation_startdate']),
+                        array('id' => 'c6f8f4cc-9b2f-425a-ae14-f77d0f989f12', 'value' => $vacationFormData['vacation_duration'])
                     );
 
                     $body = array(
