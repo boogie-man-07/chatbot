@@ -757,7 +757,7 @@ class AuthorizedUserScenario {
                 exit;
             case $this->commands['regularVacationCaseInlineNew']:
                 answerCallbackQuery($this->query["id"], "Успешно!");
-                $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
+                $this->access->setState($this->chatID, $this->states['regularVacationTypeWaitingState']);
                 $this->salaryRoute->triggerActionForRegularApplicationPreparationsNew($this->chatID, $this->user['firstname'], $this->user['company_id']);
                 exit;
             case $this->commands['postponedVacationCaseInline']:
