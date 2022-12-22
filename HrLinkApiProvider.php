@@ -55,21 +55,21 @@ class HrLinkApiProvider {
                         array('id' => 'c6f8f4cc-9b2f-425a-ae14-f77d0f989f12', 'value' => $vacationFormData['vacation_duration'])
                     );
 
-//                     $body = array(
-//                         'externalId' => $externalId,
-//                         'date' => $currentDate,
-//                         'number' => $number,
-//                         'typeId' => $typeId,
-//                         'applications' => $applications,
-//                         'templateSystemFields' => $templateSystemFields,
-//                         'templateFields' => $templateFields
-//                     );
+                    $body = array(
+                        'externalId' => $externalId,
+                        'date' => $currentDate,
+                        'number' => $number,
+                        'typeId' => $typeId,
+                        'applications' => $applications,
+                        'templateSystemFields' => $templateSystemFields,
+                        'templateFields' => $templateFields
+                    );
 //                     $encodedBody = json_encode($body);
 
                     $curl = curl_init();
 
                     curl_setopt_array($curl, array(
-                        CURLOPT_URL => "https://hrlink.diall.ru/api/v1/clients/$clientId/applicationGroups",
+                        CURLOPT_URL => "https://hrlink.diall.ru/api/v1/clients/".$clientId."/applicationGroups",
                         CURLOPT_RETURNTRANSFER => true,
                         CURLOPT_ENCODING => '',
                         CURLOPT_MAXREDIRS => 10,
@@ -77,15 +77,7 @@ class HrLinkApiProvider {
                         CURLOPT_FOLLOWLOCATION => true,
                         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                         CURLOPT_CUSTOMREQUEST => 'POST',
-                        CURLOPT_POSTFIELDS => array(
-                            'externalId' => $externalId,
-                            'date' => $currentDate,
-                            'number' => $number,
-                            'typeId' => $typeId,
-                            'applications' => $applications,
-                            'templateSystemFields' => $templateSystemFields,
-                            'templateFields' => $templateFields
-                        ),
+                        CURLOPT_POSTFIELDS => $body,
                         CURLOPT_HTTPHEADER => array(
                             "Master-Api-Token: $masterToken",
                             "Impersonated-User-Id: $userPhysicalId",
