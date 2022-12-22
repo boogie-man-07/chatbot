@@ -112,6 +112,10 @@ class AuthorizedUserScenario {
                 $this->access->removeVacationDataByChatID($this->chatID);
                 $this->salaryRoute->triggerActionForGetApplicationsInformation($this->chatID, $this->user['firstname']);
                 exit;
+            case $this->commands['applicationsnew']:
+                $this->access->removeVacationDataByChatID($this->chatID);
+                $this->salaryRoute->triggerActionForGetApplicationsInformationNew($this->chatID, $this->user['firstname']);
+                exit;
             case $this->commands['myVacation']:
                 $this->salaryRoute->triggerActionForGetRestVacationInfo($this->chatID, $this->user['user_id'], $this->vacationInfo);
                 exit;
@@ -751,6 +755,11 @@ class AuthorizedUserScenario {
                 answerCallbackQuery($this->query["id"], "Успешно!");
                 $this->salaryRoute->triggerActionForRegularApplicationPreparations($this->chatID, $this->user['firstname'], $this->user['company_id']);
                 exit;
+            case $this->commands['regularVacationCaseInlineNew']:
+                answerCallbackQuery($this->query["id"], "Успешно!");
+                $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
+                $this->salaryRoute->triggerActionForRegularApplicationPreparationsNew($this->chatID, $this->user['firstname'], $this->user['company_id']);
+                exit;
             case $this->commands['postponedVacationCaseInline']:
                 answerCallbackQuery($this->query["id"], "Успешно!");
                 if ($this->user['company_id'] == 3) {
@@ -1191,6 +1200,10 @@ class AuthorizedUserScenario {
                         $pollUserQuestionInfo = $this->access->getDmsUserPollQuestionsInfo($this->user['user_id'], 1);
                         $this->salaryRoute->triggerActionForUpdateDmsPollQuestionWithMultipleChoose($this->chatID, $this->messageId, $pollInfo, $pollQuestionInfo, $pollUserQuestionInfo);
                         answerCallbackQuery($this->query["id"], "Данные обновлены!");
+                        exit;
+                    case $this->states['regularVacationTypeWaitingState']:
+                        answerCallbackQuery($this->query["id"], "Данные загружены!");
+                        sendMessage($this->chatID, $text, null);
                         exit;
                     default:
                         answerCallbackQuery($this->query["id"], "Хм, интересно...");

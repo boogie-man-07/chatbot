@@ -12,6 +12,7 @@
         "commonInformation": "Общая информация",
         "paymentDates": "Сроки выплаты",
         "applications": "Заявления",
+        "applicationsnew": "Заявления2",
         "myVacation": "Мой отпуск",
         "howToNavigate": "Как добраться",
         "navigationSchemeSkolkovo": "Схема проезда (Сколково)",
@@ -51,6 +52,7 @@
         "sendFeedbackInline": "sendFeedback",
         "sendDmsQuestionInline": "sendDmsQuestion",
         "regularVacationCaseInline": "regularVacationCase",
+        "regularVacationCaseInlineNew": "regularVacationCaseNew",
         "postponedVacationCaseInline": "postponedVacationCase",
         "documentsIssuingCaseInline": "documentsIssuingCase",
         "documentsCopiesIssuingCaseInline": "documentsCopiesIssuingCase",
@@ -113,7 +115,8 @@
         "dmsQuestionWaitingState": "waiting for dms question",
         "dmsEmailWaitingState": "waiting for email for dms question reply",
         "dmsPoolReplyWaitingState": "waiting for choose dms pool reply",
-        "dmsMultipleKeyboardChooseWaitingState": "waiting for multiple keyboard choose"
+        "dmsMultipleKeyboardChooseWaitingState": "waiting for multiple keyboard choose",
+        "regularVacationTypeWaitingState": "waiting for regular vacation type"
     },
 
     "constants": {
