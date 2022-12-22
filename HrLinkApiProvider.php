@@ -33,13 +33,15 @@ class HrLinkApiProvider {
                     $applicationEmployeeApproverExternalId = null;
 
                     $applications = array(
-                        'externalId' => $applicationExternalId,
-                        'legalEntityId' => $applicationLegalEntityId,
-                        'legalEntityExternalId' => $applicationLegalEntityExternalId,
-                        'employeeId' => $applicationEmployeeId,
-                        'employeeExternalId' => $applicationEmployeeExternalId,
-                        'employeeApproverId' => $applicationEmployeeApproverId,
-                        'employeeApproverExternalId' => $applicationEmployeeApproverExternalId
+                        array(
+                            'externalId' => $applicationExternalId,
+                            'legalEntityId' => $applicationLegalEntityId,
+                            'legalEntityExternalId' => $applicationLegalEntityExternalId,
+                            'employeeId' => $applicationEmployeeId,
+                            'employeeExternalId' => $applicationEmployeeExternalId,
+                            'employeeApproverId' => $applicationEmployeeApproverId,
+                            'employeeApproverExternalId' => $applicationEmployeeApproverExternalId
+                        )
                     );
 
                     $templateSystemFields = array(
@@ -58,7 +60,7 @@ class HrLinkApiProvider {
                         'date' => $currentDate,
                         'number' => $number,
                         'typeId' => $typeId,
-                        'applications' => $applications,
+                        'applications' => ,
                         'templateSystemFields' => $templateSystemFields,
                         'templateFields' => $templateFields
                     );
