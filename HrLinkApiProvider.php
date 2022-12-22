@@ -17,52 +17,53 @@ class HrLinkApiProvider {
                 $applicationEmployeeIdResponse = $this->getCurrentUser($masterToken, $user['physical_id']);
                 $applicationEmployeeApproverIdResponse = $this->getCurrentUser($masterToken, $bossPhysicalId);
                 if ($applicationEmployeeIdResponse['result'] && $applicationEmployeeApproverIdResponse['result']) {
-                    $applicationEmployeeId = $applicationEmployeeIdResponse['id'];
-                    $applicationEmployeeApproverId = $applicationEmployeeApproverIdResponse['id'];
-                    $userFIO = separateFIO($user['form_fullname']);
-                    $clientId = 'a0731d7f-4799-4fe0-944a-247f256fd509';
-                    $externalId = null;
-                    $currentDate = date('Y-m-d');
-                    $number = 'Персональный ассистент работника_telegram';
-                    $typeId = $idOfType;
-                    $applicationExternalId = null;
-                    $applicationLegalEntityId = '91f2a834-1721-46c1-b917-6dc5cb943ed5';
-                    $applicationLegalEntityExternalId = null;
-                    $applicationEmployeeExternalId = null;
-                    $applicationEmployeeApproverExternalId = null;
-
-                    $applications = array(
-                        'externalId' => $applicationExternalId,
-                        'legalEntityId' => $applicationLegalEntityId,
-                        'legalEntityExternalId' => $applicationLegalEntityExternalId,
-                        'employeeId' => $applicationEmployeeId,
-                        'employeeExternalId' => $applicationEmployeeExternalId,
-                        'employeeApproverId' => $applicationEmployeeApproverId,
-                        'employeeApproverExternalId' => $applicationEmployeeApproverExternalId
-                    );
-
-                    $templateSystemFields = array(
-                        array('id' => 'af1460a0-5081-4101-9342-6960f8ef99c0', 'value' => $userFIO[0]),
-                        array('id' => 'ebd6a325-e206-4870-b89e-b86043f97c64', 'value' => $userFIO[1]),
-                        array('id' => 'df6cc959-a85b-4b62-a51e-0bbcf44ce203', 'value' => $userFIO[2])
-                    );
-
-                    $templateFields = array(
-                        array('id' => '462b0c7c-fc3d-4045-b9c8-2d7ca9ad2fe6', 'value' => $vacationFormData['vacation_startdate']),
-                        array('id' => 'c6f8f4cc-9b2f-425a-ae14-f77d0f989f12', 'value' => $vacationFormData['vacation_duration'])
-                    );
-
-                    $body = array(
-                        'externalId' => $externalId,
-                        'date' => $currentDate,
-                        'number' => $number,
-                        'typeId' => $typeId,
-                        'applications' => $application,
-                        'templateSystemFields' => $templateSystemFields,
-                        'templateFields' => $templateFields
-                    );
-
-                    return $body;
+                    return "All good!";
+//                     $applicationEmployeeId = $applicationEmployeeIdResponse['id'];
+//                     $applicationEmployeeApproverId = $applicationEmployeeApproverIdResponse['id'];
+//                     $userFIO = separateFIO($user['form_fullname']);
+//                     $clientId = 'a0731d7f-4799-4fe0-944a-247f256fd509';
+//                     $externalId = null;
+//                     $currentDate = date('Y-m-d');
+//                     $number = 'Персональный ассистент работника_telegram';
+//                     $typeId = $idOfType;
+//                     $applicationExternalId = null;
+//                     $applicationLegalEntityId = '91f2a834-1721-46c1-b917-6dc5cb943ed5';
+//                     $applicationLegalEntityExternalId = null;
+//                     $applicationEmployeeExternalId = null;
+//                     $applicationEmployeeApproverExternalId = null;
+//
+//                     $applications = array(
+//                         'externalId' => $applicationExternalId,
+//                         'legalEntityId' => $applicationLegalEntityId,
+//                         'legalEntityExternalId' => $applicationLegalEntityExternalId,
+//                         'employeeId' => $applicationEmployeeId,
+//                         'employeeExternalId' => $applicationEmployeeExternalId,
+//                         'employeeApproverId' => $applicationEmployeeApproverId,
+//                         'employeeApproverExternalId' => $applicationEmployeeApproverExternalId
+//                     );
+//
+//                     $templateSystemFields = array(
+//                         array('id' => 'af1460a0-5081-4101-9342-6960f8ef99c0', 'value' => $userFIO[0]),
+//                         array('id' => 'ebd6a325-e206-4870-b89e-b86043f97c64', 'value' => $userFIO[1]),
+//                         array('id' => 'df6cc959-a85b-4b62-a51e-0bbcf44ce203', 'value' => $userFIO[2])
+//                     );
+//
+//                     $templateFields = array(
+//                         array('id' => '462b0c7c-fc3d-4045-b9c8-2d7ca9ad2fe6', 'value' => $vacationFormData['vacation_startdate']),
+//                         array('id' => 'c6f8f4cc-9b2f-425a-ae14-f77d0f989f12', 'value' => $vacationFormData['vacation_duration'])
+//                     );
+//
+//                     $body = array(
+//                         'externalId' => $externalId,
+//                         'date' => $currentDate,
+//                         'number' => $number,
+//                         'typeId' => $typeId,
+//                         'applications' => $application,
+//                         'templateSystemFields' => $templateSystemFields,
+//                         'templateFields' => $templateFields
+//                     );
+//
+//                     return $body;
 
                 } else {
                     return "Не нормально 1";
