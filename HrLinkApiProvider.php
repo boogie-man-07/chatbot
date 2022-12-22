@@ -96,7 +96,8 @@ class HrLinkApiProvider {
                             'message' => 'Извините, но что-то пошло не так, попробуйте повторить позднее.'
                         );
                     } else {
-                        $result = json_decode($response, true);
+                        return $response;
+//                         $result = json_decode($response, true);
                         return $result;
 //                         return array(
 //                             'result' => $result['result'],
