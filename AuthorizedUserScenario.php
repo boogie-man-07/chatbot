@@ -1198,7 +1198,7 @@ class AuthorizedUserScenario {
                         $documentData = $this->access->getIssuingDocumentData($this->user['user_id'], $this->user['boss']);
                         $applicationInfo = $this->access->getApplicationIdsInfo($text);
                         $registeredUser = $this->hrLinkApiProvider->registerApplication($this->user, $applicationInfo, $documentData[0]['bossPhysicalId'], $applicationInfo['hrlink_application_id']);
-                        sendMessage($this->chatID, json_encode($registeredUser), null));
+                        sendMessage($this->chatID, json_encode($registeredUser), null);
                         exit;
                     default:
                         answerCallbackQuery($this->query["id"], "Хм, интересно...");
