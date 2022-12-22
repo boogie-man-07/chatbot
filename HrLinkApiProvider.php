@@ -119,46 +119,46 @@ class HrLinkApiProvider {
 //             return $returnArray;
 //         }
 //     }
-//
-//     function generateMasterKey($bearerToken) {
-//         $curl = curl_init();
-//         curl_setopt_array($curl, array(
-//             CURLOPT_URL => 'https://esa.hr-link.ru/api/v1/masterTokens',
-//             CURLOPT_RETURNTRANSFER => true,
-//             CURLOPT_ENCODING => '',
-//             CURLOPT_MAXREDIRS => 10,
-//             CURLOPT_TIMEOUT => 0,
-//             CURLOPT_FOLLOWLOCATION => true,
-//             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-//             CURLOPT_CUSTOMREQUEST => 'POST',
-//             CURLOPT_POSTFIELDS =>'{
-//                 "tenantHost": "hrlink.diall.ru"
-//             }',
-//             CURLOPT_HTTPHEADER => array(
-//                 "Authorization: Bearer $bearerToken",
-//                 "Content-Type: application/json"
-//             ),
-//         ));
-//
-//         $response = curl_exec($curl);
-//         $err = curl_error($curl);
-//         curl_close($curl);
-//
-//         if ($err) {
-//             $returnArray = array(
-//                 'result' => false,
-//                 'message' => 'Извините, но что-то пошло не так, попробуйте повторить позднее.'
-//             );
-//             return $returnArray;
-//         } else {
-//             $result = json_decode($response, true);
-//             $returnArray = array(
-//                 'result' => $result['result'],
-//                 'masterToken' => $result['masterToken']
-//             );
-//             return $returnArray;
-//         }
-//     }
+
+    function generateMasterKey($bearerToken) {
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://esa.hr-link.ru/api/v1/masterTokens',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS =>'{
+                "tenantHost": "hrlink.diall.ru"
+            }',
+            CURLOPT_HTTPHEADER => array(
+                "Authorization: Bearer $bearerToken",
+                "Content-Type: application/json"
+            ),
+        ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+        curl_close($curl);
+
+        if ($err) {
+            $returnArray = array(
+                'result' => false,
+                'message' => 'Извините, но что-то пошло не так, попробуйте повторить позднее.'
+            );
+            return $returnArray;
+        } else {
+            $result = json_decode($response, true);
+            $returnArray = array(
+                'result' => $result['result'],
+                'masterToken' => $result['masterToken']
+            );
+            return $returnArray;
+        }
+    }
 
     function generateBearerToken() {
         $pk = file_get_contents('/var/www/sigmabot.ddns.net/pk.key');
