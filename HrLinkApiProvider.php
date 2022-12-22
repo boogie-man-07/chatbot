@@ -62,6 +62,7 @@ class HrLinkApiProvider {
                         'templateSystemFields' => $templateSystemFields,
                         'templateFields' => $templateFields
                     );
+                    $encodedBody = json_encode($body);
 
                     $curl = curl_init();
 
@@ -74,7 +75,7 @@ class HrLinkApiProvider {
                         CURLOPT_FOLLOWLOCATION => true,
                         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                         CURLOPT_CUSTOMREQUEST => 'POST',
-                        CURLOPT_POSTFIELDS => $body,
+                        CURLOPT_POSTFIELDS => $encodedBody,
                         CURLOPT_HTTPHEADER => array(
                             "Master-Api-Token: $masterToken",
                             "Impersonated-User-Id: $userPhysicalId",
