@@ -65,7 +65,7 @@ class HrLinkApiProvider {
                         'templateFields' => $templateFields
                     );
 
-//                     $encodedBody = json_encode($body);
+                    $encodedBody = json_encode($body);
 
                     $curl = curl_init();
 
@@ -78,7 +78,7 @@ class HrLinkApiProvider {
                         CURLOPT_FOLLOWLOCATION => true,
                         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                         CURLOPT_CUSTOMREQUEST => 'POST',
-                        CURLOPT_POSTFIELDS => json_encode(array($body)),
+                        CURLOPT_POSTFIELDS => $encodedBody,
                         CURLOPT_HTTPHEADER => array(
                             "Master-Api-Token: $masterToken",
                             "Impersonated-User-Id: $userPhysicalId",
@@ -97,9 +97,9 @@ class HrLinkApiProvider {
                             'message' => 'Извините, но что-то пошло не так, попробуйте повторить позднее.'
                         );
                     } else {
-                        return $response;
-//                         $result = json_decode($response, true);
+                        $result = json_decode($response, true);
                         return $result;
+
 //                         return array(
 //                             'result' => $result['result'],
 //                             'id' => $result['applicationGroup']['id']
