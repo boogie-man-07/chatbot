@@ -1,8 +1,11 @@
 <?Php
 
+include ('vendor/autoload.php');
+
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
+
 class HrLinkApiProvider {
-    $pk = file_get_contents('/var/www/sigmabot.ddns.net/pk.key');
-    $pubk = file_get_contents('/var/www/sigmabot.ddns.net/pubk.pub');
 
     function registerApplication($user, $vacationFormData, $bossPhysicalId, $typeId) {
         return $this->generateBearerToken();
@@ -157,6 +160,8 @@ class HrLinkApiProvider {
 //     }
 
     function generateBearerToken() {
+        $pk = file_get_contents('/var/www/sigmabot.ddns.net/pk.key');
+        $pubk = file_get_contents('/var/www/sigmabot.ddns.net/pubk.pub');
 
         $privateKey = <<<EOD
         $pk
