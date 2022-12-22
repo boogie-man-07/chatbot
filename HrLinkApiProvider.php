@@ -176,10 +176,11 @@ class HrLinkApiProvider {
         ];
 
         $jwt = JWT::encode($payload, $privateKey, 'RS256');
-        return array(
-            'result' => true,
-            'bearerToken' => $jwt
-        );
+        return $jwt;
+//         return array(
+//             'result' => true,
+//             'bearerToken' => $jwt
+//         );
     }
 
     function separateFIO($fullName) {
