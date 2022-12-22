@@ -1195,10 +1195,10 @@ class AuthorizedUserScenario {
                     case $this->states['regularVacationTypeWaitingState']:
                         answerCallbackQuery($this->query["id"], "Данные загружены!");
                         $vacationFormData = $this->access->getReguarVacationFormData($this->chatID);
-                        $documentData = $this->access->getIssuingDocumentData($this->user['user_id'], $this->user['boss']);
-                        $applicationInfo = $this->access->getApplicationIdsInfo($text);
-                        $registeredUser = $this->hrLinkApiProvider->registerApplication($this->user, $applicationInfo, $documentData[0]['bossPhysicalId'], $applicationInfo['hrlink_application_id']);
-                        sendMessage($this->chatID, json_encode($registeredUser), null);
+                        //$documentData = $this->access->getIssuingDocumentData($this->user['user_id'], $this->user['boss']);
+                        //$applicationInfo = $this->access->getApplicationIdsInfo($text);
+                        //$registeredUser = $this->hrLinkApiProvider->registerApplication($this->user, $vacationFormData, $documentData[0]['bossPhysicalId'], $applicationInfo['hrlink_application_id']);
+                        sendMessage($this->chatID, json_encode($vacationFormData), null);
                         exit;
                     default:
                         answerCallbackQuery($this->query["id"], "Хм, интересно...");
