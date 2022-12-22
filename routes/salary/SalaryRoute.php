@@ -138,6 +138,12 @@ class SalaryRoute {
         sendMessage($chatID, $reply, $keyboard);
     }
 
+    function triggerActionForGetApplicationsInformationNew($chatID, $firstname) {
+        $reply = $this->constants->getApplicationsText($firstname);
+        $keyboard = $this->keyboards->getApplicationMenuInlineKeyboardNew();
+        sendMessage($chatID, $reply, $keyboard);
+    }
+
     function triggerActionForGetRestVacationInfo($chatID, $userId, $vacationInfo) {
         $data = $vacationInfo->getRestVacationCountByUserId($userId);
         $vacations = $vacationInfo->getVacationsInfo($userId);
@@ -164,6 +170,12 @@ class SalaryRoute {
     function triggerActionForRegularApplicationPreparations($chatID, $firstname, $companyId) {
         $reply = $this->constants->getReplyForApplicationPreparations($firstname, $companyId);
         $keyboard = $this->keyboards->getApplicationPreparationsInlineKeyboard($companyId);
+        sendMessage($chatID, $reply, $keyboard);
+    }
+
+    function triggerActionForRegularApplicationPreparationsNew($chatID, $firstname, $companyId) {
+        $reply = $this->constants->getReplyForApplicationPreparations($firstname, $companyId);
+        $keyboard = $this->keyboards->getApplicationPreparationsInlineKeyboardNew($companyId);
         sendMessage($chatID, $reply, $keyboard);
     }
 
@@ -450,7 +462,8 @@ class SalaryRoute {
             'waiting for choose dms pool reply',
             'waiting for dms question',
             'waiting for email for dms question reply',
-            'waiting for multiple keyboard choose'
+            'waiting for multiple keyboard choose',
+            'waiting for regular vacation type'
         );
         if (in_array($currentState, $dialogState)) {
             return true;

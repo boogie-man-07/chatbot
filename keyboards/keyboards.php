@@ -304,6 +304,9 @@ class keyboards {
                     array("text" => "Мой отпуск")
                 ),
                 array(
+                    array("text" => "Заявления2")
+                ),
+                array(
                     array("text" => "Мой график"),
                     array("text" => "Назад")
                 )
@@ -380,6 +383,25 @@ class keyboards {
                     array(
                         "text" => "Заявление на перенос отпуска",
                         "callback_data" => "postponedVacationCase"
+                    )
+                )
+            )
+        ));
+    }
+
+    function getApplicationMenuInlineKeyboardNew() {
+        return json_encode(array(
+            "inline_keyboard" => array(
+                array(
+                    array(
+                        "text" => "Заявление на отпуск",
+                        "callback_data" => "regularVacationCaseNew"
+                    )
+                ),
+                array(
+                    array(
+                        "text" => "Заявление на перенос отпуска",
+                        "callback_data" => "postponedVacationCaseNew"
                     )
                 ),
                 array(
@@ -477,6 +499,47 @@ class keyboards {
                             array(
                                 "text" => "Учебный",
                                 "callback_data" => "triggerAcademicVacation"
+                            )
+                        )
+                    )
+                ));
+        }
+    }
+
+    function getApplicationPreparationsInlineKeyboardNew($companyId) {
+        switch ($companyId) {
+            case 1:
+                return json_encode(array(
+                    "inline_keyboard" => array(
+                        array(
+                            array(
+                                "text" => "Продолжить",
+                                "callback_data" => "sendOldRegularVacationForm"
+                            )
+                        )
+                    )
+                ));
+            case 3:
+                return json_encode(array(
+                    "inline_keyboard" => array(
+                        array(
+                            array(
+                                "text" => "Основной",
+                                "callback_data" => "1"
+                            ),
+                            array(
+                                "text" => "Дополнительный",
+                                "callback_data" => "2"
+                            )
+                        ),
+                        array(
+                            array(
+                                "text" => "Без сохранения",
+                                "callback_data" => "3"
+                            ),
+                            array(
+                                "text" => "Учебный",
+                                "callback_data" => "4"
                             )
                         )
                     )
