@@ -16,8 +16,9 @@ class HrLinkApiProvider {
                 $masterToken = $masterTokenResponse['masterToken'];
                 $applicationEmployeeIdResponse = $this->getCurrentUser($masterToken, $user['physical_id']);
                 $applicationEmployeeApproverIdResponse = $this->getCurrentUser($masterToken, $bossPhysicalId);
-                if ($applicationEmployeeIdResponse['result'] && $applicationEmployeeApproverIdResponse['result']) {
-                    return 'Все нормально';
+                return $applicationEmployeeApproverIdResponse;
+//                 if ($applicationEmployeeIdResponse['result'] && $applicationEmployeeApproverIdResponse['result']) {
+//                     return 'Все нормально';
 //                     $applicationEmployeeId = $applicationEmployeeIdResponse['id'];
 //                     $applicationEmployeeApproverId = $applicationEmployeeApproverIdResponse['id'];
 //                     $userFIO = separateFIO($user['form_fullname']);
@@ -64,10 +65,10 @@ class HrLinkApiProvider {
 //                     );
 //
 //                     return $body;
-
-                } else {
-                    return "Не нормально 1";
-                }
+//
+//                 } else {
+//                     return "Не нормально 1";
+//                 }
             } else {
                 return "Не нормально 2";
             }
