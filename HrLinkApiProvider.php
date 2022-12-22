@@ -13,7 +13,7 @@ class HrLinkApiProvider {
 
         if ($bearerTokenResponse['result']) {
             $bearerToken = $bearerTokenResponse['bearerToken'];
-            $masterTokenResponse = generateMasterKey($bearerToken);
+            $masterTokenResponse = $this->generateMasterKey($bearerToken);
             if ($masterTokenResponse['result']) {
                 $masterToken = $masterTokenResponse['$masterToken'];
                 return $masterToken;
@@ -145,18 +145,16 @@ class HrLinkApiProvider {
         curl_close($curl);
 
         if ($err) {
-            $returnArray = array(
+            return array(
                 'result' => false,
                 'message' => 'Извините, но что-то пошло не так, попробуйте повторить позднее.'
             );
-            return $returnArray;
         } else {
             $result = json_decode($response, true);
-            $returnArray = array(
+            return array(
                 'result' => $result['result'],
                 'masterToken' => $result['masterToken']
             );
-            return $returnArray;
         }
     }
 
