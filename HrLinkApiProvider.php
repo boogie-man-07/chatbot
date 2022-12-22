@@ -13,10 +13,10 @@ class HrLinkApiProvider {
 
         if ($bearerTokenResponse['result']) {
             $bearerToken = $bearerTokenResponse['bearerToken'];
-            return $bearerToken;
-//             $masterTokenResponse = generateMasterKey($bearerToken);
-//             if ($masterTokenResponse['result']) {
-//                 $masterToken = $masterTokenResponse['$masterToken'];
+            $masterTokenResponse = generateMasterKey($bearerToken);
+            if ($masterTokenResponse['result']) {
+                $masterToken = $masterTokenResponse['$masterToken'];
+                return $masterToken;
 //                 $applicationEmployeeIdResponse = getCurrentUser($masterToken, $user['physical_id']);
 //                 $applicationEmployeeApproverIdResponse = getCurrentUser($masterToken, $bossPhysicalId);
 //
@@ -72,9 +72,9 @@ class HrLinkApiProvider {
 //                 } else {
 //                     return false;
 //                 }
-//             } else {
-//                 return false;
-//             }
+            } else {
+                return false;
+            }
         } else {
             return false;
         }
