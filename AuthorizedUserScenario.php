@@ -1197,7 +1197,6 @@ class AuthorizedUserScenario {
                         $vacationFormData = $this->access->getReguarVacationFormData($this->chatID);
                         $bossPhysicalId = $this->access->getBossPhysicalId($this->user['boss']);
                         $applicationInfo = $this->access->getApplicationIdsInfo($text);
-//                         $registeredUser = $this->hrLinkApiProvider->generateBearerToken();
                         $registeredUser = $this->hrLinkApiProvider->registerApplication($this->user, $vacationFormData, $bossPhysicalId['physical_id'], $applicationInfo['hrlink_application_id']);
                         sendMessage($this->chatID, $registeredUser, null);
                         exit;
