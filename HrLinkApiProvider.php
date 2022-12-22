@@ -8,9 +8,7 @@ use Firebase\JWT\Key;
 class HrLinkApiProvider {
 
     function registerApplication($user, $vacationFormData, $bossPhysicalId, $typeId) {
-
         $bearerTokenResponse = $this->generateBearerToken();
-
         if ($bearerTokenResponse['result']) {
             $bearerToken = $bearerTokenResponse['bearerToken'];
             $masterTokenResponse = $this->generateMasterKey($bearerToken);
@@ -112,7 +110,7 @@ class HrLinkApiProvider {
             $result = json_decode($response, true);
             return array(
                 'result' => $result['result'],
-                'message' => $result['currentUser']['employees'][0]['id'];
+                'message' => $result['currentUser']['employees'];
             );
         }
     }
