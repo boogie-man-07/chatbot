@@ -1550,28 +1550,18 @@ class access {
         return $returnValue;
     }
     // remove from everywhere
-    function getIssuingDocumentData($userId, $bossFullName) {
+    function getBossPhysicalId($bossFullName) {
         $returnArray = array();
-        $sql = "SELECT user_id FROM phonebook WHERE fullname like '%".$bossFullName."%'";
+        $sql = "SELECT * FROM phonebook WHERE fullname like '%".$bossFullName."%'";
         $result = $this->conn->query($sql);
         if ($result != null && (mysqli_num_rows($result) >= 1 )) {
             $row = $result->fetch_array(MYSQLI_ASSOC);
-            $sql2 = "SELECT * from  user_issued_document_data WHERE user_id = '".$userId."'";
-            $result2 = $this->conn->query($sql2);
-            if ($result2 != null && (mysqli_num_rows($result2) >= 1 )) {
-                $row2 = $result2->fetch_array(MYSQLI_ASSOC);
-                $item = array(
-                    'bossPhysicalId' => $row['physical_id'],
-                    'userPhysicalId' => $row2['physical_id']
-                );
-                array_push($returnArray, $item);
-                return $returnArray;
-            } else {
-                return $returnArray;
+            if (!empty($row)) {
+                $returnArray = $row;
             }
-        } else {
-            return $returnArray;
         }
+
+        return $returnArray;
     }
 
     function getApplicationIdsInfo($id) {
