@@ -20,10 +20,10 @@ class HrLinkApiProvider {
 
                     $applicationEmployeeId = $applicationEmployeeIdResponse['id'];
                     $applicationEmployeeApproverId = $applicationEmployeeApproverIdResponse['id'];
-                    $userFIO = separateFIO($user['form_fullname']);
-                    $clientId = 'a0731d7f-4799-4fe0-944a-247f256fd509';
-                    $externalId = null;
                     return "All good!";
+//                     $userFIO = separateFIO($user['form_fullname']);
+//                     $clientId = 'a0731d7f-4799-4fe0-944a-247f256fd509';
+//                     $externalId = null;
 //                     $currentDate = date('Y-m-d');
 //                     $number = 'Персональный ассистент работника_telegram';
 //                     $typeId = $idOfType;
