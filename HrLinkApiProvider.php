@@ -8,11 +8,12 @@ use Firebase\JWT\Key;
 class HrLinkApiProvider {
 
     function registerApplication($user, $vacationFormData, $bossPhysicalId, $typeId) {
-        return $this->generateBearerToken();
-//         $bearerTokenResponse = $this->generateBearerToken();
 
-//         if ($bearerTokenResponse['result']) {
-//             $bearerToken = $bearerTokenResponse['bearerToken'];
+        $bearerTokenResponse = $this->generateBearerToken();
+
+        if ($bearerTokenResponse['result']) {
+            $bearerToken = $bearerTokenResponse['bearerToken'];
+            return $bearerToken;
 //             $masterTokenResponse = generateMasterKey($bearerToken);
 //             if ($masterTokenResponse['result']) {
 //                 $masterToken = $masterTokenResponse['$masterToken'];
@@ -74,9 +75,9 @@ class HrLinkApiProvider {
 //             } else {
 //                 return false;
 //             }
-//         } else {
-//             return false;
-//         }
+        } else {
+            return false;
+        }
     }
 
 
@@ -181,11 +182,10 @@ class HrLinkApiProvider {
         ];
 
         $jwt = JWT::encode($payload, $privateKey, 'RS256');
-        return $jwt;
-//         return array(
-//             'result' => true,
-//             'bearerToken' => $jwt
-//         );
+        return array(
+            'result' => true,
+            'bearerToken' => $jwt
+        );
     }
 
     function separateFIO($fullName) {
