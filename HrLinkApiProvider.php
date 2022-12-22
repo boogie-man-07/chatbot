@@ -7,7 +7,7 @@ use Firebase\JWT\Key;
 
 class HrLinkApiProvider {
 
-    function registerApplication($user, $vacationFormData, $bossPhysicalId, $typeId) {
+    function registerApplication($user, $vacationFormData, $bossPhysicalId, $idOfType) {
         $bearerTokenResponse = $this->generateBearerToken();
         if ($bearerTokenResponse['result']) {
             $bearerToken = $bearerTokenResponse['bearerToken'];
@@ -24,7 +24,7 @@ class HrLinkApiProvider {
                     $externalId = null;
                     $currentDate = date('Y-m-d');
                     $number = 'Персональный ассистент работника_telegram';
-                    $typeId = $typeId;
+                    $typeId = $idOfType;
                     $applicationExternalId = null;
                     $applicationLegalEntityId = '91f2a834-1721-46c1-b917-6dc5cb943ed5';
                     $applicationLegalEntityExternalId = null;
