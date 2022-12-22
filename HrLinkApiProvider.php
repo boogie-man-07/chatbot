@@ -69,7 +69,7 @@ class HrLinkApiProvider {
                     $curl = curl_init();
 
                     curl_setopt_array($curl, array(
-                        CURLOPT_URL => "https://hrlink.diall.ru/api/v1/clients/".$clientId."/applicationGroups",
+                        CURLOPT_URL => "https://hrlink.diall.ru/api/v1/clients/$clientId/applicationGroups",
                         CURLOPT_RETURNTRANSFER => true,
                         CURLOPT_ENCODING => '',
                         CURLOPT_MAXREDIRS => 10,
