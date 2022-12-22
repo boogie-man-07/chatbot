@@ -16,7 +16,7 @@ class HrLinkApiProvider {
                 $masterToken = $masterTokenResponse['masterToken'];
                 $applicationEmployeeIdResponse = $this->getCurrentUser($masterToken, $user['physical_id']);
                 $applicationEmployeeApproverIdResponse = $this->getCurrentUser($masterToken, $bossPhysicalId);
-                return $applicationEmployeeApproverIdResponse;
+                return $applicationEmployeeIdResponse;
 //                 if ($applicationEmployeeIdResponse['result'] && $applicationEmployeeApproverIdResponse['result']) {
 //                     return 'Все нормально';
 //                     $applicationEmployeeId = $applicationEmployeeIdResponse['id'];
