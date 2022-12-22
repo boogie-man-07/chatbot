@@ -24,7 +24,7 @@ class HrLinkApiProvider {
                     $clientId = 'a0731d7f-4799-4fe0-944a-247f256fd509';
                     $externalId = null;
                     return "All good!";
-                    $currentDate = date('Y-m-d');
+//                     $currentDate = date('Y-m-d');
 //                     $number = 'Персональный ассистент работника_telegram';
 //                     $typeId = $idOfType;
 //                     $applicationExternalId = null;
