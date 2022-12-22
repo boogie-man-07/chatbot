@@ -66,13 +66,13 @@ class HrLinkApiProvider {
 //                     return $body;
 
                 } else {
-                    return false;
+                    return "Не нормально 1";
                 }
             } else {
-                return false;
+                return "Не нормально 2";
             }
         } else {
-            return false;
+            return "Не нормально 3";
         }
     }
 
