@@ -2,11 +2,12 @@
 
 class HrLinkApiProvider {
 
-//     function registerApplication($user, $vacationFormData, $bossPhysicalId, $typeId) {
-//
-//         $bearerTokenResponse = generateBearerToken();
-//         if ($bearerTokenResponse['result']) {
-//             $bearerToken = $bearerTokenResponse['bearerToken'];
+    function registerApplication($user, $vacationFormData, $bossPhysicalId, $typeId) {
+
+        $bearerTokenResponse = $this->generateBearerToken();
+        if ($bearerTokenResponse['result']) {
+            $bearerToken = $bearerTokenResponse['bearerToken'];
+            return $bearerToken;
 //             $masterTokenResponse = generateMasterKey($bearerToken);
 //             if ($masterTokenResponse['result']) {
 //                 $masterToken = $masterTokenResponse['$masterToken'];
@@ -68,12 +69,12 @@ class HrLinkApiProvider {
 //             } else {
 //                 return false;
 //             }
-//         } else {
-//             return false;
-//         }
-//     }
-//
-//
+        } else {
+            return false;
+        }
+    }
+
+
 //     function getCurrentUser($masterToken, $userPhysicalId) {
 //         $curl = curl_init();
 //
@@ -111,35 +112,6 @@ class HrLinkApiProvider {
 //             );
 //             return $returnArray;
 //         }
-//     }
-//
-//
-//     function generateBearerToken() {
-//         $pk = file_get_contents('/var/www/sigmabot.ddns.net/pk.key');
-//         $pubk = file_get_contents('/var/www/sigmabot.ddns.net/pubk.pub');
-//
-//         $privateKey = <<<EOD
-//         $pk
-//         EOD;
-//
-//         $publicKey = <<<EOD
-//         $pubk
-//         EOD;
-//
-//         $payload = [
-//             'iss' => 'DiallAlianceT',
-//             'sub' => '108da251-6c21-4105-80f2-99386f97a313',
-//             'aud' => 'esa.hr-link.ru',
-//             'exp' => time() + (60 * 5),
-//             'nbf' => time(),
-//             'iat' => time()
-//         ];
-//
-//         $jwt = JWT::encode($payload, $privateKey, 'RS256');
-//         return array(
-//             'result' => true,
-//             'bearerToken' => $jwt
-//         );
 //     }
 //
 //     function generateMasterKey($bearerToken) {
@@ -181,10 +153,38 @@ class HrLinkApiProvider {
 //             return $returnArray;
 //         }
 //     }
-//
-//     function separateFIO($fullName) {
-//         return explode(' ', $fullName);
-//     }
+
+    function generateBearerToken() {
+        $pk = file_get_contents('/var/www/sigmabot.ddns.net/pk.key');
+        $pubk = file_get_contents('/var/www/sigmabot.ddns.net/pubk.pub');
+
+        $privateKey = <<<EOD
+        $pk
+        EOD;
+
+        $publicKey = <<<EOD
+        $pubk
+        EOD;
+
+        $payload = [
+            'iss' => 'DiallAlianceT',
+            'sub' => '108da251-6c21-4105-80f2-99386f97a313',
+            'aud' => 'esa.hr-link.ru',
+            'exp' => time() + (60 * 5),
+            'nbf' => time(),
+            'iat' => time()
+        ];
+
+        $jwt = JWT::encode($payload, $privateKey, 'RS256');
+        return array(
+            'result' => true,
+            'bearerToken' => $jwt
+        );
+    }
+
+    function separateFIO($fullName) {
+        return explode(' ', $fullName);
+    }
 
 //     function uploadFile() {
 //         $curl = curl_init();
