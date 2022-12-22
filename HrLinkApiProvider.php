@@ -64,8 +64,7 @@ class HrLinkApiProvider {
                         'templateSystemFields' => $templateSystemFields,
                         'templateFields' => $templateFields
                     );
-
-                    $encodedBody = json_encode($body);
+                    $encodedBody = json_encode(array($body));
 
                     $curl = curl_init();
 
