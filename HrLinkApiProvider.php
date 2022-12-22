@@ -101,18 +101,20 @@ class HrLinkApiProvider {
         $err = curl_error($curl);
         curl_close($curl);
 
-        if ($err) {
-            return array(
-                'result' => false,
-                'message' => 'Извините, но что-то пошло не так, попробуйте повторить позднее.'
-            );
-        } else {
-            $result = json_decode($response, true);
-            return array(
-                'result' => $result['result'],
-                'message' => $result['currentUser'];
-            );
-        }
+        return $response;
+
+//         if ($err) {
+//             return array(
+//                 'result' => false,
+//                 'message' => 'Извините, но что-то пошло не так, попробуйте повторить позднее.'
+//             );
+//         } else {
+//             $result = json_decode($response, true);
+//             return array(
+//                 'result' => $result['result'],
+//                 'message' => $result['currentUser'];
+//             );
+//         }
     }
 
     function generateMasterKey($bearerToken) {
