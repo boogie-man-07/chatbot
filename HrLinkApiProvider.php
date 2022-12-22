@@ -3,11 +3,11 @@
 class HrLinkApiProvider {
 
     function registerApplication($user, $vacationFormData, $bossPhysicalId, $typeId) {
-        return $this->generateBearerToken(); exit;
-        $bearerTokenResponse = $this->generateBearerToken();
+        return $this->generateBearerToken();
+//         $bearerTokenResponse = $this->generateBearerToken();
 
-        if ($bearerTokenResponse['result']) {
-            $bearerToken = $bearerTokenResponse['bearerToken'];
+//         if ($bearerTokenResponse['result']) {
+//             $bearerToken = $bearerTokenResponse['bearerToken'];
 //             $masterTokenResponse = generateMasterKey($bearerToken);
 //             if ($masterTokenResponse['result']) {
 //                 $masterToken = $masterTokenResponse['$masterToken'];
@@ -69,9 +69,9 @@ class HrLinkApiProvider {
 //             } else {
 //                 return false;
 //             }
-        } else {
-            return false;
-        }
+//         } else {
+//             return false;
+//         }
     }
 
 
