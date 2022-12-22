@@ -58,7 +58,7 @@ class HrLinkApiProvider {
                         'date' => $currentDate,
                         'number' => $number,
                         'typeId' => $typeId,
-                        'applications' => $application,
+                        'applications' => $applications,
                         'templateSystemFields' => $templateSystemFields,
                         'templateFields' => $templateFields
                     );
