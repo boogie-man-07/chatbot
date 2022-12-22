@@ -110,7 +110,7 @@ class HrLinkApiProvider {
             $result = json_decode($response, true);
             return array(
                 'result' => $result['result'],
-                'message' => $result['currentUser'];
+                'message' => $result['currentUser']['employees'][0]['id']
             );
         }
     }
