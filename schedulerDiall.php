@@ -75,6 +75,7 @@ if ($err) {
 
             $userItem = array(
                 'userId' => $user['guid'],
+                'physicalId' => $user['guid_fl'],
                 'firstname' => $user['firstname'],
                 'lastname' => $user['lastname'],
                 'fullname' => $user['fullname'],
@@ -119,6 +120,7 @@ foreach ($employeeList as $employeeValue) {
             if (preg_match("/diall.ru/", strtolower($employeeValue['email'])) == 1 && $employeeValue['mobile_number'] != "" && $employeeValue['activity'] == 1) {
                 echo $employeeValue['userId'].", ".$employeeValue['fullname']." - активный сотрудник офиса, обновляем в БД<br>";
                 $access->updateEmployeeByUserId(
+                    $employeeValue['physicalId'],
                     $employeeValue['firstname'],
                     $employeeValue['lastname'],
                     $employeeValue['fullname'],
@@ -147,6 +149,7 @@ foreach ($employeeList as $employeeValue) {
             } else if (preg_match("/diall.ru/", strtolower($employeeValue['email'])) == 0 && $employeeValue['mobile_number'] != "" && $employeeValue['activity'] == 1) {
                 echo $employeeValue['userId'].", ".$employeeValue['fullname']." - активный рабочий, обновляем в БД<br>";
                 $access->updateEmployeeByUserId(
+                    $employeeValue['physicalId'],
                     $employeeValue['firstname'],
                     $employeeValue['lastname'],
                     $employeeValue['fullname'],
@@ -184,6 +187,7 @@ foreach ($employeeList as $employeeValue) {
                 echo $employeeValue['userId'].", ".$employeeValue['fullname']." - активный новый сотрудник офиса, добавляем в БД<br>";
                 $access->insertEmployee(
                     $employeeValue['userId'],
+                    $employeeValue['physicalId'],
                     $employeeValue['lastname'],
                     $employeeValue['firstname'],
                     $employeeValue['fullname'],
@@ -212,6 +216,7 @@ foreach ($employeeList as $employeeValue) {
                 echo $employeeValue['userId'].", ".$employeeValue['fullname']." - активный новый рабочий, добавляем в БД<br>";
                 $access->insertEmployee(
                     $employeeValue['userId'],
+                    $employeeValue['physicalId'],
                     $employeeValue['lastname'],
                     $employeeValue['firstname'],
                     $employeeValue['fullname'],
