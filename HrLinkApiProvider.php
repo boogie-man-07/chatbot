@@ -8,6 +8,7 @@ use Firebase\JWT\Key;
 class HrLinkApiProvider {
 
     function registerApplication($user, $vacationFormData, $bossPhysicalId, $idOfType) {
+        $userPhysicalId = $user['physical_id'];
         $bearerTokenResponse = $this->generateBearerToken();
         if ($bearerTokenResponse['result']) {
             $bearerToken = $bearerTokenResponse['bearerToken'];
@@ -17,7 +18,6 @@ class HrLinkApiProvider {
                 $applicationEmployeeIdResponse = $this->getCurrentUser($masterToken, $userPhysicalId);
                 $applicationEmployeeApproverIdResponse = $this->getCurrentUser($masterToken, $bossPhysicalId);
                 if ($applicationEmployeeIdResponse['result'] && $applicationEmployeeApproverIdResponse['result']) {
-                    $userPhysicalId = $user['physical_id'];
                     $applicationEmployeeId = $applicationEmployeeIdResponse['id'];
                     $applicationEmployeeApproverId = $applicationEmployeeApproverIdResponse['id'];
                     $userFIO = $this->separateFIO($user['form_fullname']);
