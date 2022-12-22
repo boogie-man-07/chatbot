@@ -63,7 +63,41 @@ class HrLinkApiProvider {
                         'templateFields' => $templateFields
                     );
 
-                    return $body;
+                    $curl = curl_init();
+
+                    curl_setopt_array($curl, array(
+                        CURLOPT_URL => "https://hrlink.diall.ru/api/v1/clients/$clientId/applicationGroups",
+                        CURLOPT_RETURNTRANSFER => true,
+                        CURLOPT_ENCODING => '',
+                        CURLOPT_MAXREDIRS => 10,
+                        CURLOPT_TIMEOUT => 0,
+                        CURLOPT_FOLLOWLOCATION => true,
+                        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                        CURLOPT_CUSTOMREQUEST => 'POST',
+                        CURLOPT_POSTFIELDS => $body,
+                        CURLOPT_HTTPHEADER => array(
+                            "Master-Api-Token: $masterToken",
+                            "Impersonated-User-Id: $userPhysicalId",
+                            'Impersonated-User-Id-Type: EXTERNAL_ID'
+                        ),
+                    ));
+
+                    $response = curl_exec($curl);
+                    $err = curl_error($curl);
+                    curl_close($curl);
+
+                    if ($err) {
+                        return array(
+                            'result' => false,
+                            'message' => 'Извините, но что-то пошло не так, попробуйте повторить позднее.'
+                        );
+                    } else {
+                        $result = json_decode($response, true);
+                        return array(
+                            'result' => $result['result'],
+                            'id' => $result['applicationGroup']['id']
+                        );
+                    }
 
                 } else {
                     return "Не нормально 1";
