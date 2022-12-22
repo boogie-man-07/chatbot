@@ -96,11 +96,10 @@ class HrLinkApiProvider {
                         );
                     } else {
                         $result = json_decode($response, true);
-                        return $result;
-//                         return array(
-//                             'result' => $result['result'],
-//                             'id' => $result['applicationGroup']['id']
-//                         );
+                        return array(
+                            'result' => $result['result'],
+                            'id' => $result['applicationGroup']['id']
+                        );
                     }
 
                 } else {
