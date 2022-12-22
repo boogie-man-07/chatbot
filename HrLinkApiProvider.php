@@ -5,9 +5,9 @@ class HrLinkApiProvider {
     function registerApplication($user, $vacationFormData, $bossPhysicalId, $typeId) {
 
         $bearerTokenResponse = $this->generateBearerToken();
+        return $bearerTokenResponse; exit;
         if ($bearerTokenResponse['result']) {
             $bearerToken = $bearerTokenResponse['bearerToken'];
-            return $bearerToken;
 //             $masterTokenResponse = generateMasterKey($bearerToken);
 //             if ($masterTokenResponse['result']) {
 //                 $masterToken = $masterTokenResponse['$masterToken'];
