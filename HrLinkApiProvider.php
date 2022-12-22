@@ -15,11 +15,11 @@ class HrLinkApiProvider {
             if ($masterTokenResponse['result']) {
                 $masterToken = $masterTokenResponse['masterToken'];
                 $applicationEmployeeIdResponse = $this->getCurrentUser($masterToken, $user['physical_id']);
-//                 $applicationEmployeeApproverIdResponse = $this->getCurrentUser($masterToken, $bossPhysicalId);
-                return $applicationEmployeeIdResponse;
+                $applicationEmployeeApproverIdResponse = $this->getCurrentUser($masterToken, $bossPhysicalId);
+                return $applicationEmployeeApproverIdResponse;
 //                 if ($applicationEmployeeIdResponse['result'] && $applicationEmployeeApproverIdResponse['result']) {
 //
-//                     $applicationEmployeeId = $applicationEmployeeIdResponse['applicationEmployeeId'];
+//                     $applicationEmployeeId = $applicationEmployeeIdResponse['id'];
 //                     $applicationEmployeeApproverId = $applicationEmployeeApproverIdResponse['applicationEmployeeApproverId'];
 //                     $userFIO = separateFIO($user['form_fullname']);
 //                     $clientId = 'a0731d7f-4799-4fe0-944a-247f256fd509';
@@ -110,7 +110,7 @@ class HrLinkApiProvider {
             $result = json_decode($response, true);
             return array(
                 'result' => $result['result'],
-                'message' => $result['currentUser']['employees'][0]['id']
+                'id' => $result['currentUser']['employees'][0]['id']
             );
         }
     }
