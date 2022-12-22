@@ -1196,9 +1196,9 @@ class AuthorizedUserScenario {
                         answerCallbackQuery($this->query["id"], "Данные загружены!");
                         $vacationFormData = $this->access->getReguarVacationFormData($this->chatID);
                         $bossPhysicalId = $this->access->getBossPhysicalId($this->user['boss']);
-                        //$applicationInfo = $this->access->getApplicationIdsInfo($text);
+                        $applicationInfo = $this->access->getApplicationIdsInfo($text);
                         //$registeredUser = $this->hrLinkApiProvider->registerApplication($this->user, $vacationFormData, $bossPhysicalId['physical_id'], $applicationInfo['hrlink_application_id']);
-                        sendMessage($this->chatID, json_encode($bossPhysicalId), null);
+                        sendMessage($this->chatID, json_encode($applicationInfo), null);
                         exit;
                     default:
                         answerCallbackQuery($this->query["id"], "Хм, интересно...");
