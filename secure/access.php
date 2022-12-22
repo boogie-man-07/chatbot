@@ -1561,8 +1561,8 @@ class access {
             if ($result2 != null && (mysqli_num_rows($result2) >= 1 )) {
                 $row2 = $result2->fetch_array(MYSQLI_ASSOC);
                 $item = array(
-                    'bossPhysicalId' => $row['guid_fl'],
-                    'userPhysicalId' => $row2['guid_fl']
+                    'bossPhysicalId' => $row['physical_id'],
+                    'userPhysicalId' => $row2['physical_id']
                 );
                 array_push($returnArray, $item);
                 return $returnArray;
