@@ -157,9 +157,6 @@ class AuthorizedUserScenario {
             case $this->commands['dmsInformation']:
                 $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
                 $this->salaryRoute->triggerActionForShowDmsMenu($this->chatID, $this->user['firstname'], $this->user['dms_type'], $pollInfo['is_finished'], $this->user['is_poll_available']);
-                // to delete
-//                 $applicationsList = $this->hrLinkApiProvider->getApplicationTypes();
-//                 sendMessage($this->chatID, $applicationsList['applicationTypes'][0]['name'], null);
                 exit;
             case $this->commands['dmsMemo']:
                 $this->salaryRoute->triggerActionForSendDmsMemo($this->chatID, $this->user['dms_type']);
@@ -904,12 +901,6 @@ class AuthorizedUserScenario {
                 answerCallbackQuery($this->query["id"], "documentsCopiesIssuingCaseInline");
                 exit;
             case $this->commands['sendConfirmationSmsInline']:
-                // get userdata including boss user_id as boss external_id
-                $documentData = $this->access->getIssuingDocumentData($this->user['user_id'], $this->user['boss']);
-                sendMessage($this->chatID, json_encode($documentData), null);
-                // todo create document
-                // todo send document to api with one request (generateToken, create fileId, createApplicationGroup, sendSmsCode)
-                // todo trigger action for waiting SMS code entering and validation
                 answerCallbackQuery($this->query["id"], "Код отправлен в SMS!");
                 exit;
             case $this->commands['dmsGoToSurveyInline']:
@@ -1203,7 +1194,11 @@ class AuthorizedUserScenario {
                         exit;
                     case $this->states['regularVacationTypeWaitingState']:
                         answerCallbackQuery($this->query["id"], "Данные загружены!");
-                        sendMessage($this->chatID, $text, null);
+                        $vacationFormData = $this->access->getReguarVacationFormData($this->chatID);
+                        $documentData = $this->access->getIssuingDocumentData($this->user['user_id'], $this->user['boss']);
+                        $applicationInfo = $this->access->getApplicationIdsInfo($text);
+                        $registeredUser = $this->hrLinkApiProvider->registerApplication($this->user, $applicationInfo, $documentData[0]['bossPhysicalId'], $applicationInfo['hrlink_application_id']);
+                        sendMessage($this->chatID, json_encode($registeredUser), null));
                         exit;
                     default:
                         answerCallbackQuery($this->query["id"], "Хм, интересно...");
