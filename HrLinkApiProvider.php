@@ -23,16 +23,15 @@ class HrLinkApiProvider {
                     $userFIO = separateFIO($user['form_fullname']);
                     $clientId = 'a0731d7f-4799-4fe0-944a-247f256fd509';
                     $externalId = null;
-                    $currentDate = date('Y-m-d');
-                    $number = 'Персональный ассистент работника_telegram';
-                    $typeId = $idOfType;
-                    $applicationExternalId = null;
-                    $applicationLegalEntityId = '91f2a834-1721-46c1-b917-6dc5cb943ed5';
-                    $applicationLegalEntityExternalId = null;
-                    $applicationEmployeeExternalId = null;
-                    $applicationEmployeeApproverExternalId = null;
-
                     return "All good!";
+                    $currentDate = date('Y-m-d');
+//                     $number = 'Персональный ассистент работника_telegram';
+//                     $typeId = $idOfType;
+//                     $applicationExternalId = null;
+//                     $applicationLegalEntityId = '91f2a834-1721-46c1-b917-6dc5cb943ed5';
+//                     $applicationLegalEntityExternalId = null;
+//                     $applicationEmployeeExternalId = null;
+//                     $applicationEmployeeApproverExternalId = null;
 
 //                     $applications = array(
 //                         'externalId' => $applicationExternalId,
