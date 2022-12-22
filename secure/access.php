@@ -1526,7 +1526,7 @@ class access {
 
         return $returnArray;
     }
-
+    //remove from everywhere
     function saveIssuingDocumentData($userId, $text) {
         $sql = "SELECT * FROM user_issued_document_data WHERE user_id ='".$userId."'";
         $result = $this->conn->query($sql);
@@ -1549,7 +1549,7 @@ class access {
         }
         return $returnValue;
     }
-
+    // remove from everywhere
     function getIssuingDocumentData($userId, $bossFullName) {
         $returnArray = array();
         $sql = "SELECT user_id FROM phonebook WHERE fullname like '%".$bossFullName."%'";
@@ -1561,8 +1561,8 @@ class access {
             if ($result2 != null && (mysqli_num_rows($result2) >= 1 )) {
                 $row2 = $result2->fetch_array(MYSQLI_ASSOC);
                 $item = array(
-                    'bossId' => $row['user_id'],
-                    'userId' => $row2['user_id']
+                    'bossPhysicalId' => $row['guid_fl'],
+                    'userPhysicalId' => $row2['guid_fl']
                 );
                 array_push($returnArray, $item);
                 return $returnArray;
@@ -1572,6 +1572,19 @@ class access {
         } else {
             return $returnArray;
         }
+    }
+
+    function getApplicationIdsInfo($id) {
+        $returnArray = array();
+        $sql = "SELECT * FROM application_types WHERE tg_application_id = '".$id."'";
+        $result = $this->conn->query($sql);
+        if ($result != null && (mysqli_num_rows($result) >= 1 )) {
+            $row = $result->fetch_array(MYSQLI_ASSOC);
+            if (!empty($row)) {
+                $returnArray = $row;
+            }
+        }
+        return $returnArray;
     }
 
     function getDmsPollInfo($userId) {
