@@ -17,9 +17,9 @@ class HrLinkApiProvider {
             if ($masterTokenResponse['result']) {
                 $masterToken = $masterTokenResponse['masterToken'];
                 return $masterToken;
-//                 $applicationEmployeeIdResponse = getCurrentUser($masterToken, $user['physical_id']);
-//                 $applicationEmployeeApproverIdResponse = getCurrentUser($masterToken, $bossPhysicalId);
-//
+                $applicationEmployeeIdResponse = $this->getCurrentUser($masterToken, $user['physical_id']);
+//                 $applicationEmployeeApproverIdResponse = $this->getCurrentUser($masterToken, $bossPhysicalId);
+                return $applicationEmployeeIdResponse;
 //                 if ($applicationEmployeeIdResponse['result'] && $applicationEmployeeApproverIdResponse['result']) {
 //
 //                     $applicationEmployeeId = $applicationEmployeeIdResponse['applicationEmployeeId'];
@@ -81,44 +81,42 @@ class HrLinkApiProvider {
     }
 
 
-//     function getCurrentUser($masterToken, $userPhysicalId) {
-//         $curl = curl_init();
-//
-//         curl_setopt_array($curl, array(
-//           CURLOPT_URL => 'https://hrlink.diall.ru/api/v1/currentUser',
-//           CURLOPT_RETURNTRANSFER => true,
-//           CURLOPT_ENCODING => '',
-//           CURLOPT_MAXREDIRS => 10,
-//           CURLOPT_TIMEOUT => 0,
-//           CURLOPT_FOLLOWLOCATION => true,
-//           CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-//           CURLOPT_CUSTOMREQUEST => 'GET',
-//           CURLOPT_HTTPHEADER => array(
-//             "Master-Api-Token: $masterToken",
-//             "Impersonated-User-Id: $userPhysicalId",
-//             'Impersonated-User-Id-Type: EXTERNAL_ID'
-//           ),
-//         ));
-//
-//         $response = curl_exec($curl);
-//         $err = curl_error($curl);
-//         curl_close($curl);
-//
-//         if ($err) {
-//             $returnArray = array(
-//                 'result' => false,
-//                 'message' => 'Извините, но что-то пошло не так, попробуйте повторить позднее.'
-//             );
-//             return $returnArray;
-//         } else {
-//             $result = json_decode($response, true);
-//             $returnArray = array(
-//                 'result' => $result['result'],
-//                 'message' => $result['currentUser']['employees'][0]['id'];
-//             );
-//             return $returnArray;
-//         }
-//     }
+    function getCurrentUser($masterToken, $userPhysicalId) {
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => 'https://hrlink.diall.ru/api/v1/currentUser',
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => '',
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 0,
+          CURLOPT_FOLLOWLOCATION => true,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => 'GET',
+          CURLOPT_HTTPHEADER => array(
+            "Master-Api-Token: $masterToken",
+            "Impersonated-User-Id: $userPhysicalId",
+            'Impersonated-User-Id-Type: EXTERNAL_ID'
+          ),
+        ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+        curl_close($curl);
+
+        if ($err) {
+            return array(
+                'result' => false,
+                'message' => 'Извините, но что-то пошло не так, попробуйте повторить позднее.'
+            );
+        } else {
+            $result = json_decode($response, true);
+            return array(
+                'result' => $result['result'],
+                'message' => $result['currentUser']['employees'][0]['id'];
+            );
+        }
+    }
 
     function generateMasterKey($bearerToken) {
         $curl = curl_init();
