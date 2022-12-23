@@ -83,7 +83,7 @@ class HrLinkApiProvider {
                             "Master-Api-Token: $masterToken",
                             "Impersonated-User-Id: $userPhysicalId",
                             'Impersonated-User-Id-Type: EXTERNAL_ID',
-                            'Content-Type: application/json; charset=utf-8'
+                            'Content-Type: application/json'
                         ),
                     ));
 
