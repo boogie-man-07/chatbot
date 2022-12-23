@@ -98,71 +98,80 @@ class HrLinkApiProvider {
                         );
                     } else {
                         $result = json_decode($response, TRUE, 512, JSON_UNESCAPED_UNICODE);
-                        return array(
-                            'result' => true,
-                            'applicationGroupId' => $result['applicationGroup']['id'];
-                        );
+                        if ($result['result']) {
+                            $applicationGroupId = $result['applicationGroup']['id'];
+                            sleep(5);
+                            $smsSending = $this->sendSmsCode($masterToken, $userPhysicalId, $clientId, $applicationGroupId);
+                            return $smsSending;
+//                             if ($smsSending['result']) {
+//                                 return array(
+//                                     'result' => true,
+//                                     'message' => 'Сообщение успешно отправлено.'
+//                                 );
+//                             } else {
+//                                 return array(
+//                                     'result' => false,
+//                                     'message' => 'Не удалось отправить SMS, попробуйте повторить позднее.'
+//                                 );
+//                             }
+                        } else {
+                            return array(
+                                'result' => false,
+                                'message' => 'Извините, но что-то пошло не так, попробуйте повторить позднее.'
+                            );
+                        }
+
                     }
 
                 } else {
-                    return array(
-                        'result' => false,
-                        'message' => 'Извините, но что-то пошло не так, попробуйте повторить позднее.'
-                    );
+                    return "Не нормально 1";
                 }
             } else {
-                return array(
-                    'result' => false,
-                    'message' => 'Извините, но что-то пошло не так, попробуйте повторить позднее.'
-                );
+                return "Не нормально 2";
             }
         } else {
+            return "Не нормально 3";
+        }
+    }
+
+    function sendSmsCode($masterToken, $userPhysicalId, $clientId, $applicationGroupId) {
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://hrlink.diall.ru/api/v1/clients/$clientId/applicationGroups/$applicationGroupId/sign/nqes",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS =>'{}',
+            CURLOPT_HTTPHEADER => array(
+                "Master-Api-Token: $masterToken",
+                "Impersonated-User-Id: $userPhysicalId",
+                'Impersonated-User-Id-Type: EXTERNAL_ID',
+                'Content-Type: application/json'
+            ),
+        ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+        curl_close($curl);
+
+        if ($err) {
             return array(
                 'result' => false,
                 'message' => 'Извините, но что-то пошло не так, попробуйте повторить позднее.'
             );
+        } else {
+            $result = json_decode($response, TRUE, 512, JSON_UNESCAPED_UNICODE);
+            return array(
+                'result' => $result['result'],
+                'signingRequestId' => $result
+            );
         }
     }
-
-//     function sendSmsCode($masterToken, $userPhysicalId, $applicationGroupId) {
-//         $clientId = 'a0731d7f-4799-4fe0-944a-247f256fd509';
-//
-//         $curl = curl_init();
-//         curl_setopt_array($curl, array(
-//             CURLOPT_URL => "https://hrlink.diall.ru/api/v1/clients/$clientId/applicationGroups/$applicationGroupId/sign/nqes",
-//             CURLOPT_RETURNTRANSFER => true,
-//             CURLOPT_ENCODING => '',
-//             CURLOPT_MAXREDIRS => 10,
-//             CURLOPT_TIMEOUT => 0,
-//             CURLOPT_FOLLOWLOCATION => true,
-//             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-//             CURLOPT_CUSTOMREQUEST => 'POST',
-//             CURLOPT_POSTFIELDS =>'{}',
-//             CURLOPT_HTTPHEADER => array(
-//                 "Master-Api-Token: $masterToken",
-//                 "Impersonated-User-Id: $userPhysicalId",
-//                 'Impersonated-User-Id-Type: EXTERNAL_ID',
-//                 'Content-Type: application/json'
-//             ),
-//         ));
-//
-//         $response = curl_exec($curl);
-//         $err = curl_error($curl);
-//         curl_close($curl);
-//
-//         if ($err) {
-//             return array(
-//                 'result' => false,
-//                 'message' => 'Извините, но что-то пошло не так, попробуйте повторить позднее.'
-//             );
-//         } else {
-//             $result = json_decode($response, TRUE, 512, JSON_UNESCAPED_UNICODE);
-//             return array(
-//                 'result' => $result['result'],
-//                 'signingRequestId' => $result
-//             );
-//         }
-//     }
 
 
     function getCurrentUser($masterToken, $userPhysicalId) {
