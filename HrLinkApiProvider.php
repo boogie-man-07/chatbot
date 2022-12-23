@@ -91,8 +91,9 @@ class HrLinkApiProvider {
                     $err = curl_error($curl);
                     curl_close($curl);
 
-                    $htmlDecodedResponse = stripslashes(html_entity_decode($response));
+//                     $htmlDecodedResponse = stripslashes(html_entity_decode($response));
 //                     return $htmlDecodedResponse;
+                    $response = rtrim($response, "\0");
 
                     if ($err) {
                         $error = array(
@@ -101,7 +102,7 @@ class HrLinkApiProvider {
                         );
                         return $err;
                     } else {
-                        $result = json_decode($htmlDecodedResponse, true);
+                        $result = json_decode($response, true);
 
                         return array(
                             'result' => $result['result'],
