@@ -1198,8 +1198,14 @@ class AuthorizedUserScenario {
                         $bossPhysicalId = $this->access->getBossPhysicalId($this->user['boss']);
                         $applicationInfo = $this->access->getApplicationIdsInfo($text);
                         $registeredUser = $this->hrLinkApiProvider->registerApplication($this->user, $vacationFormData, $bossPhysicalId['physical_id'], $applicationInfo['hrlink_application_id']);
-                        sendMessage($this->chatID, json_encode($registeredUser), null);
-                        exit;
+                        $decodedRegisteredUser = json_decode($registeredUser, true);
+                        if ($decodedRegisteredUser['result']) {
+                            sendMessage($this->chatID, json_encode($decodedRegisteredUser), null);
+                            exit;
+                        } else {
+                            sendMessage($this->chatID, json_encode($decodedRegisteredUser), null);
+                            exit;
+                        }
 
                     default:
                         answerCallbackQuery($this->query["id"], "Хм, интересно...");
