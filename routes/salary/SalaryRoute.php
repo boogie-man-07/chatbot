@@ -473,7 +473,8 @@ class SalaryRoute {
             'waiting for dms question',
             'waiting for email for dms question reply',
             'waiting for multiple keyboard choose',
-            'waiting for regular vacation type'
+            'waiting for regular vacation type',
+            'waiting for sms code entering'
         );
         if (in_array($currentState, $dialogState)) {
             return true;

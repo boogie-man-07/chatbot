@@ -325,7 +325,7 @@ class constants {
     }
 
     function getConfirmationSmsEnteringText() {
-        return "Введите код полученный в SMS сообщени";
+        return "Введите код полученный в SMS сообщении";
     }
 
     function getSuccessApplicationRegisteringText() {
