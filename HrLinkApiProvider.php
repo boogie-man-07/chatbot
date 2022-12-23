@@ -91,14 +91,14 @@ class HrLinkApiProvider {
                     curl_close($curl);
 
                     if ($err) {
-//                         $error = array(
-//                             'result' => false,
-//                             'message' => $err
-//                         );
+                        $error = array(
+                            'result' => false,
+                            'message' => $err
+                        );
                         return $err;
                     } else {
-                        return $response;
-//                         $result = json_decode($response, true);
+                        $result = json_decode($response, true);
+                        return $result;
 //                         return array(
 //                             'result' => $result['result'],
 //                             'id' => $result['applicationGroup']
