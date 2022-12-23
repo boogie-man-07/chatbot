@@ -89,21 +89,22 @@ class HrLinkApiProvider {
                     $response = curl_exec($curl);
                     $err = curl_error($curl);
                     curl_close($curl);
+                    return $result;
 
-                    if ($err) {
-                        $error = array(
-                            'result' => false,
-                            'message' => $err
-                        );
-                        return $err;
-                    } else {
-                        $result = json_decode($response, true);
-                        return $result;
+//                     if ($err) {
+//                         $error = array(
+//                             'result' => false,
+//                             'message' => $err
+//                         );
+//                         return $err;
+//                     } else {
+//                         $result = json_decode($response, true);
+//
 //                         return array(
 //                             'result' => $result['result'],
 //                             'id' => $result['applicationGroup']
 //                         );
-                    }
+//                     }
 
                 } else {
                     return "Не нормально 1";
