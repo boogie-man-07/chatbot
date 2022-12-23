@@ -794,37 +794,49 @@ class AuthorizedUserScenario {
                 $this->salaryRoute->triggerActionForRegularVacationStartPreparations($this->chatID);
                 exit;
             case $this->commands['sendNewRegularVacationFormInline']:
+                answerCallbackQuery($this->query["id"], "Данные загружены!");
                 $vacationFormData = $this->access->getReguarVacationFormData($this->chatID);
-                //$sign = $this->salaryRoute->getSign($this->user['firstname'], $this->user['middlename'], $this->user['lastname']);
-                $sign = $this->salaryRoute->getSign($this->user['fullname']);
-                $date = new dateTime();
-                $day = $date->format("d");
-                $month = $date->format("F");
-                $year = $date->format("Y");
-                $bossSign = $this->salaryRoute->getSign($this->user['boss']);
-                if ($vacationFormData['vacation_type'] == '3') {
-                    $this->forms->getNewRegularVacationForm($this->user, $vacationFormData['vacation_type'], $vacationFormData["vacation_startdate"], $vacationFormData["vacation_duration"], $vacationFormData["reason"], $day, $month, $year, $sign, $bossSign);
+                $bossPhysicalId = $this->access->getBossPhysicalId($this->user['boss']);
+                $applicationInfo = $this->access->getApplicationIdsInfo($text);
+                $registeredUser = $this->hrLinkApiProvider->registerApplication($this->user, $vacationFormData, $bossPhysicalId['physical_id'], $applicationInfo['hrlink_application_id']);
+                if ($registeredUser['result']) {
+                    // todo save applicationGroupId into vacations
+                    // todo trigger action with ask for SMS sending
                 } else {
-                    $this->forms->getNewRegularVacationForm($this->user, $vacationFormData['vacation_type'], $vacationFormData["vacation_startdate"], $vacationFormData["vacation_duration"], null, $day, $month, $year, $sign, $bossSign);
+                    // todo trigger error
                 }
-                $template = $this->email->generateNewRegularVacationForm($this->user['company_id']);
-                $template = str_replace("{firstname}", $this->user['firstname'], $template);
-                $isSended = $this->swiftmailer->sendNewRegularVacationMailWithAttachementViaSmtp(
-                    $vacationFormData['vacation_type'],
-                    $this->user['company_id'],
-                    $this->user['email'],
-                    "Заявление на отпуск",
-                    $template
-                );
-                if ($isSended) {
-                    answerCallbackQuery($this->query["id"], "Письмо успешно отправлено!");
-                    $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
-                    $this->salaryRoute->triggerActionForSendRegularVacationFormResult($this->chatID, $this->user['firstname'], $this->user['company_id']);
-                    exit;
-                } else {
-                    answerCallbackQuery($this->query["id"], "Не удалось отправить письмо, повторите попытку!");
-                    exit;
-                }
+
+//                 $vacationFormData = $this->access->getReguarVacationFormData($this->chatID);
+//                 $sign = $this->salaryRoute->getSign($this->user['firstname'], $this->user['middlename'], $this->user['lastname']);
+//                 $sign = $this->salaryRoute->getSign($this->user['fullname']);
+//                 $date = new dateTime();
+//                 $day = $date->format("d");
+//                 $month = $date->format("F");
+//                 $year = $date->format("Y");
+//                 $bossSign = $this->salaryRoute->getSign($this->user['boss']);
+//                 if ($vacationFormData['vacation_type'] == '3') {
+//                     $this->forms->getNewRegularVacationForm($this->user, $vacationFormData['vacation_type'], $vacationFormData["vacation_startdate"], $vacationFormData["vacation_duration"], $vacationFormData["reason"], $day, $month, $year, $sign, $bossSign);
+//                 } else {
+//                     $this->forms->getNewRegularVacationForm($this->user, $vacationFormData['vacation_type'], $vacationFormData["vacation_startdate"], $vacationFormData["vacation_duration"], null, $day, $month, $year, $sign, $bossSign);
+//                 }
+//                 $template = $this->email->generateNewRegularVacationForm($this->user['company_id']);
+//                 $template = str_replace("{firstname}", $this->user['firstname'], $template);
+//                 $isSended = $this->swiftmailer->sendNewRegularVacationMailWithAttachementViaSmtp(
+//                     $vacationFormData['vacation_type'],
+//                     $this->user['company_id'],
+//                     $this->user['email'],
+//                     "Заявление на отпуск",
+//                     $template
+//                 );
+//                 if ($isSended) {
+//                     answerCallbackQuery($this->query["id"], "Письмо успешно отправлено!");
+//                     $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
+//                     $this->salaryRoute->triggerActionForSendRegularVacationFormResult($this->chatID, $this->user['firstname'], $this->user['company_id']);
+//                     exit;
+//                 } else {
+//                     answerCallbackQuery($this->query["id"], "Не удалось отправить письмо, повторите попытку!");
+//                     exit;
+//                 }
 
             case $this->commands['sendOldRegularVacationFormInline']:
                 $template = $this->email->generateRegularVacationForm($this->user['company_id']);
@@ -1198,9 +1210,14 @@ class AuthorizedUserScenario {
                         $bossPhysicalId = $this->access->getBossPhysicalId($this->user['boss']);
                         $applicationInfo = $this->access->getApplicationIdsInfo($text);
                         $registeredUser = $this->hrLinkApiProvider->registerApplication($this->user, $vacationFormData, $bossPhysicalId['physical_id'], $applicationInfo['hrlink_application_id']);
-                        sendMessage($this->chatID, json_encode($registeredUser, JSON_UNESCAPED_UNICODE), null);
-                        exit;
-
+                        if ($registeredUser['result']) {
+                            sendMessage($this->chatID, json_encode($registeredUser, JSON_UNESCAPED_UNICODE), null);
+                            // todo save applicationGroupId into vacations
+                            // todo trigger action with ask for SMS sending
+                        } else {
+                            // todo trigger error
+                            exit;
+                        }
                     default:
                         answerCallbackQuery($this->query["id"], "Хм, интересно...");
 //                         sendMessage($this->chatID, "Default finished inline", null);
