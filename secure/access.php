@@ -776,6 +776,29 @@ class access {
         return $returnValue;
     }
 
+    function setRegularVacationSigningRequestId($tg_chat_id, $signingRequestId) {
+        $sql = "SELECT * FROM vacations WHERE tg_chat_id='".$tg_chat_id."'";
+        $result = $this->conn->query($sql);
+        if ($result != null && (mysqli_num_rows($result) >= 1 )) {
+            $sql = "UPDATE vacations SET signing_request_id=? WHERE tg_chat_id=?";
+            $statement = $this->conn->prepare($sql);
+            if (!$statement) {
+                throw new Exception($statement->error);
+            }
+            $statement->bind_param("ss", $signingRequestId, $tg_chat_id);
+            $returnValue = $statement->execute();
+        } else {
+            $sql = "INSERT INTO vacations SET tg_chat_id=?, signing_request_id=?";
+            $statement = $this->conn->prepare($sql);
+            if (!$statement) {
+                throw new Exception($statement->error);
+            }
+            $statement->bind_param("ss", $tg_chat_id, $signingRequestId);
+            $returnValue = $statement->execute();
+        }
+        return $returnValue;
+    }
+
     function setRegularVacationAcademicReason($tg_chat_id, $reason) {
         // sql command
         $sql = "SELECT * FROM vacations WHERE tg_chat_id='".$tg_chat_id."'";
