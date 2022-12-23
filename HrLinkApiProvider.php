@@ -159,7 +159,7 @@ class HrLinkApiProvider {
                     );
                 } else {
                     $result = json_decode($response, TRUE, 512, JSON_UNESCAPED_UNICODE);
-                    return $result['result']);
+                    return $result;
                 }
             } else {
                 return array(
