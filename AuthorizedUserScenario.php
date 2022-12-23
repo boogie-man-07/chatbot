@@ -317,6 +317,9 @@ class AuthorizedUserScenario {
                             $this->access->setState($this->chatID, $this->states['regularVacationFormSendingWaitingState']);
                             $this->salaryRoute->triggerActionForSendRegularVacationForm($this->chatID);
                             exit;
+                        case $this->states['smsConfirmationSendingWaitingState']:
+                            sendMessage($this->chatID, 'smsConfirmationSendingWaitingState', null);
+                            exit;
 //                         case $this->states['postponedVacationStartDateWaitingState']:
 //                             if ($this->salaryRoute->isCorrectDateFormat($text)) {
 //                                 if ($this->salaryRoute->isDateNotInPast($text)) {
@@ -1110,6 +1113,7 @@ class AuthorizedUserScenario {
                             answerCallbackQuery($this->query["id"], "Данные загружены!");
                             exit;
                         }
+                    // to delete
                     case $this->states['issuingDocumentChooseWaitingState']:
                         $this->access->saveIssuingDocumentData($this->user['user_id'], (int)$text);
                         switch ((int)$text) {
@@ -1198,8 +1202,17 @@ class AuthorizedUserScenario {
                         $bossPhysicalId = $this->access->getBossPhysicalId($this->user['boss']);
                         $applicationInfo = $this->access->getApplicationIdsInfo($text);
                         $registeredUser = $this->hrLinkApiProvider->registerApplication($this->user, $vacationFormData, $bossPhysicalId['physical_id'], $applicationInfo['hrlink_application_id']);
-                        sendMessage($this->chatID, json_encode($registeredUser, 512, JSON_UNESCAPED_UNICODE), null);
-                        exit;
+                        if ($registeredUser['result']) {
+                            $this->access->setRegularVacationApplicationGroupId($this->chatID, $registeredUser['applicationGroupId']); exit;
+                            $this->access->setState($this->chatID, $this->states['smsConfirmationSendingWaitingState']);
+                            $this->salaryRoute->triggerActionForIssuingDocumentConfirmSmsSending($this->chatID);
+                            answerCallbackQuery($this->query["id"], "Данные загружены!");
+                            exit;
+                        } else {
+                            // trigger error
+                            sendMessage($this->chatID, 'an error occured', null);
+                            exit;
+                        }
 
                     default:
                         answerCallbackQuery($this->query["id"], "Хм, интересно...");
