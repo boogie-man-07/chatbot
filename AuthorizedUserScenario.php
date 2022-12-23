@@ -320,15 +320,16 @@ class AuthorizedUserScenario {
                         case $this->states['smsCodeEnteringWaitingState']:
                             $vacationFormData = $this->access->getReguarVacationFormData($this->chatID);
                             $checkSmsCodeState = $this->hrLinkApiProvider->checkSmsCode($this->user['physical_id'], $vacationFormData['application_group_id'], $vacationFormData['signing_request_id'], $text);
-                            if($checkSmsCodeState['result']) {
-                                $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
-                                $this->salaryRoute->triggerActionForSuccessApplicationRegistering($this->chatID);
-                                exit;
-                            } else {
-                                // trigger error
-                                sendMessage($this->chatID, 'Код SMS неверен', null);
-                                exit;
-                            }
+                            sendMessage($this->chatID, $checkSmsCodeState, null);
+//                             if($checkSmsCodeState['result']) {
+//                                 $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
+//                                 $this->salaryRoute->triggerActionForSuccessApplicationRegistering($this->chatID);
+//                                 exit;
+//                             } else {
+//                                 // trigger error
+//                                 sendMessage($this->chatID, 'Код SMS неверен', null);
+//                                 exit;
+//                             }
 
 //                         case $this->states['postponedVacationStartDateWaitingState']:
 //                             if ($this->salaryRoute->isCorrectDateFormat($text)) {
