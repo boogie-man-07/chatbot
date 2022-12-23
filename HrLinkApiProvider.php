@@ -105,7 +105,7 @@ class HrLinkApiProvider {
 
                         return array(
                             'result' => $result['result'],
-                            'id' => $result['applicationGroup']
+                            'applicationGroupId' => $result['applicationGroup']['id']
                         );
                     }
 
