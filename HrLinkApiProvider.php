@@ -91,10 +91,11 @@ class HrLinkApiProvider {
                     curl_close($curl);
 
                     if ($err) {
-                        return array(
-                            'result' => false,
-                            'message' => 'Извините, но что-то пошло не так, попробуйте повторить позднее.'
-                        );
+//                         $error = array(
+//                             'result' => false,
+//                             'message' => $err
+//                         );
+                        return $err;
                     } else {
                         return $response;
 //                         $result = json_decode($response, true);
