@@ -57,7 +57,7 @@ class HrLinkApiProvider {
 
                     $body = array(
                         'externalId' => $externalId,
-                        'date' => (string)$currentDate,
+                        'date' => $currentDate,
                         'number' => $number,
                         'typeId' => $typeId,
                         'applications' => $applications,
@@ -89,21 +89,22 @@ class HrLinkApiProvider {
                     $response = curl_exec($curl);
                     $err = curl_error($curl);
                     curl_close($curl);
+                    return $response;
 
-                    if ($err) {
-                        return array(
-                            'result' => false,
-                            'message' => 'Извините, но что-то пошло не так, попробуйте повторить позднее.'
-                        );
-                    } else {
-                        $result = json_decode($response, true);
-                        return $result;
-
+//                     if ($err) {
+//                         return array(
+//                             'result' => false,
+//                             'message' => 'Извините, но что-то пошло не так, попробуйте повторить позднее.'
+//                         );
+//                     } else {
+//                         $result = json_decode($response, true);
+//                         return $result;
+//
 //                         return array(
 //                             'result' => $result['result'],
 //                             'id' => $result['applicationGroup']['id']
 //                         );
-                    }
+//                     }
 
                 } else {
                     return "Не нормально 1";
