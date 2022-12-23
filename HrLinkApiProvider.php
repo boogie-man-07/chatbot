@@ -57,7 +57,7 @@ class HrLinkApiProvider {
 
                     $body = array(
                         'externalId' => $externalId,
-                        'date' => $currentDate,
+                        'date' => (string)$currentDate,
                         'number' => $number,
                         'typeId' => $typeId,
                         'applications' => $applications,
@@ -73,7 +73,7 @@ class HrLinkApiProvider {
                         CURLOPT_RETURNTRANSFER => true,
                         CURLOPT_ENCODING => '',
                         CURLOPT_MAXREDIRS => 10,
-                        CURLOPT_TIMEOUT => 300,
+                        CURLOPT_TIMEOUT => 5000,
                         CURLOPT_FOLLOWLOCATION => true,
                         CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                         CURLOPT_CUSTOMREQUEST => 'POST',
@@ -125,7 +125,7 @@ class HrLinkApiProvider {
           CURLOPT_RETURNTRANSFER => true,
           CURLOPT_ENCODING => '',
           CURLOPT_MAXREDIRS => 10,
-          CURLOPT_TIMEOUT => 300,
+          CURLOPT_TIMEOUT => 5000,
           CURLOPT_FOLLOWLOCATION => true,
           CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
           CURLOPT_CUSTOMREQUEST => 'GET',
