@@ -1216,7 +1216,7 @@ class AuthorizedUserScenario {
                         $applicationInfo = $this->access->getApplicationIdsInfo($text);
                         $registeredUser = $this->hrLinkApiProvider->registerApplication($this->user, $vacationFormData, $bossPhysicalId['physical_id'], $applicationInfo['hrlink_application_id']);
                         if ($registeredUser['result']) {
-                            $this->access->setRegularVacationApplicationGroupIds($this->chatID, $registeredUser['applicationGroupId']);
+                            $this->access->setRegularVacationApplicationGroupId($this->chatID, $registeredUser['applicationGroupId']);
                             $this->salaryRoute->triggerActionForIssuingDocumentConfirmSmsSending($this->chatID);
                             answerCallbackQuery($this->query["id"], "Данные загружены!");
                             exit;
