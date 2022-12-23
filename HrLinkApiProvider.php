@@ -114,66 +114,66 @@ class HrLinkApiProvider {
         }
     }
 
-//     function checkSmsCode($userPhysicalId, $applicationGroupId, $signingRequestId, $code) {
-//         $bearerTokenResponse = $this->generateBearerToken();
-//         if ($bearerTokenResponse['result']) {
-//             $bearerToken = $bearerTokenResponse['bearerToken'];
-//             $masterTokenResponse = $this->generateMasterKey($bearerToken);
-//             if ($masterTokenResponse['result']) {
-//                 $masterToken = $masterTokenResponse['masterToken'];
-//                 $clientId = 'a0731d7f-4799-4fe0-944a-247f256fd509';
-//
-//                 $body = array(
-//                     'signingRequestId' => $signingRequestId,
-//                     'code' => $code
-//                 );
-//                 $encodedBody = json_encode($body);
-//
-//                 $curl = curl_init();
-//                 curl_setopt_array($curl, array(
-//                     CURLOPT_URL => "https://hrlink.diall.ru/api/v1/clients/$clientId/applicationGroups/$applicationGroupId/sign/nqes",
-//                     CURLOPT_RETURNTRANSFER => true,
-//                     CURLOPT_ENCODING => '',
-//                     CURLOPT_MAXREDIRS => 10,
-//                     CURLOPT_TIMEOUT => 0,
-//                     CURLOPT_FOLLOWLOCATION => true,
-//                     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-//                     CURLOPT_CUSTOMREQUEST => 'PUT',
-//                     CURLOPT_POSTFIELDS => $body,
-//                     CURLOPT_HTTPHEADER => array(
-//                         "Master-Api-Token: $masterToken",
-//                         "Impersonated-User-Id: $userPhysicalId",
-//                         'Impersonated-User-Id-Type: EXTERNAL_ID',
-//                         'Content-Type: application/json'
-//                     ),
-//                 ));
-//
-//                 $response = curl_exec($curl);
-//                 $err = curl_error($curl);
-//                 curl_close($curl);
-//
-//                 if ($err) {
-//                     return array(
-//                         'result' => false,
-//                         'message' => 'Извините, но что-то пошло не так, попробуйте повторить позднее.'
-//                     );
-//                 } else {
-//                     $result = json_decode($response, TRUE, 512, JSON_UNESCAPED_UNICODE);
-//                     return $result['result']);
-//                 }
-//             } else {
-//                 return array(
-//                     'result' => false,
-//                     'message' => 'Извините, но что-то пошло не так, попробуйте повторить позднее.'
-//                 );
-//             }
-//         } else {
-//             return array(
-//                 'result' => false,
-//                 'message' => 'Извините, но что-то пошло не так, попробуйте повторить позднее.'
-//             );
-//         }
-//     }
+    function checkSmsCode($userPhysicalId, $applicationGroupId, $signingRequestId, $code) {
+        $bearerTokenResponse = $this->generateBearerToken();
+        if ($bearerTokenResponse['result']) {
+            $bearerToken = $bearerTokenResponse['bearerToken'];
+            $masterTokenResponse = $this->generateMasterKey($bearerToken);
+            if ($masterTokenResponse['result']) {
+                $masterToken = $masterTokenResponse['masterToken'];
+                $clientId = 'a0731d7f-4799-4fe0-944a-247f256fd509';
+
+                $body = array(
+                    'signingRequestId' => $signingRequestId,
+                    'code' => $code
+                );
+                $encodedBody = json_encode($body);
+
+                $curl = curl_init();
+                curl_setopt_array($curl, array(
+                    CURLOPT_URL => "https://hrlink.diall.ru/api/v1/clients/$clientId/applicationGroups/$applicationGroupId/sign/nqes",
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => '',
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 0,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => 'PUT',
+                    CURLOPT_POSTFIELDS => $body,
+                    CURLOPT_HTTPHEADER => array(
+                        "Master-Api-Token: $masterToken",
+                        "Impersonated-User-Id: $userPhysicalId",
+                        'Impersonated-User-Id-Type: EXTERNAL_ID',
+                        'Content-Type: application/json'
+                    ),
+                ));
+
+                $response = curl_exec($curl);
+                $err = curl_error($curl);
+                curl_close($curl);
+
+                if ($err) {
+                    return array(
+                        'result' => false,
+                        'message' => 'Извините, но что-то пошло не так, попробуйте повторить позднее.'
+                    );
+                } else {
+                    $result = json_decode($response, TRUE, 512, JSON_UNESCAPED_UNICODE);
+                    return $result['result']);
+                }
+            } else {
+                return array(
+                    'result' => false,
+                    'message' => 'Извините, но что-то пошло не так, попробуйте повторить позднее.'
+                );
+            }
+        } else {
+            return array(
+                'result' => false,
+                'message' => 'Извините, но что-то пошло не так, попробуйте повторить позднее.'
+            );
+        }
+    }
 
     function sendSmsCode($userPhysicalId, $applicationGroupId) {
         $bearerTokenResponse = $this->generateBearerToken();

@@ -319,7 +319,7 @@ class AuthorizedUserScenario {
                             exit;
                         case $this->states['smsCodeEnteringWaitingState']:
                             $vacationFormData = $this->access->getReguarVacationFormData($this->chatID);
-//                             $checkSmsCodeState = $this->hrLinkApiProvider->checkSmsCode($this->user['physical_id'], $vacationFormData['application_group_id'], $vacationFormData['signing_request_id'], $text);
+                            $checkSmsCodeState = $this->hrLinkApiProvider->checkSmsCode($this->user['physical_id'], $vacationFormData['application_group_id'], $vacationFormData['signing_request_id'], $text);
 //                             if($checkSmsCodeState['result']) {
 //                                 $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
 //                                 $this->salaryRoute->triggerActionForSuccessApplicationRegistering($this->chatID);
