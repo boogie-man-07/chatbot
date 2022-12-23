@@ -317,6 +317,9 @@ class AuthorizedUserScenario {
                             $this->access->setState($this->chatID, $this->states['regularVacationFormSendingWaitingState']);
                             $this->salaryRoute->triggerActionForSendRegularVacationForm($this->chatID);
                             exit;
+                        case $this->states['smsCodeEnteringWaitingState']:
+                            sendMessage($this->chatID, 'Проверяю код SMS', null);
+                            exit;
 //                         case $this->states['postponedVacationStartDateWaitingState']:
 //                             if ($this->salaryRoute->isCorrectDateFormat($text)) {
 //                                 if ($this->salaryRoute->isDateNotInPast($text)) {
@@ -892,17 +895,30 @@ class AuthorizedUserScenario {
                     answerCallbackQuery($this->query["id"], "Не удалось отправить письмо, повторите попытку!");
                     exit;
                 }
+            // to delete
             case $this->commands['documentsIssuingCaseInline']:
                 $this->access->setState($this->chatID, $this->states['issuingDocumentChooseWaitingState']);
                 $this->salaryRoute->triggerActionForGetIssuingDocumentsList($this->chatID);
                 answerCallbackQuery($this->query["id"], "Список документов загружен!");
                 exit;
+            // to delete
             case $this->commands['documentsCopiesIssuingCaseInline']:
                 answerCallbackQuery($this->query["id"], "documentsCopiesIssuingCaseInline");
                 exit;
             case $this->commands['sendConfirmationSmsInline']:
-                answerCallbackQuery($this->query["id"], "Код отправлен в SMS!");
-                exit;
+                $vacationFormData = $this->access->getReguarVacationFormData($this->chatID);
+                $smsSendingState = $this->hrLinkApiProvider->sendSmsCode($this->user['physical_id'], $vacationFormData['application_group_id']);
+                if ($smsSendingState['result']) {
+                    $this->access->setRegularVacationSigningRequestId($this->chatID, $smsSendingState['signingRequestId']);
+                    $this->access->setState($this->chatID, $this->states['smsCodeEnteringWaitingState']);
+                    // todo введите код
+                    answerCallbackQuery($this->query["id"], "Код отправлен в SMS!");
+                    exit;
+                } else {
+                    // trigger error
+                    sendMessage($this->chatID, 'an error occured', null);
+                    exit;
+                }
             case $this->commands['dmsGoToSurveyInline']:
                 $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
                 if ($pollInfo) {
@@ -1200,7 +1216,7 @@ class AuthorizedUserScenario {
                         $applicationInfo = $this->access->getApplicationIdsInfo($text);
                         $registeredUser = $this->hrLinkApiProvider->registerApplication($this->user, $vacationFormData, $bossPhysicalId['physical_id'], $applicationInfo['hrlink_application_id']);
                         if ($registeredUser['result']) {
-                            $this->access->setRegularVacationApplicationGroupId($this->chatID, $registeredUser['applicationGroupId']);
+                            $this->access->setRegularVacationApplicationGroupIds($this->chatID, $registeredUser['applicationGroupId']);
                             $this->salaryRoute->triggerActionForIssuingDocumentConfirmSmsSending($this->chatID);
                             answerCallbackQuery($this->query["id"], "Данные загружены!");
                             exit;

@@ -117,7 +117,7 @@
         "dmsPoolReplyWaitingState": "waiting for choose dms pool reply",
         "dmsMultipleKeyboardChooseWaitingState": "waiting for multiple keyboard choose",
         "regularVacationTypeWaitingState": "waiting for regular vacation type",
-        "smsConfirmationSendingWaitingState": "waiting for confirmation sms sending"
+        "smsCodeEnteringWaitingState": "waiting for sms code entering"
     },
 
     "constants": {
