@@ -96,11 +96,12 @@ class HrLinkApiProvider {
                             'message' => 'Извините, но что-то пошло не так, попробуйте повторить позднее.'
                         );
                     } else {
-                        $result = json_decode($response, true);
-                        return array(
-                            'result' => $result['result'],
-                            'id' => $result['applicationGroup']
-                        );
+                        return $response;
+//                         $result = json_decode($response, true);
+//                         return array(
+//                             'result' => $result['result'],
+//                             'id' => $result['applicationGroup']
+//                         );
                     }
 
                 } else {
