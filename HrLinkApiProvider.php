@@ -101,17 +101,18 @@ class HrLinkApiProvider {
                         if ($result['result']) {
                             $applicationGroupId = $result['applicationGroup']['id'];
                             $smsSending = $this->sendSmsCode($masterToken, $userPhysicalId, $clientId, $applicationGroupId);
-                            if ($smsSending['result']) {
-                                return array(
-                                    'result' => true,
-                                    'message' => 'Сообщение успешно отправлено.'
-                                );
-                            } else {
-                                return array(
-                                    'result' => false,
-                                    'message' => 'Не удалось отправить SMS, попробуйте повторить позднее.'
-                                );
-                            }
+                            return $smsSending;
+//                             if ($smsSending['result']) {
+//                                 return array(
+//                                     'result' => true,
+//                                     'message' => 'Сообщение успешно отправлено.'
+//                                 );
+//                             } else {
+//                                 return array(
+//                                     'result' => false,
+//                                     'message' => 'Не удалось отправить SMS, попробуйте повторить позднее.'
+//                                 );
+//                             }
                         } else {
                             return array(
                                 'result' => false,

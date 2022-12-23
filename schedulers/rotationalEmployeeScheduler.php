@@ -25,10 +25,11 @@ $offset = "0";
 $currentTimestamp = strtotime(date('d.m.Y'));
 $desiredTimestamp = strtotime('+ 3 days', $currentTimestamp);
 $desiredDate = date('d.m.Y', $desiredTimestamp);
+$desiredDateText = date('d.m.y', $desiredTimestamp);
 $desiredDateFirstDayOfMonth = date('01.m.Y', $desiredTimestamp);
 
 foreach ($rotationalWorkersListFromDb as $rotationalWorkerFromDb) {
-    $message = $rotationalWorkerFromDb['firstname'].", напоминаю, что Ваша вахта начинается через 3 дня, ".(string)$desiredDate." г.";
+    $message = $rotationalWorkerFromDb['firstname'].", дата Вашего следующего заезда на вахту - ".(string)$desiredDateText." г.";
     $rotationalWorkerInfo = $calendarInfo->getMonthlyDataMock($rotationalWorkerFromDb['user_id'], $desiredDateFirstDayOfMonth, $offset);
     $dateNumber = substr($desiredDate, 0, 1) == "0" ? substr(substr($desiredDate, 0, 2), 1) : substr($desiredDate, 0, 2);
 
@@ -41,7 +42,6 @@ foreach ($rotationalWorkersListFromDb as $rotationalWorkerFromDb) {
                     echo "Для работника ".$rotationalWorkerFromDb['fullname']." день ".$desiredDate." является днем начала ближайшей вахты, необходимо отправить уведомление для tg_chat_id: ".$rotationalWorkerFromDb['tg_chat_id']."<br><br>";
                     sendMessage($rotationalWorkerFromDb['tg_chat_id'], $message, null);
                     sendMessage('5389293300', "Для пользователя ".$rotationalWorkerFromDb['fullname']." ушло следующее напоминание: <br>".$message, null);
-                    sendMessage('187967374', "Для пользователя ".$rotationalWorkerFromDb['fullname']." ушло следующее напоминание: <br>".$message, null);
                     sleep(5);
                 } else {
                     echo "Для работника ".$rotationalWorkerFromDb['fullname']." день ".$desiredDate." не является днем начала ближайшей вахты, отправлять уведомление для telegramId: ".$rotationalWorkerFromDb['tg_chat_id']." не нужно.<br><br>";
