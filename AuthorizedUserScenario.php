@@ -794,20 +794,8 @@ class AuthorizedUserScenario {
                 $this->salaryRoute->triggerActionForRegularVacationStartPreparations($this->chatID);
                 exit;
             case $this->commands['sendNewRegularVacationFormInline']:
-//                 answerCallbackQuery($this->query["id"], "Данные загружены!");
-//                 $vacationFormData = $this->access->getReguarVacationFormData($this->chatID);
-//                 $bossPhysicalId = $this->access->getBossPhysicalId($this->user['boss']);
-//                 $applicationInfo = $this->access->getApplicationIdsInfo($text);
-//                 $registeredUser = $this->hrLinkApiProvider->registerApplication($this->user, $vacationFormData, $bossPhysicalId['physical_id'], $applicationInfo['hrlink_application_id']);
-//                 if ($registeredUser['result']) {
-//                     // todo save applicationGroupId into vacations
-//                     // todo trigger action with ask for SMS sending
-//                 } else {
-//                     // todo trigger error
-//                 }
-
                 $vacationFormData = $this->access->getReguarVacationFormData($this->chatID);
-                $sign = $this->salaryRoute->getSign($this->user['firstname'], $this->user['middlename'], $this->user['lastname']);
+                //$sign = $this->salaryRoute->getSign($this->user['firstname'], $this->user['middlename'], $this->user['lastname']);
                 $sign = $this->salaryRoute->getSign($this->user['fullname']);
                 $date = new dateTime();
                 $day = $date->format("d");
@@ -1210,15 +1198,9 @@ class AuthorizedUserScenario {
                         $bossPhysicalId = $this->access->getBossPhysicalId($this->user['boss']);
                         $applicationInfo = $this->access->getApplicationIdsInfo($text);
                         $registeredUser = $this->hrLinkApiProvider->registerApplication($this->user, $vacationFormData, $bossPhysicalId['physical_id'], $applicationInfo['hrlink_application_id']);
-                        if ($registeredUser['result']) {
-                            sendMessage($this->chatID, json_encode($registeredUser, JSON_UNESCAPED_UNICODE), null);
-                            // todo save applicationGroupId into vacations
-                            // todo trigger action with ask for SMS sending
-                            exit;
-                        } else {
-                            // todo trigger error
-                            exit;
-                        }
+                        sendMessage($this->chatID, json_encode($registeredUser, 512, JSON_UNESCAPED_UNICODE), null);
+                        exit;
+
                     default:
                         answerCallbackQuery($this->query["id"], "Хм, интересно...");
 //                         sendMessage($this->chatID, "Default finished inline", null);
