@@ -83,7 +83,7 @@ class HrLinkApiProvider {
                             "Master-Api-Token: $masterToken",
                             "Impersonated-User-Id: $userPhysicalId",
                             'Impersonated-User-Id-Type: EXTERNAL_ID',
-                            'Content-Type: application/json'
+                            'Content-Type: application/json; charset=utf-8'
                         ),
                     ));
 
@@ -93,7 +93,6 @@ class HrLinkApiProvider {
 
 //                     $htmlDecodedResponse = stripslashes(html_entity_decode($response));
 //                     return $htmlDecodedResponse;
-                    $response = remove_utf8_bom($response);
 
                     if ($err) {
                         $error = array(
