@@ -125,7 +125,7 @@ class HrLinkApiProvider {
 
                 $body = array(
                     'signingRequestId' => $signingRequestId,
-                    'code': $code
+                    'code' => $code
                 );
                 $encodedBody = json_encode($body);
 
