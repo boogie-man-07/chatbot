@@ -93,6 +93,7 @@ class HrLinkApiProvider {
 
 //                     $htmlDecodedResponse = stripslashes(html_entity_decode($response));
 //                     return $htmlDecodedResponse;
+                    $response = remove_utf8_bom($response);
 
                     if ($err) {
                         $error = array(
@@ -101,7 +102,7 @@ class HrLinkApiProvider {
                         );
                         return $err;
                     } else {
-                        $result = json_decode(trim($response), TRUE);
+                        $result = json_decode($response, TRUE);
 
                         return array(
                             'result' => $result['result'],
@@ -118,6 +119,13 @@ class HrLinkApiProvider {
         } else {
             return "Не нормально 3";
         }
+    }
+
+    function remove_utf8_bom($text)
+    {
+        $bom = pack('H*','EFBBBF');
+        $text = preg_replace("/^$bom/", '', $text);
+        return $text;
     }
 
 
