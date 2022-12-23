@@ -271,7 +271,6 @@ class SalaryRoute {
 
     function triggerActionForConfirmationSmsEntering($chatID) {
         $reply = $this->constants->getConfirmationSmsEnteringText();
-        // todo keyboard with another sms sending
         sendMessage($chatID, $reply, null);
     }
 
