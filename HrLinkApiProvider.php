@@ -101,7 +101,7 @@ class HrLinkApiProvider {
                         );
                         return $err;
                     } else {
-                        $result = json_decode($response, TRUE);
+                        $result = json_decode($response, TRUE, 512, JSON_UNESCAPED_UNICODE);
 
                         return array(
                             'result' => $result['result'],
