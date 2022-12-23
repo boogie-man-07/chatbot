@@ -1200,10 +1200,10 @@ class AuthorizedUserScenario {
                         $registeredUser = $this->hrLinkApiProvider->registerApplication($this->user, $vacationFormData, $bossPhysicalId['physical_id'], $applicationInfo['hrlink_application_id']);
                         $decodedRegisteredUser = json_decode($registeredUser, true);
                         if ($decodedRegisteredUser['result']) {
-                            sendMessage($this->chatID, (string)$decodedRegisteredUser['applicationGroups']['id'], null);
+                            sendMessage($this->chatID, json_encode($decodedRegisteredUser), null);
                             exit;
                         } else {
-                            sendMessage($this->chatID, 'Что-то не так!', null);
+                            sendMessage($this->chatID, json_encode($decodedRegisteredUser), null);
                             exit;
                         }
 
