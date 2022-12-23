@@ -318,8 +318,17 @@ class AuthorizedUserScenario {
                             $this->salaryRoute->triggerActionForSendRegularVacationForm($this->chatID);
                             exit;
                         case $this->states['smsCodeEnteringWaitingState']:
-                            sendMessage($this->chatID, 'Проверяю код SMS', null);
-                            exit;
+                            $vacationFormData = $this->access->getReguarVacationFormData($this->chatID);
+                            $checkSmsCodeState = $this->hrLinkApiProvider->checkSmsCode($this->user['physical_id'], $vacationFormData['application_group_id'], $vacationFormData['signing_request_id'], $text);
+                            if($checkSmsCodeState['result']) {
+                                $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
+                                $this->salaryRoute->triggerActionForSuccessApplicationRegistering($this->chatID);
+                            } else {
+                                // trigger error
+                                sendMessage($this->chatID, 'Код SMS неверен', null);
+                                exit;
+                            }
+
 //                         case $this->states['postponedVacationStartDateWaitingState']:
 //                             if ($this->salaryRoute->isCorrectDateFormat($text)) {
 //                                 if ($this->salaryRoute->isDateNotInPast($text)) {
@@ -911,7 +920,7 @@ class AuthorizedUserScenario {
                 if ($smsSendingState['result']) {
                     $this->access->setRegularVacationSigningRequestId($this->chatID, $smsSendingState['signingRequestId']);
                     $this->access->setState($this->chatID, $this->states['smsCodeEnteringWaitingState']);
-                    // todo введите код
+                    $this->salaryRoute->triggerActionForConfirmationSmsEntering($this->chatID);
                     answerCallbackQuery($this->query["id"], "Код отправлен в SMS!");
                     exit;
                 } else {

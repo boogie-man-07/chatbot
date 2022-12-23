@@ -324,6 +324,14 @@ class constants {
         return "Запрос документа необходимо подтвердить вводом кода подтверждения, полученного в SMS.";
     }
 
+    function getConfirmationSmsEnteringText() {
+        return "Введите код полученный в SMS сообщени";
+    }
+
+    function getSuccessApplicationRegisteringText() {
+        return "Ваше заявление успешно зарегистрировано.";
+    }
+
     function getReplyForEnterDmsMenu($firstname, $dmsType, $isPollFinished, $isPollAvailable) {
         switch ($dmsType) {
             case 0:

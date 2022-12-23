@@ -269,6 +269,17 @@ class SalaryRoute {
         sendMessage($chatID, $reply, $keyboard);
     }
 
+    function triggerActionForConfirmationSmsEntering($chatID) {
+        $reply = $this->constants->getConfirmationSmsEnteringText();
+        // todo keyboard with another sms sending
+        sendMessage($chatID, $reply, null);
+    }
+
+    function triggerActionForSuccessApplicationRegistering($chatID) {
+        $reply = $this->constants->getSuccessApplicationRegisteringText();
+        sendMessage($chatID, $reply, null);
+    }
+
     function triggerCalendarAction($chatID, $monthlyWorkData) {
         $reply = "Ваши рабочие дни на ".$monthlyWorkData['currentMonth']." года.";
         $keyboard = $this->keyboards->getEmployeeMonthlyWorkdaysCalendar($monthlyWorkData);
