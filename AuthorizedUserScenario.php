@@ -317,9 +317,6 @@ class AuthorizedUserScenario {
                             $this->access->setState($this->chatID, $this->states['regularVacationFormSendingWaitingState']);
                             $this->salaryRoute->triggerActionForSendRegularVacationForm($this->chatID);
                             exit;
-                        case $this->states['smsConfirmationSendingWaitingState']:
-                            sendMessage($this->chatID, 'smsConfirmationSendingWaitingState', null);
-                            exit;
 //                         case $this->states['postponedVacationStartDateWaitingState']:
 //                             if ($this->salaryRoute->isCorrectDateFormat($text)) {
 //                                 if ($this->salaryRoute->isDateNotInPast($text)) {
@@ -1203,8 +1200,7 @@ class AuthorizedUserScenario {
                         $applicationInfo = $this->access->getApplicationIdsInfo($text);
                         $registeredUser = $this->hrLinkApiProvider->registerApplication($this->user, $vacationFormData, $bossPhysicalId['physical_id'], $applicationInfo['hrlink_application_id']);
                         if ($registeredUser['result']) {
-                            $this->access->setRegularVacationApplicationGroupId($this->chatID, $registeredUser['applicationGroupId']); exit;
-                            $this->access->setState($this->chatID, $this->states['smsConfirmationSendingWaitingState']);
+                            $this->access->setRegularVacationApplicationGroupId($this->chatID, $registeredUser['applicationGroupId']);
                             $this->salaryRoute->triggerActionForIssuingDocumentConfirmSmsSending($this->chatID);
                             answerCallbackQuery($this->query["id"], "Данные загружены!");
                             exit;
