@@ -100,6 +100,7 @@ class HrLinkApiProvider {
                         $result = json_decode($response, TRUE, 512, JSON_UNESCAPED_UNICODE);
                         if ($result['result']) {
                             $applicationGroupId = $result['applicationGroup']['id'];
+                            sleep(5);
                             $smsSending = $this->sendSmsCode($masterToken, $userPhysicalId, $clientId, $applicationGroupId);
                             return $smsSending;
 //                             if ($smsSending['result']) {
