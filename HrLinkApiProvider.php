@@ -82,7 +82,8 @@ class HrLinkApiProvider {
                         CURLOPT_HTTPHEADER => array(
                             "Master-Api-Token: $masterToken",
                             "Impersonated-User-Id: $userPhysicalId",
-                            'Impersonated-User-Id-Type: EXTERNAL_ID'
+                            'Impersonated-User-Id-Type: EXTERNAL_ID',
+                            'Content-Type: application/json'
                         ),
                     ));
 
