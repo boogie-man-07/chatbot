@@ -98,11 +98,15 @@ class HrLinkApiProvider {
                         );
                     } else {
                         $result = json_decode($response, TRUE, 512, JSON_UNESCAPED_UNICODE);
-                        if ($result['result']) {
-                            $applicationGroupId = $result['applicationGroup']['id'];
-                            sleep(5);
-                            $smsSending = $this->sendSmsCode($masterToken, $userPhysicalId, $clientId, $applicationGroupId);
-                            return $smsSending;
+                        return array(
+                            'result' => $result['result'],
+                            'applicationGroupId' => $result['applicationGroup']['id']
+                        );
+//                         if ($result['result']) {
+//                             $applicationGroupId = $result['applicationGroup']['id'];
+//                             sleep(5);
+//                             $smsSending = $this->sendSmsCode($masterToken, $userPhysicalId, $clientId, $applicationGroupId);
+//                             return $smsSending;
 //                             if ($smsSending['result']) {
 //                                 return array(
 //                                     'result' => true,
@@ -114,12 +118,12 @@ class HrLinkApiProvider {
 //                                     'message' => 'Не удалось отправить SMS, попробуйте повторить позднее.'
 //                                 );
 //                             }
-                        } else {
-                            return array(
-                                'result' => false,
-                                'message' => 'Извините, но что-то пошло не так, попробуйте повторить позднее.'
-                            );
-                        }
+//                         } else {
+//                             return array(
+//                                 'result' => false,
+//                                 'message' => 'Извините, но что-то пошло не так, попробуйте повторить позднее.'
+//                             );
+//                         }
 
                     }
 
