@@ -99,7 +99,7 @@ class HrLinkApiProvider {
                     } else {
                         $result = json_decode($response, TRUE, 512, JSON_UNESCAPED_UNICODE);
                         return array(
-                            'result' => false,
+                            'result' => true,
                             'applicationGroupId' => $result['applicationGroup']['id'];
                         );
                     }
