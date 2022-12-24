@@ -51,7 +51,7 @@ class HrLinkApiProvider {
                     );
 
                     $templateFields = array(
-                        array('id' => '462b0c7c-fc3d-4045-b9c8-2d7ca9ad2fe6', 'value' => $vacationFormData['vacation_startdate']),
+                        array('id' => '462b0c7c-fc3d-4045-b9c8-2d7ca9ad2fe6', 'value' => $this->convertToHrLinkDateFormat($vacationFormData['vacation_startdate'])),
                         array('id' => 'c6f8f4cc-9b2f-425a-ae14-f77d0f989f12', 'value' => $vacationFormData['vacation_duration'])
                     );
 
@@ -335,6 +335,10 @@ class HrLinkApiProvider {
 
     function separateFIO($fullName) {
         return explode(' ', $fullName);
+    }
+
+    function convertToHrLinkDateFormat($date) {
+        return date('Y-m-d', strtotime($date));
     }
 
 //     function uploadFile() {
