@@ -320,8 +320,6 @@ class AuthorizedUserScenario {
                         case $this->states['smsCodeEnteringWaitingState']:
                             $vacationFormData = $this->access->getReguarVacationFormData($this->chatID);
                             $checkSmsCodeState = $this->hrLinkApiProvider->checkSmsCode($this->user['physical_id'], $vacationFormData['application_group_id'], $vacationFormData['signing_request_id'], $text);
-//                             sendMessage($this->chatID, $checkSmsCodeState, null);
-//                             exit;
                             if($checkSmsCodeState['result']) {
                                 $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
                                 $this->salaryRoute->triggerActionForSuccessApplicationRegistering($this->chatID);
@@ -809,37 +807,53 @@ class AuthorizedUserScenario {
                 $this->salaryRoute->triggerActionForRegularVacationStartPreparations($this->chatID);
                 exit;
             case $this->commands['sendNewRegularVacationFormInline']:
+                answerCallbackQuery($this->query["id"], "Данные загружены!");
                 $vacationFormData = $this->access->getReguarVacationFormData($this->chatID);
-                //$sign = $this->salaryRoute->getSign($this->user['firstname'], $this->user['middlename'], $this->user['lastname']);
-                $sign = $this->salaryRoute->getSign($this->user['fullname']);
-                $date = new dateTime();
-                $day = $date->format("d");
-                $month = $date->format("F");
-                $year = $date->format("Y");
-                $bossSign = $this->salaryRoute->getSign($this->user['boss']);
-                if ($vacationFormData['vacation_type'] == '3') {
-                    $this->forms->getNewRegularVacationForm($this->user, $vacationFormData['vacation_type'], $vacationFormData["vacation_startdate"], $vacationFormData["vacation_duration"], $vacationFormData["reason"], $day, $month, $year, $sign, $bossSign);
-                } else {
-                    $this->forms->getNewRegularVacationForm($this->user, $vacationFormData['vacation_type'], $vacationFormData["vacation_startdate"], $vacationFormData["vacation_duration"], null, $day, $month, $year, $sign, $bossSign);
-                }
-                $template = $this->email->generateNewRegularVacationForm($this->user['company_id']);
-                $template = str_replace("{firstname}", $this->user['firstname'], $template);
-                $isSended = $this->swiftmailer->sendNewRegularVacationMailWithAttachementViaSmtp(
-                    $vacationFormData['vacation_type'],
-                    $this->user['company_id'],
-                    $this->user['email'],
-                    "Заявление на отпуск",
-                    $template
-                );
-                if ($isSended) {
-                    answerCallbackQuery($this->query["id"], "Письмо успешно отправлено!");
-                    $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
-                    $this->salaryRoute->triggerActionForSendRegularVacationFormResult($this->chatID, $this->user['firstname'], $this->user['company_id']);
+                $bossPhysicalId = $this->access->getBossPhysicalId($this->user['boss']);
+                $applicationInfo = $this->access->getApplicationIdsInfo($text);
+                $registeredUser = $this->hrLinkApiProvider->registerApplication($this->user, $vacationFormData, $bossPhysicalId['physical_id'], $applicationInfo['hrlink_application_id']);
+                if ($registeredUser['result']) {
+                    $this->access->setRegularVacationApplicationGroupId($this->chatID, $registeredUser['applicationGroupId']);
+                    $this->salaryRoute->triggerActionForIssuingDocumentConfirmSmsSending($this->chatID);
+                    answerCallbackQuery($this->query["id"], "Данные загружены!");
                     exit;
                 } else {
-                    answerCallbackQuery($this->query["id"], "Не удалось отправить письмо, повторите попытку!");
+                    // trigger error
+                    sendMessage($this->chatID, 'an error occured', null);
                     exit;
                 }
+
+//                 $vacationFormData = $this->access->getReguarVacationFormData($this->chatID);
+//                 //$sign = $this->salaryRoute->getSign($this->user['firstname'], $this->user['middlename'], $this->user['lastname']);
+//                 $sign = $this->salaryRoute->getSign($this->user['fullname']);
+//                 $date = new dateTime();
+//                 $day = $date->format("d");
+//                 $month = $date->format("F");
+//                 $year = $date->format("Y");
+//                 $bossSign = $this->salaryRoute->getSign($this->user['boss']);
+//                 if ($vacationFormData['vacation_type'] == '3') {
+//                     $this->forms->getNewRegularVacationForm($this->user, $vacationFormData['vacation_type'], $vacationFormData["vacation_startdate"], $vacationFormData["vacation_duration"], $vacationFormData["reason"], $day, $month, $year, $sign, $bossSign);
+//                 } else {
+//                     $this->forms->getNewRegularVacationForm($this->user, $vacationFormData['vacation_type'], $vacationFormData["vacation_startdate"], $vacationFormData["vacation_duration"], null, $day, $month, $year, $sign, $bossSign);
+//                 }
+//                 $template = $this->email->generateNewRegularVacationForm($this->user['company_id']);
+//                 $template = str_replace("{firstname}", $this->user['firstname'], $template);
+//                 $isSended = $this->swiftmailer->sendNewRegularVacationMailWithAttachementViaSmtp(
+//                     $vacationFormData['vacation_type'],
+//                     $this->user['company_id'],
+//                     $this->user['email'],
+//                     "Заявление на отпуск",
+//                     $template
+//                 );
+//                 if ($isSended) {
+//                     answerCallbackQuery($this->query["id"], "Письмо успешно отправлено!");
+//                     $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
+//                     $this->salaryRoute->triggerActionForSendRegularVacationFormResult($this->chatID, $this->user['firstname'], $this->user['company_id']);
+//                     exit;
+//                 } else {
+//                     answerCallbackQuery($this->query["id"], "Не удалось отправить письмо, повторите попытку!");
+//                     exit;
+//                 }
 
             case $this->commands['sendOldRegularVacationFormInline']:
                 $template = $this->email->generateRegularVacationForm($this->user['company_id']);
@@ -919,6 +933,7 @@ class AuthorizedUserScenario {
                 exit;
             case $this->commands['sendConfirmationSmsInline']:
                 $vacationFormData = $this->access->getReguarVacationFormData($this->chatID);
+                sendMessage($this->chatID, json_encode($vacationFormData), null); exit;
                 $smsSendingState = $this->hrLinkApiProvider->sendSmsCode($this->user['physical_id'], $vacationFormData['application_group_id']);
                 if ($smsSendingState['result']) {
                     $this->access->setRegularVacationSigningRequestId($this->chatID, $smsSendingState['signingRequestId']);
