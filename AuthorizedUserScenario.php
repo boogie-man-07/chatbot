@@ -948,7 +948,6 @@ class AuthorizedUserScenario {
                 exit;
             case $this->commands['sendConfirmationSmsInline']:
                 $vacationFormData = $this->access->getReguarVacationFormData($this->chatID);
-                sendMessage($this->chatID, json_encode($vacationFormData), null); exit;
                 $smsSendingState = $this->hrLinkApiProvider->sendSmsCode($this->user['physical_id'], $vacationFormData['application_group_id']);
                 if ($smsSendingState['result']) {
                     $this->access->setRegularVacationSigningRequestId($this->chatID, $smsSendingState['signingRequestId']);
