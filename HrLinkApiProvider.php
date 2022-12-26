@@ -87,27 +87,27 @@ class HrLinkApiProvider {
                     $response = curl_exec($curl);
                     $err = curl_error($curl);
                     curl_close($curl);
-                    return $response;
+//                     return $response;
 
-//                     if ($err) {
-//                         return array(
-//                             'result' => false,
-//                             'message' => 'Извините, но что-то пошло не так, попробуйте повторить позднее.'
-//                         );
-//                     } else {
-//                         $result = json_decode($response, TRUE, 512, JSON_UNESCAPED_UNICODE);
-//                         if ($result['result']) {
-//                             return array(
-//                                 'result' => $result['result'],
-//                                 'applicationGroupId' => $result['applicationGroup']['id']
-//                             );
-//                         } else {
-//                             return array(
-//                                 'result' => $result['result'],
-//                                 'message' => $result['errorMessage']
-//                             );
-//                         }
-//                     }
+                    if ($err) {
+                        return array(
+                            'result' => false,
+                            'message' => 'Извините, но что-то пошло не так, попробуйте повторить позднее.'
+                        );
+                    } else {
+                        $result = json_decode($response, TRUE, 512, JSON_UNESCAPED_UNICODE);
+                        if ($result['result']) {
+                            return array(
+                                'result' => $result['result'],
+                                'applicationGroupId' => $result['applicationGroup']['id']
+                            );
+                        } else {
+                            return array(
+                                'result' => $result['result'],
+                                'message' => $result['errorMessage']
+                            );
+                        }
+                    }
                 } else {
                     return "Не нормально 1";
                 }
