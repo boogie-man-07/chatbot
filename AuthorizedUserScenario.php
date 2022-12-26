@@ -458,8 +458,9 @@ class AuthorizedUserScenario {
                                     $totalVacationsDuration = $this->access->getSumOfVacationParts($this->chatID);
                                     $restVacationsDuration =  (int)$vacationInfo['amount'] - (int)$totalVacationsDuration;
                                     if ($restVacationsDuration > 0) {
-                                        $this->access->setState($this->chatID, $this->states['postponedSeparateVacationStartDateWaitingState']);
-                                        $this->salaryRoute->triggerActionForCheckPostponedVacationDuration($this->chatID, $restVacationsDuration);
+                                        sendMessage($this->chatID, 'Количество дней переносимого отпуска не совпадает! Введите корректное количество дней.', null);
+//                                         $this->access->setState($this->chatID, $this->states['postponedSeparateVacationStartDateWaitingState']);
+//                                         $this->salaryRoute->triggerActionForCheckPostponedVacationDuration($this->chatID, $restVacationsDuration);
                                         exit;
                                     } else {
                                         $this->access->setState($this->chatID, $this->states['postponedVacationReasonWaitingState']);
