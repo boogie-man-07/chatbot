@@ -32,6 +32,18 @@ class HrLinkApiProvider {
                     $applicationEmployeeExternalId = null;
                     $applicationEmployeeApproverExternalId = null;
 
+                    $applications = array(
+                        array(
+                            'externalId' => $applicationExternalId,
+                            'legalEntityId' => $applicationLegalEntityId,
+                            'legalEntityExternalId' => $applicationLegalEntityExternalId,
+                            'employeeId' => $applicationEmployeeId,
+                            'employeeExternalId' => $applicationEmployeeExternalId,
+                            'employeeApproverId' => $applicationEmployeeApproverId,
+                            'employeeApproverExternalId' => $applicationEmployeeApproverExternalId
+                        )
+                    );
+
                     $templateSystemFields = $this->generateSystemFields($userFIO);
                     $templateFields = array(
                         array('id' => 'f7b44a6d-1c61-41d4-bbd8-3514087ac2de', 'value' => $this->convertToHrLinkDateFormat($sendData['startDate'])),
