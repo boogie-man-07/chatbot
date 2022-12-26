@@ -501,9 +501,10 @@ class AuthorizedUserScenario {
                                     $this->commonmistakeroute->triggerActionForVacationDurationError($this->chatID, $restVacationsDuration);
                                     exit;
                                 } else if ((int)$text  < $restVacationsDuration) {
-                                    $this->access->saveSeparatedUserVacationDuration($this->chatID, $text);
-                                    $this->access->setState($this->chatID, $this->states['postponedSeparateVacationStartDateWaitingState']);
-                                    $this->salaryRoute->triggerActionForCheckPostponedVacationDuration($this->chatID, ((int)$text  < $restVacationsDuration));
+                                    sendMessage($this->chatID, 'Количество дней переносимого отпуска не совпадает! Введите корректное количество дней.', null);
+//                                     $this->access->saveSeparatedUserVacationDuration($this->chatID, $text);
+//                                     $this->access->setState($this->chatID, $this->states['postponedSeparateVacationStartDateWaitingState']);
+//                                     $this->salaryRoute->triggerActionForCheckPostponedVacationDuration($this->chatID, ((int)$text  < $restVacationsDuration));
                                     exit;
                                 } else {
                                     $this->access->saveSeparatedUserVacationDuration($this->chatID, $text);
