@@ -448,7 +448,9 @@ class SalaryRoute {
                 'id' => $data['id'],
                 'startDate' => $data['startdate'],
                 'endDate' => $data['enddate'],
-                'reason' => $data['reason']
+                'reason' => $data['reason'],
+                'applicationGroupId' => $data['application_group_id'],
+                'signingRequestId' => $data['signing_request_id']
             );
             array_push($separatedDataArray, $item);
         }
