@@ -342,7 +342,7 @@ class AuthorizedUserScenario {
                                 exit;
                             } else {
                                 // trigger error
-                                sendMessage($this->chatID, json_encode($registeredUser), null);
+                                sendMessage($this->chatID, $registeredUser['message'], null);
                                 exit;
                             }
                         case $this->states['smsCodeEnteringWaitingState']:
