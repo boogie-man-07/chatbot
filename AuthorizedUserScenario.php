@@ -933,7 +933,7 @@ class AuthorizedUserScenario {
                         exit;
                     } else {
                         // trigger error
-                        sendMessage($this->chatID, $registeredUser['message'], null);
+                        sendMessage($this->chatID, $registeredUser, null);
                         exit;
                     }
                 }
