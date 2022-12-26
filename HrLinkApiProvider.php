@@ -265,16 +265,29 @@ class HrLinkApiProvider {
                     );
                 } else {
                     $result = json_decode($response, TRUE, 512, JSON_UNESCAPED_UNICODE);
-                    return array(
-                        'result' => $result['result'],
-                        'signingRequestId' => $result['signingRequestId']
-                    );
+                    if ($result['result']) {
+                        return array(
+                            'result' => $result['result'],
+                            'signingRequestId' => $result['signingRequestId']
+                        );
+                    } else {
+                        return array(
+                            'result' => $result['result'],
+                            'message' => $result['errorMessage']
+                        );
+                    }
                 }
             } else {
-
+                return array(
+                    'result' => false,
+                    'message' => 'Извините, но что-то пошло не так, попробуйте повторить позднее.'
+                );
             }
         } else {
-
+            return array(
+                'result' => false,
+                'message' => 'Извините, но что-то пошло не так, попробуйте повторить позднее.'
+            );
         }
     }
 

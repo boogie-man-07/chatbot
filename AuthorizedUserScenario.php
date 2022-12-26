@@ -955,7 +955,7 @@ class AuthorizedUserScenario {
                     exit;
                 } else {
                     // trigger error
-                    sendMessage($this->chatID, 'an error occured', null);
+                    sendMessage($this->chatID, $smsSendingState['message'], null);
                     exit;
                 }
             case $this->commands['dmsGoToSurveyInline']:
