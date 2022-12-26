@@ -264,8 +264,8 @@ class SalaryRoute {
     }
 
     function triggerActionForRegisterPostponedVacationForm($chatID) {
-        $reply = $this->constants->getSendVacationFormText();
-        $keyboard = $this->keyboards->getSendPostponedVacationFormInlineKeyboard();
+        $reply = $this->constants->getRegisterVacationFormText();
+        $keyboard = $this->keyboards->getRegisterPostponedVacationFormInlineKeyboard();
         sendMessage($chatID, $reply, $keyboard);
     }
 
