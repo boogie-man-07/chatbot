@@ -157,7 +157,7 @@ class HrLinkApiProvider {
                     array('id' => 'a25cf9a8-277e-44ee-96f8-d615d5755c08', 'value' => $this->convertToHrLinkDateFormat($vacationFormData['vacation_startdate'])),
                     array('id' => 'b6e69695-9774-40e7-b922-20784f284c25', 'value' => $vacationFormData['vacation_duration']),
                     array('id' => 'dba6d5aa-b78c-45c3-969e-105d5f3f50e9', 'value' => $vacationFormData['cause']),
-                    array('id' => '748d9dd7-75f2-443d-89e0-9199d2fedc0a', 'value' => $vacationFormData['reason'])
+                    array('id' => '358fa9aa-9fa3-40a2-889f-60e8d95e0bd9', 'value' => $vacationFormData['reason'])
                 );
                 break;
         }
