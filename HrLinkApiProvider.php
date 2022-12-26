@@ -123,6 +123,7 @@ class HrLinkApiProvider {
             array('id' => 'ebd6a325-e206-4870-b89e-b86043f97c64', 'value' => $userFIO[1]),
             array('id' => 'df6cc959-a85b-4b62-a51e-0bbcf44ce203', 'value' => $userFIO[2])
         );
+        return $templateSystemFields;
     }
 
     function generateTemplateFields($vacationFormData) {
