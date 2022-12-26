@@ -101,6 +101,7 @@
         "regularVacationDurationWaitingState": "waiting for regular vacation duration",
         "regularVacationFormSendingWaitingState": "waiting for regular vacation form sending",
         "regularVacationAcademicReasonWaitingState": "waiting for regular vacation academic reason",
+        "regularVacationAcademicCauseWaitingState": "waiting for regular vacation academic cause",
         "postponedVacationStartDateWaitingState": "waiting for postponed vacation startdate",
         "postponedVacationEndDateWaitingState": "waiting for postponed vacation enddate",
         "postponedVacationNewStartDateWaitingState": "waiting for postponed vacation newstartdate",
