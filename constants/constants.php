@@ -548,7 +548,11 @@ class constants {
     }
 
     function getRegularVacationAcademicReasonText() {
-        return "Введите причину-основание.\nПример: <b>Справка-вызов, решение диссертационного совета и т.д.</b>";
+        return "Введите причину необходимости учебного отпуска.\nПример: <b>Для прохождения промежуточной аттестации, для подготовки и защиты выпускной квалификационной работы и т.д.</b>";
+    }
+
+    function getRegularVacationAcademicCauseText() {
+        return "Введите основание для предоставления учебного отпуска.\nПример: <b>Справка-вызов, решение диссертационного совета и т.д.</b>";
     }
 
     function getRegularAcademicVacationFormatErrorText() {

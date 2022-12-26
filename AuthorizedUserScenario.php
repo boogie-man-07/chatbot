@@ -329,12 +329,14 @@ class AuthorizedUserScenario {
                             }
                         case $this->states['regularVacationAcademicReasonWaitingState']:
                             $this->access->setRegularVacationAcademicReason($this->chatID, $text);
-                            sleep(1);
-//                             $this->access->setState($this->chatID, $this->states['regularVacationFormSendingWaitingState']);
-//                             $this->salaryRoute->triggerActionForSendRegularVacationForm($this->chatID);
-                            $vacationFormData = $this->access->getReguarVacationFormData($this->chatID);
+                            $this->access->setState($this->chatID, $this->states['regularVacationAcademicCauseWaitingState']);
+                            $this->salaryRoute->triggerActionForSetRegularVacationAcademicCause($this->chatID);
+                            exit;
+                        case $this->states['regularVacationAcademicCauseWaitingState']:
+                            $this->access->setRegularVacationAcademicCause($this->chatID, $text);
                             $bossPhysicalId = $this->access->getBossPhysicalId($this->user['boss']);
-                            $applicationInfo = $this->access->getApplicationIdsInfo($text);
+                            $vacationFormData = $this->access->getReguarVacationFormData($this->chatID);
+                            $applicationInfo = $this->access->getApplicationIdsInfo($vacationFormData['vacation_type']);
                             $registeredUser = $this->hrLinkApiProvider->registerApplication($this->user, $vacationFormData, $bossPhysicalId['physical_id'], $applicationInfo['hrlink_application_id']);
                             if ($registeredUser['result']) {
                                 $this->access->setRegularVacationApplicationGroupId($this->chatID, $registeredUser['applicationGroupId']);
@@ -346,7 +348,6 @@ class AuthorizedUserScenario {
                                 sendMessage($this->chatID, 'an error occured', null);
                                 exit;
                             }
-                            exit;
                         case $this->states['smsCodeEnteringWaitingState']:
                             $vacationFormData = $this->access->getReguarVacationFormData($this->chatID);
                             $checkSmsCodeState = $this->hrLinkApiProvider->checkSmsCode($this->user['physical_id'], $vacationFormData['application_group_id'], $vacationFormData['signing_request_id'], $text);

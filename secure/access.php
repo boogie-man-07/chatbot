@@ -800,49 +800,47 @@ class access {
     }
 
     function setRegularVacationAcademicReason($tg_chat_id, $reason) {
-        // sql command
         $sql = "SELECT * FROM vacations WHERE tg_chat_id='".$tg_chat_id."'";
-        // assign result we got from $sql to result var
         $result = $this->conn->query($sql);
-
-        // if we have at least 1 result returned
         if ($result != null && (mysqli_num_rows($result) >= 1 )) {
-
-            // sql statement
             $sql = "UPDATE vacations SET reason=? WHERE tg_chat_id=?";
-            // prepare statement to be executed
             $statement = $this->conn->prepare($sql);
-
-            // error occurred
             if (!$statement) {
                 throw new Exception($statement->error);
             }
-
-            // bind parameters to sql statement
             $statement->bind_param("ss", $reason, $tg_chat_id);
-
-            // launch/execute and store feedback to returnValue
             $returnValue = $statement->execute();
-
-
         } else {
-
-            // SQL command
             $sql = "INSERT INTO vacations SET tg_chat_id=?, reason=?";
-
-            // store query result in $statement
             $statement = $this->conn->prepare($sql);
-
-            // if error
             if (!$statement) {
                 throw new Exception($statement->error);
             }
-
-            // bind 5 params of type string to be placed in sql command
             $statement->bind_param("ss", $tg_chat_id, $reason);
             $returnValue = $statement->execute();
+        }
+        return $returnValue;
+    }
 
-
+    function setRegularVacationAcademicCause($tg_chat_id, $cause) {
+        $sql = "SELECT * FROM vacations WHERE tg_chat_id='".$tg_chat_id."'";
+        $result = $this->conn->query($sql);
+        if ($result != null && (mysqli_num_rows($result) >= 1 )) {
+            $sql = "UPDATE vacations SET cause=? WHERE tg_chat_id=?";
+            $statement = $this->conn->prepare($sql);
+            if (!$statement) {
+                throw new Exception($statement->error);
+            }
+            $statement->bind_param("ss", $cause, $tg_chat_id);
+            $returnValue = $statement->execute();
+        } else {
+            $sql = "INSERT INTO vacations SET tg_chat_id=?, cause=?";
+            $statement = $this->conn->prepare($sql);
+            if (!$statement) {
+                throw new Exception($statement->error);
+            }
+            $statement->bind_param("ss", $tg_chat_id, $cause);
+            $returnValue = $statement->execute();
         }
         return $returnValue;
     }
@@ -1587,7 +1585,8 @@ class access {
 
     function getApplicationIdsInfo($id) {
         $returnArray = array();
-        $sql = "SELECT * FROM application_types WHERE tg_application_id = '".$id."'";
+        $appId = $id + 1;
+        $sql = "SELECT * FROM application_types WHERE tg_application_id = '".$appId."'";
         $result = $this->conn->query($sql);
         if ($result != null && (mysqli_num_rows($result) >= 1 )) {
             $row = $result->fetch_array(MYSQLI_ASSOC);

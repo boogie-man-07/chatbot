@@ -206,6 +206,11 @@ class SalaryRoute {
         sendMessage($chatID, $reply, null);
     }
 
+    function triggerActionForSetRegularVacationAcademicCause($chatID) {
+        $reply = $this->constants->getRegularVacationAcademicCauseText();
+        sendMessage($chatID, $reply, null);
+    }
+
     function triggerActionForSendRegularVacationFormResult($chatID, $firstname, $companyId) {
         $reply = $this->constants->getSentVacationFormResultText($firstname, $companyId);
         sendMessage($chatID, $reply, null);
@@ -459,6 +464,7 @@ class SalaryRoute {
             'waiting for regular vacation duration',
             'waiting for regular vacation form sending',
             'waiting for regular vacation academic reason',
+            'waiting for regular vacation academic cause',
             'waiting for postponed vacation startdate',
             'waiting for postponed vacation enddate',
             'waiting for postponed vacation newstartdate',
