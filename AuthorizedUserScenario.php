@@ -301,7 +301,7 @@ class AuthorizedUserScenario {
                                         $vacationFormData = $this->access->getReguarVacationFormData($this->chatID);
                                         $applicationInfo = $this->access->getApplicationIdsInfo($vacationFormData['vacation_type']);
                                         $registeredUser = $this->hrLinkApiProvider->registerApplication($this->user, $vacationFormData, $bossPhysicalId['physical_id'], $applicationInfo['hrlink_application_id']);
-                                        sendMessage($this->chatID, json_encode($registeredUser), null); exit;
+                                        sendMessage($this->chatID, $registeredUser, null); exit;
                                         if ($registeredUser['result']) {
                                             $this->access->setRegularVacationApplicationGroupId($this->chatID, $registeredUser['applicationGroupId']);
                                             $this->salaryRoute->triggerActionForIssuingDocumentConfirmSmsSending($this->chatID);
@@ -337,7 +337,7 @@ class AuthorizedUserScenario {
                             $vacationFormData = $this->access->getReguarVacationFormData($this->chatID);
                             $applicationInfo = $this->access->getApplicationIdsInfo($vacationFormData['vacation_type']);
                             $registeredUser = $this->hrLinkApiProvider->registerApplication($this->user, $vacationFormData, $bossPhysicalId['physical_id'], $applicationInfo['hrlink_application_id']);
-                            sendMessage($this->chatID, json_encode($registeredUser), null); exit;
+                            sendMessage($this->chatID, $registeredUser, null); exit;
                             if ($registeredUser['result']) {
                                 $this->access->setRegularVacationApplicationGroupId($this->chatID, $registeredUser['applicationGroupId']);
                                 $this->salaryRoute->triggerActionForIssuingDocumentConfirmSmsSending($this->chatID);
