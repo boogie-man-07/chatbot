@@ -347,6 +347,20 @@ class AuthorizedUserScenario {
                                 sendMessage($this->chatID, $registeredUser['message'], null);
                                 exit;
                             }
+                        case $this->states['postponedSmsCodeEnteringWaitingState']:
+                            $vacationFormData = $this->access->getSelectedVacationInfo($this->chatID);
+                            $separatedVacationFormData = $this->access->getSeparatePostponedVacationsInfo($this->chatID);
+                            $sendData = $this->salaryRoute->getSendData($this->user, $vacationFormData, $separatedVacationFormData);
+                            $checkSmsCodeState = $this->hrLinkApiProvider->checkSmsCode($this->user['physical_id'], $sendData['vacations'][0]['application_group_id'], $vacationFormData['vacations'][0]['signing_request_id'], $text);
+                            if($checkSmsCodeState['result']) {
+                                $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
+                                $this->salaryRoute->triggerActionForSuccessApplicationRegistering($this->chatID);
+                                exit;
+                            } else {
+                                // trigger error
+                                sendMessage($this->chatID, 'Код SMS неверен', null);
+                                exit;
+                            }
                         case $this->states['smsCodeEnteringWaitingState']:
                             $vacationFormData = $this->access->getReguarVacationFormData($this->chatID);
                             $checkSmsCodeState = $this->hrLinkApiProvider->checkSmsCode($this->user['physical_id'], $vacationFormData['application_group_id'], $vacationFormData['signing_request_id'], $text);
@@ -501,8 +515,9 @@ class AuthorizedUserScenario {
                                 $this->access->saveSeparatedUserVacationDuration($this->chatID, $text);
 
                                 if ($restVacationsDuration > 0) {
-                                    $this->access->setState($this->chatID, $this->states['postponedSeparateVacationStartDateWaitingState']);
-                                    $this->salaryRoute->triggerActionForCheckPostponedVacationDuration($this->chatID, $restVacationsDuration);
+                                    sendMessage($this->chatID, 'Количество дней переносимого отпуска не совпадает! Введите корректное количество дней.', null);
+//                                     $this->access->setState($this->chatID, $this->states['postponedSeparateVacationStartDateWaitingState']);
+//                                     $this->salaryRoute->triggerActionForCheckPostponedVacationDuration($this->chatID, $restVacationsDuration);
                                     exit;
                                 } else {
                                     $this->access->setState($this->chatID, $this->states['postponedVacationReasonWaitingState']);
@@ -893,30 +908,51 @@ class AuthorizedUserScenario {
                 $vacationFormData = $this->access->getSelectedVacationInfo($this->chatID);
                 $separatedVacationFormData = $this->access->getSeparatePostponedVacationsInfo($this->chatID);
                 $sendData = $this->salaryRoute->getSendData($this->user, $vacationFormData, $separatedVacationFormData);
-                $sign = $this->salaryRoute->getSign($this->user['fullname']);
 
-                $position = $sendData['position'];
-                $fullName = $sendData['fullName'];
-                $startDate = $sendData['startDate'];
-                $endDate = $sendData['endDate'];
-                $companyId = $sendData['companyId'];
-                $vacationList = $sendData['vacations'];
+                if (count($sendData['vacations']) > 1) {
+                    sendMessage($this->chatID, 'Нельзя делить отпуск на части при переносе!', null);
+                    exit;
+                } else {
+                    $bossPhysicalId = $this->access->getBossPhysicalId($this->user['boss']);
+                    $applicationInfo = $this->access->getApplicationIdsInfo(4);
 
-                $sendInfo = $this->forms->getPostponeVacationForm($this->chatID, $sendData, $sign);
-                foreach ($sendInfo as $info) {
-                    $template = $this->email->generatePostponeVacationForm($this->user['company_id']);
-                    $template = str_replace("{firstname}", $this->user['firstname'], $template);
-                    $this->swiftmailer->sendPostponedVacationMailWithAttachementViaSmtp(
-                        $this->user['company_id'],
-                        $this->user['email'],
-                        "Заявление на перенос отпуска",
-                        $template,
-                        (string)$info
-                    );
+                    $registeredUser = $this->hrLinkApiProvider->registerPostponedApplication($this->user, $sendData, $bossPhysicalId['physical_id'], $applicationInfo['hrlink_application_id']);
+                    if ($registeredUser['result']) {
+                        $this->access->setPostponedVacationApplicationGroupId($this->chatID, $registeredUser['applicationGroupId']);
+                        $this->salaryRoute->triggerActionForIssuingPostponedDocumentConfirmSmsSending($this->chatID);
+                        answerCallbackQuery($this->query["id"], "Данные загружены!");
+                        exit;
+                    } else {
+                        // trigger error
+                        sendMessage($this->chatID, 'an error occured', null);
+                        exit;
+                    }
                 }
-                answerCallbackQuery($this->query["id"], "Письмо успешно отправлено!");
-                $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
-                $this->salaryRoute->triggerActionForSendPostponedVacationFormResult($this->chatID, $this->user['firstname'], $this->user['company_id']);
+
+//                 $sign = $this->salaryRoute->getSign($this->user['fullname']);
+//
+//                 $position = $sendData['position'];
+//                 $fullName = $sendData['fullName'];
+//                 $startDate = $sendData['startDate'];
+//                 $endDate = $sendData['endDate'];
+//                 $companyId = $sendData['companyId'];
+//                 $vacationList = $sendData['vacations'];
+//
+//                 $sendInfo = $this->forms->getPostponeVacationForm($this->chatID, $sendData, $sign);
+//                 foreach ($sendInfo as $info) {
+//                     $template = $this->email->generatePostponeVacationForm($this->user['company_id']);
+//                     $template = str_replace("{firstname}", $this->user['firstname'], $template);
+//                     $this->swiftmailer->sendPostponedVacationMailWithAttachementViaSmtp(
+//                         $this->user['company_id'],
+//                         $this->user['email'],
+//                         "Заявление на перенос отпуска",
+//                         $template,
+//                         (string)$info
+//                     );
+//                 }
+//                 answerCallbackQuery($this->query["id"], "Письмо успешно отправлено!");
+//                 $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
+//                 $this->salaryRoute->triggerActionForSendPostponedVacationFormResult($this->chatID, $this->user['firstname'], $this->user['company_id']);
                 exit;
             case $this->commands['sendOldPostponedVacationFormInline']:
                 $template = $this->email->generatePostponeVacationForm($this->user['company_id']);
@@ -960,6 +996,22 @@ class AuthorizedUserScenario {
                     sendMessage($this->chatID, $smsSendingState['message'], null);
                     exit;
                 }
+            case $this->commands['sendPostponedConfirmationSmsInline']:
+                 $vacationFormData = $this->access->getSelectedVacationInfo($this->chatID);
+                 $separatedVacationFormData = $this->access->getSeparatePostponedVacationsInfo($this->chatID);
+                 $sendData = $this->salaryRoute->getSendData($this->user, $vacationFormData, $separatedVacationFormData);
+                 $smsSendingState = $this->hrLinkApiProvider->sendSmsCode($this->user['physical_id'], $sendData['vacations'][0]['application_group_id']);
+                 if ($smsSendingState['result']) {
+                     $this->access->setRegularVacationSigningRequestId($this->chatID, $smsSendingState['signingRequestId']);
+                     $this->access->setState($this->chatID, $this->states['postponedSmsCodeEnteringWaitingState']);
+                     $this->salaryRoute->triggerActionForConfirmationSmsEntering($this->chatID);
+                     answerCallbackQuery($this->query["id"], "Код отправлен в SMS!");
+                     exit;
+                 } else {
+                     // trigger error
+                     sendMessage($this->chatID, $smsSendingState['message'], null);
+                     exit;
+                 }
             case $this->commands['dmsGoToSurveyInline']:
                 $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
                 if ($pollInfo) {

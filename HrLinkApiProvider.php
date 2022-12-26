@@ -7,6 +7,107 @@ use Firebase\JWT\Key;
 
 class HrLinkApiProvider {
 
+    function registerPostponedApplication($user, $sendData, $bossPhysicalId, $idOfType) {
+        $userPhysicalId = $user['physical_id'];
+        $bearerTokenResponse = $this->generateBearerToken();
+        if ($bearerTokenResponse['result']) {
+            $bearerToken = $bearerTokenResponse['bearerToken'];
+            $masterTokenResponse = $this->generateMasterKey($bearerToken);
+            if ($masterTokenResponse['result']) {
+                $masterToken = $masterTokenResponse['masterToken'];
+                $applicationEmployeeIdResponse = $this->getCurrentUser($masterToken, $userPhysicalId);
+                $applicationEmployeeApproverIdResponse = $this->getCurrentUser($masterToken, $bossPhysicalId);
+                if ($applicationEmployeeIdResponse['result'] && $applicationEmployeeApproverIdResponse['result']) {
+                    $applicationEmployeeId = $applicationEmployeeIdResponse['id'];
+                    $applicationEmployeeApproverId = $applicationEmployeeApproverIdResponse['id'];
+                    $userFIO = $this->separateFIO($user['form_fullname']);
+                    $clientId = 'a0731d7f-4799-4fe0-944a-247f256fd509';
+                    $externalId = null;
+                    $currentDate = date('Y-m-d');
+                    $number = 'Персональный ассистент работника_telegram';
+                    $typeId = $idOfType;
+                    $applicationExternalId = null;
+                    $applicationLegalEntityId = '91f2a834-1721-46c1-b917-6dc5cb943ed5';
+                    $applicationLegalEntityExternalId = null;
+                    $applicationEmployeeExternalId = null;
+                    $applicationEmployeeApproverExternalId = null;
+
+                    $templateSystemFields = $this->generateSystemFields($userFIO);
+                    $templateFields = array(
+                        array('id' => 'f7b44a6d-1c61-41d4-bbd8-3514087ac2de', 'value' => $this->convertToHrLinkDateFormat($sendData['startDate'])),
+                        array('id' => 'aabe529e-c65c-457b-9253-5b3c533a9c51', 'value' => $this->convertToHrLinkDateFormat($sendData['endDate'])),
+                        array('id' => 'b70cadc4-406d-4c11-afbe-a3f7910a93e5', 'value' => $sendData['vacations'][0]['startDate']),
+                        array('id' => '6f573058-06d6-48fb-aa73-e2d8fd369c88', 'value' => $sendData['vacations'][0]['endDate']),
+                        array('id' => '0ec8480d-4af2-4457-80bb-ecc5b647b153', 'value' => $sendData['vacations'][0]['reason'])
+                    );
+
+                    $body = array(
+                        'externalId' => $externalId,
+                        'date' => $currentDate,
+                        'number' => $number,
+                        'typeId' => $typeId,
+                        'applications' => $applications,
+                        'templateSystemFields' => $templateSystemFields,
+                        'templateFields' => $templateFields
+                    );
+                    $encodedBody = json_encode($body);
+
+                    $curl = curl_init();
+
+                    curl_setopt_array($curl, array(
+                        CURLOPT_URL => "https://hrlink.diall.ru/api/v1/clients/".$clientId."/applicationGroups",
+                        CURLOPT_RETURNTRANSFER => true,
+                        CURLOPT_ENCODING => '',
+                        CURLOPT_MAXREDIRS => 10,
+                        CURLOPT_TIMEOUT => 5000,
+                        CURLOPT_FOLLOWLOCATION => true,
+                        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                        CURLOPT_CUSTOMREQUEST => 'POST',
+                        CURLOPT_POST => true,
+                        CURLOPT_POSTFIELDS => $encodedBody,
+                        CURLOPT_HTTPHEADER => array(
+                            "Master-Api-Token: $masterToken",
+                            "Impersonated-User-Id: $userPhysicalId",
+                            'Impersonated-User-Id-Type: EXTERNAL_ID',
+                            'Content-Type: application/json'
+                        ),
+                    ));
+
+                    $response = curl_exec($curl);
+                    $err = curl_error($curl);
+                    curl_close($curl);
+//                     return $response;
+
+                    if ($err) {
+                        return array(
+                            'result' => false,
+                            'message' => 'Извините, но что-то пошло не так, попробуйте повторить позднее.'
+                        );
+                    } else {
+                        $result = json_decode($response, TRUE, 512, JSON_UNESCAPED_UNICODE);
+                        if ($result['result']) {
+                            return array(
+                                'result' => $result['result'],
+                                'applicationGroupId' => $result['applicationGroup']['id']
+                            );
+                        } else {
+                            return array(
+                                'result' => $result['result'],
+                                'message' => $result['errorMessage']
+                            );
+                        }
+                    }
+                } else {
+                    return "Не нормально 1";
+                }
+            } else {
+                return "Не нормально 2";
+            }
+        } else {
+            return "Не нормально 3";
+        }
+    }
+
     function registerApplication($user, $vacationFormData, $bossPhysicalId, $idOfType) {
         $userPhysicalId = $user['physical_id'];
         $bearerTokenResponse = $this->generateBearerToken();
