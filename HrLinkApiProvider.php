@@ -44,12 +44,7 @@ class HrLinkApiProvider {
                         )
                     );
 
-                    $templateSystemFields = array(
-                        array('id' => 'af1460a0-5081-4101-9342-6960f8ef99c0', 'value' => $userFIO[0]),
-                        array('id' => 'ebd6a325-e206-4870-b89e-b86043f97c64', 'value' => $userFIO[1]),
-                        array('id' => 'df6cc959-a85b-4b62-a51e-0bbcf44ce203', 'value' => $userFIO[2])
-                    );
-
+                    $templateSystemFields = $this->generateSystemFields($userFIO);
                     $templateFields = $this->generateTemplateFields($vacationFormData);
 
                     $body = array(
@@ -87,6 +82,7 @@ class HrLinkApiProvider {
                     $response = curl_exec($curl);
                     $err = curl_error($curl);
                     curl_close($curl);
+                    return $response;
 
                     if ($err) {
                         return array(
@@ -119,22 +115,46 @@ class HrLinkApiProvider {
         }
     }
 
+    function generateSystemFields($userFIO) {
+        $templateSystemFields = array();
+        array_push(
+            $templateSystemFields,
+            array('id' => 'af1460a0-5081-4101-9342-6960f8ef99c0', 'value' => $userFIO[0]),
+            array('id' => 'ebd6a325-e206-4870-b89e-b86043f97c64', 'value' => $userFIO[1]),
+            array('id' => 'df6cc959-a85b-4b62-a51e-0bbcf44ce203', 'value' => $userFIO[2])
+        );
+    }
+
     function generateTemplateFields($vacationFormData) {
         $templateFields = array();
         $type = $vacationFormData['vacation_type'] + 1;
         switch ($type) {
-            case 1; case 2; case 3:
+            case 1:
                 array_push(
                     $templateFields,
                     array('id' => '462b0c7c-fc3d-4045-b9c8-2d7ca9ad2fe6', 'value' => $this->convertToHrLinkDateFormat($vacationFormData['vacation_startdate'])),
                     array('id' => 'c6f8f4cc-9b2f-425a-ae14-f77d0f989f12', 'value' => $vacationFormData['vacation_duration'])
                 );
                 break;
+            case 2:
+                array_push(
+                    $templateFields,
+                    array('id' => 'dd35d894-cdf5-42a6-9cf5-b81ef20bc5e1', 'value' => $this->convertToHrLinkDateFormat($vacationFormData['vacation_startdate'])),
+                    array('id' => '1f12036c-192e-4e5c-ba35-e806833222e4', 'value' => $vacationFormData['vacation_duration'])
+                );
+                break;
+            case 3:
+                array_push(
+                    $templateFields,
+                    array('id' => 'c34b6407-49b2-48b2-9a8a-bbbd74179668', 'value' => $this->convertToHrLinkDateFormat($vacationFormData['vacation_startdate'])),
+                    array('id' => '748d9dd7-75f2-443d-89e0-9199d2fedc', 'value' => $vacationFormData['vacation_duration'])
+                );
+                break;
             case 4:
                 array_push(
                     $templateFields,
-                    array('id' => '462b0c7c-fc3d-4045-b9c8-2d7ca9ad2fe6', 'value' => $this->convertToHrLinkDateFormat($vacationFormData['vacation_startdate'])),
-                    array('id' => 'c6f8f4cc-9b2f-425a-ae14-f77d0f989f12', 'value' => $vacationFormData['vacation_duration']),
+                    array('id' => 'a25cf9a8-277e-44ee-96f8-d615d5755c08', 'value' => $this->convertToHrLinkDateFormat($vacationFormData['vacation_startdate'])),
+                    array('id' => 'b6e69695-9774-40e7-b922-20784f284c25', 'value' => $vacationFormData['vacation_duration']),
                     array('id' => 'dba6d5aa-b78c-45c3-969e-105d5f3f50e9', 'value' => $vacationFormData['cause']),
                     array('id' => '748d9dd7-75f2-443d-89e0-9199d2fedc0a', 'value' => $vacationFormData['reason'])
                 );
