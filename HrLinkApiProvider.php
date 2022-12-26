@@ -103,7 +103,7 @@ class HrLinkApiProvider {
                         } else {
                             return array(
                                 'result' => $result['result'],
-                                'message' => $result['message']
+                                'message' => $result['errorMessage']
                             );
                         }
 
