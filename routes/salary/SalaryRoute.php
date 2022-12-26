@@ -256,7 +256,14 @@ class SalaryRoute {
         sendMessage($chatID, $reply, null);
     }
 
+    // to delete
     function triggerActionForSendPostponedVacationForm($chatID) {
+        $reply = $this->constants->getSendVacationFormText();
+        $keyboard = $this->keyboards->getSendPostponedVacationFormInlineKeyboard();
+        sendMessage($chatID, $reply, $keyboard);
+    }
+
+    function triggerActionForRegisterPostponedVacationForm($chatID) {
         $reply = $this->constants->getSendVacationFormText();
         $keyboard = $this->keyboards->getSendPostponedVacationFormInlineKeyboard();
         sendMessage($chatID, $reply, $keyboard);
