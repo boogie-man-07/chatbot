@@ -95,10 +95,18 @@ class HrLinkApiProvider {
                         );
                     } else {
                         $result = json_decode($response, TRUE, 512, JSON_UNESCAPED_UNICODE);
-                        return array(
-                            'result' => $result['result'],
-                            'applicationGroupId' => $result['applicationGroup']['id']
-                        );
+                        if ($result['result']) {
+                            return array(
+                                'result' => $result['result'],
+                                'applicationGroupId' => $result['applicationGroup']['id']
+                            );
+                        } else {
+                            return array(
+                                'result' => $result['result'],
+                                'message' => $result['message']
+                            );
+                        }
+
                     }
                 } else {
                     return "Не нормально 1";
