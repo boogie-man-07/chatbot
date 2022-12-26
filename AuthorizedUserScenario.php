@@ -1011,7 +1011,7 @@ class AuthorizedUserScenario {
                  $sendData = $this->salaryRoute->getSendData($this->user, $vacationFormData, $separatedVacationFormData);
                  $smsSendingState = $this->hrLinkApiProvider->sendSmsCode($this->user['physical_id'], $sendData['vacations'][0]['applicationGroupId']);
                  if ($smsSendingState['result']) {
-                     $this->access->setRegularVacationSigningRequestId($this->chatID, $smsSendingState['signingRequestId']);
+                     $this->access->setPostponedVacationSigningRequestId($this->chatID, $smsSendingState['signingRequestId']);
                      $this->access->setState($this->chatID, $this->states['postponedSmsCodeEnteringWaitingState']);
                      $this->salaryRoute->triggerActionForConfirmationSmsEntering($this->chatID);
                      answerCallbackQuery($this->query["id"], "Код отправлен в SMS!");
