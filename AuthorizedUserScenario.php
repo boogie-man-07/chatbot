@@ -441,6 +441,12 @@ class AuthorizedUserScenario {
 
                                 $vacationInfo = $this->access->getSelectedVacationInfo($this->chatID);
 
+                                // to delete
+                                if ((int)$text != (int)$vacationInfo['amount']) {
+                                    sendMessage($this->chatID, 'Количество дней переносимого отпуска не совпадает! Введите корректное количество дней.', null);
+                                    exit;
+                                }
+
                                 if ((int)$text == (int)$vacationInfo['amount']) {
                                     $this->access->setSelectedVacationNewDuration($this->chatID, $text);
                                     $vacationInfo = $this->access->getSelectedVacationInfo($this->chatID);
