@@ -588,7 +588,21 @@ class keyboards {
         ));
     }
 
+    // to delete
     function getSendPostponedVacationFormInlineKeyboard() {
+        return json_encode(array(
+            "inline_keyboard" => array(
+                array(
+                    array(
+                        "text" => "Отправить заявление",
+                        "callback_data" => "sendPostponedVacationForm"
+                    )
+                )
+            )
+        ));
+    }
+
+    function getRegisterPostponedVacationFormInlineKeyboard() {
         return json_encode(array(
             "inline_keyboard" => array(
                 array(

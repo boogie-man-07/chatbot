@@ -543,8 +543,13 @@ class constants {
         return "Неверный формат даты. Попробуйте снова.\nПример: <b>1.01.2023 или 01.01.2023</b>";
     }
 
+    //to delete
     function getSendVacationFormText() {
         return "Заявление будет отправлено на Ваш рабочий адрес электронной почты.";
+    }
+
+    function getRegisterVacationFormText() {
+        return "Нажимите на кнопку для регистрации заявления.";
     }
 
     function getRegularVacationAcademicReasonText() {
