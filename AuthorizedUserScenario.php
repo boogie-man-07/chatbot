@@ -1009,7 +1009,7 @@ class AuthorizedUserScenario {
                  $vacationFormData = $this->access->getSelectedVacationInfo($this->chatID);
                  $separatedVacationFormData = $this->access->getSeparatePostponedVacationsInfo($this->chatID);
                  $sendData = $this->salaryRoute->getSendData($this->user, $vacationFormData, $separatedVacationFormData);
-                 $smsSendingState = $this->hrLinkApiProvider->sendSmsCode($this->user['physical_id'], $sendData['vacations'][0]['application_group_id']);
+                 $smsSendingState = $this->hrLinkApiProvider->sendSmsCode($this->user['physical_id'], $sendData['vacations'][0]['applicationGroupId']);
                  sendMessage($this->chatID, json_encode($smsSendingState), null); exit;
                  if ($smsSendingState['result']) {
                      $this->access->setRegularVacationSigningRequestId($this->chatID, $smsSendingState['signingRequestId']);
