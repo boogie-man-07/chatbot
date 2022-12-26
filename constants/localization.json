@@ -65,6 +65,7 @@
         "sendPostponedVacationFormInline": "sendPostponedVacationForm",
         "sendOldPostponedVacationFormInline": "sendOldPostponeVacationForm",
         "sendConfirmationSmsInline": "sendConfirmationSms",
+        "sendPostponedConfirmationSmsInline": "sendPostponedConfirmationSms",
         "dmsGoToSurveyInline": "dmsGoToSurvey",
         "dmsNotRelevantToProceedWithSurveyInline": "dmsNotRelevantToProceedWithSurvey",
         "proceedDmsSurveyInline": "proceedDmsSurvey",
@@ -118,7 +119,8 @@
         "dmsPoolReplyWaitingState": "waiting for choose dms pool reply",
         "dmsMultipleKeyboardChooseWaitingState": "waiting for multiple keyboard choose",
         "regularVacationTypeWaitingState": "waiting for regular vacation type",
-        "smsCodeEnteringWaitingState": "waiting for sms code entering"
+        "smsCodeEnteringWaitingState": "waiting for sms code entering",
+        "postponedSmsCodeEnteringWaitingState": "waiting for postponed sms code entering"
     },
 
     "constants": {

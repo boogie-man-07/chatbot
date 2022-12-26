@@ -753,6 +753,29 @@ class access {
         return $returnValue;
     }
 
+    function setPostponedVacationApplicationGroupId($tg_chat_id, $applicationGroupId) {
+        $sql = "SELECT * FROM separated_user_vacations WHERE tg_chat_id='".$tg_chat_id."'";
+        $result = $this->conn->query($sql);
+        if ($result != null && (mysqli_num_rows($result) >= 1 )) {
+            $sql = "UPDATE separated_user_vacations SET application_group_id=? WHERE tg_chat_id=?";
+            $statement = $this->conn->prepare($sql);
+            if (!$statement) {
+                throw new Exception($statement->error);
+            }
+            $statement->bind_param("ss", $applicationGroupId, $tg_chat_id);
+            $returnValue = $statement->execute();
+        } else {
+            $sql = "INSERT INTO separated_user_vacations SET tg_chat_id=?, application_group_id=?";
+            $statement = $this->conn->prepare($sql);
+            if (!$statement) {
+                throw new Exception($statement->error);
+            }
+            $statement->bind_param("ss", $tg_chat_id, $applicationGroupId);
+            $returnValue = $statement->execute();
+        }
+        return $returnValue;
+    }
+
     function setRegularVacationApplicationGroupId($tg_chat_id, $applicationGroupId) {
         $sql = "SELECT * FROM vacations WHERE tg_chat_id='".$tg_chat_id."'";
         $result = $this->conn->query($sql);
@@ -771,6 +794,29 @@ class access {
                 throw new Exception($statement->error);
             }
             $statement->bind_param("ss", $tg_chat_id, $applicationGroupId);
+            $returnValue = $statement->execute();
+        }
+        return $returnValue;
+    }
+
+    function setPostponedVacationSigningRequestId($tg_chat_id, $signingRequestId) {
+        $sql = "SELECT * FROM separated_user_vacations WHERE tg_chat_id='".$tg_chat_id."'";
+        $result = $this->conn->query($sql);
+        if ($result != null && (mysqli_num_rows($result) >= 1 )) {
+            $sql = "UPDATE separated_user_vacations SET signing_request_id=? WHERE tg_chat_id=?";
+            $statement = $this->conn->prepare($sql);
+            if (!$statement) {
+                throw new Exception($statement->error);
+            }
+            $statement->bind_param("ss", $signingRequestId, $tg_chat_id);
+            $returnValue = $statement->execute();
+        } else {
+            $sql = "INSERT INTO separated_user_vacations SET tg_chat_id=?, signing_request_id=?";
+            $statement = $this->conn->prepare($sql);
+            if (!$statement) {
+                throw new Exception($statement->error);
+            }
+            $statement->bind_param("ss", $tg_chat_id, $signingRequestId);
             $returnValue = $statement->execute();
         }
         return $returnValue;
