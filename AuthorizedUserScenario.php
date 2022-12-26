@@ -295,17 +295,15 @@ class AuthorizedUserScenario {
                                 if ($text <= $restVacationCount) {
                                     if ($vacationFormData['vacation_type'] != '3') {
                                         $this->access->setRegularVacationDuration($this->chatID, $text);
-                                        sleep(1);
 //                                         $this->access->setState($this->chatID, $this->states['regularVacationFormSendingWaitingState']);
 //                                         $this->salaryRoute->triggerActionForSendRegularVacationForm($this->chatID);
-                                        $vacationFormData = $this->access->getReguarVacationFormData($this->chatID);
                                         $bossPhysicalId = $this->access->getBossPhysicalId($this->user['boss']);
-                                        $applicationInfo = $this->access->getApplicationIdsInfo($text);
+                                        $vacationFormData = $this->access->getReguarVacationFormData($this->chatID);
+                                        $applicationInfo = $this->access->getApplicationIdsInfo($vacationFormData['vacation_type']);
                                         $registeredUser = $this->hrLinkApiProvider->registerApplication($this->user, $vacationFormData, $bossPhysicalId['physical_id'], $applicationInfo['hrlink_application_id']);
                                         if ($registeredUser['result']) {
                                             $this->access->setRegularVacationApplicationGroupId($this->chatID, $registeredUser['applicationGroupId']);
                                             $this->salaryRoute->triggerActionForIssuingDocumentConfirmSmsSending($this->chatID);
-                                            answerCallbackQuery($this->query["id"], "Данные загружены!");
                                             exit;
                                         } else {
                                             // trigger error
@@ -341,7 +339,6 @@ class AuthorizedUserScenario {
                             if ($registeredUser['result']) {
                                 $this->access->setRegularVacationApplicationGroupId($this->chatID, $registeredUser['applicationGroupId']);
                                 $this->salaryRoute->triggerActionForIssuingDocumentConfirmSmsSending($this->chatID);
-                                answerCallbackQuery($this->query["id"], "Данные загружены!");
                                 exit;
                             } else {
                                 // trigger error

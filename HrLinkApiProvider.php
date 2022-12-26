@@ -50,10 +50,7 @@ class HrLinkApiProvider {
                         array('id' => 'df6cc959-a85b-4b62-a51e-0bbcf44ce203', 'value' => $userFIO[2])
                     );
 
-                    $templateFields = array(
-                        array('id' => '462b0c7c-fc3d-4045-b9c8-2d7ca9ad2fe6', 'value' => $this->convertToHrLinkDateFormat($vacationFormData['vacation_startdate'])),
-                        array('id' => 'c6f8f4cc-9b2f-425a-ae14-f77d0f989f12', 'value' => $vacationFormData['vacation_duration'])
-                    );
+                    $templateFields = $this->generateTemplateFields($vacationFormData);
 
                     $body = array(
                         'externalId' => $externalId,
@@ -112,6 +109,30 @@ class HrLinkApiProvider {
         } else {
             return "Не нормально 3";
         }
+    }
+
+    function generateTemplateFields($vacationFormData) {
+        $templateFields = array();
+        $type = $vacationFormData['vacation_type'] + 1;
+        switch ($type) {
+            case 1; case 2; case 3:
+                array_push(
+                    $templateFields,
+                    array('id' => '462b0c7c-fc3d-4045-b9c8-2d7ca9ad2fe6', 'value' => $this->convertToHrLinkDateFormat($vacationFormData['vacation_startdate'])),
+                    array('id' => 'c6f8f4cc-9b2f-425a-ae14-f77d0f989f12', 'value' => $vacationFormData['vacation_duration'])
+                );
+                break;
+            case 4:
+                array_push(
+                    $templateFields,
+                    array('id' => '462b0c7c-fc3d-4045-b9c8-2d7ca9ad2fe6', 'value' => $this->convertToHrLinkDateFormat($vacationFormData['vacation_startdate'])),
+                    array('id' => 'c6f8f4cc-9b2f-425a-ae14-f77d0f989f12', 'value' => $vacationFormData['vacation_duration']),
+                    array('id' => 'dba6d5aa-b78c-45c3-969e-105d5f3f50e9', 'value' => $vacationFormData['cause']),
+                    array('id' => '748d9dd7-75f2-443d-89e0-9199d2fedc0a', 'value' => $vacationFormData['reason'])
+                );
+                break;
+        }
+        return $templateFields;
     }
 
     function checkSmsCode($userPhysicalId, $applicationGroupId, $signingRequestId, $code) {
