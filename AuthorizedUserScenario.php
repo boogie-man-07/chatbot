@@ -925,16 +925,17 @@ class AuthorizedUserScenario {
                     $applicationInfo = $this->access->getApplicationIdsInfo(4);
 
                     $registeredUser = $this->hrLinkApiProvider->registerPostponedApplication($this->user, $sendData, $bossPhysicalId['physical_id'], $applicationInfo['hrlink_application_id']);
-                    if ($registeredUser['result']) {
-                        $this->access->setPostponedVacationApplicationGroupId($this->chatID, $registeredUser['applicationGroupId']);
-                        $this->salaryRoute->triggerActionForIssuingPostponedDocumentConfirmSmsSending($this->chatID);
-                        answerCallbackQuery($this->query["id"], "Данные загружены!");
-                        exit;
-                    } else {
-                        // trigger error
-                        sendMessage($this->chatID, 'an error occured', null);
-                        exit;
-                    }
+                    sendMessage($this->chatID, $registeredUser, null);
+//                     if ($registeredUser['result']) {
+//                         $this->access->setPostponedVacationApplicationGroupId($this->chatID, $registeredUser['applicationGroupId']);
+//                         $this->salaryRoute->triggerActionForIssuingPostponedDocumentConfirmSmsSending($this->chatID);
+//                         answerCallbackQuery($this->query["id"], "Данные загружены!");
+//                         exit;
+//                     } else {
+//                         // trigger error
+//                         sendMessage($this->chatID, 'an error occured', null);
+//                         exit;
+//                     }
                 }
 
 //                 $sign = $this->salaryRoute->getSign($this->user['fullname']);

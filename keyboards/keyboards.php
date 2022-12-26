@@ -607,7 +607,7 @@ class keyboards {
             "inline_keyboard" => array(
                 array(
                     array(
-                        "text" => "Отправить заявление",
+                        "text" => "Зарегистрировать заявление",
                         "callback_data" => "sendPostponedVacationForm"
                     )
                 )
