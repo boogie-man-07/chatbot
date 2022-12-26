@@ -48,8 +48,8 @@ class HrLinkApiProvider {
                     $templateFields = array(
                         array('id' => 'f7b44a6d-1c61-41d4-bbd8-3514087ac2de', 'value' => $this->convertToHrLinkDateFormat($sendData['startDate'])),
                         array('id' => 'aabe529e-c65c-457b-9253-5b3c533a9c51', 'value' => $this->convertToHrLinkDateFormat($sendData['endDate'])),
-                        array('id' => 'b70cadc4-406d-4c11-afbe-a3f7910a93e5', 'value' => $sendData['vacations'][0]['startDate']),
-                        array('id' => '6f573058-06d6-48fb-aa73-e2d8fd369c88', 'value' => $sendData['vacations'][0]['endDate']),
+                        array('id' => 'b70cadc4-406d-4c11-afbe-a3f7910a93e5', 'value' => $this->convertToHrLinkDateFormat($sendData['vacations'][0]['startDate'])),
+                        array('id' => '6f573058-06d6-48fb-aa73-e2d8fd369c88', 'value' => $this->convertToHrLinkDateFormat($sendData['vacations'][0]['endDate'])),
                         array('id' => '0ec8480d-4af2-4457-80bb-ecc5b647b153', 'value' => $sendData['vacations'][0]['reason'])
                     );
 
