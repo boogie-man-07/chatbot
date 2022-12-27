@@ -62,6 +62,7 @@
         "sendNewRegularVacationFormInline": "sendNewRegularVacationForm",
         "sendOldRegularVacationFormInline": "sendOldRegularVacationForm",
         "sendPostponedVacationFormInline": "sendPostponedVacationForm",
+        "sendDocumentCopyFormInline": "sendDocumentCopyForm",
         "sendOldPostponedVacationFormInline": "sendOldPostponeVacationForm",
         "sendConfirmationSmsInline": "sendConfirmationSms",
         "sendPostponedConfirmationSmsInline": "sendPostponedConfirmationSms",

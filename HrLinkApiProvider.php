@@ -7,6 +7,120 @@ use Firebase\JWT\Key;
 
 class HrLinkApiProvider {
 
+    function registerDocumentApplication($user, $bossPhysicalId, $idOfType) {
+        $userPhysicalId = $user['physical_id'];
+        $bearerTokenResponse = $this->generateBearerToken();
+        if ($bearerTokenResponse['result']) {
+            $bearerToken = $bearerTokenResponse['bearerToken'];
+            $masterTokenResponse = $this->generateMasterKey($bearerToken);
+            if ($masterTokenResponse['result']) {
+                $masterToken = $masterTokenResponse['masterToken'];
+                $applicationEmployeeIdResponse = $this->getCurrentUser($masterToken, $userPhysicalId);
+                $applicationEmployeeApproverIdResponse = $this->getCurrentUser($masterToken, $bossPhysicalId);
+                if ($applicationEmployeeIdResponse['result'] && $applicationEmployeeApproverIdResponse['result']) {
+                    $fileIdResponse = $this->uploadFile($user['tg_chat_id']);
+                    if($fileIdResponse['result']) {
+                        $fileId = $fileIdResponse['fileId'];
+                        $applicationEmployeeId = $applicationEmployeeIdResponse['id'];
+                        $applicationEmployeeApproverId = $applicationEmployeeApproverIdResponse['id'];
+                        $userFIO = $this->separateFIO($user['form_fullname']);
+                        $clientId = 'a0731d7f-4799-4fe0-944a-247f256fd509';
+                        $externalId = null;
+                        $currentDate = date('Y-m-d');
+                        $number = 'Персональный ассистент работника_telegram';
+                        $typeId = $idOfType;
+                        $applicationExternalId = null;
+                        $applicationLegalEntityId = '91f2a834-1721-46c1-b917-6dc5cb943ed5';
+                        $applicationLegalEntityExternalId = null;
+                        $applicationEmployeeExternalId = null;
+                        $applicationEmployeeApproverExternalId = null;
+
+                        $applications = array(
+                            array(
+                                'externalId' => $applicationExternalId,
+                                'legalEntityId' => $applicationLegalEntityId,
+                                'legalEntityExternalId' => $applicationLegalEntityExternalId,
+                                'fileId' => $fileId,
+                                'employeeId' => $applicationEmployeeId,
+                                'employeeExternalId' => $applicationEmployeeExternalId,
+                                'employeeApproverId' => $applicationEmployeeApproverId,
+                                'employeeApproverExternalId' => $applicationEmployeeApproverExternalId
+                            )
+                        );
+
+                        $templateSystemFields = array();
+                        $templateFields = array();
+
+                        $body = array(
+                            'externalId' => $externalId,
+                            'date' => $currentDate,
+                            'number' => $number,
+                            'typeId' => $typeId,
+                            'applications' => $applications,
+                            'templateSystemFields' => $templateSystemFields,
+                            'templateFields' => $templateFields
+                        );
+                        $encodedBody = json_encode($body);
+
+                        $curl = curl_init();
+
+                        curl_setopt_array($curl, array(
+                            CURLOPT_URL => "https://hrlink.diall.ru/api/v1/clients/".$clientId."/applicationGroups",
+                            CURLOPT_RETURNTRANSFER => true,
+                            CURLOPT_ENCODING => '',
+                            CURLOPT_MAXREDIRS => 10,
+                            CURLOPT_TIMEOUT => 5000,
+                            CURLOPT_FOLLOWLOCATION => true,
+                            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                            CURLOPT_CUSTOMREQUEST => 'POST',
+                            CURLOPT_POST => true,
+                            CURLOPT_POSTFIELDS => $encodedBody,
+                            CURLOPT_HTTPHEADER => array(
+                                "Master-Api-Token: $masterToken",
+                                "Impersonated-User-Id: $userPhysicalId",
+                                'Impersonated-User-Id-Type: EXTERNAL_ID',
+                                'Content-Type: application/json'
+                            ),
+                        ));
+
+                        $response = curl_exec($curl);
+                        $err = curl_error($curl);
+                        curl_close($curl);
+    //                     return $response;
+
+                        if ($err) {
+                            return array(
+                                'result' => false,
+                                'message' => 'Извините, но что-то пошло не так, попробуйте повторить позднее.'
+                            );
+                        } else {
+                            $result = json_decode($response, TRUE, 512, JSON_UNESCAPED_UNICODE);
+                            if ($result['result']) {
+                                return array(
+                                    'result' => $result['result'],
+                                    'applicationGroupId' => $result['applicationGroup']['id']
+                                );
+                            } else {
+                                return array(
+                                    'result' => $result['result'],
+                                    'message' => $result['errorMessage']
+                                );
+                            }
+                        }
+                    } else {
+                        return "Не нормально 1";
+                    }
+                } else {
+                    return "Не нормально 2";
+                }
+            } else {
+                return "Не нормально 3";
+            }
+        } else {
+            return "Не нормально 4";
+        }
+    }
+
     function registerPostponedApplication($user, $sendData, $bossPhysicalId, $idOfType) {
         $userPhysicalId = $user['physical_id'];
         $bearerTokenResponse = $this->generateBearerToken();
@@ -515,35 +629,52 @@ class HrLinkApiProvider {
         return date('Y-m-d', strtotime($date));
     }
 
-//     function uploadFile() {
-//         $curl = curl_init();
-//         curl_setopt_array($curl, array(
-//             CURLOPT_URL => 'https://hrlink.diall.ru/api/v1/files',
-//             CURLOPT_RETURNTRANSFER => true,
-//             CURLOPT_ENCODING => '',
-//             CURLOPT_MAXREDIRS => 10,
-//             CURLOPT_TIMEOUT => 0,
-//             CURLOPT_FOLLOWLOCATION => true,
-//             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-//             CURLOPT_CUSTOMREQUEST => 'GET',
-//             CURLOPT_POSTFIELDS => array('file'=> new CURLFILE('/Users/booogie-man-07/Downloads/star.png')),
-//             CURLOPT_HTTPHEADER => array(
-//                 'User-Api-Token: 2799ee80-c1a6-40e0-a930-64ba4346c548',
-//                 'Content-Type: multipart/form-data'
-//             ),
-//         ));
-//
-//         $response = curl_exec($curl);
-//         curl_close($curl);
-//
-//         if ($err) {
-//             //echo "cURL Error #: ".$err;
-//             return "Извините, но что-то пошло не так, попробуйте повторить позднее.";
-//         } else {
-//             $result = json_decode($response, true);
-//             return $result;
-//         }
-//     }
+    function uploadFile($chatId) {
+        $curl = curl_init();
+        $currentDate = date('Y-m-d');
+        $body = array('file'=> new CURLFILE("/var/www/sigmabot.ddns.net/files/requestDocumentsCopyForm_$chatId"."_"."$currentDate.xlsx"));
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://hrlink.diall.ru/api/v1/files',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'GET',
+            CURLOPT_POSTFIELDS => $body,
+            CURLOPT_HTTPHEADER => array(
+                "Master-Api-Token: $masterToken",
+                "Impersonated-User-Id: $userPhysicalId",
+                'Impersonated-User-Id-Type: EXTERNAL_ID',
+                'Content-Type: multipart/form-data'
+            ),
+        ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+        curl_close($curl);
+
+        if ($err) {
+            return array(
+                'result' => false,
+                'message' => 'Извините, но что-то пошло не так, попробуйте повторить позднее.'
+            );
+        } else {
+            $result = json_decode($response, TRUE, 512, JSON_UNESCAPED_UNICODE);
+            if ($result['result']) {
+                return array(
+                    'result' => $result['result'],
+                    'fileId' => $result['files'][0]['id']
+                );
+            } else {
+                return array(
+                    'result' => $result['result'],
+                    'message' => $result['errorMessage']
+                );
+            }
+        }
+    }
 }
 
 ?>

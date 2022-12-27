@@ -558,7 +558,8 @@ class AuthorizedUserScenario {
                             exit;
                         case $this->states['issuingDocumentTypeCopyWaitingState']:
                             $this->forms->generateDocumentCopyForm($this->chatID);
-                            $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
+                            $this->access->saveIssuingDocumentData($this->user['user_id']);
+                            $this->salaryRoute->triggerActionForRegisterDocumentCopyForm($this->chatID);
                             exit;
                         case $this->states['dmsQuestionWaitingState']:
                             $this->access->setDmsQuestionInfo($this->chatID, $text);
@@ -920,7 +921,6 @@ class AuthorizedUserScenario {
                     $applicationInfo = $this->access->getApplicationIdsInfo(4);
 
                     $registeredUser = $this->hrLinkApiProvider->registerPostponedApplication($this->user, $sendData, $bossPhysicalId['physical_id'], $applicationInfo['hrlink_application_id']);
-//                     sendMessage($this->chatID, $registeredUser, null); exit;
                     if ($registeredUser['result']) {
                         $this->access->setPostponedVacationApplicationGroupId($this->chatID, $registeredUser['applicationGroupId']);
                         $this->salaryRoute->triggerActionForIssuingPostponedDocumentConfirmSmsSending($this->chatID);
@@ -928,7 +928,7 @@ class AuthorizedUserScenario {
                         exit;
                     } else {
                         // trigger error
-                        sendMessage($this->chatID, $registeredUser, null);
+                        sendMessage($this->chatID, $registeredUser['message'], null);
                         exit;
                     }
                 }
@@ -957,6 +957,12 @@ class AuthorizedUserScenario {
 //                 answerCallbackQuery($this->query["id"], "Письмо успешно отправлено!");
 //                 $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
 //                 $this->salaryRoute->triggerActionForSendPostponedVacationFormResult($this->chatID, $this->user['firstname'], $this->user['company_id']);
+            case $this->commands['sendDocumentCopyFormInline']:
+                $formData = $this->access->getIssuingDocumentData($this->user['user_id']);
+                $bossPhysicalId = $this->access->getBossPhysicalId($this->user['boss']);
+                $applicationInfo = $this->access->getApplicationIdsInfo($formData['issue_type']);
+                $registeredUser = $this->hrLinkApiProvider->registerDocumentApplication($this->user, $bossPhysicalId['physical_id'], $applicationInfo['hrlink_application_id']);
+                sendMessage($this->chatID, json_encode($registeredUser), null);
                 exit;
             case $this->commands['sendOldPostponedVacationFormInline']:
                 $template = $this->email->generatePostponeVacationForm($this->user['company_id']);
