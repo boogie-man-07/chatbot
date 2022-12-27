@@ -1615,9 +1615,9 @@ class access {
         return $returnValue;
     }
 
-    function getIssuingDocumentData($bossFullName) {
+    function getIssuingDocumentData($userId) {
         $returnArray = array();
-        $sql = "SELECT * FROM phonebook WHERE fullname = '".$bossFullName."'";
+        $sql = "SELECT * FROM user_issued_document_data WHERE user_id = '".$userId."'";
         $result = $this->conn->query($sql);
         if ($result != null && (mysqli_num_rows($result) >= 1 )) {
             $row = $result->fetch_array(MYSQLI_ASSOC);
