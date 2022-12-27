@@ -384,25 +384,6 @@ class keyboards {
                         "text" => "Заявление на перенос отпуска",
                         "callback_data" => "postponedVacationCase"
                     )
-                )
-            )
-        ));
-    }
-
-    function getApplicationMenuInlineKeyboardNew() {
-        return json_encode(array(
-            "inline_keyboard" => array(
-                array(
-                    array(
-                        "text" => "Заявление на отпуск",
-                        "callback_data" => "regularVacationCaseNew"
-                    )
-                ),
-                array(
-                    array(
-                        "text" => "Заявление на перенос отпуска",
-                        "callback_data" => "postponedVacationCaseNew"
-                    )
                 ),
                 array(
                     array(

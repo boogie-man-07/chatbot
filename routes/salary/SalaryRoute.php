@@ -138,12 +138,6 @@ class SalaryRoute {
         sendMessage($chatID, $reply, $keyboard);
     }
 
-    function triggerActionForGetApplicationsInformationNew($chatID, $firstname) {
-        $reply = $this->constants->getApplicationsText($firstname);
-        $keyboard = $this->keyboards->getApplicationMenuInlineKeyboardNew();
-        sendMessage($chatID, $reply, $keyboard);
-    }
-
     function triggerActionForGetRestVacationInfo($chatID, $userId, $vacationInfo) {
         $data = $vacationInfo->getRestVacationCountByUserId($userId);
         $vacations = $vacationInfo->getVacationsInfo($userId);
