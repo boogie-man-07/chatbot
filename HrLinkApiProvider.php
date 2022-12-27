@@ -44,7 +44,7 @@ class HrLinkApiProvider {
                         )
                     );
 
-                    $templateSystemFields = array();
+                    $templateSystemFields = $this->generateSystemFields($userFIO);
                     $templateFields = array(
                         array('id' => '8761188d-c6a2-494e-9ff0-0f0881959596', 'value' => $formData['type_text'])
                     );
