@@ -412,7 +412,7 @@ class Forms {
         $objExcelWriter->save($path);
     }
 
-    function generateDocumentCopyForm() {
+    function generateDocumentCopyForm($tg_chat_id) {
         $currentDate = date('Y-m-d');
         $path = "forms/requestDocumentsCopyForm.xlsx";
 
