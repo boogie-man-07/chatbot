@@ -18,7 +18,7 @@ class HrLinkApiProvider {
                 $applicationEmployeeIdResponse = $this->getCurrentUser($masterToken, $userPhysicalId);
                 $applicationEmployeeApproverIdResponse = $this->getCurrentUser($masterToken, $bossPhysicalId);
                 if ($applicationEmployeeIdResponse['result'] && $applicationEmployeeApproverIdResponse['result']) {
-                    $fileIdResponse = $this->uploadFile($user['tg_chat_id']);
+                    $fileIdResponse = $this->uploadFile($user['tg_chat_id'], $masterToken, $bossPhysicalId);
                     if($fileIdResponse['result']) {
                         $fileId = $fileIdResponse['fileId'];
                         $applicationEmployeeId = $applicationEmployeeIdResponse['id'];
@@ -628,7 +628,7 @@ class HrLinkApiProvider {
         return date('Y-m-d', strtotime($date));
     }
 
-    function uploadFile($chatId) {
+    function uploadFile($chatId, $masterToken, $bossPhysicalId) {
         $curl = curl_init();
         $currentDate = date('Y-m-d');
         $body = array('file'=> new CURLFILE("/var/www/sigmabot.ddns.net/files/requestDocumentsCopyForm_$chatId"."_"."$currentDate.xlsx"));
