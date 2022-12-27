@@ -412,6 +412,20 @@ class Forms {
         $objExcelWriter->save($path);
     }
 
+    function generateDocumentCopyForm() {
+        $currentDate = date('Y-m-d');
+        $path = "forms/requestDocumentsCopyForm.xlsx";
+
+        require('Classes/PHPExcel.php');
+        $objPHPExcel = PHPExcel_IOFactory::load($path);
+
+//         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D5', $seo);
+
+        $objExcelWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+        $excelFilename = "/var/www/sigmabot.ddns.net/files/requestDocumentsCopyForm_$tg_chat_id"."_"."$currentDate.xlsx";
+        $objExcelWriter->save($excelFilename);
+    }
+
 }
 
 

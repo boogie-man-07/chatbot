@@ -113,6 +113,7 @@
         "postponedSeparateVacationDurationWaitingState": "waiting for postponed separate vacation duration",
         "vacationFormSendingWaitingState": "waiting for vacation form sending",
         "issuingDocumentChooseWaitingState": "waiting for choose issuing document",
+        "issuingDocumentTypeCopyWaitingState": "waiting for document type copy",
         "dmsQuestionWaitingState": "waiting for dms question",
         "dmsEmailWaitingState": "waiting for email for dms question reply",
         "dmsPoolReplyWaitingState": "waiting for choose dms pool reply",
