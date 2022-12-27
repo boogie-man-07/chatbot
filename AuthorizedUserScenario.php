@@ -976,6 +976,7 @@ class AuthorizedUserScenario {
             // document
             case $this->commands['documentsIssuingCaseInline']:
                 answerCallbackQuery($this->query["id"], "Список документов загружен!");
+                $this->access->setState($this->chatID, $this->states['issuingDocumentChooseWaitingState']);
                 $this->salaryRoute->triggerActionForGetIssuingDocumentsList($this->chatID);
                 exit;
             // to delete
@@ -1219,6 +1220,24 @@ class AuthorizedUserScenario {
                             $this->salaryRoute->triggerActionForSetPostponedVacationNewStartDate($this->chatID);
                             answerCallbackQuery($this->query["id"], "Данные загружены!");
                             exit;
+                        }
+                    // to delete
+                    case $this->states['issuingDocumentChooseWaitingState']:
+                        switch ((int)$text) {
+                            case 1; case 2; case 3:
+                                answerCallbackQuery($this->query["id"], "Данные загружены!");
+                                sendMessage($this->chatID, 'Документы без дополнительной информации', null);
+                                exit;
+                            case 4; case 5; case 6:
+                                // todo
+                                answerCallbackQuery($this->query["id"], "Данные загружены!");
+                                sendMessage($this->chatID, 'Документы с дополнительной информацией', null);
+                                exit;
+                            case 7:
+                                // todo
+                                answerCallbackQuery($this->query["id"], "Данные загружены!");
+                                sendMessage($this->chatID, 'Документы выбранные пользователем', null);
+                                exit;
                         }
                     case $this->states['dmsPoolReplyWaitingState']:
                         $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
