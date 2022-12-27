@@ -86,7 +86,6 @@ class HrLinkApiProvider {
                         $response = curl_exec($curl);
                         $err = curl_error($curl);
                         curl_close($curl);
-    //                     return $response;
 
                         if ($err) {
                             return array(
@@ -641,7 +640,7 @@ class HrLinkApiProvider {
             CURLOPT_TIMEOUT => 0,
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'GET',
+            CURLOPT_CUSTOMREQUEST => 'POST',
             CURLOPT_POSTFIELDS => $body,
             CURLOPT_HTTPHEADER => array(
                 "Master-Api-Token: $masterToken",
