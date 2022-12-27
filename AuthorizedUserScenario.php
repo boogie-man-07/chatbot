@@ -556,6 +556,9 @@ class AuthorizedUserScenario {
                             //$this->access->setState($this->chatID, $this->states['vacationFormSendingWaitingState']);
                             $this->salaryRoute->triggerActionForRegisterPostponedVacationForm($this->chatID);
                             exit;
+                        case $this->states['issuingDocumentTypeCopyWaitingState']:
+                            $this->forms->generateDocumentCopyForm();
+                            exit;
                         case $this->states['dmsQuestionWaitingState']:
                             $this->access->setDmsQuestionInfo($this->chatID, $text);
                             if($this->user['email'] == '' || $this->user['email'] == null) {
@@ -979,9 +982,10 @@ class AuthorizedUserScenario {
                 $this->access->setState($this->chatID, $this->states['issuingDocumentChooseWaitingState']);
                 $this->salaryRoute->triggerActionForGetIssuingDocumentsList($this->chatID);
                 exit;
-            // to delete
             case $this->commands['documentsCopiesIssuingCaseInline']:
                 answerCallbackQuery($this->query["id"], "documentsCopiesIssuingCaseInline");
+                $this->access->setState($this->chatID, $this->states['issuingDocumentTypeCopyWaitingState']);
+                $this->salaryRoute->triggerActionForRequestIssuingDocumentTypeCopy($this->chatID);
                 exit;
 
             case $this->commands['sendConfirmationSmsInline']:

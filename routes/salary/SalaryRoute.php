@@ -269,6 +269,11 @@ class SalaryRoute {
         sendMessage($chatID, $reply, $keyboard);
     }
 
+    function triggerActionForRequestIssuingDocumentTypeCopy($chatID) {
+        $reply = $this->constants->getRequestDocumentTypeCopyText();
+        sendMessage($chatID, $reply, null);
+    }
+
     function triggerActionForIssuingDocumentConfirmSmsSending($chatID) {
         $reply = $this->constants->getIssuingDocumentConfirmSmsSendingText();
         $keyboard = $this->keyboards->getIssuingDocumentsConfirmSmSSendingInlineKeyboard();
@@ -490,7 +495,8 @@ class SalaryRoute {
             'waiting for multiple keyboard choose',
             'waiting for regular vacation type',
             'waiting for sms code entering',
-            'waiting for postponed sms code entering'
+            'waiting for postponed sms code entering',
+            'waiting for document type copy'
         );
         if (in_array($currentState, $dialogState)) {
             return true;

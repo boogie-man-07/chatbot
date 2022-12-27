@@ -1591,6 +1591,29 @@ class access {
 
         return $returnArray;
     }
+    //remove from everywhere
+    function saveIssuingDocumentData($userId, $text) {
+        $sql = "SELECT * FROM user_issued_document_data WHERE user_id ='".$userId."'";
+        $result = $this->conn->query($sql);
+        if ($result != null && (mysqli_num_rows($result) >= 1 )) {
+            $sql = "UPDATE user_issued_document_data SET document_type = ? WHERE user_id = ?";
+            $statement = $this->conn->prepare($sql);
+            if (!$statement) {
+                throw new Exception($statement->error);
+            }
+            $statement->bind_param("is", $text, $userId);
+            $returnValue = $statement->execute();
+        } else {
+            $sql = "INSERT INTO user_issued_document_data SET user_id = ?, issue_type = 1, document_type = ?";
+            $statement = $this->conn->prepare($sql);
+            if (!$statement) {
+                throw new Exception($statement->error);
+            }
+            $statement->bind_param("si", $userId, $text);
+            $returnValue = $statement->execute();
+        }
+        return $returnValue;
+    }
 
     function getBossPhysicalId($bossFullName) {
         $returnArray = array();
