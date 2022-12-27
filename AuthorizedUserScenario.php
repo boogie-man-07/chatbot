@@ -558,6 +558,7 @@ class AuthorizedUserScenario {
                             exit;
                         case $this->states['issuingDocumentTypeCopyWaitingState']:
                             $this->forms->generateDocumentCopyForm($this->chatID);
+                            $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
                             exit;
                         case $this->states['dmsQuestionWaitingState']:
                             $this->access->setDmsQuestionInfo($this->chatID, $text);
