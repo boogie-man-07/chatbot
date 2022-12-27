@@ -44,7 +44,7 @@ class HrLinkApiProvider {
                         )
                     );
 
-                    $templateSystemFields = array();
+                    $templateSystemFields = generateSystemFields($userFIO);
                     $templateFields = array(
                         array('id' => '8761188d-c6a2-494e-9ff0-0f0881959596', 'value' => $formData['type_text'])
                     );
@@ -58,7 +58,6 @@ class HrLinkApiProvider {
                         'templateSystemFields' => $templateSystemFields,
                         'templateFields' => $templateFields
                     );
-                    return $body; exit;
                     $encodedBody = json_encode($body);
 
                     $curl = curl_init();
