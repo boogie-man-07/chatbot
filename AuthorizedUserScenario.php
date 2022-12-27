@@ -962,7 +962,7 @@ class AuthorizedUserScenario {
                 $bossPhysicalId = $this->access->getBossPhysicalId($this->user['boss']);
                 $applicationInfo = $this->access->getApplicationIdsInfo($formData['issue_type']);
                 $registeredUser = $this->hrLinkApiProvider->registerDocumentApplication($this->user, $bossPhysicalId['physical_id'], $applicationInfo['hrlink_application_id']);
-                sendMessage($this->chatID, $registeredUser, null);
+                sendMessage($this->chatID, json_encode($registeredUser), null);
                 exit;
             case $this->commands['sendOldPostponedVacationFormInline']:
                 $template = $this->email->generatePostponeVacationForm($this->user['company_id']);
