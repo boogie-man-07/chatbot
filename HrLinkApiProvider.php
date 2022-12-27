@@ -7,7 +7,7 @@ use Firebase\JWT\Key;
 
 class HrLinkApiProvider {
 
-    function registerDocumentApplication($user, $bossPhysicalId, $idOfType) {
+    function registerDocumentApplication($user, $formData, $bossPhysicalId, $idOfType) {
         $userPhysicalId = $user['physical_id'];
         $bearerTokenResponse = $this->generateBearerToken();
         if ($bearerTokenResponse['result']) {
@@ -18,97 +18,92 @@ class HrLinkApiProvider {
                 $applicationEmployeeIdResponse = $this->getCurrentUser($masterToken, $userPhysicalId);
                 $applicationEmployeeApproverIdResponse = $this->getCurrentUser($masterToken, $bossPhysicalId);
                 if ($applicationEmployeeIdResponse['result'] && $applicationEmployeeApproverIdResponse['result']) {
-                    $fileIdResponse = $this->uploadFile($user['tg_chat_id'], $masterToken, $userPhysicalId);
-                    if($fileIdResponse['result']) {
-                        $fileId = $fileIdResponse['fileId'];
-                        $applicationEmployeeId = $applicationEmployeeIdResponse['id'];
-                        $applicationEmployeeApproverId = $applicationEmployeeApproverIdResponse['id'];
-                        $userFIO = $this->separateFIO($user['form_fullname']);
-                        $clientId = 'a0731d7f-4799-4fe0-944a-247f256fd509';
-                        $externalId = null;
-                        $currentDate = date('Y-m-d');
-                        $number = 'Персональный ассистент работника_telegram';
-                        $typeId = $idOfType;
-                        $applicationExternalId = null;
-                        $applicationLegalEntityId = '91f2a834-1721-46c1-b917-6dc5cb943ed5';
-                        $applicationLegalEntityExternalId = null;
-                        $applicationEmployeeExternalId = null;
-                        $applicationEmployeeApproverExternalId = null;
+                    $applicationEmployeeId = $applicationEmployeeIdResponse['id'];
+                    $applicationEmployeeApproverId = $applicationEmployeeApproverIdResponse['id'];
+                    $userFIO = $this->separateFIO($user['form_fullname']);
+                    $clientId = 'a0731d7f-4799-4fe0-944a-247f256fd509';
+                    $externalId = null;
+                    $currentDate = date('Y-m-d');
+                    $number = 'Персональный ассистент работника_telegram';
+                    $typeId = $idOfType;
+                    $applicationExternalId = null;
+                    $applicationLegalEntityId = '91f2a834-1721-46c1-b917-6dc5cb943ed5';
+                    $applicationLegalEntityExternalId = null;
+                    $applicationEmployeeExternalId = null;
+                    $applicationEmployeeApproverExternalId = null;
 
-                        $applications = array(
-                            array(
-                                'externalId' => $applicationExternalId,
-                                'legalEntityId' => $applicationLegalEntityId,
-                                'legalEntityExternalId' => $applicationLegalEntityExternalId,
-                                'fileId' => $fileId,
-                                'employeeId' => $applicationEmployeeId,
-                                'employeeExternalId' => $applicationEmployeeExternalId,
-                                'employeeApproverId' => $applicationEmployeeApproverId,
-                                'employeeApproverExternalId' => $applicationEmployeeApproverExternalId
-                            )
+                    $applications = array(
+                        array(
+                            'externalId' => $applicationExternalId,
+                            'legalEntityId' => $applicationLegalEntityId,
+                            'legalEntityExternalId' => $applicationLegalEntityExternalId,
+                            'employeeId' => $applicationEmployeeId,
+                            'employeeExternalId' => $applicationEmployeeExternalId,
+                            'employeeApproverId' => $applicationEmployeeApproverId,
+                            'employeeApproverExternalId' => $applicationEmployeeApproverExternalId
+                        )
+                    );
+
+                    $templateSystemFields = array();
+                    $templateFields = array(
+                        array('id' => '8761188d-c6a2-494e-9ff0-0f0881959596', 'value' => $formData['type_text'])
+                    );
+
+                    $body = array(
+                        'externalId' => $externalId,
+                        'date' => $currentDate,
+                        'number' => $number,
+                        'typeId' => $typeId,
+                        'applications' => $applications,
+                        'templateSystemFields' => $templateSystemFields,
+                        'templateFields' => $templateFields
+                    );
+                    return $body; exit;
+                    $encodedBody = json_encode($body);
+
+                    $curl = curl_init();
+
+                    curl_setopt_array($curl, array(
+                        CURLOPT_URL => "https://hrlink.diall.ru/api/v1/clients/".$clientId."/applicationGroups",
+                        CURLOPT_RETURNTRANSFER => true,
+                        CURLOPT_ENCODING => '',
+                        CURLOPT_MAXREDIRS => 10,
+                        CURLOPT_TIMEOUT => 5000,
+                        CURLOPT_FOLLOWLOCATION => true,
+                        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                        CURLOPT_CUSTOMREQUEST => 'POST',
+                        CURLOPT_POST => true,
+                        CURLOPT_POSTFIELDS => $encodedBody,
+                        CURLOPT_HTTPHEADER => array(
+                            "Master-Api-Token: $masterToken",
+                            "Impersonated-User-Id: $userPhysicalId",
+                            'Impersonated-User-Id-Type: EXTERNAL_ID',
+                            'Content-Type: application/json'
+                        ),
+                    ));
+
+                    $response = curl_exec($curl);
+                    $err = curl_error($curl);
+                    curl_close($curl);
+
+                    if ($err) {
+                        return array(
+                            'result' => false,
+                            'message' => 'Извините, но что-то пошло не так, попробуйте повторить позднее.'
                         );
-
-                        $templateSystemFields = array();
-                        $templateFields = array();
-
-                        $body = array(
-                            'externalId' => $externalId,
-                            'date' => $currentDate,
-                            'number' => $number,
-                            'typeId' => $typeId,
-                            'applications' => $applications,
-                            'templateSystemFields' => $templateSystemFields,
-                            'templateFields' => $templateFields
-                        );
-                        return $body; exit;
-                        $encodedBody = json_encode($body);
-
-                        $curl = curl_init();
-
-                        curl_setopt_array($curl, array(
-                            CURLOPT_URL => "https://hrlink.diall.ru/api/v1/clients/".$clientId."/applicationGroups",
-                            CURLOPT_RETURNTRANSFER => true,
-                            CURLOPT_ENCODING => '',
-                            CURLOPT_MAXREDIRS => 10,
-                            CURLOPT_TIMEOUT => 5000,
-                            CURLOPT_FOLLOWLOCATION => true,
-                            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                            CURLOPT_CUSTOMREQUEST => 'POST',
-                            CURLOPT_POST => true,
-                            CURLOPT_POSTFIELDS => $encodedBody,
-                            CURLOPT_HTTPHEADER => array(
-                                "Master-Api-Token: $masterToken",
-                                "Impersonated-User-Id: $userPhysicalId",
-                                'Impersonated-User-Id-Type: EXTERNAL_ID',
-                                'Content-Type: application/json'
-                            ),
-                        ));
-
-                        $response = curl_exec($curl);
-                        $err = curl_error($curl);
-                        curl_close($curl);
-
-                        if ($err) {
+                    } else {
+                        $result = json_decode($response, TRUE, 512, JSON_UNESCAPED_UNICODE);
+                        if ($result['result']) {
                             return array(
-                                'result' => false,
-                                'message' => 'Извините, но что-то пошло не так, попробуйте повторить позднее.'
+                                'result' => $result['result'],
+                                'applicationGroupId' => $result['applicationGroup']['id']
                             );
                         } else {
-                            $result = json_decode($response, TRUE, 512, JSON_UNESCAPED_UNICODE);
-                            if ($result['result']) {
-                                return array(
-                                    'result' => $result['result'],
-                                    'applicationGroupId' => $result['applicationGroup']['id']
-                                );
-                            } else {
-                                return array(
-                                    'result' => $result['result'],
-                                    'message' => $result['errorMessage']
-                                );
-                            }
+                            return array(
+                                'result' => $result['result'],
+                                'message' => $result['errorMessage']
+                            );
                         }
-                    } else {
-                        return "Не нормально 1";
                     }
                 } else {
                     return "Не нормально 2";
