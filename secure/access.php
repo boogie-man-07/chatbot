@@ -1615,6 +1615,52 @@ class access {
         return $returnValue;
     }
 
+    function setIssuingDocumentApplicationGroupId($userId, $applicationGroupId) {
+        $sql = "SELECT * FROM user_issued_document_data WHERE user_id='".$userId."'";
+        $result = $this->conn->query($sql);
+        if ($result != null && (mysqli_num_rows($result) >= 1 )) {
+            $sql = "UPDATE user_issued_document_data SET application_group_id=? WHERE user_id=?";
+            $statement = $this->conn->prepare($sql);
+            if (!$statement) {
+                throw new Exception($statement->error);
+            }
+            $statement->bind_param("ss", $applicationGroupId, $userId);
+            $returnValue = $statement->execute();
+        } else {
+            $sql = "INSERT INTO user_issued_document_data SET user_id=?, application_group_id=?";
+            $statement = $this->conn->prepare($sql);
+            if (!$statement) {
+                throw new Exception($statement->error);
+            }
+            $statement->bind_param("ss", $userId, $applicationGroupId);
+            $returnValue = $statement->execute();
+        }
+        return $returnValue;
+    }
+
+    function setIssuingDocumentSigningRequestId($userId, $signingRequestId) {
+        $sql = "SELECT * FROM user_issued_document_data WHERE user_id='".$userId."'";
+        $result = $this->conn->query($sql);
+        if ($result != null && (mysqli_num_rows($result) >= 1 )) {
+            $sql = "UPDATE user_issued_document_data SET signing_request_id=? WHERE user_id=?";
+            $statement = $this->conn->prepare($sql);
+            if (!$statement) {
+                throw new Exception($statement->error);
+            }
+            $statement->bind_param("ss", $signingRequestId, $userId);
+            $returnValue = $statement->execute();
+        } else {
+            $sql = "INSERT INTO user_issued_document_data SET user_id=?, signing_request_id=?";
+            $statement = $this->conn->prepare($sql);
+            if (!$statement) {
+                throw new Exception($statement->error);
+            }
+            $statement->bind_param("ss", $userId, $signingRequestId);
+            $returnValue = $statement->execute();
+        }
+        return $returnValue;
+    }
+
     function getIssuingDocumentData($userId) {
         $returnArray = array();
         $sql = "SELECT * FROM user_issued_document_data WHERE user_id = '".$userId."'";

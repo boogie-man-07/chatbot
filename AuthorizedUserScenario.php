@@ -357,6 +357,21 @@ class AuthorizedUserScenario {
                                 sendMessage($this->chatID, 'Код SMS неверен', null);
                                 exit;
                             }
+                        case $this->states['documentCopySmsCodeEnteringWaitingState']:
+                            $formData = $this->access->getIssuingDocumentData($this->user['user_id']);
+                            $bossPhysicalId = $this->access->getBossPhysicalId($this->user['boss']);
+                            $applicationInfo = $this->access->getApplicationIdsInfo($formData['issue_type']);
+                            $checkSmsCodeState = $this->hrLinkApiProvider->checkSmsCode($this->user['physical_id'], $formData['application_group_id'], $formData['signing_request_id'], $text);
+                            if($checkSmsCodeState['result']) {
+                                $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
+                                $this->salaryRoute->triggerActionForSuccessApplicationRegistering($this->chatID);
+                                exit;
+                            } else {
+                                // trigger error
+                                sendMessage($this->chatID, 'Код SMS неверен', null);
+                                exit;
+                            }
+                            exit;
                         case $this->states['smsCodeEnteringWaitingState']:
                             $vacationFormData = $this->access->getReguarVacationFormData($this->chatID);
                             $checkSmsCodeState = $this->hrLinkApiProvider->checkSmsCode($this->user['physical_id'], $vacationFormData['application_group_id'], $vacationFormData['signing_request_id'], $text);
@@ -962,8 +977,16 @@ class AuthorizedUserScenario {
                 $bossPhysicalId = $this->access->getBossPhysicalId($this->user['boss']);
                 $applicationInfo = $this->access->getApplicationIdsInfo($formData['issue_type']);
                 $registeredUser = $this->hrLinkApiProvider->registerDocumentApplication($this->user, $formData, $bossPhysicalId['physical_id'], $applicationInfo['hrlink_application_id']);
-                sendMessage($this->chatID, json_encode($registeredUser), null);
-                exit;
+                if ($registeredUser['result']) {
+                    $this->access->setIssuingDocumentApplicationGroupId($this->user['user_id'], $registeredUser['applicationGroupId']);
+                    $this->salaryRoute->triggerActionForIssuingDocumentCopyConfirmSmsSending($this->chatID);
+                    answerCallbackQuery($this->query["id"], "Данные загружены!");
+                    exit;
+                } else {
+                    // trigger error
+                    sendMessage($this->chatID, $registeredUser['message'], null);
+                    exit;
+                }
             case $this->commands['sendOldPostponedVacationFormInline']:
                 $template = $this->email->generatePostponeVacationForm($this->user['company_id']);
                 $template = str_replace("{firstname}", $this->user['firstname'], $template);
@@ -1025,6 +1048,22 @@ class AuthorizedUserScenario {
                      sendMessage($this->chatID, $smsSendingState['message'], null);
                      exit;
                  }
+            case $this->commands['sendDocumentCopyConfirmationSmsInline']:
+                $formData = $this->access->getIssuingDocumentData($this->user['user_id']);
+                $bossPhysicalId = $this->access->getBossPhysicalId($this->user['boss']);
+                $applicationInfo = $this->access->getApplicationIdsInfo($formData['issue_type']);
+                $smsSendingState = $this->hrLinkApiProvider->sendSmsCode($this->user['physical_id'], $formData['application_group_id']);
+                if ($smsSendingState['result']) {
+                    $this->access->setIssuingDocumentSigningRequestId($this->user['user_id'], $smsSendingState['signingRequestId']);
+                    $this->access->setState($this->chatID, $this->states['documentCopySmsCodeEnteringWaitingState']);
+                    $this->salaryRoute->triggerActionForConfirmationSmsEntering($this->chatID);
+                    answerCallbackQuery($this->query["id"], "Код отправлен в SMS!");
+                    exit;
+                } else {
+                    // trigger error
+                    sendMessage($this->chatID, $smsSendingState['message'], null);
+                    exit;
+                }
             case $this->commands['dmsGoToSurveyInline']:
                 $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
                 if ($pollInfo) {

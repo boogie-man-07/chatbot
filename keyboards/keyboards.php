@@ -435,6 +435,16 @@ class keyboards {
         ));
     }
 
+    function getIssuingPostponedDocumentCopyConfirmSmSSendingInlineKeyboard() {
+        return json_encode(array(
+            "inline_keyboard" => array(
+                array(
+                    array("text" => "Отправить код", "callback_data" => "sendDocumentCopyConfirmationSms")
+                )
+            )
+        ));
+    }
+
     function getChooseVacationToPostponeInlineKeyboard($chatID, $data) {
         $vacation = array();
         foreach($data['vacations'] as $key=>$value) {
