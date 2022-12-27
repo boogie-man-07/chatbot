@@ -1592,27 +1592,41 @@ class access {
         return $returnArray;
     }
     //remove from everywhere
-    function saveIssuingDocumentData($userId, $text) {
+    function saveIssuingDocumentData($userId) {
         $sql = "SELECT * FROM user_issued_document_data WHERE user_id ='".$userId."'";
         $result = $this->conn->query($sql);
         if ($result != null && (mysqli_num_rows($result) >= 1 )) {
-            $sql = "UPDATE user_issued_document_data SET document_type = ? WHERE user_id = ?";
+            $sql = "UPDATE user_issued_document_data SET issue_type= 6 WHERE user_id = ?";
             $statement = $this->conn->prepare($sql);
             if (!$statement) {
                 throw new Exception($statement->error);
             }
-            $statement->bind_param("is", $text, $userId);
+            $statement->bind_param("s", $userId);
             $returnValue = $statement->execute();
         } else {
-            $sql = "INSERT INTO user_issued_document_data SET user_id = ?, issue_type = 1, document_type = ?";
+            $sql = "INSERT INTO user_issued_document_data SET user_id = ?, issue_type = 6";
             $statement = $this->conn->prepare($sql);
             if (!$statement) {
                 throw new Exception($statement->error);
             }
-            $statement->bind_param("si", $userId, $text);
+            $statement->bind_param("s", $userId);
             $returnValue = $statement->execute();
         }
         return $returnValue;
+    }
+
+    function getIssuingDocumentData($bossFullName) {
+        $returnArray = array();
+        $sql = "SELECT * FROM phonebook WHERE fullname = '".$bossFullName."'";
+        $result = $this->conn->query($sql);
+        if ($result != null && (mysqli_num_rows($result) >= 1 )) {
+            $row = $result->fetch_array(MYSQLI_ASSOC);
+            if (!empty($row)) {
+                $returnArray = $row;
+            }
+        }
+
+        return $returnArray;
     }
 
     function getBossPhysicalId($bossFullName) {
