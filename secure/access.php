@@ -1592,24 +1592,24 @@ class access {
         return $returnArray;
     }
     //remove from everywhere
-    function saveIssuingDocumentData($userId) {
+    function saveIssuingDocumentData($userId, $documentTypesText) {
         $sql = "SELECT * FROM user_issued_document_data WHERE user_id ='".$userId."'";
         $result = $this->conn->query($sql);
         if ($result != null && (mysqli_num_rows($result) >= 1 )) {
-            $sql = "UPDATE user_issued_document_data SET issue_type= 6 WHERE user_id = ?";
+            $sql = "UPDATE user_issued_document_data SET issue_type = 6, type_text = ? WHERE user_id = ?";
             $statement = $this->conn->prepare($sql);
             if (!$statement) {
                 throw new Exception($statement->error);
             }
-            $statement->bind_param("s", $userId);
+            $statement->bind_param("ss", $documentTypesText, $userId);
             $returnValue = $statement->execute();
         } else {
-            $sql = "INSERT INTO user_issued_document_data SET user_id = ?, issue_type = 6";
+            $sql = "INSERT INTO user_issued_document_data SET user_id = ?, issue_type = 6, type_text = ?";
             $statement = $this->conn->prepare($sql);
             if (!$statement) {
                 throw new Exception($statement->error);
             }
-            $statement->bind_param("s", $userId);
+            $statement->bind_param("ss", $userId, $documentTypesText);
             $returnValue = $statement->execute();
         }
         return $returnValue;
