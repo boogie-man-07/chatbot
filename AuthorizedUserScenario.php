@@ -557,7 +557,7 @@ class AuthorizedUserScenario {
                             $this->salaryRoute->triggerActionForRegisterPostponedVacationForm($this->chatID);
                             exit;
                         case $this->states['issuingDocumentTypeCopyWaitingState']:
-                            $this->forms->generateDocumentCopyForm();
+                            $this->forms->generateDocumentCopyForm($this->chatID);
                             exit;
                         case $this->states['dmsQuestionWaitingState']:
                             $this->access->setDmsQuestionInfo($this->chatID, $text);
