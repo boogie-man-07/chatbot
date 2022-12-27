@@ -990,7 +990,7 @@ class AuthorizedUserScenario {
                 $this->salaryRoute->triggerActionForGetIssuingDocumentsList($this->chatID);
                 exit;
             case $this->commands['documentsCopiesIssuingCaseInline']:
-                answerCallbackQuery($this->query["id"], "documentsCopiesIssuingCaseInline");
+                answerCallbackQuery($this->query["id"], "Данные загружены!");
                 $this->access->setState($this->chatID, $this->states['issuingDocumentTypeCopyWaitingState']);
                 $this->salaryRoute->triggerActionForRequestIssuingDocumentTypeCopy($this->chatID);
                 exit;
