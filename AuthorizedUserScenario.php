@@ -112,10 +112,6 @@ class AuthorizedUserScenario {
                 $this->access->removeVacationDataByChatID($this->chatID);
                 $this->salaryRoute->triggerActionForGetApplicationsInformation($this->chatID, $this->user['firstname']);
                 exit;
-            case $this->commands['applicationsnew']:
-                $this->access->removeVacationDataByChatID($this->chatID);
-                $this->salaryRoute->triggerActionForGetApplicationsInformationNew($this->chatID, $this->user['firstname']);
-                exit;
             case $this->commands['myVacation']:
                 $this->salaryRoute->triggerActionForGetRestVacationInfo($this->chatID, $this->user['user_id'], $this->vacationInfo);
                 exit;
@@ -818,11 +814,6 @@ class AuthorizedUserScenario {
                 answerCallbackQuery($this->query["id"], "Успешно!");
                 $this->salaryRoute->triggerActionForRegularApplicationPreparations($this->chatID, $this->user['firstname'], $this->user['company_id']);
                 exit;
-            case $this->commands['regularVacationCaseInlineNew']:
-                answerCallbackQuery($this->query["id"], "Успешно!");
-                $this->access->setState($this->chatID, $this->states['regularVacationTypeWaitingState']);
-                $this->salaryRoute->triggerActionForRegularApplicationPreparationsNew($this->chatID, $this->user['firstname'], $this->user['company_id']);
-                exit;
             case $this->commands['postponedVacationCaseInline']:
                 answerCallbackQuery($this->query["id"], "Успешно!");
                 if ($this->user['company_id'] == 3) {
@@ -981,16 +972,17 @@ class AuthorizedUserScenario {
                     answerCallbackQuery($this->query["id"], "Не удалось отправить письмо, повторите попытку!");
                     exit;
                 }
-            // to delete
+
+            // document
             case $this->commands['documentsIssuingCaseInline']:
-                $this->access->setState($this->chatID, $this->states['issuingDocumentChooseWaitingState']);
-                $this->salaryRoute->triggerActionForGetIssuingDocumentsList($this->chatID);
                 answerCallbackQuery($this->query["id"], "Список документов загружен!");
+                $this->salaryRoute->triggerActionForGetIssuingDocumentsList($this->chatID);
                 exit;
             // to delete
             case $this->commands['documentsCopiesIssuingCaseInline']:
                 answerCallbackQuery($this->query["id"], "documentsCopiesIssuingCaseInline");
                 exit;
+
             case $this->commands['sendConfirmationSmsInline']:
                 $vacationFormData = $this->access->getReguarVacationFormData($this->chatID);
                 $smsSendingState = $this->hrLinkApiProvider->sendSmsCode($this->user['physical_id'], $vacationFormData['application_group_id']);
@@ -1180,7 +1172,7 @@ class AuthorizedUserScenario {
                     $template = str_replace("{question}", $questionInfo['question_text'], $template);
                     $isSended = $this->swiftmailer->sendDmsQuestion(
                         $this->user['company_id'],
-                        'booogie.man.07@gmail.com',
+                        'chernishovava@diall.ru',
                         $questionInfo['response_email'] ? $questionInfo['response_email'] : $this->user['email'],
                         "Вопрос в рамках ДМС (Персональный ассистент работника)",
                         $template
@@ -1227,23 +1219,6 @@ class AuthorizedUserScenario {
                             $this->salaryRoute->triggerActionForSetPostponedVacationNewStartDate($this->chatID);
                             answerCallbackQuery($this->query["id"], "Данные загружены!");
                             exit;
-                        }
-                    // to delete
-                    case $this->states['issuingDocumentChooseWaitingState']:
-                        $this->access->saveIssuingDocumentData($this->user['user_id'], (int)$text);
-                        switch ((int)$text) {
-                            case 1; case 2; case 3:
-                                $this->salaryRoute->triggerActionForIssuingDocumentConfirmSmsSending($this->chatID);
-                                answerCallbackQuery($this->query["id"], "Данные загружены!");
-                                exit;
-                            case 4; case 5; case 6:
-                                // todo
-                                answerCallbackQuery($this->query["id"], "Данные загружены!");
-                                exit;
-                            case 7:
-                                // todo
-                                answerCallbackQuery($this->query["id"], "Данные загружены!");
-                                exit;
                         }
                     case $this->states['dmsPoolReplyWaitingState']:
                         $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
