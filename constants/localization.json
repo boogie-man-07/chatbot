@@ -124,7 +124,9 @@
         "regularVacationTypeWaitingState": "waiting for regular vacation type",
         "smsCodeEnteringWaitingState": "waiting for sms code entering",
         "postponedSmsCodeEnteringWaitingState": "waiting for postponed sms code entering",
-        "documentCopySmsCodeEnteringWaitingState": "waiting for document copy sms code entering"
+        "documentCopySmsCodeEnteringWaitingState": "waiting for document copy sms code entering",
+        "documentPeriodStartDateWaitingState": "waiting for document period start date",
+        "documentPeriodEndDateWaitingState": "waiting for document period end date"
     },
 
     "constants": {
