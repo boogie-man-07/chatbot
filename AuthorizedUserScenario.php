@@ -1074,8 +1074,8 @@ class AuthorizedUserScenario {
                     exit;
                 } else {
                     // trigger error
+                    sendMessage($this->chatID, (string)$vacationFormData['vacation_type'], null); exit;
                     $this->commonmistakeroute->triggerSmsCodeSendingError($this->chatID, $smsSendingState['message'], $vacationFormData['vacation_type']);
-                    sendMessage($this->chatID, (string)$vacationFormData['vacation_type'], null);
                     exit;
                 }
             case $this->commands['sendPostponedConfirmationSmsInline']:
@@ -1091,8 +1091,8 @@ class AuthorizedUserScenario {
                      exit;
                  } else {
                      // trigger error
+                     sendMessage($this->chatID, "4", null); exit;
                      $this->commonmistakeroute->triggerSmsCodeSendingError($this->chatID, $smsSendingState['message'], 4);
-                     sendMessage($this->chatID, "4", null);
                      exit;
                  }
             case $this->commands['sendDocumentCopyConfirmationSmsInline']:
@@ -1108,8 +1108,8 @@ class AuthorizedUserScenario {
                     exit;
                 } else {
                     // trigger error
+                    sendMessage($this->chatID, (string)$formData['issue_type'], null); exit;
                     $this->commonmistakeroute->triggerSmsCodeSendingError($this->chatID, $smsSendingState['message'], $formData['issue_type']);
-                    sendMessage($this->chatID, (string)$formData['issue_type'], null);
                     exit;
                 }
             case $this->commands['dmsGoToSurveyInline']:
