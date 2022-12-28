@@ -263,6 +263,12 @@ class SalaryRoute {
         sendMessage($chatID, $reply, $keyboard);
     }
 
+    function triggerActionForRegisterDocumentForm($chatID) {
+        $reply = $this->constants->getRegisterVacationFormText();
+        $keyboard = $this->keyboards->getRegisterDocumentFormInlineKeyboard();
+        sendMessage($chatID, $reply, $keyboard);
+    }
+
     function triggerActionForRegisterDocumentCopyForm($chatID) {
         $reply = $this->constants->getRegisterVacationFormText();
         $keyboard = $this->keyboards->getRegisterDocumentCopyFormInlineKeyboard();

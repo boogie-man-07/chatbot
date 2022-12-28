@@ -972,6 +972,12 @@ class AuthorizedUserScenario {
 //                 answerCallbackQuery($this->query["id"], "Письмо успешно отправлено!");
 //                 $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
 //                 $this->salaryRoute->triggerActionForSendPostponedVacationFormResult($this->chatID, $this->user['firstname'], $this->user['company_id']);
+            case $this->commands['']:
+                $formData = $this->access->getIssuingDocumentData($this->user['user_id']);
+                $bossPhysicalId = $this->access->getBossPhysicalId($this->user['boss']);
+                $applicationInfo = $this->access->getApplicationIdsInfo($formData['issue_type']);
+                sendMessage($this->chatID, json_encode($formData), null);
+                exit;
             case $this->commands['sendDocumentCopyFormInline']:
                 $formData = $this->access->getIssuingDocumentData($this->user['user_id']);
                 $bossPhysicalId = $this->access->getBossPhysicalId($this->user['boss']);
@@ -1271,13 +1277,12 @@ class AuthorizedUserScenario {
                             answerCallbackQuery($this->query["id"], "Данные загружены!");
                             exit;
                         }
-                    // to delete
                     case $this->states['issuingDocumentChooseWaitingState']:
                         switch ((int)$text) {
                             case 1; case 2; case 3:
                                 answerCallbackQuery($this->query["id"], "Данные загружены!");
                                 $this->access->setIssuingDocumentReferenceType($this->user['user_id'], (int)$text);
-                                sendMessage($this->chatID, 'Документы без дополнительной информации', null);
+                                $this->salaryRoute->triggerActionForRegisterDocumentForm($this->chatID);
                                 exit;
                             case 4; case 5; case 6:
                                 // todo
