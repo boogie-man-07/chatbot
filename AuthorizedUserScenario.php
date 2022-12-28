@@ -1074,6 +1074,7 @@ class AuthorizedUserScenario {
                     exit;
                 } else {
                     // trigger error
+                    $this->commonmistakeroute->triggerSmsCodeSendingError($this->chatID, $smsSendingState['message'], $vacationFormData['vacation_type']);
                     sendMessage($this->chatID, $smsSendingState['message'], null);
                     exit;
                 }
@@ -1090,6 +1091,7 @@ class AuthorizedUserScenario {
                      exit;
                  } else {
                      // trigger error
+                     $this->commonmistakeroute->triggerSmsCodeSendingError($this->chatID, $smsSendingState['message'], 4);
                      sendMessage($this->chatID, $smsSendingState['message'], null);
                      exit;
                  }
@@ -1106,6 +1108,7 @@ class AuthorizedUserScenario {
                     exit;
                 } else {
                     // trigger error
+                    $this->commonmistakeroute->triggerSmsCodeSendingError($this->chatID, $smsSendingState['message'], $formData['issue_type']);
                     sendMessage($this->chatID, $smsSendingState['message'], null);
                     exit;
                 }

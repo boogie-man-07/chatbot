@@ -103,9 +103,9 @@ class commonmistakeroute {
     }
 
     function triggerActionForPostponedDateInThePastError($chatID) {
-            $reply = $this->constants->getPostponedDateInThePastErrorText();
-            sendMessage($chatID, $reply, null);
-        }
+        $reply = $this->constants->getPostponedDateInThePastErrorText();
+        sendMessage($chatID, $reply, null);
+    }
 
     function triggerActionForDateFormatError($chatID) {
         $reply = $this->constants->getDateFormatErrorText();
@@ -135,6 +135,12 @@ class commonmistakeroute {
    function triggerErrorForSaveDmsPollReply($chatID) {
        $reply = $this->constants->getErrorForSaveDmsPollReply();
        sendMessage($chatID, $reply, null);
+   }
+
+   function triggerSmsCodeSendingError($chatID, $errorMessage, $issueType) {
+        $reply = $this->constants->SmsCodeSendingErrorText($errorMessage);
+        $keyboard = $this->keyboards->smsRetryInlineKeyboard($issueType);
+        sendMessage($chatID, $reply, $keyboard);
    }
 }
 
