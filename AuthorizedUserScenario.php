@@ -972,7 +972,7 @@ class AuthorizedUserScenario {
 //                 answerCallbackQuery($this->query["id"], "Письмо успешно отправлено!");
 //                 $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
 //                 $this->salaryRoute->triggerActionForSendPostponedVacationFormResult($this->chatID, $this->user['firstname'], $this->user['company_id']);
-            case $this->commands['']:
+            case $this->commands['sendDocumentFormInline']:
                 $formData = $this->access->getIssuingDocumentData($this->user['user_id']);
                 $bossPhysicalId = $this->access->getBossPhysicalId($this->user['boss']);
                 $applicationInfo = $this->access->getApplicationIdsInfo($formData['issue_type']);
