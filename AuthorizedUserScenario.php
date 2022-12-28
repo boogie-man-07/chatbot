@@ -999,7 +999,7 @@ class AuthorizedUserScenario {
                 $formData = $this->access->getIssuingDocumentData($this->user['user_id']);
                 $bossPhysicalId = $this->access->getBossPhysicalId($this->user['boss']);
                 $applicationInfo = $this->access->getApplicationIdsInfo($formData['issue_type']);
-                sendMessage($this->chatID, json_encode($registeredUser), null); exit;
+                sendMessage($this->chatID, json_encode($applicationInfo), null); exit;
                 $registeredUser = $this->hrLinkApiProvider->registerDocumentApplication($this->user, $formData, $bossPhysicalId['physical_id'], $applicationInfo['hrlink_application_id']);
 
                 if ($registeredUser['result']) {
