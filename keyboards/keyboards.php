@@ -445,6 +445,28 @@ class keyboards {
         ));
     }
 
+    function smsRetryInlineKeyboard($issueType) {
+        $callbackData = "";
+        switch($issueType) {
+            case 0; case 1; case 2; case 3:
+                $callbackData = "sendConfirmationSms";
+                break;
+            case 4:
+                $callbackData = "sendPostponedConfirmationSms";
+                break;
+            case 5; case 6:
+                $callbackData = "sendDocumentCopyConfirmationSms";
+                break;
+        }
+        return json_encode(array(
+            "inline_keyboard" => array(
+                array(
+                    array("text" => "Повторить отправку кода", "callback_data" => $callbackData)
+                )
+            )
+        ));
+    }
+
     function getChooseVacationToPostponeInlineKeyboard($chatID, $data) {
         $vacation = array();
         foreach($data['vacations'] as $key=>$value) {

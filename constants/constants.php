@@ -610,4 +610,8 @@ class constants {
     function getReplyForExitConfirmation($username) {
         return "$username, Вы уверены, что хотите выйти?";
     }
+
+    function SmsCodeSendingErrorText($errorMessage) {
+        return "<b>Ошибка!</b>\n$errorMessage";
+    }
 }
