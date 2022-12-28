@@ -56,7 +56,6 @@ class HrLinkApiProvider {
                         'templateSystemFields' => $templateSystemFields,
                         'templateFields' => $templateFields
                     );
-                    return $body;
                     $encodedBody = json_encode($body);
 
                     $curl = curl_init();
@@ -719,6 +718,7 @@ class HrLinkApiProvider {
                             array('id' => '16790ca4-4927-41b3-99c9-f3b49da2c412', 'value' => 'Иноф документ'));
                         break;
                 }
+                break;
             case 7:
                 array_push(
                     $templateFields,
