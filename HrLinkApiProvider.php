@@ -16,10 +16,10 @@ class HrLinkApiProvider {
             if ($masterTokenResponse['result']) {
                 $masterToken = $masterTokenResponse['masterToken'];
                 $applicationEmployeeIdResponse = $this->getCurrentUser($masterToken, $userPhysicalId);
-                $applicationEmployeeApproverIdResponse = $this->getCurrentUser($masterToken, $bossPhysicalId);
+                $applicationEmployeeApproverIdResponse = $this->getCurrentUser($masterToken, $bossPhysicalId); // allways Ryzhkina Marina
                 if ($applicationEmployeeIdResponse['result'] && $applicationEmployeeApproverIdResponse['result']) {
                     $applicationEmployeeId = $applicationEmployeeIdResponse['id'];
-                    $applicationEmployeeApproverId = $applicationEmployeeApproverIdResponse['id'];
+                    $applicationEmployeeApproverId = $applicationEmployeeApproverIdResponse['id']; // allways Ryzhkina Marina
                     $userFIO = $this->separateFIO($user['form_fullname']);
                     $clientId = 'a0731d7f-4799-4fe0-944a-247f256fd509';
                     $externalId = null;
@@ -39,7 +39,7 @@ class HrLinkApiProvider {
                             'legalEntityExternalId' => $applicationLegalEntityExternalId,
                             'employeeId' => $applicationEmployeeId,
                             'employeeExternalId' => $applicationEmployeeExternalId,
-                            'employeeApproverId' => $applicationEmployeeApproverId,
+                            'employeeApproverId' => '2d145f14-bd25-4c4f-b98b-0d7616ee2ed5',
                             'employeeApproverExternalId' => $applicationEmployeeApproverExternalId
                         )
                     );
@@ -56,6 +56,7 @@ class HrLinkApiProvider {
                         'templateSystemFields' => $templateSystemFields,
                         'templateFields' => $templateFields
                     );
+                    return $response;
                     $encodedBody = json_encode($body);
 
                     $curl = curl_init();
@@ -122,10 +123,10 @@ class HrLinkApiProvider {
             if ($masterTokenResponse['result']) {
                 $masterToken = $masterTokenResponse['masterToken'];
                 $applicationEmployeeIdResponse = $this->getCurrentUser($masterToken, $userPhysicalId);
-                $applicationEmployeeApproverIdResponse = $this->getCurrentUser($masterToken, $bossPhysicalId);
+                $applicationEmployeeApproverIdResponse = $this->getCurrentUser($masterToken, $bossPhysicalId); // allways Ryzhkina Marina
                 if ($applicationEmployeeIdResponse['result'] && $applicationEmployeeApproverIdResponse['result']) {
                     $applicationEmployeeId = $applicationEmployeeIdResponse['id'];
-                    $applicationEmployeeApproverId = $applicationEmployeeApproverIdResponse['id'];
+                    $applicationEmployeeApproverId = $applicationEmployeeApproverIdResponse['id']; // allways Ryzhkina Marina
                     $userFIO = $this->separateFIO($user['form_fullname']);
                     $clientId = 'a0731d7f-4799-4fe0-944a-247f256fd509';
                     $externalId = null;
@@ -145,7 +146,7 @@ class HrLinkApiProvider {
                             'legalEntityExternalId' => $applicationLegalEntityExternalId,
                             'employeeId' => $applicationEmployeeId,
                             'employeeExternalId' => $applicationEmployeeExternalId,
-                            'employeeApproverId' => $applicationEmployeeApproverId,
+                            'employeeApproverId' => '2d145f14-bd25-4c4f-b98b-0d7616ee2ed5',
                             'employeeApproverExternalId' => $applicationEmployeeApproverExternalId
                         )
                     );
@@ -234,10 +235,10 @@ class HrLinkApiProvider {
             if ($masterTokenResponse['result']) {
                 $masterToken = $masterTokenResponse['masterToken'];
                 $applicationEmployeeIdResponse = $this->getCurrentUser($masterToken, $userPhysicalId);
-                $applicationEmployeeApproverIdResponse = $this->getCurrentUser($masterToken, $bossPhysicalId);
+                $applicationEmployeeApproverIdResponse = $this->getCurrentUser($masterToken, $bossPhysicalId); // allways Ryzhkina Marina
                 if ($applicationEmployeeIdResponse['result'] && $applicationEmployeeApproverIdResponse['result']) {
                     $applicationEmployeeId = $applicationEmployeeIdResponse['id'];
-                    $applicationEmployeeApproverId = $applicationEmployeeApproverIdResponse['id'];
+                    $applicationEmployeeApproverId = $applicationEmployeeApproverIdResponse['id']; // allways Ryzhkina Marina
                     $userFIO = $this->separateFIO($user['form_fullname']);
                     $clientId = 'a0731d7f-4799-4fe0-944a-247f256fd509';
                     $externalId = null;
@@ -257,7 +258,7 @@ class HrLinkApiProvider {
                             'legalEntityExternalId' => $applicationLegalEntityExternalId,
                             'employeeId' => $applicationEmployeeId,
                             'employeeExternalId' => $applicationEmployeeExternalId,
-                            'employeeApproverId' => $applicationEmployeeApproverId,
+                            'employeeApproverId' => '2d145f14-bd25-4c4f-b98b-0d7616ee2ed5',
                             'employeeApproverExternalId' => $applicationEmployeeApproverExternalId
                         )
                     );
@@ -715,7 +716,7 @@ class HrLinkApiProvider {
                         array_push(
                             $templateFields,
                             array('id' => '9454fca8-f6c2-41d5-8c65-f11910972d58', 'value' => 'V'),
-                            array('id' => '16790ca4-4927-41b3-99c9-f3b49da2c412', 'value' => 'Иноф документ'));
+                            array('id' => '16790ca4-4927-41b3-99c9-f3b49da2c412', 'value' => $formData['type_text']));
                         break;
                 }
                 break;

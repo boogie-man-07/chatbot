@@ -279,6 +279,11 @@ class SalaryRoute {
         sendMessage($chatID, $reply, null);
     }
 
+    function triggerActionForRequestOtherDocumentType($chatID) {
+        $reply = $this->constants->getRequestDocumentTypeCopyText();
+        sendMessage($chatID, $reply, null);
+    }
+
     function triggerActionForRegisterDocumentCopyForm($chatID) {
         $reply = $this->constants->getRegisterVacationFormText();
         $keyboard = $this->keyboards->getRegisterDocumentCopyFormInlineKeyboard();
@@ -527,7 +532,8 @@ class SalaryRoute {
             'waiting for document type copy',
             'waiting for document copy sms code entering',
             'waiting for document period start date',
-            'waiting for document period end date'
+            'waiting for document period end date',
+            'waiting for other document type'
         );
         if (in_array($currentState, $dialogState)) {
             return true;
