@@ -1684,24 +1684,24 @@ class access {
         return $returnValue;
     }
 
-    function setIssuingDocumentType($userId, $type) {
+    function setIssuingDocumentType($userId, $typeText) {
         $sql = "SELECT * FROM user_issued_document_data WHERE user_id='".$userId."'";
         $result = $this->conn->query($sql);
         if ($result != null && (mysqli_num_rows($result) >= 1 )) {
-            $sql = "UPDATE user_issued_document_data SET end_date=? WHERE user_id=?";
+            $sql = "UPDATE user_issued_document_data SET type_text=? WHERE user_id=?";
             $statement = $this->conn->prepare($sql);
             if (!$statement) {
                 throw new Exception($statement->error);
             }
-            $statement->bind_param("ss", $endDate, $userId);
+            $statement->bind_param("ss", $typeText, $userId);
             $returnValue = $statement->execute();
         } else {
-            $sql = "INSERT INTO user_issued_document_data SET user_id=?, end_date=?";
+            $sql = "INSERT INTO user_issued_document_data SET user_id=?, type_text=?";
             $statement = $this->conn->prepare($sql);
             if (!$statement) {
                 throw new Exception($statement->error);
             }
-            $statement->bind_param("ss", $userId, $endDate);
+            $statement->bind_param("ss", $userId, $typeText);
             $returnValue = $statement->execute();
         }
         return $returnValue;
