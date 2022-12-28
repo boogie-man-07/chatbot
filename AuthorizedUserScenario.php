@@ -1073,8 +1073,6 @@ class AuthorizedUserScenario {
                     answerCallbackQuery($this->query["id"], "Код отправлен в SMS!");
                     exit;
                 } else {
-                    // trigger error
-                    sendMessage($this->chatID, (string)$vacationFormData['vacation_type'], null); exit;
                     $this->commonmistakeroute->triggerSmsCodeSendingError($this->chatID, $smsSendingState['message'], $vacationFormData['vacation_type']);
                     exit;
                 }
@@ -1090,8 +1088,6 @@ class AuthorizedUserScenario {
                      answerCallbackQuery($this->query["id"], "Код отправлен в SMS!");
                      exit;
                  } else {
-                     // trigger error
-                     sendMessage($this->chatID, "4", null); exit;
                      $this->commonmistakeroute->triggerSmsCodeSendingError($this->chatID, $smsSendingState['message'], 4);
                      exit;
                  }
@@ -1107,8 +1103,6 @@ class AuthorizedUserScenario {
                     answerCallbackQuery($this->query["id"], "Код отправлен в SMS!");
                     exit;
                 } else {
-                    // trigger error
-                    sendMessage($this->chatID, (string)$formData['issue_type'], null); exit;
                     $this->commonmistakeroute->triggerSmsCodeSendingError($this->chatID, $smsSendingState['message'], $formData['issue_type']);
                     exit;
                 }
