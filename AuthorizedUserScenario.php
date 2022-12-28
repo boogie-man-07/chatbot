@@ -976,7 +976,7 @@ class AuthorizedUserScenario {
                 $formData = $this->access->getIssuingDocumentData($this->user['user_id']);
                 $bossPhysicalId = $this->access->getBossPhysicalId($this->user['boss']);
                 $applicationInfo = $this->access->getApplicationIdsInfo($formData['issue_type']);
-                sendMessage($this->chatID, json_encode($formData), null);
+                sendMessage($this->chatID, json_encode($applicationInfo), null);
                 exit;
             case $this->commands['sendDocumentCopyFormInline']:
                 $formData = $this->access->getIssuingDocumentData($this->user['user_id']);
