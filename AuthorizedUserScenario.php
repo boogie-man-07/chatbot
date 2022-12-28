@@ -571,6 +571,29 @@ class AuthorizedUserScenario {
                             //$this->access->setState($this->chatID, $this->states['vacationFormSendingWaitingState']);
                             $this->salaryRoute->triggerActionForRegisterPostponedVacationForm($this->chatID);
                             exit;
+                        case $this->states['documentPeriodStartDateWaitingState']:
+                            $correctText = $this->salaryRoute->formatDate($text);
+                            if ($this->salaryRoute->isCorrectDateFormat($correctText)) {
+                                $this->access->setIssuingDocumentStartDate($this->user['user_id'], $correctText);
+                                $this->access->setState($this->chatID, $this->states['documentPeriodEndDateWaitingState']);
+                                $this->salaryRoute->triggerActionForRequestDocumentEndDate($this->chatID);
+                                exit;
+                            } else {
+                                $this->commonmistakeroute->triggerActionForDateFormatError($this->chatID);
+                                exit;
+                            }
+                        case $this->states['documentPeriodEndDateWaitingState']:
+                            $correctText = $this->salaryRoute->formatDate($text);
+                            if ($this->salaryRoute->isCorrectDateFormat($correctText)) {
+                                $this->access->setIssuingDocumentEndDate($this->user['user_id'], $correctText);
+                                $this->salaryRoute->triggerActionForRegisterDocumentForm($this->chatID);
+                                exit;
+                            } else {
+                                $this->commonmistakeroute->triggerActionForDateFormatError($this->chatID);
+                                exit;
+                            }
+                        case $this->states['documentPeriodEndDateWaitingState']:
+                            exit;
                         case $this->states['issuingDocumentTypeCopyWaitingState']:
 //                             $this->forms->generateDocumentCopyForm($this->chatID);
                             $this->access->saveIssuingDocumentData($this->user['user_id'], $text);
@@ -1299,7 +1322,8 @@ class AuthorizedUserScenario {
                                 // todo
                                 answerCallbackQuery($this->query["id"], "Данные загружены!");
                                 $this->access->setIssuingDocumentReferenceType($this->user['user_id'], (int)$text);
-                                sendMessage($this->chatID, 'Документы с дополнительной информацией', null);
+                                $this->access->setState($this->chatID, $this->states['documentPeriodStartDateWaitingState']);
+                                $this->salaryRoute->triggerActionForRequestDocumentStartDate($this->chatID);
                                 exit;
                             case 7:
                                 // todo
