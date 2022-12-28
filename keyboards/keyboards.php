@@ -603,6 +603,19 @@ class keyboards {
         ));
     }
 
+    function getRegisterDocumentFormInlineKeyboard() {
+        return json_encode(array(
+            "inline_keyboard" => array(
+                array(
+                    array(
+                        "text" => "Зарегистрировать заявление",
+                        "callback_data" => "sendDocumentForm"
+                    )
+                )
+            )
+        ));
+    }
+
     function getRegisterDocumentCopyFormInlineKeyboard() {
         return json_encode(array(
             "inline_keyboard" => array(
