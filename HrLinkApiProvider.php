@@ -695,22 +695,22 @@ class HrLinkApiProvider {
                         array_push(
                             $templateFields,
                             array('id' => '8ec7aff3-b3f9-4756-a9a3-ab538b8260d9', 'value' => 'V'),
-                            array('id' => '5627f388-6c84-40fc-9373-71054fb00140', 'value' => '2022-12-28'),
-                            array('id' => '7ad100ab-3498-46be-a666-6041d97b2a16', 'value' => '2022-12-29'));
+                            array('id' => '5627f388-6c84-40fc-9373-71054fb00140', 'value' => $this->convertToHrLinkDateFormat($formData['start_date'])),
+                            array('id' => '7ad100ab-3498-46be-a666-6041d97b2a16', 'value' => $this->convertToHrLinkDateFormat($formData['end_date']));
                         break;
                     case 5:
                         array_push(
                             $templateFields,
                             array('id' => '6a4353b8-ac33-418f-99fe-5118ae61d6cf', 'value' => 'V'),
-                            array('id' => '4c2b530b-eca8-4d41-b5d5-91d88c363cee', 'value' => '2022-12-28'),
-                            array('id' => '3da4e5e2-83a0-45d0-b1ed-47c2069b0042', 'value' => '2022-12-29'));
+                            array('id' => '4c2b530b-eca8-4d41-b5d5-91d88c363cee', 'value' => $this->convertToHrLinkDateFormat($formData['start_date'])),
+                            array('id' => '3da4e5e2-83a0-45d0-b1ed-47c2069b0042', 'value' => $this->convertToHrLinkDateFormat($formData['end_date']));
                         break;
                     case 6:
                         array_push(
                             $templateFields,
                             array('id' => '0759cf8a-3dab-43e0-8a67-c7b5cdbfbc96', 'value' => 'V'),
-                            array('id' => '237624ee-400f-4fa0-bd32-277418ecf76a', 'value' => '2022-12-28'),
-                            array('id' => 'fb3e1e73-7204-4ef0-9177-8baa0ddfacee', 'value' => '2022-12-29'));
+                            array('id' => '237624ee-400f-4fa0-bd32-277418ecf76a', 'value' => $this->convertToHrLinkDateFormat($formData['start_date'])),
+                            array('id' => 'fb3e1e73-7204-4ef0-9177-8baa0ddfacee', 'value' => $this->convertToHrLinkDateFormat($formData['end_date']));
                         break;
                     case 7:
                         array_push(
