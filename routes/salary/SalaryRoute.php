@@ -525,7 +525,9 @@ class SalaryRoute {
             'waiting for sms code entering',
             'waiting for postponed sms code entering',
             'waiting for document type copy',
-            'waiting for document copy sms code entering'
+            'waiting for document copy sms code entering',
+            'waiting for document period start date',
+            'waiting for document period end date'
         );
         if (in_array($currentState, $dialogState)) {
             return true;
