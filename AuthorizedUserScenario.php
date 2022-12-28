@@ -976,7 +976,18 @@ class AuthorizedUserScenario {
                 $formData = $this->access->getIssuingDocumentData($this->user['user_id']);
                 $bossPhysicalId = $this->access->getBossPhysicalId($this->user['boss']);
                 $applicationInfo = $this->access->getApplicationIdsInfo($formData['issue_type']);
-                sendMessage($this->chatID, json_encode($applicationInfo), null);
+                $registeredUser = $this->hrLinkApiProvider->registerDocumentApplication($this->user, $formData, $bossPhysicalId['physical_id'], $applicationInfo['hrlink_application_id']);
+                sendMessage($this->chatID, json_encode($applicationInfo), null); exit;
+                if ($registeredUser['result']) {
+                    $this->access->setIssuingDocumentApplicationGroupId($this->user['user_id'], $registeredUser['applicationGroupId']);
+                    $this->salaryRoute->triggerActionForIssuingDocumentCopyConfirmSmsSending($this->chatID);
+                    answerCallbackQuery($this->query["id"], "Данные загружены!");
+                    exit;
+                } else {
+                    // trigger error
+                    sendMessage($this->chatID, $registeredUser['message'], null);
+                    exit;
+                }
                 exit;
             case $this->commands['sendDocumentCopyFormInline']:
                 $formData = $this->access->getIssuingDocumentData($this->user['user_id']);

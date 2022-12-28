@@ -45,9 +45,7 @@ class HrLinkApiProvider {
                     );
 
                     $templateSystemFields = $this->generateSystemFields($userFIO);
-                    $templateFields = array(
-                        array('id' => '8761188d-c6a2-494e-9ff0-0f0881959596', 'value' => $formData['type_text'])
-                    );
+                    $templateFields = $this->generateDocumentTemplateFields($formData);
 
                     $body = array(
                         'externalId' => $externalId,
@@ -668,6 +666,66 @@ class HrLinkApiProvider {
                 );
             }
         }
+    }
+
+    function generateDocumentTemplateFields($formData) {
+        $templateFields = array();
+        $issueType = $formData['issue_type'] + 1;
+        $referenceType = $formData['reference_type'];
+        switch ($issueType) {
+            case 6:
+                switch ($referenceType) {
+                    case 1:
+                        array_push(
+                            $templateFields,
+                            array('id' => '62b03c2d-3dca-4796-84c9-2a1bed4a168f', 'value' => 'V'));
+                        break;
+                    case 2:
+                        array_push(
+                            $templateFields,
+                            array('id' => '36da719f-0fe0-4534-a662-ab2a608649a7', 'value' => 'V'));
+                        break;
+                    case 3:
+                        array_push(
+                            $templateFields,
+                            array('id' => '20cd7a2f-797a-485c-bdaa-e9eb0233b09b', 'value' => 'V'));
+                        break;
+                    case 4:
+                        array_push(
+                            $templateFields,
+                            array('id' => '8ec7aff3-b3f9-4756-a9a3-ab538b8260d9', 'value' => 'V'),
+                            array('id' => '5627f388-6c84-40fc-9373-71054fb00140', 'value' => '2022-12-28'),
+                            array('id' => '7ad100ab-3498-46be-a666-6041d97b2a16', 'value' => '2022-12-29'));
+                        break;
+                    case 5:
+                        array_push(
+                            $templateFields,
+                            array('id' => '6a4353b8-ac33-418f-99fe-5118ae61d6cf', 'value' => 'V'),
+                            array('id' => '4c2b530b-eca8-4d41-b5d5-91d88c363cee', 'value' => '2022-12-28'),
+                            array('id' => '3da4e5e2-83a0-45d0-b1ed-47c2069b0042', 'value' => '2022-12-29'));
+                        break;
+                    case 6:
+                        array_push(
+                            $templateFields,
+                            array('id' => '0759cf8a-3dab-43e0-8a67-c7b5cdbfbc96', 'value' => 'V'),
+                            array('id' => '237624ee-400f-4fa0-bd32-277418ecf76a', 'value' => '2022-12-28'),
+                            array('id' => 'fb3e1e73-7204-4ef0-9177-8baa0ddfacee', 'value' => '2022-12-29'));
+                        break;
+                    case 7:
+                        array_push(
+                            $templateFields,
+                            array('id' => '9454fca8-f6c2-41d5-8c65-f11910972d58', 'value' => 'V'),
+                            array('id' => '16790ca4-4927-41b3-99c9-f3b49da2c412', 'value' => 'Иноф документ'));
+                        break;
+                }
+            case 7:
+                array_push(
+                    $templateFields,
+                    array('id' => '8761188d-c6a2-494e-9ff0-0f0881959596', 'value' => $formData['type_text'])
+                );
+                break;
+        }
+        return $templateFields;
     }
 }
 
