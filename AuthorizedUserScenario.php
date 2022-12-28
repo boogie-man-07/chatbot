@@ -1000,7 +1000,7 @@ class AuthorizedUserScenario {
                 $bossPhysicalId = $this->access->getBossPhysicalId($this->user['boss']);
                 $applicationInfo = $this->access->getApplicationIdsInfo($formData['issue_type']);
                 $registeredUser = $this->hrLinkApiProvider->registerDocumentApplication($this->user, $formData, $bossPhysicalId['physical_id'], $applicationInfo['hrlink_application_id']);
-                sendMessage($this->chatID, json_encode($registeredUser), null); exit;
+//                 sendMessage($this->chatID, json_encode($registeredUser), null); exit;
                 if ($registeredUser['result']) {
                     $this->access->setIssuingDocumentApplicationGroupId($this->user['user_id'], $registeredUser['applicationGroupId']);
                     $this->salaryRoute->triggerActionForIssuingDocumentCopyConfirmSmsSending($this->chatID);
