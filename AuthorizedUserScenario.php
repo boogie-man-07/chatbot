@@ -1276,16 +1276,19 @@ class AuthorizedUserScenario {
                         switch ((int)$text) {
                             case 1; case 2; case 3:
                                 answerCallbackQuery($this->query["id"], "Данные загружены!");
+                                $this->access->setIssuingDocumentReferenceType($this->user['user_id'], (int)$text);
                                 sendMessage($this->chatID, 'Документы без дополнительной информации', null);
                                 exit;
                             case 4; case 5; case 6:
                                 // todo
                                 answerCallbackQuery($this->query["id"], "Данные загружены!");
+                                $this->access->setIssuingDocumentReferenceType($this->user['user_id'], (int)$text);
                                 sendMessage($this->chatID, 'Документы с дополнительной информацией', null);
                                 exit;
                             case 7:
                                 // todo
                                 answerCallbackQuery($this->query["id"], "Данные загружены!");
+                                $this->access->setIssuingDocumentReferenceType($this->user['user_id'], (int)$text);
                                 sendMessage($this->chatID, 'Документы выбранные пользователем', null);
                                 exit;
                         }

@@ -1615,6 +1615,29 @@ class access {
         return $returnValue;
     }
 
+    function setIssuingDocumentReferenceType($userId, $referenceType) {
+        $sql = "SELECT * FROM user_issued_document_data WHERE user_id='".$userId."'";
+        $result = $this->conn->query($sql);
+        if ($result != null && (mysqli_num_rows($result) >= 1 )) {
+            $sql = "UPDATE user_issued_document_data SET issue_type=5, reference_type=? WHERE user_id=?";
+            $statement = $this->conn->prepare($sql);
+            if (!$statement) {
+                throw new Exception($statement->error);
+            }
+            $statement->bind_param("is", $referenceType, $userId);
+            $returnValue = $statement->execute();
+        } else {
+            $sql = "INSERT INTO user_issued_document_data SET user_id=?, issue_type=5, reference_type=?";
+            $statement = $this->conn->prepare($sql);
+            if (!$statement) {
+                throw new Exception($statement->error);
+            }
+            $statement->bind_param("si", $userId, $referenceType);
+            $returnValue = $statement->execute();
+        }
+        return $returnValue;
+    }
+
     function setIssuingDocumentApplicationGroupId($userId, $applicationGroupId) {
         $sql = "SELECT * FROM user_issued_document_data WHERE user_id='".$userId."'";
         $result = $this->conn->query($sql);
