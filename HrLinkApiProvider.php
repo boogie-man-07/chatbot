@@ -300,7 +300,7 @@ class HrLinkApiProvider {
                     $response = curl_exec($curl);
                     $err = curl_error($curl);
                     curl_close($curl);
-                    return $response;
+//                     return $response;
 
                     if ($err) {
                         return array(
@@ -365,7 +365,7 @@ class HrLinkApiProvider {
                 array_push(
                     $templateFields,
                     array('id' => 'c34b6407-49b2-48b2-9a8a-bbbd74179668', 'value' => $this->convertToHrLinkDateFormat($vacationFormData['vacation_startdate'])),
-                    array('id' => '748d9dd7-75f2-443d-89e0-9199d2fedc', 'value' => $vacationFormData['vacation_duration'])
+                    array('id' => '748d9dd7-75f2-443d-89e0-9199d2fedc0a', 'value' => $vacationFormData['vacation_duration'])
                 );
                 break;
             case 4:
