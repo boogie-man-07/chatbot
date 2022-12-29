@@ -523,8 +523,13 @@ class constants {
         return "Максимальное количество дней, которое вы можете перенести в этом отпуске: $restVacationDuration. Введите желаемую длительность отпуска (количество дней).\nПример: <b>$restVacationDuration</b>";
     }
 
-    function getRegularVacationDurationText($restVacationDuration) {
-        return "Количество оставшихся дней отпуска в этом году: $restVacationDuration. Введите желаемую длительность отпуска (количество дней).\nПример: <b>$restVacationDuration</b>";
+    function getRegularVacationDurationText($restVacationDuration, $vacationType) {
+        switch($vacationType) {
+            case 0; case 1:
+                return "Количество оставшихся дней отпуска в этом году: $restVacationDuration. Введите желаемую длительность отпуска (количество дней).\nПример: <b>$restVacationDuration</b>";
+            case 2; case 3:
+                return "Введите желаемую длительность отпуска (количество дней).\nПример: <b>$restVacationDuration</b>";
+        }
     }
 
     function getSetPostponedVacationEndDateText() {
