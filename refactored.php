@@ -29,13 +29,13 @@ require ("HrLinkApiProvider.php");
 // DB connection
 $file = parse_ini_file("../../Testbotdb.ini");
 
-$host = trim($file["dbhost"]);
-$user = trim($file["dbuser"]);
-$pass = trim($file["dbpass"]);
-$name = trim($file["dbname"]);
-$token = trim($file["token"]);
+$dbhost = trim($file["dbhost"]);
+$dbuser = trim($file["dbuser"]);
+$dbpass = trim($file["dbpass"]);
+$dbname = trim($file["dbname"]);
+$dbtoken = trim($file["token"]);
 
-$access = new access($host, $user, $pass, $name);
+$access = new access($dbhost, $dbuser, $dbpass, $dbname);
 $access->connect();
 //$messages = new Messages();
 $logics = new logics();
@@ -62,7 +62,7 @@ $commandList = $data['commands'];
 $statesList = $data['states'];
 $constantsList = $data['constants'];
 
-$website = "https://api.telegram.org/bot".$token;
+$website = "https://api.telegram.org/bot".$dbtoken;
 $updates = file_get_contents('php://input');
 $updates = json_decode($updates, true);
 $phoneNumber = $updates['message']['contact']['phone_number'];

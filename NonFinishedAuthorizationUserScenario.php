@@ -91,7 +91,7 @@ class NonFinishedAuthorizationUserScenario {
                                         $this->commonmistakeroute->triggerActionForConfirmationCodeExpired($this->chatID);
                                         exit;
                                     } else {
-                                        $this->access->updateAuthorizationFlag(1, null, $this->chatID);
+                                        $this->access->updateAuthorizationFlag(1, null, $this->chatID); // here save 
                                         $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
                                         $this->authroute->triggerActionForSuccessfulLogin($this->chatID, $this->user['fullname']);
                                         exit;

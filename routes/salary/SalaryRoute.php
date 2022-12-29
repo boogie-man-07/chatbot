@@ -372,10 +372,19 @@ class SalaryRoute {
         return $id < count($pollQuestionInfo);
     }
 
-    function isDateNotInPast($text) {
+    function isDateNotInPast($text, $vacationType = null) {
         $postponedStartDate = new DateTime($text);
         $currentDate = new DateTime();
-        return $postponedStartDate > $currentDate->modify('+5 days');
+        if ($vacationType == null) {
+            return $postponedStartDate > $currentDate->modify('+5 days');
+        } else {
+            switch($vacationType) {
+                case 0; case 1; case 3:
+                    return $postponedStartDate > $currentDate->modify('+5 days');
+                case 2:
+                    return $postponedStartDate > $currentDate;
+            }
+        }
     }
 
     function isSeparateVacationDateNotInPast($text, $lastSeparateVacationEndDate) {
