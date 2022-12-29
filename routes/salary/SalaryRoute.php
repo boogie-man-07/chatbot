@@ -190,8 +190,10 @@ class SalaryRoute {
     }
 
     function triggerActionForSendRegularVacationForm($chatID) {
-        $reply = $this->constants->getSendVacationFormText();
-        $keyboard = $this->keyboards->getSendRegularVacationFormInlineKeyboard();
+//         $reply = $this->constants->getSendVacationFormText();
+        $reply = $this->constants->getRegisterVacationFormText();
+//         $keyboard = $this->keyboards->getSendRegularVacationFormInlineKeyboard();
+        $keyboard = $this->keyboards->getRegisterVacationFormInlineKeyboard();
         sendMessage($chatID, $reply, $keyboard);
     }
 
@@ -475,6 +477,10 @@ class SalaryRoute {
 
     function pollShouldBeContinued($state) {
         return $state == 'waiting for choose dms pool reply' || $state == 'waiting for multiple keyboard choose';
+    }
+
+    function restVacationShouldBeChecked($vacationType) {
+        return $vacationType == 0 || $vacationType == 1;
     }
 
     function isSalaryMode($state, $states) {
