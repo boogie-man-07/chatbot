@@ -122,10 +122,10 @@ class HrLinkApiProvider {
             if ($masterTokenResponse['result']) {
                 $masterToken = $masterTokenResponse['masterToken'];
                 $applicationEmployeeIdResponse = $this->getCurrentUser($masterToken, $userPhysicalId);
-                $applicationEmployeeApproverIdResponse = $this->getCurrentUser($masterToken, $bossPhysicalId); // allways Ryzhkina Marina
+                $applicationEmployeeApproverIdResponse = $this->getCurrentUser($masterToken, $bossPhysicalId);
                 if ($applicationEmployeeIdResponse['result'] && $applicationEmployeeApproverIdResponse['result']) {
                     $applicationEmployeeId = $applicationEmployeeIdResponse['id'];
-                    $applicationEmployeeApproverId = $applicationEmployeeApproverIdResponse['id']; // allways Ryzhkina Marina
+                    $applicationEmployeeApproverId = $applicationEmployeeApproverIdResponse['id'];
                     $userFIO = $this->separateFIO($user['form_fullname']);
                     $clientId = 'a0731d7f-4799-4fe0-944a-247f256fd509';
                     $externalId = null;
@@ -145,7 +145,7 @@ class HrLinkApiProvider {
                             'legalEntityExternalId' => $applicationLegalEntityExternalId,
                             'employeeId' => $applicationEmployeeId,
                             'employeeExternalId' => $applicationEmployeeExternalId,
-                            'employeeApproverId' => '2d145f14-bd25-4c4f-b98b-0d7616ee2ed5',
+                            'employeeApproverId' => $applicationEmployeeApproverId,
                             'employeeApproverExternalId' => $applicationEmployeeApproverExternalId
                         )
                     );
@@ -234,10 +234,10 @@ class HrLinkApiProvider {
             if ($masterTokenResponse['result']) {
                 $masterToken = $masterTokenResponse['masterToken'];
                 $applicationEmployeeIdResponse = $this->getCurrentUser($masterToken, $userPhysicalId);
-                $applicationEmployeeApproverIdResponse = $this->getCurrentUser($masterToken, $bossPhysicalId); // allways Ryzhkina Marina
+                $applicationEmployeeApproverIdResponse = $this->getCurrentUser($masterToken, $bossPhysicalId);
                 if ($applicationEmployeeIdResponse['result'] && $applicationEmployeeApproverIdResponse['result']) {
                     $applicationEmployeeId = $applicationEmployeeIdResponse['id'];
-                    $applicationEmployeeApproverId = $applicationEmployeeApproverIdResponse['id']; // allways Ryzhkina Marina
+                    $applicationEmployeeApproverId = $applicationEmployeeApproverIdResponse['id'];
                     $userFIO = $this->separateFIO($user['form_fullname']);
                     $clientId = 'a0731d7f-4799-4fe0-944a-247f256fd509';
                     $externalId = null;
@@ -257,7 +257,7 @@ class HrLinkApiProvider {
                             'legalEntityExternalId' => $applicationLegalEntityExternalId,
                             'employeeId' => $applicationEmployeeId,
                             'employeeExternalId' => $applicationEmployeeExternalId,
-                            'employeeApproverId' => '2d145f14-bd25-4c4f-b98b-0d7616ee2ed5',
+                            'employeeApproverId' => $applicationEmployeeApproverId,
                             'employeeApproverExternalId' => $applicationEmployeeApproverExternalId
                         )
                     );
