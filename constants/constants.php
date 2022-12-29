@@ -321,7 +321,7 @@ class constants {
     }
 
     function getRequestDocumentTypeCopyText() {
-        return "укажите документ или документы через запятую, копии которых вы хотели бы заказать.";
+        return "Укажите документ или документы через запятую, копии которых Вы хотели бы заказать.";
     }
 
     function getIssuingDocumentConfirmSmsSendingText() {
@@ -337,7 +337,7 @@ class constants {
     }
 
     function getConfirmationSmsEnteringText() {
-        return "Введите код полученный в SMS сообщении";
+        return "Введите код, полученный в SMS сообщении.";
     }
 
     function getSuccessApplicationRegisteringText() {

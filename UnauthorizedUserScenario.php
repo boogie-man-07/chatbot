@@ -67,7 +67,7 @@ class UnauthorizedUserScenario {
                                     if ($result['is_employee'] == $this->constants['isNotEmployee']) {
                                         if ($this->authroute->comparse($text, $result['email'])) {
                                             $confirmationCode = $this->email->generateConfirmationCode(10);
-                                            $this->access->saveConfirmationCode($confirmationCode, $this->chatID, $result['email']);
+                                            $this->access->saveConfirmationCode($confirmationCode, $this->chatID, $result['email']); // just code, dont save chatId
                                             $this->access->setState($this->chatID, $this->states['confirmationCodeWaitingState']);
                                             $this->authroute->triggerActionForLoginAcceptance($this->chatID, $result["fullname"]);
                                             exit;
