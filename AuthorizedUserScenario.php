@@ -288,26 +288,29 @@ class AuthorizedUserScenario {
                         case $this->states['regularVacationDurationWaitingState']:
                             if ($this->salaryRoute->isCorrectVacationDurationFormat($text)) {
                                 $vacationFormData = $this->access->getReguarVacationFormData($this->chatID);
-                                $restVacationCount = $this->vacationInfo->getRestVacationCountByUserId($this->user['user_id']);
-                                if ($text <= $restVacationCount) {
-                                    if ($vacationFormData['vacation_type'] != '3') {
-                                        $this->access->setRegularVacationDuration($this->chatID, $text);
-//                                         $this->access->setState($this->chatID, $this->states['regularVacationFormSendingWaitingState']);
-//                                         $this->salaryRoute->triggerActionForSendRegularVacationForm($this->chatID);
-                                        $bossPhysicalId = $this->access->getBossPhysicalId($this->user['boss']);
-                                        $vacationFormData = $this->access->getReguarVacationFormData($this->chatID);
-                                        $applicationInfo = $this->access->getApplicationIdsInfo($vacationFormData['vacation_type']);
-                                        $registeredUser = $this->hrLinkApiProvider->registerApplication($this->user, $vacationFormData, $bossPhysicalId['physical_id'], $applicationInfo['hrlink_application_id']);
-//                                         sendMessage($this->chatID, $registeredUser, null); exit;
-                                        if ($registeredUser['result']) {
-                                            $this->access->setRegularVacationApplicationGroupId($this->chatID, $registeredUser['applicationGroupId']);
-                                            $this->salaryRoute->triggerActionForIssuingDocumentConfirmSmsSending($this->chatID);
+                                if ($this->salaryRoute->restVacationShouldBeChecked($vacationFormData['vacation_type'])) {
+                                    $restVacationCount = $this->vacationInfo->getRestVacationCountByUserId($this->user['user_id']);
+                                    if ($text <= $restVacationCount) {
+                                        if ($vacationFormData['vacation_type'] != '3') {
+                                            $this->access->setRegularVacationDuration($this->chatID, $text);
+                                            $this->access->setState($this->chatID, $this->states['regularVacationFormSendingWaitingState']);
+                                            $this->salaryRoute->triggerActionForSendRegularVacationForm($this->chatID);
                                             exit;
                                         } else {
-                                            // trigger error
-                                            sendMessage($this->chatID, $registeredUser['message'], null);
+                                            $this->access->setRegularVacationDuration($this->chatID, $text);
+                                            $this->access->setState($this->chatID, $this->states['regularVacationAcademicReasonWaitingState']);
+                                            $this->salaryRoute->triggerActionForSetRegularVacationAcademicReason($this->chatID);
                                             exit;
                                         }
+                                    } else {
+                                        $this->commonmistakeroute->triggerActionForMaxVacationDurationLimitError($this->chatID, $restVacationCount);
+                                        exit;
+                                    }
+                                } else {
+                                    if ($vacationFormData['vacation_type'] != '3') {
+                                        $this->access->setRegularVacationDuration($this->chatID, $text);
+                                        $this->access->setState($this->chatID, $this->states['regularVacationFormSendingWaitingState']);
+                                        $this->salaryRoute->triggerActionForSendRegularVacationForm($this->chatID);
                                         exit;
                                     } else {
                                         $this->access->setRegularVacationDuration($this->chatID, $text);
@@ -315,9 +318,6 @@ class AuthorizedUserScenario {
                                         $this->salaryRoute->triggerActionForSetRegularVacationAcademicReason($this->chatID);
                                         exit;
                                     }
-                                } else {
-                                    $this->commonmistakeroute->triggerActionForMaxVacationDurationLimitError($this->chatID, $restVacationCount);
-                                    exit;
                                 }
                             } else {
                                 $this->commonmistakeroute->triggerActionAcademicVacationDurationFormatError($this->chatID);
@@ -330,20 +330,9 @@ class AuthorizedUserScenario {
                             exit;
                         case $this->states['regularVacationAcademicCauseWaitingState']:
                             $this->access->setRegularVacationAcademicCause($this->chatID, $text);
-                            $bossPhysicalId = $this->access->getBossPhysicalId($this->user['boss']);
-                            $vacationFormData = $this->access->getReguarVacationFormData($this->chatID);
-                            $applicationInfo = $this->access->getApplicationIdsInfo($vacationFormData['vacation_type']);
-                            $registeredUser = $this->hrLinkApiProvider->registerApplication($this->user, $vacationFormData, $bossPhysicalId['physical_id'], $applicationInfo['hrlink_application_id']);
-//                             sendMessage($this->chatID, $registeredUser, null); exit;
-                            if ($registeredUser['result']) {
-                                $this->access->setRegularVacationApplicationGroupId($this->chatID, $registeredUser['applicationGroupId']);
-                                $this->salaryRoute->triggerActionForIssuingDocumentConfirmSmsSending($this->chatID);
-                                exit;
-                            } else {
-                                // trigger error
-                                sendMessage($this->chatID, $registeredUser['message'], null);
-                                exit;
-                            }
+                            $this->access->setState($this->chatID, $this->states['regularVacationFormSendingWaitingState']);
+                            $this->salaryRoute->triggerActionForSendRegularVacationForm($this->chatID);
+                            exit;
                         case $this->states['postponedSmsCodeEnteringWaitingState']:
                             $vacationFormData = $this->access->getSelectedVacationInfo($this->chatID);
                             $separatedVacationFormData = $this->access->getSeparatePostponedVacationsInfo($this->chatID);
@@ -901,7 +890,20 @@ class AuthorizedUserScenario {
                 $this->salaryRoute->triggerActionForRegularVacationStartPreparations($this->chatID);
                 exit;
             case $this->commands['sendNewRegularVacationFormInline']:
-                exit;
+                $bossPhysicalId = $this->access->getBossPhysicalId($this->user['boss']);
+                $vacationFormData = $this->access->getReguarVacationFormData($this->chatID);
+                $applicationInfo = $this->access->getApplicationIdsInfo($vacationFormData['vacation_type']);
+                $registeredUser = $this->hrLinkApiProvider->registerApplication($this->user, $vacationFormData, $bossPhysicalId['physical_id'], $applicationInfo['hrlink_application_id']);
+//                 sendMessage($this->chatID, $registeredUser, null); exit;
+                if ($registeredUser['result']) {
+                    $this->access->setRegularVacationApplicationGroupId($this->chatID, $registeredUser['applicationGroupId']);
+                    $this->salaryRoute->triggerActionForIssuingDocumentConfirmSmsSending($this->chatID);
+                    exit;
+                } else {
+                    // trigger error
+                    sendMessage($this->chatID, $registeredUser['message'], null);
+                    exit;
+                }
 //                 $vacationFormData = $this->access->getReguarVacationFormData($this->chatID);
 //                 //$sign = $this->salaryRoute->getSign($this->user['firstname'], $this->user['middlename'], $this->user['lastname']);
 //                 $sign = $this->salaryRoute->getSign($this->user['fullname']);

@@ -585,6 +585,7 @@ class keyboards {
         }
     }
 
+    // to delete
     function getSendRegularVacationFormInlineKeyboard() {
         return json_encode(array(
             "inline_keyboard" => array(
@@ -606,6 +607,19 @@ class keyboards {
                     array(
                         "text" => "Отправить заявление",
                         "callback_data" => "sendPostponedVacationForm"
+                    )
+                )
+            )
+        ));
+    }
+
+    function getRegisterVacationFormInlineKeyboard() {
+        return json_encode(array(
+            "inline_keyboard" => array(
+                array(
+                    array(
+                        "text" => "Зарегистрировать заявление",
+                        "callback_data" => "sendNewRegularVacationForm"
                     )
                 )
             )
