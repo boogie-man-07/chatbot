@@ -268,13 +268,14 @@ class AuthorizedUserScenario {
                             $this->mainInformationRoute->triggerActionForSendFeedbackConfirmation($this->chatID);
                             exit;
                         case $this->states['regularVacationStartDateWaitingState']:
+                            $vacationFormData = $this->access->getReguarVacationFormData($this->chatID);
                             $correctText = $this->salaryRoute->formatDate($text);
                             if ($this->salaryRoute->isCorrectDateFormat($correctText)) {
                                 if ($this->salaryRoute->isDateNotInPast($correctText)) {
                                     $restVacationCount = $this->vacationInfo->getRestVacationCountByUserId($this->user['user_id']);
                                     $this->access->setRegularVacationStartDate($this->chatID, $correctText);
                                     $this->access->setState($this->chatID, $this->states['regularVacationDurationWaitingState']);
-                                    $this->salaryRoute->triggerActionForSetRegularVacationDuration($this->chatID, $restVacationCount);
+                                    $this->salaryRoute->triggerActionForSetRegularVacationDuration($this->chatID, $restVacationCount, $vacationFormData['vacation_type']);
                                     exit;
                                 } else {
                                     $this->commonmistakeroute->triggerActionForDateInThePastError($this->chatID);
