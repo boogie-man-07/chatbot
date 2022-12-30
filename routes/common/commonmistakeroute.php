@@ -41,6 +41,11 @@ class commonmistakeroute {
         sendMessage($chatID, $reply, null);
     }
 
+    function triggerActionForCommonErrorIfAuthorizedByAnotherChatId($chatID) {
+        $reply = $this->constants->getReplyForCommonErrorIfAuthorizedByAnotherChatId();
+        sendMessage($chatID, $reply, null);
+    }
+
     function triggerActionForEmailAuthorizationUnavailable($chatID) {
         $reply = $this->constants->getReplyForCommonErrorIfEmailAuthorizationUnavailable();
         sendMessage($chatID, $reply, null);
