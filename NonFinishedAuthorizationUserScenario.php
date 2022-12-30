@@ -62,7 +62,7 @@ class NonFinishedAuthorizationUserScenario {
                             if ($this->authroute->checkLogin($text)) {
                                 $result = $this->access->getUserByPersonnelNumber($text);
                                 if ($result) {
-                                    sendMessage($this->chatID, "Result 2: ".json_encode($result), null); exit;
+                                    sendMessage($this->chatID, (string)($result['is_employee'] == $this->constants['isNotEmployee']), null); exit;
                                     if ($result['is_employee'] == $this->constants['isNotEmployee']) {
                                         if($this->authroute->couldBeAuthorized($result)) {
                                             if ($this->authroute->comparse($text, $result['email'])) {
