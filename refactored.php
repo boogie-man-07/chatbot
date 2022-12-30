@@ -87,7 +87,7 @@ if (!$user) {
     $unauthorizedUserScenario->run($text);
 } else {
     if (!$isAuthorized) {
-        $nonFinishedAuthorizationUserScenario = new NonFinishedAuthorizationUserScenario($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $commandList, $statesList, $state, $email, $query);
+        $nonFinishedAuthorizationUserScenario = new NonFinishedAuthorizationUserScenario($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $commandList, $statesList, $constantsList, $state, $email, $query);
         if ($isInline) {
             $nonFinishedAuthorizationUserScenario->runInline($text);
         } else {
