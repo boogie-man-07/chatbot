@@ -127,7 +127,7 @@ class authroute {
     }
 
     function couldBeAuthorized($result) {
-        return !$result['is_authorized'];
+        return $result['is_authorized'] == false;
     }
 
     function isDialogInProgress($currentState) {
