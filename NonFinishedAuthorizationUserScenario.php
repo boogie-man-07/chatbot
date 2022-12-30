@@ -11,11 +11,12 @@ class NonFinishedAuthorizationUserScenario {
     var $commonmistakeroute = null;
     var $commands = null;
     var $states = null;
+    var $constants = null;
     var $state = null;
     var $email = null;
     var $query = null;
 
-    function __construct($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $commands, $states, $state, $email, $query) {
+    function __construct($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $commands, $states, $constants, $state, $email, $query) {
         $this->chatID = $chatID;
         $this->user = $user;
         $this->username = $username;
@@ -25,6 +26,7 @@ class NonFinishedAuthorizationUserScenario {
         $this->commonmistakeroute = $commonmistakeroute;
         $this->commands = $commands;
         $this->states = $states;
+        $this->constants = $constants;
         $this->state = $state;
         $this->email = $email;
         $this->query = $query;
@@ -62,7 +64,6 @@ class NonFinishedAuthorizationUserScenario {
                             if ($this->authroute->checkLogin($text)) {
                                 $result = $this->access->getUserByPersonnelNumber($text);
                                 if ($result) {
-                                    sendMessage($this->chatID, (string)$this->constants['isNotEmployee'], null); exit;
                                     if ($result['is_employee'] == $this->constants['isNotEmployee']) {
                                         if($this->authroute->couldBeAuthorized($result)) {
                                             if ($this->authroute->comparse($text, $result['email'])) {
