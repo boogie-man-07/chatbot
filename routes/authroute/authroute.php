@@ -126,6 +126,10 @@ class authroute {
         return $this->logics->formatPhoneNumber($phoneNumber);
     }
 
+    function couldBeAuthorized($result) {
+        return !$result['is_authorized'];
+    }
+
     function isDialogInProgress($currentState) {
         $dialogState = array(
             'waiting for login',

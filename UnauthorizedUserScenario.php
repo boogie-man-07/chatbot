@@ -65,16 +65,22 @@ class UnauthorizedUserScenario {
                                 $result = $this->access->getUserByPersonnelNumber($text);
                                 if ($result) {
                                     if ($result['is_employee'] == $this->constants['isNotEmployee']) {
-                                        if ($this->authroute->comparse($text, $result['email'])) {
-                                            $confirmationCode = $this->email->generateConfirmationCode(10);
-                                            $this->access->saveConfirmationCode($confirmationCode, $this->chatID, $result['email']); // just code, dont save chatId
-                                            $this->access->setState($this->chatID, $this->states['confirmationCodeWaitingState']);
-                                            $this->authroute->triggerActionForLoginAcceptance($this->chatID, $result["fullname"]);
-                                            exit;
+                                        if($this->authroute->couldBeAuthorized($result)) {
+                                            if ($this->authroute->comparse($text, $result['email'])) {
+                                                $confirmationCode = $this->email->generateConfirmationCode(10);
+                                                $this->access->saveConfirmationCode($confirmationCode, $this->chatID, $result['email']); // just code, dont save chatId
+                                                $this->access->setState($this->chatID, $this->states['confirmationCodeWaitingState']);
+                                                $this->authroute->triggerActionForLoginAcceptance($this->chatID, $result["fullname"]);
+                                                exit;
+                                            } else {
+                                                $this->commonmistakeroute->triggerActionForCommonErrorIfLoginNotFound($this->chatID);
+                                                exit;
+                                            }
                                         } else {
-                                            $this->commonmistakeroute->triggerActionForCommonErrorIfLoginNotFound($this->chatID);
+                                            $this->commonmistakeroute->triggerActionForCommonErrorIfAuthorizedByAnotherChatId($this->chatID);
                                             exit;
                                         }
+
                                     } else {
                                         $this->commonmistakeroute->triggerActionForEmailAuthorizationUnavailable($this->chatID);
                                         exit;
@@ -104,8 +110,6 @@ class UnauthorizedUserScenario {
                                 $this->commonmistakeroute->triggerActionForMobilePhoneNotFound($this->chatID);
                                 exit;
                             }
-                            //sendMessage($this->chatID, "Ваш номер телефона: ".$mobileNumber, null);
-                            //exit;
                         default:
                             $commonmistakeroute->triggerActionForCommonMistake($this->chatID);
                             exit;
