@@ -337,7 +337,7 @@ class constants {
     }
 
     function getDocumentDeliveryTypeFreeFormText() {
-        return "Введите свой вариант получения документа.";
+        return "Введите свой способ получения документа.";
     }
 
     function getDocumentStartDateText() {
