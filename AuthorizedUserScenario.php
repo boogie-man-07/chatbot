@@ -593,7 +593,7 @@ class AuthorizedUserScenario {
                             $this->salaryRoute->triggerActionForRequestDocumentDeliveryType($this->chatID);
                             exit;
                         case $this->states['documentDeliveryTypeFreeFormWaitingState']:
-                            $this->access->setIssuingDocumentDeliveryTypeFreeForm($this->user['user_id'], (int)$text);
+                            $this->access->setIssuingDocumentDeliveryTypeFreeForm($this->user['user_id'], $text);
                             $this->salaryRoute->triggerActionForRegisterDocumentForm($this->chatID);
                             exit;
                         case $this->states['issuingDocumentTypeCopyWaitingState']:
