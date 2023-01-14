@@ -673,26 +673,27 @@ class HrLinkApiProvider {
         $issueType = $formData['issue_type'] + 1;
         $referenceType = $formData['reference_type'];
         $deliveryType = $formData['delivery_type'];
-        switch ($deliveryType) {
-            case 1:
-                array_push(
-                    $templateFields,
-                    array('id' => 'bf3337b1-59de-4f5c-a57a-6be425e6c434', 'value' => 'Отправить непосредственному руководителю'));
-                break;
-            case 2:
-                array_push(
-                    $templateFields,
-                    array('id' => 'bf3337b1-59de-4f5c-a57a-6be425e6c434', 'value' => 'Заберу сам'));
-                break;
-            case 3:
-                array_push(
-                    $templateFields,
-                    array('id' => '22a3e3a6-0be0-4a67-858b-652d3568c09c', 'value' => $formData['delivery_type_text']));
-                break;
-        }
 
         switch ($issueType) {
             case 6:
+                switch ($deliveryType) {
+                    case 1:
+                        array_push(
+                            $templateFields,
+                            array('id' => 'bf3337b1-59de-4f5c-a57a-6be425e6c434', 'value' => 'Отправить непосредственному руководителю'));
+                        break;
+                    case 2:
+                        array_push(
+                            $templateFields,
+                            array('id' => 'bf3337b1-59de-4f5c-a57a-6be425e6c434', 'value' => 'Заберу сам'));
+                        break;
+                    case 3:
+                        array_push(
+                            $templateFields,
+                            array('id' => '22a3e3a6-0be0-4a67-858b-652d3568c09c', 'value' => $formData['delivery_type_text']));
+                        break;
+                }
+
                 switch ($referenceType) {
                     case 1:
                         array_push(
@@ -739,6 +740,24 @@ class HrLinkApiProvider {
                 }
                 break;
             case 7:
+                switch ($deliveryType) {
+                    case 1:
+                        array_push(
+                            $templateFields,
+                            array('id' => 'bf2cdad9-546f-448b-b2c1-f1010213e1f5', 'value' => 'Отправить непосредственному руководителю'));
+                        break;
+                    case 2:
+                        array_push(
+                            $templateFields,
+                            array('id' => 'bf2cdad9-546f-448b-b2c1-f1010213e1f5', 'value' => 'Заберу сам'));
+                        break;
+                    case 3:
+                        array_push(
+                            $templateFields,
+                            array('id' => '41a041c6-9e32-42c3-8738-0e978ef4a930', 'value' => $formData['delivery_type_text']));
+                        break;
+                }
+
                 array_push(
                     $templateFields,
                     array('id' => '8761188d-c6a2-494e-9ff0-0f0881959596', 'value' => $formData['type_text'])
