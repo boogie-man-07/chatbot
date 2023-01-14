@@ -332,6 +332,14 @@ class constants {
         return "Запрос документа необходимо подтвердить вводом кода подтверждения, полученного в SMS.";
     }
 
+    function getDocumentDeliveryTypeText() {
+        return "Выберите способ получения документа.";
+    }
+
+    function getDocumentDeliveryTypeFreeFormText() {
+        return "Введите свой вариант получения документа.";
+    }
+
     function getDocumentStartDateText() {
         return "Введите дату начала периода, за который запрашиваются данные.\nПример: <b>01.01.2023</b>";
     }

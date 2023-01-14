@@ -1707,6 +1707,52 @@ class access {
         return $returnValue;
     }
 
+    function setIssuingDocumentDeliveryType($userId, $deliveryType) {
+        $sql = "SELECT * FROM user_issued_document_data WHERE user_id='".$userId."'";
+        $result = $this->conn->query($sql);
+        if ($result != null && (mysqli_num_rows($result) >= 1 )) {
+            $sql = "UPDATE user_issued_document_data SET delivery_type=? WHERE user_id=?";
+            $statement = $this->conn->prepare($sql);
+            if (!$statement) {
+                throw new Exception($statement->error);
+            }
+            $statement->bind_param("ss", $deliveryType, $userId);
+            $returnValue = $statement->execute();
+        } else {
+            $sql = "INSERT INTO user_issued_document_data SET user_id=?, delivery_type=?";
+            $statement = $this->conn->prepare($sql);
+            if (!$statement) {
+                throw new Exception($statement->error);
+            }
+            $statement->bind_param("ss", $userId, $deliveryType);
+            $returnValue = $statement->execute();
+        }
+        return $returnValue;
+    }
+
+    function setIssuingDocumentDeliveryTypeFreeForm($userId, $deliveryTypeText) {
+        $sql = "SELECT * FROM user_issued_document_data WHERE user_id='".$userId."'";
+        $result = $this->conn->query($sql);
+        if ($result != null && (mysqli_num_rows($result) >= 1 )) {
+            $sql = "UPDATE user_issued_document_data SET delivery_type_text=? WHERE user_id=?";
+            $statement = $this->conn->prepare($sql);
+            if (!$statement) {
+                throw new Exception($statement->error);
+            }
+            $statement->bind_param("ss", $deliveryTypeText, $userId);
+            $returnValue = $statement->execute();
+        } else {
+            $sql = "INSERT INTO user_issued_document_data SET user_id=?, delivery_type_text=?";
+            $statement = $this->conn->prepare($sql);
+            if (!$statement) {
+                throw new Exception($statement->error);
+            }
+            $statement->bind_param("ss", $userId, $deliveryTypeText);
+            $returnValue = $statement->execute();
+        }
+        return $returnValue;
+    }
+
     function setIssuingDocumentApplicationGroupId($userId, $applicationGroupId) {
         $sql = "SELECT * FROM user_issued_document_data WHERE user_id='".$userId."'";
         $result = $this->conn->query($sql);

@@ -672,6 +672,25 @@ class HrLinkApiProvider {
         $templateFields = array();
         $issueType = $formData['issue_type'] + 1;
         $referenceType = $formData['reference_type'];
+        $deliveryType = $formData['delivery_type'];
+        switch ($deliveryType) {
+            case 1:
+                array_push(
+                    $templateFields,
+                    array('id' => 'bf3337b1-59de-4f5c-a57a-6be425e6c434', 'value' => 'Отправить непосредственному руководителю'));
+                break;
+            case 2:
+                array_push(
+                    $templateFields,
+                    array('id' => 'bf3337b1-59de-4f5c-a57a-6be425e6c434', 'value' => 'Заберу сам'));
+                break;
+            case 3:
+                array_push(
+                    $templateFields,
+                    array('id' => '22a3e3a6-0be0-4a67-858b-652d3568c09c', 'value' => $formData['delivery_type_text']));
+                break;
+        }
+
         switch ($issueType) {
             case 6:
                 switch ($referenceType) {

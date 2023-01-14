@@ -271,6 +271,17 @@ class SalaryRoute {
         sendMessage($chatID, $reply, $keyboard);
     }
 
+    function triggerActionForRequestDocumentDeliveryType($chatID) {
+        $reply = $this->constants->getDocumentDeliveryTypeText();
+        $keyboard = $this->keyboards->getDocumentDeliveryTypeInlineKeyboard();
+        sendMessage($chatID, $reply, $keyboard);
+    }
+
+    function triggerActionForRequestDocumentDeliveryTypeFreeForm($chatID) {
+        $reply = $this->constants->getDocumentDeliveryTypeFreeFormText();
+        sendMessage($chatID, $reply, null);
+    }
+
     function triggerActionForRequestDocumentStartDate($chatID) {
         $reply = $this->constants->getDocumentStartDateText();
         sendMessage($chatID, $reply, null);
