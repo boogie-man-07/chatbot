@@ -639,6 +639,31 @@ class keyboards {
         ));
     }
 
+    function getDocumentDeliveryTypeInlineKeyboard() {
+        return json_encode(array(
+            "inline_keyboard" => array(
+                array(
+                    array(
+                        "text" => "Отправить непосредственному руководителю",
+                        "callback_data" => "1"
+                    )
+                ),
+                array(
+                    array(
+                        "text" => "Заберу сам",
+                        "callback_data" => "2"
+                    )
+                ),
+                array(
+                    array(
+                        "text" => "Другое",
+                        "callback_data" => "3"
+                    )
+                )
+            )
+        ));
+    }
+
     function getRegisterDocumentFormInlineKeyboard() {
         return json_encode(array(
             "inline_keyboard" => array(
