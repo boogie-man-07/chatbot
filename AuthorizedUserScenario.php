@@ -594,12 +594,21 @@ class AuthorizedUserScenario {
                             exit;
                         case $this->states['documentDeliveryTypeFreeFormWaitingState']:
                             $this->access->setIssuingDocumentDeliveryTypeFreeForm($this->user['user_id'], $text);
-                            $this->salaryRoute->triggerActionForRegisterDocumentForm($this->chatID);
-                            exit;
+                            $formData = $this->access->getIssuingDocumentData($this->user['user_id']);
+                            switch ($formData['reference_type']) {
+                                case 6:
+                                    $this->salaryRoute->triggerActionForRegisterDocumentForm($this->chatID);
+                                    exit;
+                                case 7:
+                                    $this->salaryRoute->triggerActionForRegisterDocumentCopyForm($this->chatID);
+                                    exit;
+                            }
                         case $this->states['issuingDocumentTypeCopyWaitingState']:
 //                             $this->forms->generateDocumentCopyForm($this->chatID);
                             $this->access->saveIssuingDocumentData($this->user['user_id'], $text);
-                            $this->salaryRoute->triggerActionForRegisterDocumentCopyForm($this->chatID);
+                            $this->access->setState($this->chatID, $this->states['documentDeliveryTypeWaitingState']);
+                            $this->salaryRoute->triggerActionForRequestDocumentDeliveryType($this->chatID);
+//                             $this->salaryRoute->triggerActionForRegisterDocumentCopyForm($this->chatID);
                             exit;
                         case $this->states['dmsQuestionWaitingState']:
                             $this->access->setDmsQuestionInfo($this->chatID, $text);
@@ -1432,10 +1441,17 @@ class AuthorizedUserScenario {
                     case $this->states['documentDeliveryTypeWaitingState']:
                         answerCallbackQuery($this->query["id"], "Данные загружены!");
                         $this->access->setIssuingDocumentDeliveryType($this->user['user_id'], (int)$text);
+                        $formData = $this->access->getIssuingDocumentData($this->user['user_id']);
                         switch ((int)$text) {
                             case 1; case 2:
-                                $this->salaryRoute->triggerActionForRegisterDocumentForm($this->chatID);
-                                exit;
+                                switch ($formData['reference_type']) {
+                                    case 6:
+                                        $this->salaryRoute->triggerActionForRegisterDocumentForm($this->chatID);
+                                        exit;
+                                    case 7:
+                                        $this->salaryRoute->triggerActionForRegisterDocumentCopyForm($this->chatID);
+                                        exit;
+                                }
                             case 3:
                                 $this->access->setState($this->chatID, $this->states['documentDeliveryTypeFreeFormWaitingState']);
                                 $this->salaryRoute->triggerActionForRequestDocumentDeliveryTypeFreeForm($this->chatID);
