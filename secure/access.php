@@ -175,7 +175,8 @@ class access {
 
         $returnArray = array();
         // sql command
-        $sql = "SELECT * FROM phonebook WHERE fullname like '%".$firstname."%' AND fullname like '%".$lastname."%' and company_id in ($ids)";
+        $sql = "SELECT * FROM phonebook WHERE (firstname = '".$firstname."' AND lastname = '".$lastname."') OR
+                (firstname = '".$lastname."' AND lastname = '".$firstname."') and company_id in ($ids)";
         // assign result we got from $sql to result var
         $result = $this->conn->query($sql);
 
