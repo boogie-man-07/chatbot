@@ -85,7 +85,7 @@ if ($err) {
                 'email' => $user['email'],
                 'office_number' => $user['office_number'],
                 'internal_number' => $user['internal_number'],
-                'mobile_number' => $user['mobile_number'],
+                'mobile_number' => $user['guid'] == 'c9371d0c-b3e8-11ec-a1bf-d4f5ef044d5f' ? 'Отсутствует' : $user['mobile_number'], // check if CEO
                 'company_name' => $user['company_name'],
                 'company_id' => $user['company_id'],
                 'isRotational' => $user['vakhta'],
