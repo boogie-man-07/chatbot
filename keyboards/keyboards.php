@@ -679,17 +679,16 @@ class keyboards {
     }
 
     function getRegisterDocumentCopyFormInlineKeyboard() {
-        $text = "Зарегистрировать заявление в HRLink";
         return json_encode(array(
             "inline_keyboard" => array(
                 array(
                     array(
-                        "text" => (string)$text,
+                        "text" => "Зарегистрировать заявление в HRLink",
                         "callback_data" => "sendDocumentCopyForm"
                     )
                 )
             )
-        ));
+        ), JSON_UNESCAPED_UNICODE);
     }
 
     function getAskToProceedDmsSurveyInlineKeyboard() {
