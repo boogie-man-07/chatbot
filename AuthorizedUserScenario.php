@@ -118,6 +118,20 @@ class AuthorizedUserScenario {
             case $this->commands['restVacationAmount']:
                 $this->salaryRoute->triggerActionForGetRestVacationInfo($this->chatID, $this->user['user_id'], $this->vacationInfo);
                 exit;
+            case $this->commands['regularVacationCaseInline']:
+                $this->salaryRoute->triggerActionForRegularApplicationPreparations($this->chatID, $this->user['firstname'], $this->user['company_id']);
+                exit;
+            case $this->commands['postponedVacationCaseInline']:
+                if ($this->user['company_id'] == 3) {
+                    $data = $this->vacationInfo->getVacationsInfo($this->user['user_id']);
+                    if ($data) {
+                        $this->access->saveUserVacations($this->chatID, $data);
+                        $this->access->setState($this->chatID, $this->states['postponedVacationChooseVacationState']);
+                    }
+                    $this->salaryRoute->triggerActionForChooseVacationToPostpone($this->chatID, $data, $this->user['firstname']);
+                    exit;
+                }
+                exit;
             case $this->commands['howToNavigate']:
                 $this->mainInformationRoute->triggerActionForShowHowToNavigateToOffice($this->chatID, $this->user['company_id']);
                 exit;
@@ -228,7 +242,6 @@ class AuthorizedUserScenario {
                         exit;
                     }
                 }
-
 
                 if (!$this->salaryRoute->isDialogInProgress($this->state)) {
                     $this->commonmistakeroute->triggerActionForCommonMistake($this->chatID);
@@ -867,22 +880,6 @@ class AuthorizedUserScenario {
                     $this->commonmistakeroute->triggerErrorForSendFeedback();
                     exit;
                 }
-            case $this->commands['regularVacationCaseInline']:
-                answerCallbackQuery($this->query["id"], "Успешно!");
-                $this->salaryRoute->triggerActionForRegularApplicationPreparations($this->chatID, $this->user['firstname'], $this->user['company_id']);
-                exit;
-            case $this->commands['postponedVacationCaseInline']:
-                answerCallbackQuery($this->query["id"], "Успешно!");
-                if ($this->user['company_id'] == 3) {
-                    $data = $this->vacationInfo->getVacationsInfo($this->user['user_id']);
-                    if ($data) {
-                        $this->access->saveUserVacations($this->chatID, $data);
-                        $this->access->setState($this->chatID, $this->states['postponedVacationChooseVacationState']);
-                    }
-                    $this->salaryRoute->triggerActionForChooseVacationToPostpone($this->chatID, $data, $this->user['firstname']);
-                    exit;
-                }
-                exit;
             case $this->commands['triggerMainVacationInline']:
                 answerCallbackQuery($this->query["id"], "Успешно!");
                 $this->access->setRegualarVacationType($this->chatID, '0');
