@@ -482,6 +482,10 @@ class constants {
         return "$firstname,\nКакое заявление Вы хотели бы оформить?";
     }
 
+    function getVacationInformationText() {
+        return "Выбирите необходимый пункт в меню ниже.";
+    }
+
     function getRestVacationInfoText($data, $vacations) {
         $vacationsList = "";
         if ($data == 0) {

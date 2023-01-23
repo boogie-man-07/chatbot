@@ -113,6 +113,9 @@ class AuthorizedUserScenario {
                 $this->salaryRoute->triggerActionForGetApplicationsInformation($this->chatID, $this->user['firstname']);
                 exit;
             case $this->commands['myVacation']:
+                $this->salaryRoute->triggerActionForGetMyVacationInformation($this->chatID);
+                exit;
+            case $this->commands['restVacationAmount']:
                 $this->salaryRoute->triggerActionForGetRestVacationInfo($this->chatID, $this->user['user_id'], $this->vacationInfo);
                 exit;
             case $this->commands['howToNavigate']:
