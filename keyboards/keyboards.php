@@ -679,11 +679,12 @@ class keyboards {
     }
 
     function getRegisterDocumentCopyFormInlineKeyboard() {
+        $text = "Зарегистрировать заявление в HRLink";
         return json_encode(array(
             "inline_keyboard" => array(
                 array(
                     array(
-                        "text" => "Зарегистрировать заявление в HRLink",
+                        "text" => (string)$text,
                         "callback_data" => "sendDocumentCopyForm"
                     )
                 )
