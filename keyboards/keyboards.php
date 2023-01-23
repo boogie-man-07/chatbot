@@ -401,12 +401,10 @@ class keyboards {
     function getVacationInformationKeyboard() {
         return json_encode(array(
             "keyboard" => array(
-                array(
-                    array("text" => "Количество дней"),
-                    array("text" => "Заявление на отпуск"),
-                    array("text" => "Заявление на перенос отпуска"),
-                    array("text" => "Назад")
-                )
+                array(array("text" => "Количество дней")),
+                array(array("text" => "Заявление на отпуск")),
+                array(array("text" => "Заявление на перенос отпуска")),
+                array(array("text" => "Назад"))
             ),
             "resize_keyboard" => true,
             "one_time_keyboard" => false
