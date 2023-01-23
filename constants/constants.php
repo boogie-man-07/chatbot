@@ -488,7 +488,7 @@ class constants {
 
     function getRestVacationInfoText($data, $vacations) {
         $vacationsList = "";
-        if ($data == 0) {
+        if ($data['main'] == 0 && $data['additional'] == 0) {
             return "Извините, информация по количеству оставшихся дней отпуска недоступна, попробуйте запросить позднее.";
         } else {
             foreach ($vacations['vacations'] as $value) {
