@@ -372,18 +372,6 @@ class keyboards {
             "inline_keyboard" => array(
                 array(
                     array(
-                        "text" => "Заявление на отпуск",
-                        "callback_data" => "regularVacationCase"
-                    )
-                ),
-                array(
-                    array(
-                        "text" => "Заявление на перенос отпуска",
-                        "callback_data" => "postponedVacationCase"
-                    )
-                ),
-                array(
-                    array(
                         "text" => "Заявление на выдачу документов",
                         "callback_data" => "documentsIssuingCase"
                     )
