@@ -398,6 +398,21 @@ class keyboards {
         ));
     }
 
+    function getVacationInformationKeyboard() {
+        return json_encode(array(
+            "keyboard" => array(
+                array(
+                    array("text" => "Количество дней"),
+                    array("text" => "Заявление на отпуск"),
+                    array("text" => "Заявление на перенос отпуска"),
+                    array("text" => "Назад")
+                )
+            ),
+            "resize_keyboard" => true,
+            "one_time_keyboard" => false
+        ));
+    }
+
     function getIssuingDocumentsListInlineKeyboard() {
         return json_encode(array(
             "inline_keyboard" => array(
@@ -618,7 +633,7 @@ class keyboards {
             "inline_keyboard" => array(
                 array(
                     array(
-                        "text" => "Зарегистрировать заявление",
+                        "text" => "Зарегистрировать заявление в HRLink",
                         "callback_data" => "sendNewRegularVacationForm"
                     )
                 )
@@ -631,7 +646,7 @@ class keyboards {
             "inline_keyboard" => array(
                 array(
                     array(
-                        "text" => "Зарегистрировать заявление",
+                        "text" => "Зарегистрировать заявление в HRLink",
                         "callback_data" => "sendPostponedVacationForm"
                     )
                 )
@@ -669,7 +684,7 @@ class keyboards {
             "inline_keyboard" => array(
                 array(
                     array(
-                        "text" => "Зарегистрировать заявление",
+                        "text" => "Зарегистрировать заявление в HRLink",
                         "callback_data" => "sendDocumentForm"
                     )
                 )
@@ -682,7 +697,7 @@ class keyboards {
             "inline_keyboard" => array(
                 array(
                     array(
-                        "text" => "Зарегистрировать заявление",
+                        "text" => "Зарегистрировать заявление в HRLink",
                         "callback_data" => "sendDocumentCopyForm"
                     )
                 )
