@@ -616,7 +616,6 @@ class AuthorizedUserScenario {
                                     $this->salaryRoute->triggerActionForRegisterDocumentForm($this->chatID);
                                     exit;
                                 case 7:
-                                    sendMessage($this->chatID, 'triggerActionForRegisterDocumentCopyForm', null); exit;
                                     $this->salaryRoute->triggerActionForRegisterDocumentCopyForm($this->chatID);
                                     exit;
                             }
