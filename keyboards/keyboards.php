@@ -683,7 +683,7 @@ class keyboards {
             "inline_keyboard" => array(
                 array(
                     array(
-                        "text" => "HRLink",
+                        "text" => "Зарегистрировать заявление в \"HRLink\"",
                         "callback_data" => "sendDocumentCopyForm"
                     )
                 )
