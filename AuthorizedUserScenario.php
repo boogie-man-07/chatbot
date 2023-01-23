@@ -118,10 +118,10 @@ class AuthorizedUserScenario {
             case $this->commands['restVacationAmount']:
                 $this->salaryRoute->triggerActionForGetRestVacationInfo($this->chatID, $this->user['user_id'], $this->vacationInfo);
                 exit;
-            case $this->commands['regularVacationCaseInline']:
+            case $this->commands['regularVacationCase']:
                 $this->salaryRoute->triggerActionForRegularApplicationPreparations($this->chatID, $this->user['firstname'], $this->user['company_id']);
                 exit;
-            case $this->commands['postponedVacationCaseInline']:
+            case $this->commands['postponedVacationCase']:
                 if ($this->user['company_id'] == 3) {
                     $data = $this->vacationInfo->getVacationsInfo($this->user['user_id']);
                     if ($data) {
