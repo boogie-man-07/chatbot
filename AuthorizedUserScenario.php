@@ -611,11 +611,12 @@ class AuthorizedUserScenario {
                         case $this->states['documentDeliveryTypeFreeFormWaitingState']:
                             $this->access->setIssuingDocumentDeliveryTypeFreeForm($this->user['user_id'], $text);
                             $formData = $this->access->getIssuingDocumentData($this->user['user_id']);
-                            switch ((int)$formData['reference_type']) {
+                            switch ($formData['reference_type']) {
                                 case 6:
                                     $this->salaryRoute->triggerActionForRegisterDocumentForm($this->chatID);
                                     exit;
                                 case 7:
+                                    sendMessage($this->chatID, 'triggerActionForRegisterDocumentCopyForm', null); exit;
                                     $this->salaryRoute->triggerActionForRegisterDocumentCopyForm($this->chatID);
                                     exit;
                             }
