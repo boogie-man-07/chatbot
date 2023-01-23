@@ -619,7 +619,7 @@ class keyboards {
             "inline_keyboard" => array(
                 array(
                     array(
-                        "text" => "Зарегистрировать заявление в HRLink",
+                        "text" => "Зарегистрировать заявление в hrlink",
                         "callback_data" => "sendNewRegularVacationForm"
                     )
                 )
@@ -632,7 +632,7 @@ class keyboards {
             "inline_keyboard" => array(
                 array(
                     array(
-                        "text" => "Зарегистрировать заявление в HRLink",
+                        "text" => "Зарегистрировать заявление в hrlink",
                         "callback_data" => "sendPostponedVacationForm"
                     )
                 )
@@ -670,7 +670,7 @@ class keyboards {
             "inline_keyboard" => array(
                 array(
                     array(
-                        "text" => "Зарегистрировать заявление в HRLink",
+                        "text" => "Зарегистрировать заявление в hrlink",
                         "callback_data" => "sendDocumentForm"
                     )
                 )
@@ -683,7 +683,7 @@ class keyboards {
             "inline_keyboard" => array(
                 array(
                     array(
-                        "text" => "Зарегистрировать заявление в "."HRLink",
+                        "text" => "HRLink",
                         "callback_data" => "sendDocumentCopyForm"
                     )
                 )
