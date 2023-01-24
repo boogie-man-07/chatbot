@@ -305,7 +305,8 @@ class AuthorizedUserScenario {
                             if ($this->salaryRoute->isCorrectVacationDurationFormat($text)) {
                                 $vacationFormData = $this->access->getReguarVacationFormData($this->chatID);
                                 if ($this->salaryRoute->restVacationShouldBeChecked($vacationFormData['vacation_type'])) {
-                                    $restVacationCount = $this->vacationInfo->getRestVacationCountByUserId($this->user['user_id']);
+                                    $restVacationData = $this->vacationInfo->getRestVacations($this->user['user_id']);
+                                    $restVacationCount = $vacationFormData['vacation_type'] == 0 ? $restVacationData['main'] : $restVacationData['additional'];
                                     if ($text <= $restVacationCount) {
                                         if ($vacationFormData['vacation_type'] != '3') {
                                             $this->access->setRegularVacationDuration($this->chatID, $text);
