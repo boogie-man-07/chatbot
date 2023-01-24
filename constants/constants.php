@@ -619,7 +619,7 @@ class constants {
     }
 
     function getVacationDurationLimitErrorText($restVacationDuration, $vacationType) {
-        switch() {
+        switch($vacationType) {
             case 0; case 1:
                 $whichVacation = $vacationType == 0 ? 'основного' : 'дополнительного';
                 return "К сожалению, максимальное количество дней $whichVacation отпуска, которые Вы можете взять в этом году: $restVacationDuration\nПопробуйте снова.";
