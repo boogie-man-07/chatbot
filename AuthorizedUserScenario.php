@@ -288,10 +288,10 @@ class AuthorizedUserScenario {
                             $correctText = $this->salaryRoute->formatDate($text);
                             if ($this->salaryRoute->isCorrectDateFormat($correctText)) {
                                 if ($this->salaryRoute->isDateNotInPast($correctText, $vacationFormData['vacation_type'])) {
-                                    $restVacationCount = $this->vacationInfo->getRestVacationCountByUserId($this->user['user_id']);
+                                    $restVacationData = $this->vacationInfo->getRestVacations($this->user['user_id']);
                                     $this->access->setRegularVacationStartDate($this->chatID, $correctText);
                                     $this->access->setState($this->chatID, $this->states['regularVacationDurationWaitingState']);
-                                    $this->salaryRoute->triggerActionForSetRegularVacationDuration($this->chatID, $restVacationCount, $vacationFormData['vacation_type']);
+                                    $this->salaryRoute->triggerActionForSetRegularVacationDuration($this->chatID, $restVacationData, $vacationFormData['vacation_type']);
                                     exit;
                                 } else {
                                     $this->commonmistakeroute->triggerActionForDateInThePastError($this->chatID);
