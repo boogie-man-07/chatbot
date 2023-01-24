@@ -190,8 +190,8 @@ class SalaryRoute {
         sendMessage($chatID, $reply, null);
     }
 
-    function triggerActionForSetRegularVacationDuration($chatID, $restVacationDuration, $vacationType) {
-        $reply = $this->constants->getRegularVacationDurationText($restVacationDuration, $vacationType);
+    function triggerActionForSetRegularVacationDuration($chatID, $restVacationData, $vacationType) {
+        $reply = $this->constants->getRegularVacationDurationText($restVacationData, $vacationType);
         sendMessage($chatID, $reply, null);
     }
 
