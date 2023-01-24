@@ -544,7 +544,7 @@ class constants {
             case 0; case 1:
                 $restVacationDuration = $vacationType == 0 ? $restVacationData['main'] : $restVacationData['additional'];
                 $whichVacation = $vacationType == 0 ? 'основного' : 'дополнительного';
-                return "Количество оставшихся дней $whichVacation отпуска в этом году: $restVacationDuration.\nВведите желаемую длительность отпуска, пример: <b>$restVacationDuration</b>";
+                return "Количество оставшихся дней $whichVacation отпуска в этом году: $restVacationDuration. Введите желаемую длительность отпуска.\nПример: <b>$restVacationDuration</b>";
             case 2; case 3:
                 return "Введите желаемую длительность отпуска (количество дней).\nПример: <b>$restVacationDuration</b>";
         }
