@@ -618,8 +618,14 @@ class constants {
         return "К сожалению, максимальное количество дней, которые Вы можете перенести в этом отпуске: $realDuration\nПопробуйте снова.";
     }
 
-    function getVacationDurationLimitErrorText($restVacationDuration) {
-        return "К сожалению, максимальное количество дней отпуска, которые Вы можете взять в этом году: $restVacationDuration\nПопробуйте снова.";
+    function getVacationDurationLimitErrorText($restVacationDuration, $vacationType) {
+        switch() {
+            case 0; case 1:
+                $whichVacation = $vacationType == 0 ? 'основного' : 'дополнительного';
+                return "К сожалению, максимальное количество дней $whichVacation отпуска, которые Вы можете взять в этом году: $restVacationDuration\nПопробуйте снова.";
+            default:
+                return "К сожалению, максимальное количество дней отпуска, которые Вы можете взять в этом году: $restVacationDuration\nПопробуйте снова.";
+        }
     }
 
     function getReplyCheckPostponedVacationDuration($restDuration) {
