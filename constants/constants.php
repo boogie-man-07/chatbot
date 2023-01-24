@@ -543,7 +543,8 @@ class constants {
         switch($vacationType) {
             case 0; case 1:
                 $restVacationDuration = $vacationType == 0 ? $restVacationData['main'] : $restVacationData['additional'];
-                return "Количество оставшихся дней отпуска в этом году: $restVacationDuration. Введите желаемую длительность отпуска (количество дней).\nПример: <b>$restVacationDuration</b>";
+                $whichVacation = $vacationType == 0 ? 'основного' : 'дополнительного';
+                return "Количество оставшихся дней $whichVacation отпуска в этом году: $restVacationDuration. Введите желаемую длительность отпуска.\nПример: <b>$restVacationDuration</b>";
             case 2; case 3:
                 return "Введите желаемую длительность отпуска (количество дней).\nПример: <b>$restVacationDuration</b>";
         }
