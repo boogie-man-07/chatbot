@@ -320,7 +320,7 @@ class AuthorizedUserScenario {
                                             exit;
                                         }
                                     } else {
-                                        $this->commonmistakeroute->triggerActionForMaxVacationDurationLimitError($this->chatID, $restVacationCount);
+                                        $this->commonmistakeroute->triggerActionForMaxVacationDurationLimitError($this->chatID, $restVacationCount, $vacationFormData['vacation_type']);
                                         exit;
                                     }
                                 } else {
