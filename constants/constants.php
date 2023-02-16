@@ -293,7 +293,7 @@ class constants {
     }
 
     function getReplyForFeedbackSending() {
-        return "Ваше сообщение будет направлено в поддержку.";
+        return "Нажмите на кнопку ниже и Ваше обращение будет направлено в поддержку.";
     }
 
     function getReplyForDmsSending() {
