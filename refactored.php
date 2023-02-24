@@ -61,6 +61,7 @@ $data = json_decode($json, true);
 $commandList = $data['commands'];
 $statesList = $data['states'];
 $constantsList = $data['constants'];
+$analyticsTypes = $data['analyticsTypes'];
 
 $website = "https://api.telegram.org/bot".$dbtoken;
 $updates = file_get_contents('php://input');
@@ -87,14 +88,14 @@ if (!$user) {
     $unauthorizedUserScenario->run($text);
 } else {
     if (!$isAuthorized) {
-        $nonFinishedAuthorizationUserScenario = new NonFinishedAuthorizationUserScenario($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $commandList, $statesList, $constantsList, $state, $email, $query);
+        $nonFinishedAuthorizationUserScenario = new NonFinishedAuthorizationUserScenario($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $commandList, $statesList, $constantsList, $analyticsTypes, $state, $email, $query);
         if ($isInline) {
             $nonFinishedAuthorizationUserScenario->runInline($text);
         } else {
             $nonFinishedAuthorizationUserScenario->run($text);
         }
     } else {
-        $authorizedUserScenario = new AuthorizedUserScenario($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $phonebookroute, $valuesRoute, $mainRulesRoute, $mainInformationRoute, $salaryRoute, $commandList, $statesList, $state, $logics, $forms, $email, $vacationInfo, $calendarInfo, $query, $logs, $messageId, $hrLinkApiProvider);
+        $authorizedUserScenario = new AuthorizedUserScenario($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $phonebookroute, $valuesRoute, $mainRulesRoute, $mainInformationRoute, $salaryRoute, $commandList, $statesList, $analyticsTypes, $state, $logics, $forms, $email, $vacationInfo, $calendarInfo, $query, $logs, $messageId, $hrLinkApiProvider);
         if ($isInline) {
             $authorizedUserScenario->runInline($text);
         } else {

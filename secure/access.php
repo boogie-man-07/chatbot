@@ -2158,4 +2158,16 @@ class access {
 
         return $returnArray;
     }
+
+    // analytics
+    function addAnalytics($userId, $typeId, $destination = NULL, $input = NULL) {
+        $sql = "INSERT INTO analytics SET user_id = ?, type_id = ?, destination = ?, input = ?";
+        $statement = $this->conn->prepare($sql);
+
+        if (!$statement) {
+            throw new Exception($statement->error);
+        }
+        $statement->bind_param("siss", $userId, $typeId, $destination, $input);
+        $returnValue = $statement->execute();
+    }
 }
