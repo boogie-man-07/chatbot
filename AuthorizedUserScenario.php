@@ -91,6 +91,7 @@ class AuthorizedUserScenario {
                 exit;
             case $this->commands['phones']:
                 $this->access->setState($this->chatID, $this->states['findTelephoneNumberState']);
+                $this->access->addAnalytics($this->user['user_id'], $this->analyticsTypes['DESTINATION'], $text, NULL);
                 $this->phonebookroute->triggerActionForFindPhoneNumber($this->chatID);
                 exit;
             case $this->commands['values']:
