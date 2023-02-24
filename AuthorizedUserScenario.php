@@ -16,6 +16,7 @@ class AuthorizedUserScenario {
     var $salaryRoute = null;
     var $commands = null;
     var $states = null;
+    var $analyticsTypes = null;
     var $state = null;
     var $logics = null;
     var $forms = null;
@@ -27,7 +28,7 @@ class AuthorizedUserScenario {
     var $messageId = null;
     var $hrLinkApiProvider = null;
 
-    function __construct($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $phonebookroute, $valuesRoute, $mainRulesRoute, $mainInformationRoute, $salaryRoute, $commands, $states, $state, $logics, $forms, $email, $vacationInfo, $calendarInfo, $query, $logs, $messageId, $hrLinkApiProvider) {
+    function __construct($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $phonebookroute, $valuesRoute, $mainRulesRoute, $mainInformationRoute, $salaryRoute, $commands, $states, $analyticsTypes, $state, $logics, $forms, $email, $vacationInfo, $calendarInfo, $query, $logs, $messageId, $hrLinkApiProvider) {
         $this->chatID = $chatID;
         $this->user = $user;
         $this->username = $username;
@@ -42,6 +43,7 @@ class AuthorizedUserScenario {
         $this->salaryRoute = $salaryRoute;
         $this->commands = $commands;
         $this->states = $states;
+        $this->analyticsTypes = $analyticsTypes;
         $this->state = $state;
         $this->logics = $logics;
         $this->forms = $forms;
@@ -245,6 +247,7 @@ class AuthorizedUserScenario {
 
                 if (!$this->salaryRoute->isDialogInProgress($this->state)) {
                     $this->commonmistakeroute->triggerActionForCommonMistake($this->chatID);
+                    $this->access->addAnalytics($this->user['user_id'], $this->analyticsTypes['GENERAL'], NULL, $text);
                     exit;
                 } else {
                     switch ($this->state) {
@@ -732,6 +735,7 @@ class AuthorizedUserScenario {
 //                             }
                         default:
                             $this->commonmistakeroute->triggerActionForCommonMistake($this->chatID);
+                            $this->access->addAnalytics($this->user['user_id'], $this->analyticsTypes['GENERAL'], NULL, $text);
                             exit;
                     }
                 }

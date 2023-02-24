@@ -12,11 +12,12 @@ class NonFinishedAuthorizationUserScenario {
     var $commands = null;
     var $states = null;
     var $constants = null;
+    var $analyticsTypes = null;
     var $state = null;
     var $email = null;
     var $query = null;
 
-    function __construct($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $commands, $states, $constants, $state, $email, $query) {
+    function __construct($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $commands, $states, $constants, $analyticsTypes, $state, $email, $query) {
         $this->chatID = $chatID;
         $this->user = $user;
         $this->username = $username;
@@ -27,6 +28,7 @@ class NonFinishedAuthorizationUserScenario {
         $this->commands = $commands;
         $this->states = $states;
         $this->constants = $constants;
+        $this->analyticsTypes = $analyticsTypes;
         $this->state = $state;
         $this->email = $email;
         $this->query = $query;
@@ -57,6 +59,7 @@ class NonFinishedAuthorizationUserScenario {
             default:
                 if (!$this->authroute->isDialogInProgress($this->state)) {
                     $this->commonmistakeroute->triggerActionForCommonMistake($this->chatID);
+                    $this->access->addAnalytics($this->user['user_id'], $this->analyticsTypes['GENERAL'], NULL, $text);
                     exit;
                 } else {
                     switch ($this->state) {
@@ -118,6 +121,7 @@ class NonFinishedAuthorizationUserScenario {
                             }
                         default:
                             $this->commonmistakeroute->triggerActionForCommonMistake($this->chatID);
+                            $this->access->addAnalytics($this->user['user_id'], $this->analyticsTypes['GENERAL'], NULL, $text);
                             exit;
                     }
                 }
@@ -143,6 +147,7 @@ class NonFinishedAuthorizationUserScenario {
                 } else {
                     answerCallbackQuery($this->query["id"], "Не удалось отправить код подтверждения, повторите попытку!");
                     $this->commonmistakeroute->triggerActionForCommonMistake($this->chatID, $this->username);
+                    $this->access->addAnalytics($this->user['user_id'], $this->analyticsTypes['GENERAL'], NULL, $text);
                     exit;
                 }
 
