@@ -488,6 +488,8 @@ class constants {
 
     function getRestVacationInfoText($data, $vacations) {
         $vacationsList = "";
+        $currentDate = (string) date("d.m.Y");
+        $currentYear = (string) date("Y");
         if ($data['main'] == 0 && $data['additional'] == 0) {
             return "Извините, информация по количеству оставшихся дней отпуска недоступна, попробуйте запросить позднее.";
         } else {
@@ -495,7 +497,7 @@ class constants {
                 $newDate = date('d.m.Y', strtotime($value['date1']));
                 $vacationsList .= "Отпуск $newDate (дней: ".$value['amount'].")\n";
             }
-            return "Неиспользованный остаток дней основного отпуска: ".$data['main'].", дополнительного отпуска: ".$data['additional'].".\n$vacationsList";
+            return "На $currentDate Вы имеете право на дней основного отпуска: ".$data['main'].", дополнительного отпуска: ".$data['additional'].".\n\nВаш график отпуска на $currentYear год:\n$vacationsList";
         }
     }
 
@@ -540,13 +542,19 @@ class constants {
     }
 
     function getRegularVacationDurationText($restVacationData, $vacationType) {
+        $currentDate = (string) date("d.m.Y");
         switch($vacationType) {
             case 0; case 1:
                 $restVacationDuration = $vacationType == 0 ? $restVacationData['main'] : $restVacationData['additional'];
                 $whichVacation = $vacationType == 0 ? 'основного' : 'дополнительного';
-                return "Количество оставшихся дней $whichVacation отпуска в этом году: $restVacationDuration. Введите желаемую длительность отпуска.\nПример: <b>$restVacationDuration</b>";
+                switch ($whichVacation) {
+                    case 'основного':
+                        return "На $currentDate Вы имеете право на дней $whichVacation отпуска: $restVacationDuration.\nВведите желаемое количество дней отпуска, которое Вы хотели бы оформить.\nПример: <b>14</b>";
+                    case 'дополнительного':
+                        return "На $currentDate Вы заработали дней $whichVacation отпуска: $restVacationDuration.\nВведите желаемое количество дней отпуска, которое Вы хотели бы оформить.\nПример: <b>4</b>";
+                }
             case 2; case 3:
-                return "Введите желаемую длительность отпуска (количество дней).\nПример: <b>$restVacationDuration</b>";
+                return "Введите желаемую длительность отпуска (количество дней).\nПример: <b>5</b>";
         }
     }
 
@@ -563,7 +571,7 @@ class constants {
     }
 
     function getSetPostponedVacationReasonText() {
-        return "Введите причину.\nПример: <b>по личным обстоятельствам.</b>";
+        return "Введите причину.\nПример: <b>по семейным обстоятельствам.</b>";
     }
 
     function getDateInThePastErrorText() {
