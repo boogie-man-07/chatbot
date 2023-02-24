@@ -75,6 +75,7 @@ class AuthorizedUserScenario {
                 $this->authroute->triggerActionForBotRestartedByAuthorized($this->chatID, $this->user['fullname']);
                 exit;
             case $this->commands['exit']:
+                $this->access->addAnalytics($this->user['user_id'], $this->analyticsTypes['DESTINATION'], $text);
                 $this->authroute->triggerActionForExitConfirmation($this->chatID, $this->user['firstname']);
                 exit;
             case $this->commands['confirmedExit']:
@@ -91,13 +92,15 @@ class AuthorizedUserScenario {
                 exit;
             case $this->commands['phones']:
                 $this->access->setState($this->chatID, $this->states['findTelephoneNumberState']);
-                $this->access->addAnalytics($this->user['user_id'], $this->analyticsTypes['DESTINATION'], $text, NULL);
+                $this->access->addAnalytics($this->user['user_id'], $this->analyticsTypes['DESTINATION'], $text);
                 $this->phonebookroute->triggerActionForFindPhoneNumber($this->chatID);
                 exit;
             case $this->commands['values']:
+                $this->access->addAnalytics($this->user['user_id'], $this->analyticsTypes['DESTINATION'], $text);
                 $this->valuesRoute->triggerActionForGetWelcomeValue($this->chatID, $this->user['firstname'], $this->commands['firstRuleInline']);
                 exit;
             case $this->commands['mainRules']:
+                $this->access->addAnalytics($this->user['user_id'], $this->analyticsTypes['DESTINATION'], $text);
                 $this->mainRulesRoute->triggerActionForEnterMainRulesMenu($this->chatID);
                 exit;
             case $this->commands['commonInformation']:
@@ -105,6 +108,7 @@ class AuthorizedUserScenario {
                     $this->salaryRoute->triggerActionForGetMainSalaryInformation($this->chatID, $this->user['company_id']);
                     exit;
                 } else {
+                    $this->access->addAnalytics($this->user['user_id'], $this->analyticsTypes['DESTINATION'], $text, NULL);
                     $this->mainInformationRoute->triggerActionForEnterMainInformationMenu($this->chatID, $this->user['company_id']);
                     exit;
                 }
@@ -148,6 +152,7 @@ class AuthorizedUserScenario {
                 $this->mainInformationRoute->triggerActionForShowNavigationSchemeToSaratov($this->chatID);
                 exit;
             case $this->commands['itHelp']:
+                $this->access->addAnalytics($this->user['user_id'], $this->analyticsTypes['DESTINATION'], $text);
                 $this->mainInformationRoute->triggerActionForShowItHelpMenu($this->chatID, $this->user['company_id']);
                 exit;
             case $this->commands['erpAnd1CFeedback']:
@@ -168,10 +173,12 @@ class AuthorizedUserScenario {
                 exit;
             case $this->commands['salaryInformation']:
                 $this->access->setState($this->chatID, $this->states['salaryState']);
+                $this->access->addAnalytics($this->user['user_id'], $this->analyticsTypes['DESTINATION'], $text);
                 $this->salaryRoute->triggerActionForShowSalaryMenu($this->chatID);
                 exit;
             case $this->commands['dmsInformation']:
                 $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
+                $this->access->addAnalytics($this->user['user_id'], $this->analyticsTypes['DESTINATION'], $text);
                 $this->salaryRoute->triggerActionForShowDmsMenu($this->chatID, $this->user['firstname'], $this->user['dms_type'], $pollInfo['is_finished'], $this->user['is_poll_available']);
                 exit;
             case $this->commands['dmsMemo']:
@@ -241,6 +248,7 @@ class AuthorizedUserScenario {
                         $this->access->saveFindUserData($this->chatID, $result['firstname'], $result['lastname']);
                         //todo maybe need to comment setState below, need to check how it works
                         $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
+                        $this->access->addAnalytics($this->user['user_id'], $this->analyticsTypes['INPUT'], $text);
                         $this->phonebookroute->triggerActionForGetUserCardOptions($this->chatID);
                         exit;
                     }
