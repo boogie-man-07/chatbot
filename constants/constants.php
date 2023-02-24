@@ -495,7 +495,7 @@ class constants {
         } else {
             foreach ($vacations['vacations'] as $value) {
                 $newDate = date('d.m.Y', strtotime($value['date1']));
-                $vacationsList .= "Отпуск $newDate (дней: ".$value['amount'].")\n";
+                $vacationsList .= "$newDate (дней: ".$value['amount'].")\n";
             }
             return "На $currentDate Вы имеете право на дней основного отпуска: ".$data['main'].", дополнительного отпуска: ".$data['additional'].".\n\nВаш график отпуска на $currentYear год:\n$vacationsList";
         }
