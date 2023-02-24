@@ -248,7 +248,7 @@ class AuthorizedUserScenario {
                         $this->access->saveFindUserData($this->chatID, $result['firstname'], $result['lastname']);
                         //todo maybe need to comment setState below, need to check how it works
                         $this->access->setState($this->chatID, $this->states['authorizationCompletedState']);
-                        $this->access->addAnalytics($this->user['user_id'], $this->analyticsTypes['INPUT'], $text);
+                        $this->access->addAnalytics($this->user['user_id'], $this->analyticsTypes['INPUT'], NULL, $text);
                         $this->phonebookroute->triggerActionForGetUserCardOptions($this->chatID);
                         exit;
                     }
