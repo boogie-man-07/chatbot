@@ -505,7 +505,7 @@ class constants {
         if (!$listCount) {
             return "$firstname, к сожалению, у Вас не осталось отпусков для переноса в этом году.";
         } else {
-            return "$firstname, выберите отпуск, который вы хотите перенести";
+            return "$firstname, выберите отпуск, который Вы хотели бы перенести.";
         }
     }
 
@@ -534,7 +534,7 @@ class constants {
     }
 
     function getSetRegularVacationEndDateText() {
-        return "Введите желаемую длительность отпуска (количество дней).\nПример: <b>14</b>";
+        return "Введите желаемое количество дней отпуска, которое Вы хотели бы оформить.\nПример: <b>14</b>";
     }
 
     function getPostponedVacationDurationText($restVacationDuration) {
@@ -554,7 +554,7 @@ class constants {
                         return "На $currentDate Вы заработали дней $whichVacation отпуска: $restVacationDuration.\nВведите желаемое количество дней отпуска, которое Вы хотели бы оформить.\nПример: <b>4</b>";
                 }
             case 2; case 3:
-                return "Введите желаемую длительность отпуска (количество дней).\nПример: <b>5</b>";
+                return "Введите желаемое количество дней отпуска, которое Вы хотели бы оформить.\nПример: <b>5</b>";
         }
     }
 
