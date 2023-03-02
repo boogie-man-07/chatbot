@@ -1355,7 +1355,7 @@ class access {
     }
 
     function insertDmsEmployee($userId) {
-        $sql = "INSERT INTO phonebook SET user_id=?";
+        $sql = "INSERT INTO employee_dms SET user_id=?";
         $statement = $this->conn->prepare($sql);
         if (!$statement) {
             throw new Exception($statement->error);
