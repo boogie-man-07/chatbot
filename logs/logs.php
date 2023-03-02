@@ -8,7 +8,7 @@
  */
 
 include_once ("logics/logics.php");
-$logics = new logics();
+
 
 class logs {
 
@@ -31,7 +31,7 @@ class logs {
     }
 
 	function logUpload($message, $email) {
-
+		$logics = new logics();
 		$current_date = $logics->getCurrentDate();
 		$current_date_time = $logics->getDateForLogging();
 		$logMessage = "[".(string)$current_date_time."];$message;$email\n";
@@ -40,8 +40,9 @@ class logs {
 	}
 
 	function dmsLogUpload($message) {
-        $current_date = $this->logics->getCurrentDate();
-        $current_date_time = $this->logics->getDateForLogging();
+        $logics = new logics();
+        $current_date = $logics->getCurrentDate();
+        $current_date_time = $logics->getDateForLogging();
         $logMessage = "[".(string)$current_date_time."];$message\n";
 
         file_put_contents('logs/dms_upload_log_'.$current_date.'.txt', $logMessage, FILE_APPEND | LOCK_EX);
