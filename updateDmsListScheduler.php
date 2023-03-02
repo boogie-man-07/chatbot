@@ -96,7 +96,7 @@ foreach ($dmsEmployeeList as $employeeValue) {
 
         } else if ($employeeValue['activity'] == 0) {
             echo $employeeValue['userId']." - сотрудник не активен, ничего не делаем<br>";
-            $logs->dmsLogUpload($employeeValue['email']." сотрудник не активен, ничего не делаем");
+            $logs->dmsLogUpload($employeeValue['userId']." сотрудник не активен, ничего не делаем");
         }
     }
 }
