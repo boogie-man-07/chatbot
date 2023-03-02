@@ -7,7 +7,6 @@ $user = trim($file["dbuser"]);
 $pass = trim($file["dbpass"]);
 $name = trim($file["dbname"]);
 $token = trim($file["token"]);
-$nc = new NCLNameCaseRu();
 
 require ("secure/access.php");
 $access = new access($host, $user, $pass, $name);
