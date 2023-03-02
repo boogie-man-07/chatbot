@@ -8,11 +8,11 @@ $pass = trim($file["dbpass"]);
 $name = trim($file["dbname"]);
 $token = trim($file["token"]);
 
-require ("secure/access.php");
+require ("../secure/access.php");
 $access = new access($host, $user, $pass, $name);
 $access->connect();
 
-require ("logs/logs.php");
+require ("../logs/logs.php");
 $logs = new logs();
 
 $result = Array();
