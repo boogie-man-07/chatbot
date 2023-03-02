@@ -8,5 +8,4 @@
 7. jobs_diall.sh;
 8. scheduler.php;
 9. schedulerDiall.php;
-10. schedulerDiall_backup.php;
-11. schedulers/rotationalEmployeeScheduler.php;
+10. schedulers/rotationalEmployeeScheduler.php;
