@@ -151,25 +151,48 @@ class access {
 
     function getUserByUserId($userId) {
 
-            $returnArray = array();
-            // sql command
-            $sql = "SELECT * FROM phonebook WHERE user_id='".$userId."'";
-            // assign result we got from $sql to result var
-            $result = $this->conn->query($sql);
+        $returnArray = array();
+        // sql command
+        $sql = "SELECT * FROM phonebook WHERE user_id='".$userId."'";
+        // assign result we got from $sql to result var
+        $result = $this->conn->query($sql);
 
-            // if we have at least 1 result returned
-            if ($result != null && (mysqli_num_rows($result) >= 1 )) {
+        // if we have at least 1 result returned
+        if ($result != null && (mysqli_num_rows($result) >= 1 )) {
 
-                // assign result we got to $row as associative array
-                $row = $result->fetch_array(MYSQLI_ASSOC);
+            // assign result we got to $row as associative array
+            $row = $result->fetch_array(MYSQLI_ASSOC);
 
-                if (!empty($row)) {
-                    $returnArray = $row;
-                }
+            if (!empty($row)) {
+                $returnArray = $row;
             }
-
-            return $returnArray;
         }
+
+        return $returnArray;
+    }
+
+    function getDmsUserByUserId($userId) {
+        $returnArray = array();
+        $sql = "SELECT * FROM employee_dms WHERE user_id='".$userId."'";
+        $result = $this->conn->query($sql);
+        if ($result != null && (mysqli_num_rows($result) >= 1 )) {
+            $row = $result->fetch_array(MYSQLI_ASSOC);
+            if (!empty($row)) {
+                $returnArray = $row;
+            }
+        }
+        return $returnArray;
+    }
+
+    function removeDmsEmployeeByUserId($userId) {
+        $sql = "DELETE from employee_dms WHERE user_id='".$userId."'";
+        $statement = $this->conn->prepare($sql);
+        if (!$statement) {
+            throw new Exception($statement->error);
+        }
+        $returnValue = $statement->execute();
+        return $returnValue;
+    }
 
     function getUserByFirstnameAndLastName($firstname, $lastname, $ids) {
 
@@ -1327,6 +1350,17 @@ class access {
         $statement->bind_param("sssssssssssssiiiiiissss", $userId, $physicalId, $lastname, $firstname, $fullname, $form_fullname, $position, $form_position, $email, $office_number, $internal_number, $mobile_number, $company_name, $company_id, $is_employee, $isRotational, $is_sigma_available, $is_greenhouse_available, $is_diall_available, $boss, $boss_position, $main_holliday_counter, $additional_holliday_counter);
 
         // launch/execute and store feedback to returnValue
+        $returnValue = $statement->execute();
+        return $returnValue;
+    }
+
+    function insertDmsEmployee($userId) {
+        $sql = "INSERT INTO phonebook SET user_id=?";
+        $statement = $this->conn->prepare($sql);
+        if (!$statement) {
+            throw new Exception($statement->error);
+        }
+        $statement->bind_param("s", $userId);
         $returnValue = $statement->execute();
         return $returnValue;
     }
