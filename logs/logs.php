@@ -39,11 +39,11 @@ class logs {
 		file_put_contents('logs/upload_log_'.$current_date.'.txt', $logMessage, FILE_APPEND | LOCK_EX);
 	}
 
-	function dmsLogUpload($message, $email) {
+	function dmsLogUpload($message) {
         $logics = new logics();
         $current_date = $logics->getCurrentDate();
         $current_date_time = $logics->getDateForLogging();
-        $logMessage = "[".(string)$current_date_time."];$message;$email\n";
+        $logMessage = "[".(string)$current_date_time."];$message\n";
 
         file_put_contents('logs/dms_upload_log_'.$current_date.'.txt', $logMessage, FILE_APPEND | LOCK_EX);
     }

@@ -53,6 +53,7 @@ if ($err) {
             $userItem = array(
                 'userId' => $user['guid'],
                 'email' => $user['email'],
+                'fullname' => $user['fullname'],
                 'company_name' => $user['company_name'],
                 'company_id' => $user['company_id'],
                 'activity' => $user['activity']
