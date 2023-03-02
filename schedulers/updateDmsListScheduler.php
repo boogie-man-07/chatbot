@@ -83,14 +83,14 @@ foreach ($dmsEmployeeList as $employeeValue) {
 
         } else if ($employeeValue['activity'] == 0) {
 
-            $access->removeDmsEmployeeByUserId($employeeValue['userId']);
+//             $access->removeDmsEmployeeByUserId($employeeValue['userId']);
             echo $employeeValue['userId']." - сотрудник не активен, удаляем из таблицы DMS<br>";
             $logs->dmsLogUpload($employeeValue['userId']." - сотрудник не активен, удаляем из таблицы DMS");
         }
     } else {
         if ($employeeValue['activity'] == 1) {
 
-            $access->insertDmsEmployee($employeeValue['userId']);
+//             $access->insertDmsEmployee($employeeValue['userId']);
             echo $employeeValue['userId']." - активный новый сотрудник, добавляем в таблицу DMS<br>";
             $logs->dmsLogUpload($employeeValue['userId']." - активный новый сотрудник, добавляем в таблицу DMS<br>");
 
