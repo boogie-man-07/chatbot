@@ -1462,7 +1462,7 @@ class AuthorizedUserScenario {
                         $formData = $this->access->getIssuingDocumentData($this->user['user_id']);
                         sendMessage($this->chatID, "Строка 1463 $text", null);
                         switch ($text) {
-                            case 1; case 2:
+                            case "1"; case "2":
                                 switch ($formData['issue_type']) {
                                     case 6:
                                         $this->salaryRoute->triggerActionForRegisterDocumentForm($this->chatID);
