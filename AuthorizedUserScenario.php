@@ -624,7 +624,7 @@ class AuthorizedUserScenario {
                         case $this->states['documentDeliveryTypeFreeFormWaitingState']:
                             $this->access->setIssuingDocumentDeliveryTypeFreeForm($this->user['user_id'], $text);
                             $formData = $this->access->getIssuingDocumentData($this->user['user_id']);
-                            switch ($formData['reference_type']) {
+                            switch ($formData['issue_type']) {
                                 case 6:
                                     $this->salaryRoute->triggerActionForRegisterDocumentForm($this->chatID);
                                     exit;
