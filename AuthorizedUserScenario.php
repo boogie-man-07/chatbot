@@ -627,10 +627,10 @@ class AuthorizedUserScenario {
                             $this->access->setIssuingDocumentDeliveryTypeFreeForm($this->user['user_id'], $text);
                             $formData = $this->access->getIssuingDocumentData($this->user['user_id']);
                             switch ($formData['issue_type']) {
-                                case 6:
+                                case 5:
                                     $this->salaryRoute->triggerActionForRegisterDocumentForm($this->chatID);
                                     exit;
-                                case 7:
+                                case 6:
                                     $this->salaryRoute->triggerActionForRegisterDocumentCopyForm($this->chatID);
                                     exit;
                             }
@@ -1460,8 +1460,6 @@ class AuthorizedUserScenario {
                         answerCallbackQuery($this->query["id"], "Данные загружены!");
                         $this->access->setIssuingDocumentDeliveryType($this->user['user_id'], (int)$text);
                         $formData = $this->access->getIssuingDocumentData($this->user['user_id']);
-                        sendMessage($this->chatID, "Строка 1463 $text", null);
-                        sendMessage($this->chatID, "Строка 1464 ".json_encode($formData), null);
                         switch ((int)$text) {
                             case 1; case 2:
                                 switch ($formData['issue_type']) {
