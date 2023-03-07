@@ -1460,6 +1460,7 @@ class AuthorizedUserScenario {
                         answerCallbackQuery($this->query["id"], "Данные загружены!");
                         $this->access->setIssuingDocumentDeliveryType($this->user['user_id'], (int)$text);
                         $formData = $this->access->getIssuingDocumentData($this->user['user_id']);
+                        sendMessage($this->chatID, "Строка 1463 $text", null);
                         switch ((int)$text) {
                             case 1; case 2:
                                 switch ($formData['issue_type']) {
