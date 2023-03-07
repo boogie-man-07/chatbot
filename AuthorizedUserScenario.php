@@ -1465,10 +1465,10 @@ class AuthorizedUserScenario {
                         switch ((int)$text) {
                             case 1; case 2:
                                 switch ($formData['issue_type']) {
-                                    case 6:
+                                    case 5:
                                         $this->salaryRoute->triggerActionForRegisterDocumentForm($this->chatID);
                                         exit;
-                                    case 7:
+                                    case 6:
                                         $this->salaryRoute->triggerActionForRegisterDocumentCopyForm($this->chatID);
                                         exit;
                                 }
