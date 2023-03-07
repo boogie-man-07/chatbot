@@ -610,7 +610,6 @@ class AuthorizedUserScenario {
 //                                 $this->salaryRoute->triggerActionForRegisterDocumentForm($this->chatID);
                                 $this->access->setState($this->chatID, $this->states['documentDeliveryTypeWaitingState']);
                                 $this->salaryRoute->triggerActionForRequestDocumentDeliveryType($this->chatID);
-                                sendMessage($this->chatID, 'Строка 613', null);
                                 exit;
                             } else {
                                 $this->commonmistakeroute->triggerActionForDateFormatError($this->chatID);
@@ -621,7 +620,6 @@ class AuthorizedUserScenario {
 //                             $this->salaryRoute->triggerActionForRegisterDocumentForm($this->chatID);
                             $this->access->setState($this->chatID, $this->states['documentDeliveryTypeWaitingState']);
                             $this->salaryRoute->triggerActionForRequestDocumentDeliveryType($this->chatID);
-                            sendMessage($this->chatID, 'Строка 624', null);
                             exit;
                         case $this->states['documentDeliveryTypeFreeFormWaitingState']:
                             $this->access->setIssuingDocumentDeliveryTypeFreeForm($this->user['user_id'], $text);
@@ -639,7 +637,6 @@ class AuthorizedUserScenario {
                             $this->access->saveIssuingDocumentData($this->user['user_id'], $text);
                             $this->access->setState($this->chatID, $this->states['documentDeliveryTypeWaitingState']);
                             $this->salaryRoute->triggerActionForRequestDocumentDeliveryType($this->chatID);
-                            sendMessage($this->chatID, 'Строка 642', null);
 //                             $this->salaryRoute->triggerActionForRegisterDocumentCopyForm($this->chatID);
                             exit;
                         case $this->states['dmsQuestionWaitingState']:
@@ -1359,7 +1356,6 @@ class AuthorizedUserScenario {
 //                                 $this->salaryRoute->triggerActionForRegisterDocumentForm($this->chatID);
                                 $this->access->setState($this->chatID, $this->states['documentDeliveryTypeWaitingState']);
                                 $this->salaryRoute->triggerActionForRequestDocumentDeliveryType($this->chatID);
-                                sendMessage($this->chatID, 'Строка 1362', null);
                                 exit;
                             case 4; case 5; case 6:
                                 answerCallbackQuery($this->query["id"], "Данные загружены!");
