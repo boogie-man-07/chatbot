@@ -1459,8 +1459,7 @@ class AuthorizedUserScenario {
                     case $this->states['documentDeliveryTypeWaitingState']:
                         answerCallbackQuery($this->query["id"], "Данные загружены!");
                         $this->access->setIssuingDocumentDeliveryType($this->user['user_id'], (int)$text);
-                        $formData = $this->access->
-                        ($this->user['user_id']);
+                        $formData = $this->access->getIssuingDocumentData($this->user['user_id']);
                         sendMessage($this->chatID, "Строка 1463 $text", null);
                         sendMessage($this->chatID, "Строка 1464 ".json_encode($formData), null);
                         switch ((int)$text) {
