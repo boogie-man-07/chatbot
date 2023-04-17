@@ -232,7 +232,7 @@ class keyboards {
     }
 
     function getItHelpMenuInlineKeyboard($companyId, $email) {
-        $domainString = substr($email, strpos($data, "@") + 1);
+        $domainString = substr($email, strpos($email, "@") + 1);
         $domain = strtok($domainString, '.');
         switch ($companyId) {
             case 1:
@@ -248,7 +248,7 @@ class keyboards {
                             array("text" => "Ресурсы"),
                             array("text" => "Другое"),
                         ),
-                        array(array("text" => "Разблокировать учетную запись")),
+                        $domain === 'diall' ? array(array("text" => "Разблокировать учетную запись")) : '',
                         array(array("text" => "Назад"))
                     ),
                     "resize_keyboard" => true,
