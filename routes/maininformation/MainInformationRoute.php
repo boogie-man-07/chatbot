@@ -44,7 +44,7 @@ class MainInformationRoute {
         $reply = $this->constants::getReplyForEnterItHelpInlineMenu($companyId, $email);
         $keyboard = $this->keyboards::getItHelpMenuInlineKeyboard($companyId, $email);
         sendMessage($chatID, $reply, $keyboard);
-        $domainString = substr($email, strpos($data, "@") + 1);
+        $domainString = substr($email, strpos($email, "@") + 1);
         $domain = strtok($domainString, '.');
         sendMessage($chatID, $domain, null);
     }
