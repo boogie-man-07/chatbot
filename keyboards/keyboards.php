@@ -231,7 +231,9 @@ class keyboards {
         }
     }
 
-    function getItHelpMenuInlineKeyboard($companyId) {
+    function getItHelpMenuInlineKeyboard($companyId, $email) {
+        $domainString = substr($email, strpos($data, "@") + 1);
+        $domain = strtok($domainString, '.');
         switch ($companyId) {
             case 1:
                 return null;

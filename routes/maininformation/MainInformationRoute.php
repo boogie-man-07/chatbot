@@ -40,9 +40,9 @@ class MainInformationRoute {
         sendPhoto($chatID, $reply, null);
     }
 
-    function triggerActionForShowItHelpMenu($chatID, $companyId) {
-        $reply = $this->constants::getReplyForEnterItHelpInlineMenu($companyId);
-        $keyboard = $this->keyboards::getItHelpMenuInlineKeyboard($companyId);
+    function triggerActionForShowItHelpMenu($chatID, $companyId, $email) {
+        $reply = $this->constants::getReplyForEnterItHelpInlineMenu($companyId, $email);
+        $keyboard = $this->keyboards::getItHelpMenuInlineKeyboard($companyId, $email);
         sendMessage($chatID, $reply, $keyboard);
     }
 
