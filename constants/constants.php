@@ -280,7 +280,7 @@ class constants {
     }
 
     function getReplyForEnterItHelpInlineMenu($companyId, $email) {
-        $domainString = substr($email, strpos($data, "@") + 1);
+        $domainString = substr($email, strpos($email, "@") + 1);
         $domain = strtok($domainString, '.');
         switch ($companyId) {
             case 1:
