@@ -153,7 +153,7 @@ class AuthorizedUserScenario {
                 exit;
             case $this->commands['itHelp']:
                 $this->access->addAnalytics($this->user['user_id'], $this->analyticsTypes['DESTINATION'], $text);
-                $this->mainInformationRoute->triggerActionForShowItHelpMenu($this->chatID, $this->user['company_id']);
+                $this->mainInformationRoute->triggerActionForShowItHelpMenu($this->chatID, $this->user['company_id'], $this->user['email']);
                 exit;
             case $this->commands['erpAnd1CFeedback']:
                 $this->access->setState($this->chatID, $this->states['erpFeedbackWaitingState']);
@@ -170,6 +170,9 @@ class AuthorizedUserScenario {
             case $this->commands['otherFeedback']:
                 $this->access->setState($this->chatID, $this->states['otherFeedbackWaitingState']);
                 $this->mainInformationRoute->triggerActionForProceedOtherFeedback($this->chatID, $this->user['firstname']);
+                exit;
+            case $this->commands['unlockAccount']:
+                sendMessage($this->chatID, 'Ваша учетная запись разблокирована.', null);
                 exit;
             case $this->commands['salaryInformation']:
                 $this->access->setState($this->chatID, $this->states['salaryState']);
