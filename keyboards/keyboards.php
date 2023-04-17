@@ -232,13 +232,11 @@ class keyboards {
     }
 
     function getItHelpMenuInlineKeyboard($companyId, $email) {
-        $domainString = substr($email, strpos($email, "@") + 1);
-        $domain = strtok($domainString, '.');
         switch ($companyId) {
             case 1:
                 return null;
             case 3:
-                return json_encode(array(
+                $keyboard = array(
                     "keyboard" => array(
                         array(
                             array("text" => "1С, ERP"),
@@ -248,12 +246,20 @@ class keyboards {
                             array("text" => "Ресурсы"),
                             array("text" => "Другое"),
                         ),
-                        $domain === 'diall' ? array(array("text" => "Разблокировать учетную запись")) : '',
-                        array(array("text" => "Назад"))
                     ),
                     "resize_keyboard" => true,
                     "one_time_keyboard" => false
-                ));
+                )
+
+                $domainString = substr($email, strpos($email, "@") + 1);
+                $domain = strtok($domainString, '.');
+                $unlockLine = array(array("text" => "Разблокировать учетную запись"));
+                $bottomLine = array(array("text" => "Назад"));
+                if ($domain === 'diall') {
+                    array_push($keyboard['keyboard'], $unlockLine);
+                }
+                array_push($keyboard['keyboard'], $bottomLine);
+                return json_encode($keyboard);
         }
     }
 
