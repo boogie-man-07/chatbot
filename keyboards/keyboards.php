@@ -239,26 +239,15 @@ class keyboards {
                 return json_encode(array(
                     "keyboard" => array(
                         array(
-                            array(
-                                "text" => "1С, ERP"
-                            ),
-                            array(
-                                "text" => "Оборудование"
-                            ),
+                            array("text" => "1С, ERP"),
+                            array("text" => "Оборудование"),
                         ),
                         array(
-                            array(
-                                "text" => "Ресурсы"
-                            ),
-                            array(
-                                "text" => "Другое"
-                            ),
+                            array("text" => "Ресурсы"),
+                            array("text" => "Другое"),
                         ),
-                        array(
-                            array(
-                                "text" => "Назад"
-                            )
-                        )
+                        array(array("text" => "Разблокировать учетную запись")),
+                        array(array("text" => "Назад"))
                     ),
                     "resize_keyboard" => true,
                     "one_time_keyboard" => false
@@ -300,7 +289,7 @@ class keyboards {
                     array("text" => "Сроки выплаты"),
                 ),
                 array(
-                    array("text" => "Заявления"),
+                    //array("text" => "Заявления"),
                     array("text" => "Мой отпуск")
                 ),
                 array(
