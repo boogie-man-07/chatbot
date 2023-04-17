@@ -249,7 +249,7 @@ class keyboards {
                     ),
                     "resize_keyboard" => true,
                     "one_time_keyboard" => false
-                )
+                );
 
                 $domainString = substr($email, strpos($email, "@") + 1);
                 $domain = strtok($domainString, '.');
