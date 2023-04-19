@@ -63,7 +63,7 @@ class AuthorizedUserScenario {
             $this->logs->logCustom($text, $this->user['fullname']);
         }
 
-        $this->hotRoute->proceedIfHotDialog($this->chatID, $text);
+        $this->hotRoute->proceedIfHotDialog($this->chatID, $text); exit;
 
         switch ($text) {
             // remove
