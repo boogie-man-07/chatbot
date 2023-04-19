@@ -28,8 +28,9 @@ class AuthorizedUserScenario {
     var $logs = null;
     var $messageId = null;
     var $hrLinkApiProvider = null;
+    var $adApiProvider = null;
 
-    function __construct($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $phonebookroute, $valuesRoute, $mainRulesRoute, $mainInformationRoute, $salaryRoute, $hotRoute, $commands, $states, $analyticsTypes, $state, $logics, $forms, $email, $vacationInfo, $calendarInfo, $query, $logs, $messageId, $hrLinkApiProvider) {
+    function __construct($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $phonebookroute, $valuesRoute, $mainRulesRoute, $mainInformationRoute, $salaryRoute, $hotRoute, $commands, $states, $analyticsTypes, $state, $logics, $forms, $email, $vacationInfo, $calendarInfo, $query, $logs, $messageId, $hrLinkApiProvider, $adApiProvider) {
         $this->chatID = $chatID;
         $this->user = $user;
         $this->username = $username;
@@ -56,6 +57,7 @@ class AuthorizedUserScenario {
         $this->logs = $logs;
         $this->messageId = $messageId;
         $this->hrLinkApiProvider = $hrLinkApiProvider;
+        $this->adApiProvider = $adApiProvider;
     }
 
     function run($text) {
@@ -176,8 +178,14 @@ class AuthorizedUserScenario {
                 $this->mainInformationRoute->triggerActionForProceedOtherFeedback($this->chatID, $this->user['firstname']);
                 exit;
             case $this->commands['unlockAccount']:
-                sendMessage($this->chatID, 'Ваша учетная запись разблокирована.', null);
-                exit;
+                $activationResult = $this->adApiProvider->activate($this->user['email']);
+                if ($activationResult['result']) {
+                    sendMessage($this->chatID, 'Ваша учетная запись разблокирована.', null);
+                    exit;
+                } else {
+                    sendMessage($this->chatID, 'Ошибка разблокировки учетной записи.', null);
+                    exit;
+                }
             case $this->commands['salaryInformation']:
                 $this->access->setState($this->chatID, $this->states['salaryState']);
                 $this->access->addAnalytics($this->user['user_id'], $this->analyticsTypes['DESTINATION'], $text);

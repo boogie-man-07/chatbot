@@ -26,6 +26,7 @@ require ("Forms.php");
 require ("VacationInfo.php");
 require ("CalendarInfo.php");
 require ("HrLinkApiProvider.php");
+require (ROOT_DIR.'/providers/ADApiProvider.php');
 
 // DB connection
 $file = parse_ini_file("../../Testbotdb.ini");
@@ -49,6 +50,7 @@ $forms = new Forms();
 $vacationInfo = new VacationInfo();
 $calendarInfo = new CalendarInfo();
 $hrLinkApiProvider = new HrLinkApiProvider();
+$adApiProvider = new ADApiProvider();
 $authroute = new authroute($constants, $keyboards, $logics);
 $commonmistakeroute = new commonmistakeroute($constants, $keyboards);
 $phonebookroute = new PhonebookRoute($constants, $keyboards);
@@ -97,7 +99,7 @@ if (!$user) {
             $nonFinishedAuthorizationUserScenario->run($text);
         }
     } else {
-        $authorizedUserScenario = new AuthorizedUserScenario($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $phonebookroute, $valuesRoute, $mainRulesRoute, $mainInformationRoute, $salaryRoute, $hotRoute, $commandList, $statesList, $analyticsTypes, $state, $logics, $forms, $email, $vacationInfo, $calendarInfo, $query, $logs, $messageId, $hrLinkApiProvider);
+        $authorizedUserScenario = new AuthorizedUserScenario($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $phonebookroute, $valuesRoute, $mainRulesRoute, $mainInformationRoute, $salaryRoute, $hotRoute, $commandList, $statesList, $analyticsTypes, $state, $logics, $forms, $email, $vacationInfo, $calendarInfo, $query, $logs, $messageId, $hrLinkApiProvider, $adApiProvider);
         if ($isInline) {
             $authorizedUserScenario->runInline($text);
         } else {
