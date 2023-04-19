@@ -82,7 +82,7 @@ if ($err) {
                 'form_fullname' => $nc->q($user['fullname'], NCL::$RODITLN),
                 'position' => $user['position'],
                 'form_position' => $user['position'],
-                'email' => $user['email'],
+                'email' => mb_strtolower($user['email']),
                 'office_number' => $user['office_number'],
                 'internal_number' => $user['internal_number'],
                 'mobile_number' => $user['guid'] == 'c9371d0c-b3e8-11ec-a1bf-d4f5ef044d5f' ? 'Отсутствует' : $user['mobile_number'], // check if CEO
