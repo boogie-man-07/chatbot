@@ -646,6 +646,10 @@ class constants {
         return "У Вас еще остались дни в данном отпуске, которые необходимо перенесети. Количество оставшихся дней: $restDuration.Пожалуйста, укажите дату начала отпуска.\nПример: <b>1.01.2023 или 01.01.2023</b>";
     }
 
+    function getReplyForADSuccessfulActivation() {
+        return 'Ваша учетная запись разблокирована.';
+    }
+
     function getReplyForIncorrectEmailFormatError() {
         return "К сожалению, введенный адрес электронной почты некорректен. Попробуйте еще раз!";
     }

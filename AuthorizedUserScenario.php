@@ -178,15 +178,9 @@ class AuthorizedUserScenario {
                 $this->mainInformationRoute->triggerActionForProceedOtherFeedback($this->chatID, $this->user['firstname']);
                 exit;
             case $this->commands['unlockAccount']:
-                $activationResult = $this->adApiProvider->activate($this->user['email']);
-                sendMessage($this->chatID, json_encode($activationResult), null); exit;
-//                 if ($activationResult['result']) {
-//                     sendMessage($this->chatID, 'Ваша учетная запись разблокирована.', null);
-//                     exit;
-//                 } else {
-//                     sendMessage($this->chatID, 'Ошибка разблокировки учетной записи.', null);
-//                     exit;
-//                 }
+                $this->adApiProvider->activate($this->user['email']);
+                $this->mainInformationRoute->triggerActionForADSuccessfulActivation($this->chatID);
+                exit;
             case $this->commands['salaryInformation']:
                 $this->access->setState($this->chatID, $this->states['salaryState']);
                 $this->access->addAnalytics($this->user['user_id'], $this->analyticsTypes['DESTINATION'], $text);
