@@ -469,7 +469,7 @@ class keyboards {
         $vacation = array();
         foreach($data['vacations'] as $key=>$value) {
             $newDate = date('d.m.Y', strtotime($value['date1']));
-            $itemTitle = "$newDate (дней: ".$value['amount'].")";
+            $itemTitle = "$newDate (".$this->getDaysString($value['amount']).")";
             $callback_data = $chatID."_".$key;
             $vacationItem = array(array(
                 "text" => $itemTitle,
@@ -914,5 +914,25 @@ class keyboards {
             "one_time_keyboard" => false
         );
         return json_encode($keyboard);
+    }
+
+    function getDaysString($value) {
+        $lastNumber = null;
+        if (strrpos($value, ',') === false) {
+          $wholeNumber = $value;
+          $checkNumber = mb_strlen($wholeNumber, "UTF-8") > 1 ? substr($wholeNumber, -2) : $wholeNumber;
+          switch ((integer) $checkNumber) {
+            case 1:
+              return "$value день";
+            case 2; case 3; case 4:
+                return "$value дня";
+            case 5; case 6; case 7; case 8; case 9; case 0:
+                  return "$value дней";
+              default:
+                  return "$value дней";
+          }
+        } else {
+          return "$value дня";
+        }
     }
 }
