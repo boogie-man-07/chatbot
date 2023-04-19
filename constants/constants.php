@@ -503,7 +503,7 @@ class constants {
                 $newDate = date('d.m.Y', strtotime($value['date1']));
                 $vacationsList .= "$newDate (дней: ".$value['amount'].")\n";
             }
-            return "На $currentDate Вы имеете право на ".getDaysString($data['main'])." основного отпуска, ".getDaysString($data['additional'])." дополнительного отпуска.\n\nВаш график отпуска на $currentYear год:\n$vacationsList";
+            return "На $currentDate Вы имеете право на ".$this->getDaysString($data['main'])." основного отпуска, ".$this->getDaysString($data['additional'])." дополнительного отпуска.\n\nВаш график отпуска на $currentYear год:\n$vacationsList";
         }
     }
 
