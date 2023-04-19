@@ -503,7 +503,7 @@ class constants {
                 $newDate = date('d.m.Y', strtotime($value['date1']));
                 $vacationsList .= "$newDate (дней: ".$value['amount'].")\n";
             }
-            return "На $currentDate Вы имеете право на дней основного отпуска: ".$data['main'].", дополнительного отпуска: ".$data['additional'].".\n\nВаш график отпуска на $currentYear год:\n$vacationsList";
+            return "На $currentDate Вы имеете право на ".getDaysString($data['main'])." основного отпуска, ".getDaysString($data['additional'])." дополнительного отпуска.\n\nВаш график отпуска на $currentYear год:\n$vacationsList";
         }
     }
 
@@ -656,5 +656,26 @@ class constants {
 
     function SmsCodeSendingErrorText($errorMessage) {
         return "<b>Ошибка!</b>\n$errorMessage";
+    }
+
+    function getDaysString($value) {
+        $lastNumber = null;
+        $wholeNumber = strstr($value, ',', true);
+        $checkNumber = mb_strlen($wholeNumber, "UTF-8") === 1 ? $wholeNumber : substr($wholeNumber, -2);
+
+        if (strrpos($value, ',') === false) {
+          switch ((integer) $checkNumber) {
+            case 1:
+              return "$value день.";
+            case 2; case 3; case 4:
+                return "$value дня.";
+            case 5; case 6; case 7; case 8; case 9; case 0:
+                  return "$value дней.";
+              default:
+                  return "$value дней.";
+          }
+        } else {
+          return "$value дня.";
+        }
     }
 }
