@@ -660,10 +660,9 @@ class constants {
 
     function getDaysString($value) {
         $lastNumber = null;
-        $wholeNumber = strstr($value, ',', true);
-        $checkNumber = mb_strlen($wholeNumber, "UTF-8") === 1 ? $wholeNumber : substr($wholeNumber, -2);
-
         if (strrpos($value, ',') === false) {
+          $wholeNumber = $value;
+          $checkNumber = mb_strlen($wholeNumber, "UTF-8") > 1 ? substr($wholeNumber, -2) : $wholeNumber;
           switch ((integer) $checkNumber) {
             case 1:
               return "$value день";
