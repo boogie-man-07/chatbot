@@ -555,9 +555,9 @@ class constants {
                 $whichVacation = $vacationType == 0 ? 'основного' : 'дополнительного';
                 switch ($whichVacation) {
                     case 'основного':
-                        return "На $currentDate Вы имеете право на дней $whichVacation отпуска: $restVacationDuration.\nВведите желаемое количество дней отпуска, которое Вы хотели бы оформить.\nПример: <b>14</b>";
+                        return "На $currentDate Вы имеете право на ".$this->getDaysString($restVacationDuration)." $whichVacation отпуска.\nВведите желаемое количество дней отпуска, которое Вы хотели бы оформить.\nПример: <b>14</b>";
                     case 'дополнительного':
-                        return "На $currentDate Вы заработали дней $whichVacation отпуска: $restVacationDuration.\nВведите желаемое количество дней отпуска, которое Вы хотели бы оформить.\nПример: <b>4</b>";
+                        return "На $currentDate Вы заработали ".$this->getDaysString($restVacationDuration)." $whichVacation отпуска.\nВведите желаемое количество дней отпуска, которое Вы хотели бы оформить.\nПример: <b>4</b>";
                 }
             case 2; case 3:
                 return "Введите желаемое количество дней отпуска, которое Вы хотели бы оформить.\nПример: <b>5</b>";
