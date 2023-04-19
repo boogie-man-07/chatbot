@@ -42,6 +42,26 @@ class ADApiProvider {
             }
         }
     }
+
+    function getlogin($value) {
+        $lastNumber = null;
+        if (strrpos($value, ',') === false) {
+          $wholeNumber = $value;
+          $checkNumber = mb_strlen($wholeNumber, "UTF-8") > 1 ? substr($wholeNumber, -2) : $wholeNumber;
+          switch ((integer) $checkNumber) {
+            case 1:
+              return "$value день";
+            case 2; case 3; case 4:
+                return "$value дня";
+            case 5; case 6; case 7; case 8; case 9; case 0:
+                  return "$value дней";
+              default:
+                  return "$value дней";
+          }
+        } else {
+          return "$value дня";
+        }
+    }
 }
 
 ?>
