@@ -76,4 +76,9 @@ class MainInformationRoute {
         $reply = $this->constants::getReplyForFeedbackIsSent();
         sendMessage($chatID, $reply, null);
     }
+
+    function triggerActionForADSuccessfulActivation($chatID) {
+        $reply = $this->constants::getReplyForADSuccessfulActivation();
+        sendMessage($chatID, $reply, null);
+    }
 }
