@@ -21,6 +21,7 @@ class HotRoute {
     function proceedIfHotDialog($chatID, $text) {
 
         if ($this->isHotPhrase($text)) {
+            $phrase = mb_strtolower($text);
             switch ($phrase) {
                 case 'отпуск':
                     $this->triggerActionForGetMyVacationInformation($chatID);
