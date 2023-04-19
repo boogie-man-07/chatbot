@@ -15,7 +15,7 @@ class HotRoute {
     }
 
     function isHotPhrase($text) {
-        return $text === mb_strtolower('отпуск');
+        return mb_strtolower($text) === 'отпуск';
     }
 
     function proceedIfHotDialog($chatID, $text) {
