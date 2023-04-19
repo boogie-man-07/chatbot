@@ -8,6 +8,7 @@ require_once (ROOT_DIR.'/routes/values/ValuesRoute.php');
 require_once (ROOT_DIR.'/routes/mainrules/MainRulesRoute.php');
 require_once (ROOT_DIR.'/routes/maininformation/MainInformationRoute.php');
 require_once (ROOT_DIR.'/routes/salary/SalaryRoute.php');
+require_once (ROOT_DIR.'/routes/hot/HotRoute.php');
 require_once ('./UnauthorizedUserScenario.php');
 require_once ('./NonFinishedAuthorizationUserScenario.php');
 require_once ('./AuthorizedUserScenario.php');
@@ -55,6 +56,7 @@ $valuesRoute = new ValuesRoute($constants, $keyboards);
 $mainRulesRoute = new MainRulesRoute($constants, $keyboards);
 $mainInformationRoute = new MainInformationRoute($constants, $keyboards);
 $salaryRoute = new SalaryRoute($constants, $keyboards);
+$hotRoute = new HotRoute($constants, $keyboards);
 
 $json = file_get_contents('constants/localization.json');
 $data = json_decode($json, true);
@@ -95,7 +97,7 @@ if (!$user) {
             $nonFinishedAuthorizationUserScenario->run($text);
         }
     } else {
-        $authorizedUserScenario = new AuthorizedUserScenario($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $phonebookroute, $valuesRoute, $mainRulesRoute, $mainInformationRoute, $salaryRoute, $commandList, $statesList, $analyticsTypes, $state, $logics, $forms, $email, $vacationInfo, $calendarInfo, $query, $logs, $messageId, $hrLinkApiProvider);
+        $authorizedUserScenario = new AuthorizedUserScenario($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $phonebookroute, $valuesRoute, $mainRulesRoute, $mainInformationRoute, $salaryRoute, $hotRoute, $commandList, $statesList, $analyticsTypes, $state, $logics, $forms, $email, $vacationInfo, $calendarInfo, $query, $logs, $messageId, $hrLinkApiProvider);
         if ($isInline) {
             $authorizedUserScenario->runInline($text);
         } else {

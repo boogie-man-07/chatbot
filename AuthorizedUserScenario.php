@@ -14,6 +14,7 @@ class AuthorizedUserScenario {
     var $mainRulesRoute = null;
     var $mainInformationRoute = null;
     var $salaryRoute = null;
+    var $hotRoute = null;
     var $commands = null;
     var $states = null;
     var $analyticsTypes = null;
@@ -28,7 +29,7 @@ class AuthorizedUserScenario {
     var $messageId = null;
     var $hrLinkApiProvider = null;
 
-    function __construct($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $phonebookroute, $valuesRoute, $mainRulesRoute, $mainInformationRoute, $salaryRoute, $commands, $states, $analyticsTypes, $state, $logics, $forms, $email, $vacationInfo, $calendarInfo, $query, $logs, $messageId, $hrLinkApiProvider) {
+    function __construct($chatID, $user, $username, $access, $swiftmailer, $authroute, $commonmistakeroute, $phonebookroute, $valuesRoute, $mainRulesRoute, $mainInformationRoute, $salaryRoute, $hotRoute, $commands, $states, $analyticsTypes, $state, $logics, $forms, $email, $vacationInfo, $calendarInfo, $query, $logs, $messageId, $hrLinkApiProvider) {
         $this->chatID = $chatID;
         $this->user = $user;
         $this->username = $username;
@@ -41,6 +42,7 @@ class AuthorizedUserScenario {
         $this->mainRulesRoute = $mainRulesRoute;
         $this->mainInformationRoute = $mainInformationRoute;
         $this->salaryRoute = $salaryRoute;
+        $this->hotRoute = $hotRoute;
         $this->commands = $commands;
         $this->states = $states;
         $this->analyticsTypes = $analyticsTypes;
@@ -60,6 +62,8 @@ class AuthorizedUserScenario {
         if($this->chatID == '187967374' || $this->chatID == '5389293300') {
             $this->logs->logCustom($text, $this->user['fullname']);
         }
+
+        $this->hotRoute->proceedIfHotDialog($this->chatID, $text);
 
         switch ($text) {
             // remove
