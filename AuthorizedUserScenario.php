@@ -178,7 +178,7 @@ class AuthorizedUserScenario {
                 $this->mainInformationRoute->triggerActionForProceedOtherFeedback($this->chatID, $this->user['firstname']);
                 exit;
             case $this->commands['unlockAccount']:
-                sendMessage($this->chatID, strrpos($this->user['email'], '@'), null); exit;
+                sendMessage($this->chatID, strtok($this->user['email'], '@'), null); exit;
                 /*$activationResult = $this->adApiProvider->activate($this->user['email']);
                 if ($activationResult['result']) {
                     sendMessage($this->chatID, 'Ваша учетная запись разблокирована.', null);
