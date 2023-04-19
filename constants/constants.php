@@ -666,16 +666,16 @@ class constants {
         if (strrpos($value, ',') === false) {
           switch ((integer) $checkNumber) {
             case 1:
-              return "$value день.";
+              return "$value день";
             case 2; case 3; case 4:
-                return "$value дня.";
+                return "$value дня";
             case 5; case 6; case 7; case 8; case 9; case 0:
-                  return "$value дней.";
+                  return "$value дней";
               default:
-                  return "$value дней.";
+                  return "$value дней";
           }
         } else {
-          return "$value дня.";
+          return "$value дня";
         }
     }
 }
