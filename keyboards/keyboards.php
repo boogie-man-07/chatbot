@@ -297,7 +297,7 @@ class keyboards {
                     array("text" => "Сроки выплаты"),
                 ),
                 array(
-                    //array("text" => "Заявления"),
+                    array("text" => "Заявления"),
                     array("text" => "Мой отпуск")
                 ),
                 array(
