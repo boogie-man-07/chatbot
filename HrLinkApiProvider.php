@@ -32,6 +32,10 @@ class HrLinkApiProvider {
                     $applicationEmployeeExternalId = null;
                     $applicationEmployeeApproverExternalId = null;
 
+                    $templateSystemFields = $this->generateSystemFields($userFIO);
+                    $templateFields = $this->generateDocumentTemplateFields($formData);
+                    $participantsFields = $this->generateDocumentsParticipantsFields($applicationEmployeeId);
+
                     $applications = array(
                         array(
                             'externalId' => $applicationExternalId,
@@ -40,12 +44,10 @@ class HrLinkApiProvider {
                             'employeeId' => $applicationEmployeeId,
                             'employeeExternalId' => $applicationEmployeeExternalId,
                             'employeeApproverId' => '2d145f14-bd25-4c4f-b98b-0d7616ee2ed5',
-                            'employeeApproverExternalId' => $applicationEmployeeApproverExternalId
+                            'employeeApproverExternalId' => $applicationEmployeeApproverExternalId,
+                            'participants' => $participantsFields
                         )
                     );
-
-                    $templateSystemFields = $this->generateSystemFields($userFIO);
-                    $templateFields = $this->generateDocumentTemplateFields($formData);
 
                     $body = array(
                         'externalId' => $externalId,
@@ -330,6 +332,15 @@ class HrLinkApiProvider {
         } else {
             return "Не нормально 3";
         }
+    }
+
+    function generateDocumentsParticipantsFields($applicationEmployeeId) {
+        $participantsFields = array();
+        array_push(
+            $participantsFields,
+            array('id' => '59811b03-8aba-49f2-a0b6-23915f2529b1', 'employeeId' => $applicationEmployeeId)
+        );
+        return $participantsFields;
     }
 
     function generateSystemFields($userFIO) {
