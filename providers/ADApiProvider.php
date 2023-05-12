@@ -26,11 +26,12 @@ class ADApiProvider {
 
         if ($err) {
             return json_encode(array(
-                'result' => false,
-                'message' => 'Ошибка разблокировки учетной записи.'
+                'result' => false
             ));
         } else {
-            return $response;
+            return json_encode(array(
+                'result' => $response['result']
+            ));
         }
     }
 

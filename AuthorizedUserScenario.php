@@ -179,7 +179,7 @@ class AuthorizedUserScenario {
                 exit;
             case $this->commands['unlockAccount']:
                 $activationResult = $this->adApiProvider->activate($this->user['email']);
-                if ($activationResult['result'] === 'false') {
+                if (!$activationResult['result']) {
                     sendMessage($this->chatID, $activationResult, null);
                     $this->commonmistakeroute->triggerActionForADActivationError($this->chatID);
                     exit;
