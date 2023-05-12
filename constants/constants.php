@@ -662,6 +662,10 @@ class constants {
         return "<b>Ошибка!</b>\n$errorMessage";
     }
 
+    function getADActivationErrorText() {
+        return 'Ошибка разблокировки учетной записи.';
+    }
+
     function getDaysString($value) {
         $lastNumber = null;
         if (strrpos($value, ',') === false) {
