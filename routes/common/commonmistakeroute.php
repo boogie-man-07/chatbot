@@ -147,6 +147,11 @@ class commonmistakeroute {
         $keyboard = $this->keyboards->smsRetryInlineKeyboard($issueType);
         sendMessage($chatID, $reply, $keyboard);
    }
+
+   function triggerActionForADActivationError($chatID) {
+        $reply = $this->constants->getADActivationErrorText();
+        sendMessage($chatID, $reply, null);
+   }
 }
 
 

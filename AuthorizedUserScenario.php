@@ -179,9 +179,13 @@ class AuthorizedUserScenario {
                 exit;
             case $this->commands['unlockAccount']:
                 $activationResult = $this->adApiProvider->activate($this->user['email']);
-                sendMessage($this->chatID, $activationResult, null); exit;
-                $this->mainInformationRoute->triggerActionForADSuccessfulActivation($this->chatID);
-                exit;
+                if ($activationResult['result']) {
+                    $this->mainInformationRoute->triggerActionForADSuccessfulActivation($this->chatID);
+                    exit;
+                } else {
+                    $this->commonmistakeroute->triggerActionForADActivationError($this->chatID);
+                    exit;
+                }
             case $this->commands['salaryInformation']:
                 $this->access->setState($this->chatID, $this->states['salaryState']);
                 $this->access->addAnalytics($this->user['user_id'], $this->analyticsTypes['DESTINATION'], $text);
