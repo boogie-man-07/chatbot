@@ -25,13 +25,10 @@ class ADApiProvider {
         curl_close($curl);
 
         if ($err) {
-            return json_encode(array(
-                'result' => false
-            ));
+            return array('result' => false);
         } else {
-            return json_encode(array(
-                'result' => $response['result']
-            ));
+            $decodedResult = json_decode($response, true);
+            return array('result' => $decodedResult['result']);
         }
     }
 
