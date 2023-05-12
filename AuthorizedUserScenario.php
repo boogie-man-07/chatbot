@@ -178,7 +178,8 @@ class AuthorizedUserScenario {
                 $this->mainInformationRoute->triggerActionForProceedOtherFeedback($this->chatID, $this->user['firstname']);
                 exit;
             case $this->commands['unlockAccount']:
-                $this->adApiProvider->activate($this->user['email']);
+                $activationResult = $this->adApiProvider->activate($this->user['email']);
+                sendMessage($this->chatID, $activationResult, null); exit;
                 $this->mainInformationRoute->triggerActionForADSuccessfulActivation($this->chatID);
                 exit;
             case $this->commands['salaryInformation']:

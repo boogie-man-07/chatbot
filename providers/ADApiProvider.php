@@ -24,26 +24,14 @@ class ADApiProvider {
         $err = curl_error($curl);
         curl_close($curl);
 
-        return $response;
-
-//         if ($err) {
-//             return json_encode(array(
-//                 'result' => false,
-//                 'errorMessage' => 'Извините, но что-то пошло не так, попробуйте повторить позднее.'
-//             ));
-//         } else {
-//             if ($response) {
-//                 return json_encode(array(
-//                     'result' => true,
-//                     'errorMessage' => ''
-//                 ));
-//             } else {
-//                 return json_encode(array(
-//                     'result' => false,
-//                     'errorMessage' => 'Извините, но что-то пошло не так, попробуйте повторить позднее.'
-//                 ));
-//             }
-//         }
+        if ($err) {
+            return json_encode(array(
+                'result': false,
+                'message': $err
+            ));
+        } else {
+            return $response;
+        }
     }
 
     function getLogin($value) {
