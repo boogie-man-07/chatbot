@@ -26,8 +26,8 @@ class ADApiProvider {
 
         if ($err) {
             return json_encode(array(
-                'result': false,
-                'message': $err
+                'result' => false,
+                'message' => 'Ошибка разблокировки учетной записи.'
             ));
         } else {
             return $response;
