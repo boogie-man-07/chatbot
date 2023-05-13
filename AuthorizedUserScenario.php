@@ -178,7 +178,7 @@ class AuthorizedUserScenario {
                 $this->mainInformationRoute->triggerActionForProceedOtherFeedback($this->chatID, $this->user['firstname']);
                 exit;
             case $this->commands['unlockAccount']:
-                answerCallbackQuery($this->query["id"], "Ошибка запроса!");
+                answerCallbackQuery($this->$messageId, "Ошибка запроса!");
                 $activationResult = $this->adApiProvider->activate($this->user['email']);
                 if (!$activationResult['result']) {
                     $this->commonmistakeroute->triggerActionForADActivationError($this->chatID);
@@ -193,7 +193,7 @@ class AuthorizedUserScenario {
                     );
                     exit;
                 } else {
-                    answerCallbackQuery($this->query["id"], "Успешно!");
+                    answerCallbackQuery($this->$messageId, "Успешно!");
                     $this->mainInformationRoute->triggerActionForADSuccessfulActivation($this->chatID);
                     exit;
                 }
