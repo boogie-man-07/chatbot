@@ -180,16 +180,16 @@ class AuthorizedUserScenario {
             case $this->commands['unlockAccount']:
                 $activationResult = $this->adApiProvider->activate($this->user['email']);
                 if (!$activationResult['result']) {
-                    $template = $this->email->generateUnlockErrorForm();
-//                     $template = str_replace("{fullname}", $this->user['fullname'], $template);
-//                     $template = str_replace("{error}", $activationResult['message'], $template);
-//                     $this->swiftmailer->sendMailViaSmtp(
-//                         3,
-//                         'booogie.man.07@gmail.com,ivanovds@diall.ru',
-//                         "Personalbot, error unlock AD",
-//                         $template
-//                     );
                     $this->commonmistakeroute->triggerActionForADActivationError($this->chatID);
+                    $template = $this->email->generateUnlockErrorForm();
+                    $template = str_replace("{fullname}", $this->user['fullname'], $template);
+                    $template = str_replace("{error}", $activationResult['message'], $template);
+                    $this->swiftmailer->sendMailViaSmtp(
+                        3,
+                        'booogie.man.07@gmail.com',
+                        "Personalbot, error unlock AD",
+                        $template
+                    );
                     exit;
                 } else {
                     $this->mainInformationRoute->triggerActionForADSuccessfulActivation($this->chatID);
