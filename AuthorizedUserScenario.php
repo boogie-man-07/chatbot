@@ -181,8 +181,8 @@ class AuthorizedUserScenario {
                 $activationResult = $this->adApiProvider->activate($this->user['email']);
                 if (!$activationResult['result']) {
                     $template = $this->email->generateUnlockErrorForm();
-                    $template = str_replace("{fullname}", $this->user['fullname'], $template);
-                    $template = str_replace("{error}", $activationResult['message'], $template);
+//                     $template = str_replace("{fullname}", $this->user['fullname'], $template);
+//                     $template = str_replace("{error}", $activationResult['message'], $template);
 //                     $this->swiftmailer->sendMailViaSmtp(
 //                         3,
 //                         'booogie.man.07@gmail.com,ivanovds@diall.ru',
