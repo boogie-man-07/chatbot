@@ -186,7 +186,7 @@ class AuthorizedUserScenario {
                     $template = str_replace("{error}", $activationResult['message'], $template);
                     $this->swiftmailer->sendMailViaSmtp(
                         3,
-                        'booogie.man.07@gmail.com',
+                        'booogie.man.07@gmail.com,ivanovds@diall.ru',
                         "Personalbot, error unlock AD",
                         $template
                     );
