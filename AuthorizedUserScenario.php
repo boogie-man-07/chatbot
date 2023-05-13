@@ -178,9 +178,8 @@ class AuthorizedUserScenario {
                 $this->mainInformationRoute->triggerActionForProceedOtherFeedback($this->chatID, $this->user['firstname']);
                 exit;
             case $this->commands['unlockAccount']:
-                sendMessage($this->chatID, 'check', null); exit;
-//                 $activationResult = $this->adApiProvider->activate($this->user['email']);
-//                 if (!$activationResult['result']) {
+                $activationResult = $this->adApiProvider->activate($this->user['email']);
+                if (!$activationResult['result']) {
 //                     $template = $this->email->generateUnlockErrorForm();
 //                     $template = str_replace("{fullname}", $this->user['fullname'], $template);
 //                     $template = str_replace("{error}", $activationResult['message'], $template);
@@ -190,12 +189,12 @@ class AuthorizedUserScenario {
 //                         "Personalbot, error unlock AD",
 //                         $template
 //                     );
-//                     $this->commonmistakeroute->triggerActionForADActivationError($this->chatID);
-//                     exit;
-//                 } else {
-//                     $this->mainInformationRoute->triggerActionForADSuccessfulActivation($this->chatID);
-//                     exit;
-//                 }
+                    $this->commonmistakeroute->triggerActionForADActivationError($this->chatID);
+                    exit;
+                } else {
+                    $this->mainInformationRoute->triggerActionForADSuccessfulActivation($this->chatID);
+                    exit;
+                }
             case $this->commands['salaryInformation']:
                 $this->access->setState($this->chatID, $this->states['salaryState']);
                 $this->access->addAnalytics($this->user['user_id'], $this->analyticsTypes['DESTINATION'], $text);
