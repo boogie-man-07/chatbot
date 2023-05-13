@@ -178,10 +178,8 @@ class AuthorizedUserScenario {
                 $this->mainInformationRoute->triggerActionForProceedOtherFeedback($this->chatID, $this->user['firstname']);
                 exit;
             case $this->commands['unlockAccount']:
-                answerCallbackQuery($this->$messageId, "Ошибка запроса!");
                 $activationResult = $this->adApiProvider->activate($this->user['email']);
                 if (!$activationResult['result']) {
-                    $this->commonmistakeroute->triggerActionForADActivationError($this->chatID);
                     $template = $this->email->generateUnlockErrorForm();
                     $template = str_replace("{fullname}", $this->user['fullname'], $template);
                     $template = str_replace("{error}", $activationResult['message'], $template);
@@ -191,9 +189,9 @@ class AuthorizedUserScenario {
                         "Personalbot, error unlock AD",
                         $template
                     );
+                    $this->commonmistakeroute->triggerActionForADActivationError($this->chatID);
                     exit;
                 } else {
-                    answerCallbackQuery($this->$messageId, "Успешно!");
                     $this->mainInformationRoute->triggerActionForADSuccessfulActivation($this->chatID);
                     exit;
                 }
