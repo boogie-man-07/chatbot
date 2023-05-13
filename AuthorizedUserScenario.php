@@ -179,7 +179,7 @@ class AuthorizedUserScenario {
                 exit;
             case $this->commands['unlockAccount']:
                 $activationResult = $this->adApiProvider->activate($this->user['email']);
-                sendMessage($this->chatID, json_encode($activationResult), null); exit;
+                sendMessage($this->chatID, json_encode($activationResult, true), null); exit;
                 if (!$activationResult['result']) {
 //                     $template = $this->email->generateUnlockErrorForm();
 //                     $template = str_replace("{fullname}", $this->user['fullname'], $template);
