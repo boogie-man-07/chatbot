@@ -8,13 +8,13 @@
 
 class email {
 
-function generateUnlockErrorForm() {
-    $file = fopen("templates/diallUnlockErrorTemplate.html", "r") or die("Unable to open file");
-    $template = fread($file, filesize("templates/diallUnlockErrorTemplate.html"));
+    function generateUnlockErrorForm() {
+        $file = fopen("templates/diallUnlockErrorTemplate.html", "r") or die("Unable to open file");
+        $template = fread($file, filesize("templates/diallUnlockErrorTemplate.html"));
 
-    fclose($file);
-    return $template;
-}
+        fclose($file);
+        return $template;
+    }
 
     function generateConfirmationCode($length) {
 
