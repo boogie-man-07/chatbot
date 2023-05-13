@@ -25,10 +25,12 @@ class ADApiProvider {
         curl_close($curl);
 
         if ($err) {
-            return array('result' => false);
+            return array(
+            'result' => false,
+            'message' => 'ERR_CONNECTION_TIMEOUT'
+            );
         } else {
-            $decodedResult = json_decode($response, true);
-            return array('result' => $decodedResult['result']);
+            return json_decode($response, true);
         }
     }
 
