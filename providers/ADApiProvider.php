@@ -30,7 +30,11 @@ class ADApiProvider {
                 'message' => 'ERR_CONNECTION_TIMEOUT'
             );
         } else {
-            return json_decode($response, true);
+            $decodedResult = json_decode($response, true);
+            return array(
+                'result' => $decodedResult['result'],
+                'message' => $decodedResult['message']
+            );
         }
     }
 
