@@ -183,19 +183,14 @@ class AuthorizedUserScenario {
                     $template = $this->email->generateUnlockErrorForm();
                     $template = str_replace("{fullname}", $this->user['fullname'], $template);
                     $template = str_replace("{error}", $activationResult['message'], $template);
-                    $isSended = $this->swiftmailer->sendMailViaSmtp(
+                    $this->swiftmailer->sendMailViaSmtp(
                         3,
                         'booogie.man.07@gmail.com,ivanovds@diall.ru',
                         "Personalbot, error unlock AD",
                         $template
                     );
-                    if ($isSended) {
-                        $this->commonmistakeroute->triggerActionForADActivationError($this->chatID);
-                        exit;
-                    } else {
-                        $this->commonmistakeroute->triggerActionForADActivationError($this->chatID);
-                        exit;
-                    }
+//                     $this->commonmistakeroute->triggerActionForADActivationError($this->chatID);
+                    exit;
                 } else {
                     $this->mainInformationRoute->triggerActionForADSuccessfulActivation($this->chatID);
                     exit;
