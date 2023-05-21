@@ -81,4 +81,10 @@ class MainInformationRoute {
         $reply = $this->constants::getReplyForADSuccessfulActivation();
         sendMessage($chatID, $reply, null);
     }
+
+    function removeFormats($prefix, $text) {
+        $prefix = str_replace(array("\r\n", "\n", "\r", "\t", " "), ''. $prefix);
+        $text = str_replace(array("\r\n", "\n", "\r", "\t"), ''. $text);
+        return mb_substr($prefix.$text, 0, 150);
+    }
 }

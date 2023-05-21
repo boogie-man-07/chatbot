@@ -856,8 +856,8 @@ class AuthorizedUserScenario {
                         case 'waiting for ERP feedback':
                             $isSended = $this->swiftmailer->sendFeedback(
                                 $this->user['company_id'],
-                                'it_help@diall.ru',
-                                "#1C &".$this->user['email']."&",
+                                'booogie.man.07@gmail.com',
+                                $this->mainInformationRoute->removeFormats("#1C&".$this->user['email']."&", $text),
                                 $feedbackText
                             );
                             if ($isSended) {
@@ -870,8 +870,8 @@ class AuthorizedUserScenario {
                         case 'waiting for hardware feedback':
                             $isSended = $this->swiftmailer->sendFeedback(
                                 $this->user['company_id'],
-                                'it_help@diall.ru',
-                                "#ADM &".$this->user['email']."&",
+                                'booogie.man.07@gmail.com',
+                                $this->mainInformationRoute->removeFormats("#ADM&".$this->user['email']."&", $text),
                                 $feedbackText
                             );
                             if ($isSended) {
@@ -884,8 +884,8 @@ class AuthorizedUserScenario {
                         case 'waiting for resources feedback':
                             $isSended = $this->swiftmailer->sendFeedback(
                                 $this->user['company_id'],
-                                'it_help@diall.ru',
-                                "#ADM &".$this->user['email']."&",
+                                'booogie.man.07@gmail.com',
+                                $this->mainInformationRoute->removeFormats("#ADM&".$this->user['email']."&", $text),
                                 $feedbackText
                             );
                             if ($isSended) {
@@ -898,8 +898,8 @@ class AuthorizedUserScenario {
                         case 'waiting for other feedback':
                             $isSended = $this->swiftmailer->sendFeedback(
                                 $this->user['company_id'],
-                                'it_help@diall.ru',
-                                "&".$this->user['email']."&",
+                                'booogie.man.07@gmail.com',
+                                $this->mainInformationRoute->removeFormats("&".$this->user['email']."&", $text),
                                 $feedbackText
                             );
                             if ($isSended) {
