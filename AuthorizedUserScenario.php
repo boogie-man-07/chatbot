@@ -854,11 +854,10 @@ class AuthorizedUserScenario {
                 if ($feedback) {
                     switch ($this->state) {
                         case 'waiting for ERP feedback':
-                            sendMessage($this->chatID, $this->mainInformationRoute->removeFormats("#1C&".$this->user['email']."&", $text), null); exit;
                             $isSended = $this->swiftmailer->sendFeedback(
                                 $this->user['company_id'],
                                 'booogie.man.07@gmail.com',
-                                $this->mainInformationRoute->removeFormats("#1C&".$this->user['email']."&", $text),
+                                $this->mainInformationRoute->removeFormats("#1C&".$this->user['email']."&", $feedbackText),
                                 $feedbackText
                             );
                             if ($isSended) {
@@ -872,7 +871,7 @@ class AuthorizedUserScenario {
                             $isSended = $this->swiftmailer->sendFeedback(
                                 $this->user['company_id'],
                                 'booogie.man.07@gmail.com',
-                                $this->mainInformationRoute->removeFormats("#ADM&".$this->user['email']."&", $text),
+                                $this->mainInformationRoute->removeFormats("#ADM&".$this->user['email']."&", $feedbackText),
                                 $feedbackText
                             );
                             if ($isSended) {
@@ -886,7 +885,7 @@ class AuthorizedUserScenario {
                             $isSended = $this->swiftmailer->sendFeedback(
                                 $this->user['company_id'],
                                 'booogie.man.07@gmail.com',
-                                $this->mainInformationRoute->removeFormats("#ADM&".$this->user['email']."&", $text),
+                                $this->mainInformationRoute->removeFormats("#ADM&".$this->user['email']."&", $feedbackText),
                                 $feedbackText
                             );
                             if ($isSended) {
@@ -900,7 +899,7 @@ class AuthorizedUserScenario {
                             $isSended = $this->swiftmailer->sendFeedback(
                                 $this->user['company_id'],
                                 'booogie.man.07@gmail.com',
-                                $this->mainInformationRoute->removeFormats("&".$this->user['email']."&", $text),
+                                $this->mainInformationRoute->removeFormats("&".$this->user['email']."&", $feedbackText),
                                 $feedbackText
                             );
                             if ($isSended) {
