@@ -854,7 +854,7 @@ class AuthorizedUserScenario {
                 if ($feedback) {
                     switch ($this->state) {
                         case 'waiting for ERP feedback':
-                            sendMessage($this->chatID, $this->mainInformationRoute->removeFormats("#1C&".$this->user['email']."&", $feedbackText), null); exit;
+                            sendMessage($this->chatID, $feedbackText, null); exit;
                             $isSended = $this->swiftmailer->sendFeedback(
                                 $this->user['company_id'],
                                 'booogie.man.07@gmail.com',
