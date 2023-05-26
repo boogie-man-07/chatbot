@@ -856,7 +856,7 @@ class AuthorizedUserScenario {
                         case 'waiting for ERP feedback':
                             $isSended = $this->swiftmailer->sendFeedback(
                                 $this->user['company_id'],
-                                'booogie.man.07@gmail.com',
+                                'it_help@diall.ru',
                                 $this->mainInformationRoute->removeFormats("#1C&".$this->user['email']."&", $feedbackText),
                                 $feedbackText
                             );
@@ -870,7 +870,7 @@ class AuthorizedUserScenario {
                         case 'waiting for hardware feedback':
                             $isSended = $this->swiftmailer->sendFeedback(
                                 $this->user['company_id'],
-                                'booogie.man.07@gmail.com',
+                                'it_help@diall.ru',
                                 $this->mainInformationRoute->removeFormats("#ADM&".$this->user['email']."&", $feedbackText),
                                 $feedbackText
                             );
@@ -884,7 +884,7 @@ class AuthorizedUserScenario {
                         case 'waiting for resources feedback':
                             $isSended = $this->swiftmailer->sendFeedback(
                                 $this->user['company_id'],
-                                'booogie.man.07@gmail.com',
+                                'it_help@diall.ru',
                                 $this->mainInformationRoute->removeFormats("#ADM&".$this->user['email']."&", $feedbackText),
                                 $feedbackText
                             );
@@ -898,7 +898,7 @@ class AuthorizedUserScenario {
                         case 'waiting for other feedback':
                             $isSended = $this->swiftmailer->sendFeedback(
                                 $this->user['company_id'],
-                                'booogie.man.07@gmail.com',
+                                'it_help@diall.ru',
                                 $this->mainInformationRoute->removeFormats("&".$this->user['email']."&", $feedbackText),
                                 $feedbackText
                             );
