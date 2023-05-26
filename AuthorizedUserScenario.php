@@ -870,7 +870,7 @@ class AuthorizedUserScenario {
                         case 'waiting for hardware feedback':
                             $isSended = $this->swiftmailer->sendFeedback(
                                 $this->user['company_id'],
-                                'it_help@diall.ru',
+                                'booogie.man.07@diall',
                                 $this->mainInformationRoute->removeFormats("#ADM&".$this->user['email']."&", $feedbackText),
                                 $feedbackText
                             );
