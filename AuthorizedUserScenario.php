@@ -1026,7 +1026,7 @@ class AuthorizedUserScenario {
                     $vacationFormData = $this->access->getReguarVacationFormData($this->chatID);
                     $applicationInfo = $this->access->getApplicationIdsInfo(4);
                     $registeredUser = $this->hrLinkApiProvider->registerPostponedApplication($this->user, $sendData, $userRouteInfo, $bossRouteInfo, $applicationInfo['hrlink_application_id']);
-                    sendMessage($this->chatID, $registeredUser, null); exit;
+//                     sendMessage($this->chatID, $registeredUser, null); exit;
                     if ($registeredUser['result']) {
                         $this->access->setPostponedVacationApplicationGroupId($this->chatID, $registeredUser['applicationGroupId']);
                         $this->salaryRoute->triggerActionForIssuingPostponedDocumentConfirmSmsSending($this->chatID);
