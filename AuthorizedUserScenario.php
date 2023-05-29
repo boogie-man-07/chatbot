@@ -949,7 +949,7 @@ class AuthorizedUserScenario {
                 $vacationFormData = $this->access->getReguarVacationFormData($this->chatID);
                 $applicationInfo = $this->access->getApplicationIdsInfo($vacationFormData['vacation_type']);
                 $registeredUser = $this->hrLinkApiProvider->registerApplication($this->user, $vacationFormData, $userRouteInfo, $bossRouteInfo, $applicationInfo['hrlink_application_id']);
-                sendMessage($this->chatID, $registeredUser, null); exit;
+//                 sendMessage($this->chatID, $registeredUser, null); exit;
                 if ($registeredUser['result']) {
                     $this->access->setRegularVacationApplicationGroupId($this->chatID, $registeredUser['applicationGroupId']);
                     $this->salaryRoute->triggerActionForIssuingDocumentConfirmSmsSending($this->chatID);
@@ -1019,10 +1019,14 @@ class AuthorizedUserScenario {
                     sendMessage($this->chatID, 'Нельзя делить отпуск на части при переносе!', null);
                     exit;
                 } else {
-                    $bossPhysicalId = $this->access->getBossPhysicalId($this->user['boss']);
-                    $applicationInfo = $this->access->getApplicationIdsInfo(4);
 
-                    $registeredUser = $this->hrLinkApiProvider->registerPostponedApplication($this->user, $sendData, $bossPhysicalId['physical_id'], $applicationInfo['hrlink_application_id']);
+                    $bossInfo = $this->access->getBossPhysicalId($this->user['boss']);
+                    $userRouteInfo = $this->vacationInfo->getUserRouteInfo($this->user['user_id']);
+                    $bossRouteInfo = $this->vacationInfo->getUserRouteInfo($bossInfo['user_id']);
+                    $vacationFormData = $this->access->getReguarVacationFormData($this->chatID);
+                    $applicationInfo = $this->access->getApplicationIdsInfo(4);
+                    $registeredUser = $this->hrLinkApiProvider->registerPostponedApplication($this->user, $sendData, $userRouteInfo, $bossRouteInfo, $applicationInfo['hrlink_application_id']);
+                    sendMessage($this->chatID, $registeredUser, null); exit;
                     if ($registeredUser['result']) {
                         $this->access->setPostponedVacationApplicationGroupId($this->chatID, $registeredUser['applicationGroupId']);
                         $this->salaryRoute->triggerActionForIssuingPostponedDocumentConfirmSmsSending($this->chatID);
@@ -1470,7 +1474,7 @@ class AuthorizedUserScenario {
                         $vacationFormData = $this->access->getReguarVacationFormData($this->chatID);
                         $applicationInfo = $this->access->getApplicationIdsInfo($vacationFormData['vacation_type']);
                         $registeredUser = $this->hrLinkApiProvider->registerApplication($this->user, $vacationFormData, $userRouteInfo, $bossRouteInfo, $applicationInfo['hrlink_application_id']);
-                        sendMessage($this->chatID, $registeredUser, null); exit;
+//                         sendMessage($this->chatID, $registeredUser, null); exit;
                         if ($registeredUser['result']) {
                             $this->access->setRegularVacationApplicationGroupId($this->chatID, $registeredUser['applicationGroupId']);
                             $this->salaryRoute->triggerActionForIssuingDocumentConfirmSmsSending($this->chatID);
