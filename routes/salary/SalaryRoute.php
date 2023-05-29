@@ -500,10 +500,6 @@ class SalaryRoute {
         return $vacationType == 0 || $vacationType == 1;
     }
 
-    function formatToNumber($text) {
-        return (int) $text;
-    }
-
     function isSalaryMode($state, $states) {
         return $state == $states['salaryState'];
     }
