@@ -2204,4 +2204,7 @@ class access {
         $statement->bind_param("siss", $userId, $typeId, $destination, $input);
         $returnValue = $statement->execute();
     }
+
+    // new not yet documented
+
 }

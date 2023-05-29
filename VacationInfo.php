@@ -114,6 +114,42 @@ class VacationInfo {
         }
     }
 
+    function getUserRouteInfo($userId) {
+        $vacationsList = Array();
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_PORT => "11180",
+            CURLOPT_URL => "http://office.diall.ru:11180/DA_ERP/hs/Staff/StaffData?GUID=$userId&DATA=bot",
+            CURLOPT_USERPWD => "Web1C:67z%Cc#2",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 300,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "GET",
+            CURLOPT_HTTPHEADER => array(
+                "cache-control: no-cache",
+                "Content-Type: application/json"
+            ),
+        ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+            return "Извините, но что-то пошло не так, попробуйте повторить позднее.";
+        } else {
+            $result = json_decode($response, true);
+            $response = Array(
+                'userPhysicalId' => $result['fl_guid'],
+                'userBossPhysicalId' => $result['boss_guid'] == '00000000-0000-0000-0000-000000000000' ? '1d914401-b3e8-11ec-a1bf-d4f5ef044d5f' : $result['boss_guid']
+            );
+            return $response;
+        }
+    }
+
     function fixComma($text) {
         return strtr($text, ',', '.');
     }
