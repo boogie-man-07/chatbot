@@ -2193,6 +2193,36 @@ class access {
         return $returnArray;
     }
 
+    function getSendingListFromDb() {
+        $returnArray = array();
+        $sql = "SELECT * FROM phonebook where is_authorized = true";
+        $statement = $this->conn->prepare($sql);
+        if (!$statement) {
+            throw new Exception($statement->error);
+        }
+        $statement->execute();
+        $result = $statement->get_result();
+        while ($row = $result->fetch_assoc()) {
+            $returnArray[] = $row;
+        }
+        return $returnArray;
+    }
+
+    function getPendingNotifications() {
+        $returnArray = array();
+        $sql = "SELECT * FROM notifications where is_started = false";
+        $statement = $this->conn->prepare($sql);
+        if (!$statement) {
+            throw new Exception($statement->error);
+        }
+        $statement->execute();
+        $result = $statement->get_result();
+        while ($row = $result->fetch_assoc()) {
+            $returnArray[] = $row;
+        }
+        return $returnArray;
+    }
+
     // analytics
     function addAnalytics($userId, $typeId, $destination = NULL, $input = NULL) {
         $sql = "INSERT INTO analytics SET user_id = ?, type_id = ?, destination = ?, input = ?";
