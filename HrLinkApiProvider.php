@@ -227,7 +227,7 @@ class HrLinkApiProvider {
         }
     }
 
-    function registerApplication($user, $vacationFormData, $bossPhysicalId, $idOfType) {
+    function registerApplication($user, $vacationFormData, $userRouteInfo, $bossRouteInfo, $idOfType) {
         $userPhysicalId = $user['physical_id'];
         $bearerTokenResponse = $this->generateBearerToken();
         if ($bearerTokenResponse['result']) {
@@ -236,7 +236,7 @@ class HrLinkApiProvider {
             if ($masterTokenResponse['result']) {
                 $masterToken = $masterTokenResponse['masterToken'];
                 $applicationEmployeeIdResponse = $this->getCurrentUser($masterToken, $userPhysicalId);
-                $applicationEmployeeApproverIdResponse = $this->getCurrentUser($masterToken, $bossPhysicalId);
+                $applicationEmployeeApproverIdResponse = $this->getCurrentUser($masterToken, $userRouteInfo['userBossPhysicalId']);
                 if ($applicationEmployeeIdResponse['result'] && $applicationEmployeeApproverIdResponse['result']) {
                     $applicationEmployeeId = $applicationEmployeeIdResponse['id'];
                     $applicationEmployeeApproverId = $applicationEmployeeApproverIdResponse['id'];
@@ -251,6 +251,7 @@ class HrLinkApiProvider {
                     $applicationLegalEntityExternalId = null;
                     $applicationEmployeeExternalId = null;
                     $applicationEmployeeApproverExternalId = null;
+                    $participantsFields = $this->generateApplicationsParticipantsFields($applicationEmployeeId, $applicationEmployeeApproverId, $bossRouteInfo['userBossPhysicalId']);
 
                     $applications = array(
                         array(
@@ -260,7 +261,8 @@ class HrLinkApiProvider {
                             'employeeId' => $applicationEmployeeId,
                             'employeeExternalId' => $applicationEmployeeExternalId,
                             'employeeApproverId' => $applicationEmployeeApproverId,
-                            'employeeApproverExternalId' => $applicationEmployeeApproverExternalId
+                            'employeeApproverExternalId' => $applicationEmployeeApproverExternalId,
+                            'participants' => $participantsFields
                         )
                     );
 
@@ -277,11 +279,12 @@ class HrLinkApiProvider {
                         'templateFields' => $templateFields
                     );
                     $encodedBody = json_encode($body);
+                    return $encodedBody; exit;
 
                     $curl = curl_init();
 
                     curl_setopt_array($curl, array(
-                        CURLOPT_URL => "https://hrlink.diall.ru/api/v1/clients/".$clientId."/applicationGroups",
+                        CURLOPT_URL => "https://hrlink.diall.ru/api/v2/clients/".$clientId."/applicationGroups",
                         CURLOPT_RETURNTRANSFER => true,
                         CURLOPT_ENCODING => '',
                         CURLOPT_MAXREDIRS => 10,
@@ -339,6 +342,17 @@ class HrLinkApiProvider {
         array_push(
             $participantsFields,
             array('id' => '59811b03-8aba-49f2-a0b6-23915f2529b1', 'employeeId' => $applicationEmployeeId)
+        );
+        return $participantsFields;
+    }
+
+    function generateApplicationsParticipantsFields($applicationEmployeeId, $applicationEmployeeApproverId, $userBossPhysicalId) {
+        $participantsFields = array();
+        array_push(
+            $participantsFields,
+            array('id' => '40fdd4a0-4ef4-47e2-b515-4cc35f0ae574', 'employeeId' => $applicationEmployeeId),
+            array('id' => 'a7d25a0e-6d7b-403c-8159-ee286ae1d83c', 'employeeId' => $applicationEmployeeApproverId),
+            array('id' => 'f2616540-95ff-480e-8506-1533b001c9df', 'employeeId' => $userBossPhysicalId == '1d914401-b3e8-11ec-a1bf-d4f5ef044d5f' ? $applicationEmployeeId : $userBossPhysicalId)
         );
         return $participantsFields;
     }
