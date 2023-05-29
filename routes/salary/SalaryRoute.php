@@ -501,11 +501,7 @@ class SalaryRoute {
     }
 
     function formatToNumber($text) {
-        if(stristr($text, ',') === FALSE) {
-            return (int) $text;
-        } else {
-            return (int) stristr($text, ',');
-        }
+        return (int) $text;
     }
 
     function isSalaryMode($state, $states) {
