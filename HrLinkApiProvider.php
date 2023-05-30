@@ -139,7 +139,7 @@ class HrLinkApiProvider {
                     $applicationLegalEntityExternalId = null;
                     $applicationEmployeeExternalId = null;
                     $applicationEmployeeApproverExternalId = null;
-                    $participantsFields = $this->generateApplicationsParticipantsFields($applicationEmployeeId, $applicationEmployeeApproverId, $bossRouteInfo['userBossPhysicalId']);
+                    $participantsFields = $this->generateApplicationsParticipantsFields($masterToken, $applicationEmployeeId, $applicationEmployeeApproverId, $bossRouteInfo['userBossPhysicalId']);
 
                     $applications = array(
                         array(
@@ -253,7 +253,7 @@ class HrLinkApiProvider {
                     $applicationLegalEntityExternalId = null;
                     $applicationEmployeeExternalId = null;
                     $applicationEmployeeApproverExternalId = null;
-                    $participantsFields = $this->generateApplicationsParticipantsFields($applicationEmployeeId, $applicationEmployeeApproverId, $bossRouteInfo['userBossPhysicalId']);
+                    $participantsFields = $this->generateApplicationsParticipantsFields($masterToken, $applicationEmployeeId, $applicationEmployeeApproverId, $bossRouteInfo['userBossPhysicalId']);
 
                     $applications = array(
                         array(
@@ -348,13 +348,21 @@ class HrLinkApiProvider {
         return $participantsFields;
     }
 
-    function generateApplicationsParticipantsFields($applicationEmployeeId, $applicationEmployeeApproverId, $userBossPhysicalId) {
+    function generateApplicationsParticipantsFields($masterToken, $applicationEmployeeId, $applicationEmployeeApproverId, $userBossPhysicalId) {
         $participantsFields = array();
+        $topApprover = '';
+        if ($userBossPhysicalId == '1d914401-b3e8-11ec-a1bf-d4f5ef044d5f') {
+            $topApprover = $applicationEmployeeId;
+        } else {
+            $topApprover = $this->getCurrentUser($masterToken, $userBossPhysicalId);
+        }
+
+
         array_push(
             $participantsFields,
             array('id' => '40fdd4a0-4ef4-47e2-b515-4cc35f0ae574', 'employeeId' => $applicationEmployeeId),
             array('id' => 'a7d25a0e-6d7b-403c-8159-ee286ae1d83c', 'employeeId' => $applicationEmployeeApproverId),
-            array('id' => 'f2616540-95ff-480e-8506-1533b001c9df', 'employeeId' => $userBossPhysicalId == '1d914401-b3e8-11ec-a1bf-d4f5ef044d5f' ? $applicationEmployeeId : $userBossPhysicalId)
+            array('id' => 'f2616540-95ff-480e-8506-1533b001c9df', 'employeeId' => $topApprover)
         );
         return $participantsFields;
     }
