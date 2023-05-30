@@ -281,7 +281,6 @@ class HrLinkApiProvider {
                         'templateFields' => $templateFields
                     );
                     $encodedBody = json_encode($body);
-                    return $encodedBody;
 
                     $curl = curl_init();
 
@@ -354,7 +353,8 @@ class HrLinkApiProvider {
         if ($userBossPhysicalId == '1d914401-b3e8-11ec-a1bf-d4f5ef044d5f') {
             $topApprover = $applicationEmployeeId;
         } else {
-            $topApprover = $this->getCurrentUser($masterToken, $userBossPhysicalId);
+            $result = $this->getCurrentUser($masterToken, $userBossPhysicalId);
+            $topApprover = $result['id'];
         }
 
 
