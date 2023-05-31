@@ -144,7 +144,7 @@ class VacationInfo {
             $result = json_decode($response, true);
             $response = Array(
                 'userPhysicalId' => $result['fl_guid'],
-                'userBossPhysicalId' => $result['boss_guid'] == '00000000-0000-0000-0000-000000000000' ? '1d914401-b3e8-11ec-a1bf-d4f5ef044d5f' : $result['boss_guid']
+                'userBossPhysicalId' => $result['boss_guid']
             );
             return $response;
         }
