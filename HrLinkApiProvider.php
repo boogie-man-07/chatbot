@@ -255,6 +255,8 @@ class HrLinkApiProvider {
                     $applicationEmployeeApproverExternalId = null;
                     $participantsFields = $this->generateApplicationsParticipantsFields($masterToken, $applicationEmployeeId, $applicationEmployeeApproverId, $bossRouteInfo['userBossPhysicalId']);
 
+                    return json_encode($participantsFields);
+
                     $applications = array(
                         array(
                             'externalId' => $applicationExternalId,
@@ -351,7 +353,7 @@ class HrLinkApiProvider {
         $participantsFields = array();
         $topApprover = '';
         if ($userBossPhysicalId === '1d914401-b3e8-11ec-a1bf-d4f5ef044d5f' || $userBossPhysicalId === '00000000-0000-0000-0000-000000000000') {
-            $topApprover = $applicationEmployeeId;
+            $topApprover = $applicationEmployeeApproverId;
         } else {
             $result = $this->getCurrentUser($masterToken, $userBossPhysicalId);
             $topApprover = $result['id'];
