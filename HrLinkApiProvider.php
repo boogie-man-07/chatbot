@@ -351,7 +351,7 @@ class HrLinkApiProvider {
     function generateApplicationsParticipantsFields($masterToken, $applicationEmployeeId, $applicationEmployeeApproverId, $userBossPhysicalId) {
         $participantsFields = array();
         $topApprover = '';
-        if ($userBossPhysicalId == '1d914401-b3e8-11ec-a1bf-d4f5ef044d5f') {
+        if ($userBossPhysicalId === '1d914401-b3e8-11ec-a1bf-d4f5ef044d5f' || $userBossPhysicalId === '00000000-0000-0000-0000-000000000000') {
             $topApprover = $applicationEmployeeId;
         } else {
             $result = $this->getCurrentUser($masterToken, $userBossPhysicalId);
