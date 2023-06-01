@@ -144,6 +144,7 @@ class VacationInfo {
             $result = json_decode($response, true);
             $response = Array(
                 'userPhysicalId' => $result['fl_guid'],
+                'userBossId' => $result['boss_sotr_guid'],
                 'userBossPhysicalId' => $result['boss_guid']
             );
             return $response;

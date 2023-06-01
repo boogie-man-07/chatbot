@@ -943,9 +943,8 @@ class AuthorizedUserScenario {
                 $this->salaryRoute->triggerActionForRegularVacationStartPreparations($this->chatID);
                 exit;
             case $this->commands['sendNewRegularVacationFormInline']:
-                $bossInfo = $this->access->getBossPhysicalId($this->user['boss']);
                 $userRouteInfo = $this->vacationInfo->getUserRouteInfo($this->user['user_id']);
-                $bossRouteInfo = $this->vacationInfo->getUserRouteInfo($bossInfo['user_id']);
+                $bossRouteInfo = $this->vacationInfo->getUserRouteInfo($userRouteInfo['boss_sotr_guid']);
                 $vacationFormData = $this->access->getReguarVacationFormData($this->chatID);
                 $applicationInfo = $this->access->getApplicationIdsInfo($vacationFormData['vacation_type']);
                 $registeredUser = $this->hrLinkApiProvider->registerApplication($this->user, $vacationFormData, $userRouteInfo, $bossRouteInfo, $applicationInfo['hrlink_application_id']);
@@ -1468,9 +1467,8 @@ class AuthorizedUserScenario {
                         exit;
                     case $this->states['regularVacationTypeWaitingState']:
                         answerCallbackQuery($this->query["id"], "Данные загружены!");
-                        $bossInfo = $this->access->getBossPhysicalId($this->user['boss']);
                         $userRouteInfo = $this->vacationInfo->getUserRouteInfo($this->user['user_id']);
-                        $bossRouteInfo = $this->vacationInfo->getUserRouteInfo($bossInfo['user_id']);
+                        $bossRouteInfo = $this->vacationInfo->getUserRouteInfo($userRouteInfo['boss_sotr_guid']);
                         $vacationFormData = $this->access->getReguarVacationFormData($this->chatID);
                         $applicationInfo = $this->access->getApplicationIdsInfo($vacationFormData['vacation_type']);
                         $registeredUser = $this->hrLinkApiProvider->registerApplication($this->user, $vacationFormData, $userRouteInfo, $bossRouteInfo, $applicationInfo['hrlink_application_id']);
