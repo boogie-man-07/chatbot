@@ -944,7 +944,7 @@ class AuthorizedUserScenario {
                 exit;
             case $this->commands['sendNewRegularVacationFormInline']:
                 $userRouteInfo = $this->vacationInfo->getUserRouteInfo($this->user['user_id']);
-                $bossRouteInfo = $this->vacationInfo->getUserRouteInfo($userRouteInfo['boss_sotr_guid']);
+                $bossRouteInfo = $this->vacationInfo->getUserRouteInfo($userRouteInfo['userBossId']);
                 $vacationFormData = $this->access->getReguarVacationFormData($this->chatID);
                 $applicationInfo = $this->access->getApplicationIdsInfo($vacationFormData['vacation_type']);
                 $registeredUser = $this->hrLinkApiProvider->registerApplication($this->user, $vacationFormData, $userRouteInfo, $bossRouteInfo, $applicationInfo['hrlink_application_id']);
