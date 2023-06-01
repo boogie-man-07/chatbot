@@ -255,7 +255,7 @@ class HrLinkApiProvider {
                     $applicationEmployeeApproverExternalId = null;
                     $participantsFields = $this->generateApplicationsParticipantsFields($masterToken, $applicationEmployeeId, $applicationEmployeeApproverId, $bossRouteInfo['userBossPhysicalId']);
 
-                    return json_encode($participantsFields);
+                    return json_encode($bossRouteInfo);
 
                     $applications = array(
                         array(
