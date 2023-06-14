@@ -106,7 +106,7 @@ class constants {
     }
 
     function getReplyForEmployeeCard($user) {
-        return "<b>Карточка работника</b>\nФИО: ".$user["fullname"]."\nРабочий телефон: <b>".$user["office_number"]."</b>\nДобавочный номер: <b>".$user["internal_number"]."</b>\nМобильный телефон: <b>".str_replace(' ', '', $user["mobile_number"])."</b>\nE-mail: <b>".$user["email"]."</b>\nДолжность: <b>".$user["position"]."</b>\nКомпания: <b>".$user["company_name"]."</b>";
+        return "<b>Карточка работника</b>\nФИО: ".$user["fullname"]."\nДобавочный номер: <b>".$user["internal_number"]."</b>\nМобильный телефон: <b>".str_replace(' ', '', $user["mobile_number"])."</b>\nE-mail: <b>".$user["email"]."</b>\nДолжность: <b>".$user["position"]."</b>\nКомпания: <b>".$user["company_name"]."</b>";
     }
 
     function getReplyForEmployeeEmail($email) {
