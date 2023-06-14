@@ -126,7 +126,9 @@ class keyboards {
                     array(
                         "text" => 'Карточка',
                         "callback_data" => 'getUserCard'
-                    ),
+                    )
+                ),
+                array(
                     array(
                         "text" => "Email",
                         "callback_data" => 'getUserEmail'
@@ -136,10 +138,6 @@ class keyboards {
                     array(
                         "text" => "Мобильный телефон",
                         "callback_data" => 'getUserMobileNumber'
-                    ),
-                    array(
-                        "text" => "Рабочий телефон",
-                        "callback_data" => 'getUserOfficeNumber'
                     )
                 )
             )

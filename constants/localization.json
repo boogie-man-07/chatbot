@@ -46,7 +46,6 @@
         "userFullCardInline": "getUserCard",
         "userEmailInline": "getUserEmail",
         "userMobileNumberInline": "getUserMobileNumber",
-        "userOfficeNumberInline": "getUserOfficeNumber",
         "firstRuleInline": "getFirstRuleText",
         "secondRuleInline": "getSecondRuleText",
         "thirdRuleInline": "getThirdRuleText",

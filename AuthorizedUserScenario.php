@@ -816,18 +816,18 @@ class AuthorizedUserScenario {
                     $this->commonmistakeroute->triggerActionForRestartFindUser($this->chatID);
                     exit;
                 }
-            case $this->commands['userOfficeNumberInline']: // need to clear state after search?
-                $userForFind = $this->access->getFindUserData($this->chatID);
-                if ($userForFind) {
-                    answerCallbackQuery($this->query["id"], "Номер рабочего телефона найден!");
-                    $result = $this->access->getUserByFirstnameAndLastName($userForFind['find_userfirstname'], $userForFind['find_userlastname'], $this->logics->getUserPrivelegesForUserCards($this->user));
-                    $this->phonebookroute->triggerActionForGetUserOfficeNumber($this->chatID, $result['office_number'], $result['internal_number']);
-                    exit;
-                } else {
-                    answerCallbackQuery($this->query["id"], "Номер рабочего телефона не найден!");
-                    $this->commonmistakeroute->triggerActionForRestartFindUser($this->chatID);
-                    exit;
-                }
+//             case $this->commands['userOfficeNumberInline']: // need to clear state after search?
+//                 $userForFind = $this->access->getFindUserData($this->chatID);
+//                 if ($userForFind) {
+//                     answerCallbackQuery($this->query["id"], "Номер рабочего телефона найден!");
+//                     $result = $this->access->getUserByFirstnameAndLastName($userForFind['find_userfirstname'], $userForFind['find_userlastname'], $this->logics->getUserPrivelegesForUserCards($this->user));
+//                     $this->phonebookroute->triggerActionForGetUserOfficeNumber($this->chatID, $result['office_number'], $result['internal_number']);
+//                     exit;
+//                 } else {
+//                     answerCallbackQuery($this->query["id"], "Номер рабочего телефона не найден!");
+//                     $this->commonmistakeroute->triggerActionForRestartFindUser($this->chatID);
+//                     exit;
+//                 }
             case $this->commands['firstRuleInline']:
                 answerCallbackQuery($this->query["id"], "Правда и факты!");
                 $this->valuesRoute->triggerActionForGetFirstValue($this->chatID, $this->user['company_id'], $this->commands['secondRuleInline']);
