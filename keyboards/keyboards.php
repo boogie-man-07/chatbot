@@ -716,7 +716,7 @@ class keyboards {
         return json_encode(array(
             "inline_keyboard" => array(
                 array(
-                    array("text" => "Не пользовался", "callback_data" => "dmsNotUsed")
+                    array("text" => "Не пользовался", "callback_data" => "Не пользовался")
                 )
             )
         ));
