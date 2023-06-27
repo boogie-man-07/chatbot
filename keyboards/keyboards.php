@@ -724,6 +724,7 @@ class keyboards {
 
     function getInlineKeyboardForAskADmsPollQuestionWithSingleChoose($pollInfo, $pollQuestionInfo) {
         $replyList = array();
+        $notUsedReplyList = array();
         $id = $pollInfo['poll_state'];
         $options = json_decode($pollQuestionInfo[$id]['responses'], true);
         foreach($options['options'] as $key=>$value) {
@@ -737,10 +738,18 @@ class keyboards {
                 "text" => $itemTitle,
                 "callback_data" => json_encode($callbackData)
             );
-            array_push($replyList, $replyItem);
+            if ($value['id'] < 6) {
+                array_push($replyList, $replyItem);
+            } else {
+                array_push($notUsedReplyList, $replyItem);
+            }
+            array_push($list, $replyList);
+            if (count($notUsedReplyList) > 0) {
+                array_push($list, $notUsedReplyList);
+            }
         }
         return json_encode(array(
-            "inline_keyboard" => array($replyList)
+            "inline_keyboard" => $list
         ));
     }
 
