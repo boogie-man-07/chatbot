@@ -1208,7 +1208,7 @@ class AuthorizedUserScenario {
                         answerCallbackQuery($this->query["id"], "Вопрос загружен!");
                         exit;
                     case 3:
-                        $this->salaryRoute->triggerActionForAskDmsPollQuestionWithFreeReply($this->chatID, $pollInfo, $pollQuestionInfo);
+                        $this->salaryRoute->triggerActionForAskDmsPollQuestionWithFreeReply($this->chatID, $newPollInfo, $pollQuestionInfo);
                         answerCallbackQuery($this->query["id"], "Вопрос загружен!");
                         exit;
                     case 4:
