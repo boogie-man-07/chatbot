@@ -732,7 +732,7 @@ class keyboards {
                 'pollId'=> $pollQuestionInfo[$id]['poll_id'],
                 'questionId' => $pollQuestionInfo[$id]['question_id'],
                 'selectedReplyId' => (string)$value['id'],
-                'selectedReplyTitle' => $value['title']
+                'selectedReplyTitle' => (string)$value['title']
             );
             $replyItem = array(
                 "text" => $itemTitle,
