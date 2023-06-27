@@ -744,10 +744,10 @@ class keyboards {
             } else {
                 array_push($notUsedReplyList, $replyItem);
             }
-            array_push($list, $replyList);
-            if (count($notUsedReplyList) > 0) {
-                array_push($list, $notUsedReplyList);
-            }
+        }
+        array_push($list, $replyList);
+        if (count($notUsedReplyList) > 0) {
+            array_push($list, $notUsedReplyList);
         }
         return json_encode(array(
             "inline_keyboard" => $list
