@@ -731,7 +731,7 @@ class keyboards {
             $callbackData = array(
                 'pollId'=> $pollQuestionInfo[$id]['poll_id'],
                 'questionId' => $pollQuestionInfo[$id]['question_id'],
-                'selectedReplyId' => $value['id'] > 5 ? $value['title'] : (string)$value['id']
+                'selectedReplyId' => (string)$value['id']
             );
             $replyItem = array(
                 "text" => $itemTitle,
