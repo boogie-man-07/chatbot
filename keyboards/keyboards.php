@@ -727,7 +727,7 @@ class keyboards {
         $id = $pollInfo['poll_state'];
         $options = json_decode($pollQuestionInfo[$id]['responses'], true);
         foreach($options['options'] as $key=>$value) {
-            $itemTitle = $value['id'] > 5 ? 'Не пользовался' : (string)$value['id'];
+            $itemTitle = $value['id'] == 6 ? (string)$value['title'] : (string)$value['id'];
             $callbackData = array(
                 'pollId'=> $pollQuestionInfo[$id]['poll_id'],
                 'questionId' => $pollQuestionInfo[$id]['question_id'],
