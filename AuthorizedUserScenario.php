@@ -1193,7 +1193,7 @@ class AuthorizedUserScenario {
                 answerCallbackQuery($this->query["id"], "Данные загружены!");
                 exit;
             case $this->commands['proceedDmsSurveyInline']:
-                sendMessage($this->chatID, 'proceedDmsSurveyInline' null);
+                sendMessage($this->chatID, 'proceedDmsSurveyInline', null);
                 exit;
             case $this->commands['proceedDmsSurveyInline']:
                 $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
