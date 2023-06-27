@@ -77,7 +77,7 @@ class SalaryRoute {
 
     function triggerActionForAskDmsPollQuestionWithFreeReply($chatID, $pollInfo, $pollQuestionInfo) {
         $reply = $this->constants->getReplyForAskADmsPollQuestionWithFreeReply($pollInfo, $pollQuestionInfo);
-        if ($pollInfo['poll_state'] > 2 && $pollInfo['poll_state'] < 6) {
+        if (($pollInfo['poll_state'] + 1) > 2 && ($pollInfo['poll_state'] + 1) < 6) {
             $keyboard = $this->keyboards->getNotUsedKeyboard();
         }
         sendMessage($chatID, $reply, $keyboard);
