@@ -712,6 +712,16 @@ class keyboards {
         ));
     }
 
+    function getNotUsedKeyboard() {
+        return json_encode(array(
+            "inline_keyboard" => array(
+                array(
+                    array("text" => "Не пользовался", "callback_data" => "dmsNotUsed")
+                )
+            )
+        ));
+    }
+
     function getInlineKeyboardForAskADmsPollQuestionWithSingleChoose($pollInfo, $pollQuestionInfo) {
         $replyList = array();
         $id = $pollInfo['poll_state'];

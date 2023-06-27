@@ -69,6 +69,7 @@
         "sendPostponedConfirmationSmsInline": "sendPostponedConfirmationSms",
         "sendDocumentCopyConfirmationSmsInline": "sendDocumentCopyConfirmationSms",
         "dmsGoToSurveyInline": "dmsGoToSurvey",
+        "dmsNotUsedInline": "dmsNotUsed",
         "dmsNotRelevantToProceedWithSurveyInline": "dmsNotRelevantToProceedWithSurvey",
         "proceedDmsSurveyInline": "proceedDmsSurvey",
         "returnToNonFinishedDmsSurveyInline": "returnToNonFinishedDmsSurvey",
