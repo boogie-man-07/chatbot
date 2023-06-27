@@ -1192,9 +1192,6 @@ class AuthorizedUserScenario {
                 $this->salaryRoute->triggerActionForNotRelevantToProceedDmsSurvey($this->chatID);
                 answerCallbackQuery($this->query["id"], "Данные загружены!");
                 exit;
-//             case $this->commands['dmsNotUsedInline']:
-//                 sendMessage($this->chatID, 'proceedDmsSurveyInline', null);
-//                 exit;
             case $this->commands['proceedDmsSurveyInline']:
                 $pollInfo = $this->access->getDmsPollInfo($this->user['user_id']);
                 $id = $pollInfo['poll_state'];
