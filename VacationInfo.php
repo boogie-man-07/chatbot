@@ -10,8 +10,8 @@ class VacationInfo {
             CURLOPT_USERPWD => "Web1C:67z%Cc#2",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 300,
+            CURLOPT_TIMEOUT => 10,
+            CURLOPT_CONNECTTIMEOUT => 10,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "GET",
             CURLOPT_HTTPHEADER => array(
@@ -47,8 +47,8 @@ class VacationInfo {
             CURLOPT_USERPWD => "Web1C:67z%Cc#2",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 300,
+            CURLOPT_TIMEOUT => 10,
+            CURLOPT_CONNECTTIMEOUT => 10,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "GET",
             CURLOPT_HTTPHEADER => array(
@@ -83,8 +83,8 @@ class VacationInfo {
             CURLOPT_USERPWD => "Web1C:67z%Cc#2",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 300,
+            CURLOPT_TIMEOUT => 10,
+            CURLOPT_CONNECTTIMEOUT => 10,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "GET",
             CURLOPT_HTTPHEADER => array(
@@ -123,8 +123,8 @@ class VacationInfo {
             CURLOPT_USERPWD => "Web1C:67z%Cc#2",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 300,
+            CURLOPT_TIMEOUT => 10,
+            CURLOPT_CONNECTTIMEOUT => 10,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "GET",
             CURLOPT_HTTPHEADER => array(
