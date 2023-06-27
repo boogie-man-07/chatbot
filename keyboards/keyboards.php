@@ -723,6 +723,7 @@ class keyboards {
     }
 
     function getInlineKeyboardForAskADmsPollQuestionWithSingleChoose($pollInfo, $pollQuestionInfo) {
+        $list = array();
         $replyList = array();
         $notUsedReplyList = array();
         $id = $pollInfo['poll_state'];
