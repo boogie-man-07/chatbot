@@ -61,6 +61,7 @@ class AuthorizedUserScenario {
     }
 
     function run($text) {
+        sendMessage($this->chatID, json_encode($this->user), null);
         if($this->chatID == '187967374' || $this->chatID == '5389293300') {
             $this->logs->logCustom($text, $this->user['fullname']);
         }

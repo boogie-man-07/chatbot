@@ -107,10 +107,36 @@ class access {
     }
 
     function getUserByChatID($tg_chat_id) {
-
         $returnArray = array();
         //$sql = "SELECT * FROM phonebook WHERE tg_chat_id='".$tg_chat_id."'";
         $sql = "SELECT ph.*, ed.dms_type, ed.is_poll_available FROM phonebook ph left join employee_dms ed ON ph.user_id = ed.user_id WHERE ph.tg_chat_id='".$tg_chat_id."'";
+        $result = $this->conn->query($sql);
+
+        // if we have at least 1 result returned
+        if ($result != null && (mysqli_num_rows($result) >= 1 )) {
+
+            // assign result we got to $row as associative array
+            $row = $result->fetch_array(MYSQLI_ASSOC);
+
+            if (!empty($row)) {
+                $returnArray = $row;
+            }
+        }
+
+        if ($returnArray['user_type_id'] == 2) {
+            $additionalUserData = $this->geAdditionalUserData($returnArray['fullname']);
+            if (count($additionalUserData) > 0) {
+                array_push($returnArray, array('additionalUserData' => $additionalUserData));
+            }
+        }
+
+        return $returnArray;
+    }
+
+    function geAdditionalUserData($fullname) {
+
+        $returnArray = array();
+        $sql = "SELECT * FROM phonebook WHERE fullname = '".$fullname."' AND tg_chat_id is null";
         $result = $this->conn->query($sql);
 
         // if we have at least 1 result returned
