@@ -85,28 +85,19 @@ class access {
     }
 
     function getUserByPersonnelNumber($email) {
-
         $returnArray = array();
-        // sql command
         $sql = "SELECT * FROM phonebook WHERE email like '%".$email."%'";
-        // assign result we got from $sql to result var
-        $result = $this->conn->query($sql);
+        $statement = $this->conn->prepare($sql);
 
-        // if we have at least 1 result returned
-        if ($result != null && (mysqli_num_rows($result) >= 1 )) {
-            while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
-                array_push($returnArray, $row);
-            }
-//             foreach($row = $result->fetch_array(MYSQLI_ASSOC)) {
-//                 if (!empty($row)) {
-//                     array_push($returnArray, $row);
-//                 }
-//             }
+        if (!$statement) {
+            throw new Exception($statement->error);
+        }
 
-            // assign result we got to $row as associative array
-            //$row = $result->fetch_array(MYSQLI_ASSOC);
+        $statement->execute();
+        $result = $statement->get_result();
 
-
+        while ($row = $result->fetch_assoc()) {
+            $returnArray[] = $row;
         }
 
         return $returnArray;
