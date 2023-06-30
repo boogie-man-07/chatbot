@@ -85,15 +85,24 @@ class access {
     }
 
     function getUserByPersonnelNumber($email) {
+
         $returnArray = array();
+        // sql command
         $sql = "SELECT * FROM phonebook WHERE email like '%".$email."%'";
+        // assign result we got from $sql to result var
         $result = $this->conn->query($sql);
+
+        // if we have at least 1 result returned
         if ($result != null && (mysqli_num_rows($result) >= 1 )) {
+
+            // assign result we got to $row as associative array
             $row = $result->fetch_array(MYSQLI_ASSOC);
+
             if (!empty($row)) {
                 $returnArray = $row;
             }
         }
+
         return $returnArray;
     }
 
@@ -235,10 +244,10 @@ class access {
     }
 
     // save email confirmation message's token
-    function saveConfirmationCode($confirmation_code, $tg_chat_id, $id) {
+    function saveConfirmationCode($confirmation_code, $tg_chat_id, $email) {
 
         // sql statement
-        $sql = "UPDATE phonebook SET confirmation_code=?, confirmation_code_expiration_date=(now() + INTERVAL 5 MINUTE), tg_chat_id=? WHERE id ='".$id."'";
+        $sql = "UPDATE phonebook SET confirmation_code=?, confirmation_code_expiration_date=(now() + INTERVAL 5 MINUTE), tg_chat_id=? WHERE email ='".$email."'";
         // prepare statement to be executed
         $statement = $this->conn->prepare($sql);
 
