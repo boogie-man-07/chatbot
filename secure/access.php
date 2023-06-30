@@ -87,17 +87,13 @@ class access {
     function getUserByPersonnelNumber($email) {
         $returnArray = array();
         $sql = "SELECT * FROM phonebook WHERE email like '%".$email."%'";
-        $statement = $this->conn->prepare($sql);
-        if (!$statement) {
-            throw new Exception($statement->error);
+        $result = $this->conn->query($sql);
+        if ($result != null && (mysqli_num_rows($result) >= 1 )) {
+            $row = $result->fetch_array(MYSQLI_ASSOC);
+            if (!empty($row)) {
+                $returnArray = $row;
+            }
         }
-        $statement->execute();
-        $result = $statement->get_result();
-
-        while ($row = $result->fetch_assoc()) {
-            $returnArray[] = $row;
-        }
-
         return $returnArray;
     }
 
