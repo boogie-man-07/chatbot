@@ -241,10 +241,10 @@ class access {
     }
 
     // save email confirmation message's token
-    function saveConfirmationCode($confirmation_code, $tg_chat_id, $email) {
+    function saveConfirmationCode($confirmation_code, $tg_chat_id, $id) {
 
         // sql statement
-        $sql = "UPDATE phonebook SET confirmation_code=?, confirmation_code_expiration_date=(now() + INTERVAL 5 MINUTE), tg_chat_id=? WHERE email ='".$email."'";
+        $sql = "UPDATE phonebook SET confirmation_code=?, confirmation_code_expiration_date=(now() + INTERVAL 5 MINUTE), tg_chat_id=? WHERE id ='".$id."'";
         // prepare statement to be executed
         $statement = $this->conn->prepare($sql);
 
