@@ -92,15 +92,8 @@ class access {
         // assign result we got from $sql to result var
         $result = $this->conn->query($sql);
 
-        // if we have at least 1 result returned
-        if ($result != null && (mysqli_num_rows($result) >= 1 )) {
-
-            // assign result we got to $row as associative array
-            $row = $result->fetch_array(MYSQLI_ASSOC);
-
-            if (!empty($row)) {
-                $returnArray = $row;
-            }
+        while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
+            array_push($returnArray, $row);
         }
 
         return $returnArray;
@@ -244,10 +237,10 @@ class access {
     }
 
     // save email confirmation message's token
-    function saveConfirmationCode($confirmation_code, $tg_chat_id, $email) {
+    function saveConfirmationCode($confirmation_code, $tg_chat_id, $id) {
 
         // sql statement
-        $sql = "UPDATE phonebook SET confirmation_code=?, confirmation_code_expiration_date=(now() + INTERVAL 5 MINUTE), tg_chat_id=? WHERE email ='".$email."'";
+        $sql = "UPDATE phonebook SET confirmation_code=?, confirmation_code_expiration_date=(now() + INTERVAL 5 MINUTE), tg_chat_id=? WHERE id ='".$id."'";
         // prepare statement to be executed
         $statement = $this->conn->prepare($sql);
 
