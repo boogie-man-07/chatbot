@@ -63,7 +63,7 @@ class UnauthorizedUserScenario {
                         case $this->states['loginWaitingState']:
                             if ($this->authroute->checkLogin($text)) {
                                 $result = $this->access->getUserByPersonnelNumber($text);
-                                sendMessage($this->chatID, 'hello 1', null); exit;
+                                sendMessage($this->chatID, json_encode($result, TRUE, 512, JSON_UNESCAPED_UNICODE), null); exit;
                                 if ($result) {
                                     if ($result[0]['is_employee'] == $this->constants['isNotEmployee']) {
                                         if($this->authroute->couldBeAuthorized($result[0])) {
