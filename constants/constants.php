@@ -598,7 +598,7 @@ class constants {
     }
 
     function getRegisterVacationFormText() {
-        return "Нажимите на кнопку для регистрации заявления";
+        return "Для регистрации заявления нажмите на кнопку и ожидайте получения информации";
     }
 
     function getRegularVacationAcademicReasonText() {

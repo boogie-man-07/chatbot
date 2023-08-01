@@ -10,3 +10,5 @@
 9. schedulerDiall.php;
 10. schedulers/rotationalEmployeeScheduler.php;
 11. health.php
+12. Проверить адреса отправки обращений в AuthorizedUserScenario
+13. remove mocks from schedulers
