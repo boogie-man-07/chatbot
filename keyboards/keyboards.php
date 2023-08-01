@@ -770,7 +770,7 @@ class keyboards {
             );
             $replyItem = array(
                 "text" => $itemTitle,
-                "callback_data" => json_encode($callbackData)
+                "callback_data" => json_encode($callbackData, JSON_UNESCAPED_UNICODE)
             );
             array_push($replyList, $replyItem);
         }
