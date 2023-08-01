@@ -2011,7 +2011,7 @@ class access {
             if (!empty($row)) {
                 $returnArray = $row;
             }
-            $responses = json_decode($returnArray['responses'], true);
+            $responses = json_decode($returnArray['responses'], true, 512, JSON_UNESCAPED_UNICODE);
             $updatedResponsesList = array();
             foreach ($responses['options'] as $key=>$value) {
                 if ($value['id'] != $replyInfo['selectedReplyId']) {
@@ -2024,7 +2024,7 @@ class access {
                     ));
                 }
             }
-            $updatedResponses = json_encode(array('options' => $updatedResponsesList));
+            $updatedResponses = json_encode(array('options' => $updatedResponsesList), JSON_UNESCAPED_UNICODE);
             $sql = "UPDATE polls_user_responses SET responses = ?, updated = CURRENT_TIMESTAMP where user_id = ? and poll_id = ? and question_id = ?";
             $statement = $this->conn->prepare($sql);
             if (!$statement) {
@@ -2033,7 +2033,7 @@ class access {
             $statement->bind_param("ssii", $updatedResponses, $userId, $replyInfo['pollId'], $replyInfo['questionId']);
             $returnValue = $statement->execute();
         } else {
-            $responses = json_decode($pollQuestionData['responses'], true);
+            $responses = json_decode($pollQuestionData['responses'], true, 512, JSON_UNESCAPED_UNICODE);
             $createdResponsesList = array();
             foreach ($responses['options'] as $key=>$value) {
                 if ($value['id'] != $replyInfo['selectedReplyId']) {
@@ -2046,7 +2046,7 @@ class access {
                     ));
                 }
             }
-            $createdResponses = json_encode(array('options' => $createdResponsesList));
+            $createdResponses = json_encode(array('options' => $createdResponsesList), JSON_UNESCAPED_UNICODE);
             $sql = "INSERT INTO polls_user_responses SET user_id = ?, poll_id = ?, question_id = ?, responses = ?, created = CURRENT_TIMESTAMP, updated = CURRENT_TIMESTAMP";
             $statement = $this->conn->prepare($sql);
             if (!$statement) {
@@ -2071,7 +2071,7 @@ class access {
             if (!empty($row)) {
                 $returnArray = $row;
             }
-            $responses = json_decode($returnArray['responses'], true);
+            $responses = json_decode($returnArray['responses'], true, 512, JSON_UNESCAPED_UNICODE);
             $updatedResponsesList = array();
             foreach ($responses['options'] as $key=>$value) {
                 if ($value['id'] != $replyInfo['selectedReplyId']) {
@@ -2084,7 +2084,7 @@ class access {
                     ));
                 }
             }
-            $updatedResponses = json_encode(array('options' => $updatedResponsesList));
+            $updatedResponses = json_encode(array('options' => $updatedResponsesList), JSON_UNESCAPED_UNICODE);
             $sql = "UPDATE polls_user_responses SET responses = ?, updated = CURRENT_TIMESTAMP where user_id = ? and poll_id = ? and question_id = ?";
             $statement = $this->conn->prepare($sql);
             if (!$statement) {
@@ -2093,7 +2093,7 @@ class access {
             $statement->bind_param("ssii", $updatedResponses, $userId, $replyInfo['pollId'], $replyInfo['questionId']);
             $returnValue = $statement->execute();
         } else {
-            $responses = json_decode($pollQuestionData['responses'], true);
+            $responses = json_decode($pollQuestionData['responses'], true, 512, JSON_UNESCAPED_UNICODE);
             $createdResponsesList = array();
             foreach ($responses['options'] as $key=>$value) {
                 if ($value['id'] != $replyInfo['selectedReplyId']) {
@@ -2106,7 +2106,7 @@ class access {
                     ));
                 }
             }
-            $createdResponses = json_encode(array('options' => $createdResponsesList));
+            $createdResponses = json_encode(array('options' => $createdResponsesList), JSON_UNESCAPED_UNICODE);
             $sql = "INSERT INTO polls_user_responses SET user_id = ?, poll_id = ?, question_id = ?, responses = ?, created = CURRENT_TIMESTAMP, updated = CURRENT_TIMESTAMP";
             $statement = $this->conn->prepare($sql);
             if (!$statement) {
