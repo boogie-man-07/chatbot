@@ -727,7 +727,7 @@ class keyboards {
         $replyList = array();
         $notUsedReplyList = array();
         $id = $pollInfo['poll_state'];
-        $options = json_decode($pollQuestionInfo[$id]['responses'], true);
+        $options = json_decode($pollQuestionInfo[$id]['responses'], true, 512, JSON_UNESCAPED_UNICODE);
         foreach($options['options'] as $key=>$value) {
             $itemTitle = $value['id'] == 6 ? (string)$value['title'] : (string)$value['id'];
             $callbackData = array(
@@ -737,7 +737,7 @@ class keyboards {
             );
             $replyItem = array(
                 "text" => $itemTitle,
-                "callback_data" => json_encode($callbackData)
+                "callback_data" => json_encode($callbackData, JSON_UNESCAPED_UNICODE)
             );
             if ($value['id'] < 6) {
                 array_push($replyList, $replyItem);
@@ -757,7 +757,7 @@ class keyboards {
     function getInlineKeyboardForAskADmsPollQuestionWithMultipleChoose($pollInfo, $pollQuestionInfo) {
         $replyList = array();
         $id = $pollInfo['poll_state'];
-        $options = json_decode($pollQuestionInfo[$id]['responses'], true);
+        $options = json_decode($pollQuestionInfo[$id]['responses'], true, 512, JSON_UNESCAPED_UNICODE);
         $nextButtonText = $pollQuestionInfo[$id]['question_id'] >= array_count_values(array_column($pollQuestionInfo, 'question_id')) ? "Завершить" : "Продолжить";
         $nextButtonCallbackData =  $pollQuestionInfo[$id]['question_id'] >= array_count_values(array_column($pollQuestionInfo, 'question_id')) ? 'finishDmsPoll' : 'nextDmsPollOption';
         foreach($options['options'] as $key=>$value) {
