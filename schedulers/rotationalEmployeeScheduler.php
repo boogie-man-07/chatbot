@@ -21,7 +21,9 @@ $access->connect();
 $rotationalWorkersListFromDb = $access->getRotationalWorkersListFromDb();
 $access->disconnect();
 
-$offset = "0";
+sendMessage('5389293300', 'Hello', null); exit;
+
+/*$offset = "0";
 $currentTimestamp = strtotime(date('d.m.Y'));
 $desiredTimestamp = strtotime('+ 3 days', $currentTimestamp);
 $desiredDate = date('d.m.Y', $desiredTimestamp);
@@ -39,17 +41,17 @@ foreach ($rotationalWorkersListFromDb as $rotationalWorkerFromDb) {
                 $targetDay = $value['isWorkingDay'] ? true : false;
                 $previousDay = $rotationalWorkerInfo['daysList'][$key - 1]['isWorkingDay'] ? true : false;
                 if ($targetDay && !$previousDay) {
-                    echo "Для работника ".$rotationalWorkerFromDb['fullname']." день ".$desiredDate." является днем начала ближайшей вахты, необходимо отправить уведомление для tg_chat_id: ".$rotationalWorkerFromDb['tg_chat_id']."<br><br>";
+                    echo "Для работника ".$rotationalWorkerFromDb['fullname']." день ".$desiredDate." является днем начала ближайшей вахты, необходимо отпр>
                     sendMessage($rotationalWorkerFromDb['tg_chat_id'], $message, null);
                     sendMessage('5389293300', "Для пользователя ".$rotationalWorkerFromDb['fullname']." ушло следующее напоминание: <br>".$message, null);
                     sleep(5);
                 } else {
-                    echo "Для работника ".$rotationalWorkerFromDb['fullname']." день ".$desiredDate." не является днем начала ближайшей вахты, отправлять уведомление для telegramId: ".$rotationalWorkerFromDb['tg_chat_id']." не нужно.<br><br>";
+                    echo "Для работника ".$rotationalWorkerFromDb['fullname']." день ".$desiredDate." не является днем начала ближайшей вахты, отправлять у>
                 }
             }
         }
     }
-}
+}*/
 
 function sendMessage($chatID, $text, $keyboard) {
   $url = $GLOBALS[website]."/sendMessage?chat_id=$chatID&parse_mode=HTML&text=".urlencode($text)."&reply_markup=".$keyboard;

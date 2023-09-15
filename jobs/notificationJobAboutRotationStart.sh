@@ -1,3 +1,3 @@
 #!/bin/bash
-cd /var/www/sigmabot.ddns.net/chatbot/schedulers/
+cd /var/www/sigmabot.ddns.net/tstchatbot/chatbot/schedulers/
 php rotationalEmployeeScheduler.php
