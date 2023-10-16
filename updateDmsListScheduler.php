@@ -60,11 +60,11 @@ if ($err) {
             );
             array_push($dmsEmployeeList, $userItem);
         }
-        // Убираем Еремину из процесса (прибито гвоздями)
-        $excluded = "Еремина Елена Анатольевна";
-        $dmsEmployeeList = array_filter($dmsEmployeeList, function ($value) use ($excluded) {
-            return ($value["fullname"] != $excluded);
-        });
+        # Убираем Еремину из процесса (прибито гвоздями)
+//         $excluded = "Еремина Елена Анатольевна";
+//         $dmsEmployeeList = array_filter($dmsEmployeeList, function ($value) use ($excluded) {
+//             return ($value["fullname"] != $excluded);
+//         });
     } else {
         $logs->dmsLogUpload("File for upload is bad");
         exit;
