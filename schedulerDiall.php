@@ -99,11 +99,11 @@ if ($err) {
             );
             array_push($employeeList, $userItem);
         }
-        // Убираем Еремину из процесса (прибито гвоздями)
-        $excluded = "Еремина Елена Анатольевна";
-        $employeeList = array_filter($employeeList, function ($value) use ($excluded) {
-            return ($value["fullname"] != $excluded);
-        });
+        # Убираем Еремину из процесса (прибито гвоздями)
+//         $excluded = "Еремина Елена Анатольевна";
+//         $employeeList = array_filter($employeeList, function ($value) use ($excluded) {
+//             return ($value["fullname"] != $excluded);
+//         });
     } else {
         $logs->logUpload("File for upload is bad", null);
         exit;
