@@ -105,13 +105,22 @@ class HrLinkApiProvider {
                         }
                     }
                 } else {
-                    return "Не нормально 2";
+                    return array(
+                        'result' => false,
+                        'message' => 'Недостаточно данных о работнике в ERP'
+                    );
                 }
             } else {
-                return "Не нормально 3";
+                return array(
+                    'result' => false,
+                    'message' => 'Не удалось авторизовать запрос в hrlink'
+                );
             }
         } else {
-            return "Не нормально 4";
+            return array(
+                'result' => false,
+                'message' => 'Извините, но что-то пошло не так, попробуйте повторить позднее.'
+            );
         }
     }
 
@@ -219,13 +228,22 @@ class HrLinkApiProvider {
                         }
                     }
                 } else {
-                    return "Не нормально 1";
+                    return array(
+                        'result' => false,
+                        'message' => 'Недостаточно данных о работнике в ERP'
+                    );
                 }
             } else {
-                return "Не нормально 2";
+                return array(
+                    'result' => false,
+                    'message' => 'Не удалось авторизовать запрос в hrlink'
+                );
             }
         } else {
-            return "Не нормально 3";
+            return array(
+                'result' => false,
+                'message' => 'Извините, но что-то пошло не так, попробуйте повторить позднее.'
+            );
         }
     }
 
@@ -328,13 +346,22 @@ class HrLinkApiProvider {
                         }
                     }
                 } else {
-                    return "Не нормально 1";
+                    return array(
+                        'result' => false,
+                        'message' => 'Недостаточно данных о работнике в ERP'
+                    );
                 }
             } else {
-                return "Не нормально 2";
+                return array(
+                    'result' => false,
+                    'message' => 'Не удалось авторизовать запрос в hrlink'
+                );
             }
         } else {
-            return "Не нормально 3";
+            return array(
+                'result' => false,
+                'message' => 'Извините, но что-то пошло не так, попробуйте повторить позднее.'
+            );
         }
     }
 
