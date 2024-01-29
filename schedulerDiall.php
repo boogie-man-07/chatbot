@@ -95,7 +95,8 @@ if ($err) {
                 'boss_position' => $user['head_position'],
                 'main_holliday_counter' => $holiday_main,
                 'additional_holliday_counter' => $holiday_more,
-                'activity' => $user['activity']
+                'activity' => $user['activity'],
+                'state' => $user['state']
             );
             array_push($employeeList, $userItem);
         }
@@ -146,7 +147,8 @@ foreach ($employeeList as $employeeValue) {
                     $employeeValue['boss_position'],
                     $employeeValue['main_holliday_counter'],
                     $employeeValue['additional_holliday_counter'],
-                    $employeeValue['userId']
+                    $employeeValue['userId'],
+                    $employeeValue['state']
                 );
 
                 $logs->logUpload($employeeValue['email']." сотрудник офиса существует и в файле, и в БД, обновляем в БД", $employeeValue['email']);
@@ -177,7 +179,8 @@ foreach ($employeeList as $employeeValue) {
                     $employeeValue['boss_position'],
                     $employeeValue['main_holliday_counter'],
                     $employeeValue['additional_holliday_counter'],
-                    $employeeValue['userId']
+                    $employeeValue['userId'],
+                    $employeeValue['state']
                 );
 
                 $logs->logUpload($employeeValue['mobile_number']." рабочий существует в файле и существует в БД. Обновляем в БД по мобильному.", $employeeValue['mobile_number']);
@@ -216,7 +219,8 @@ foreach ($employeeList as $employeeValue) {
                     $employeeValue['boss'],
                     $employeeValue['boss_position'],
                     $employeeValue['main_holliday_counter'],
-                    $employeeValue['additional_holliday_counter']
+                    $employeeValue['additional_holliday_counter'],
+                    $employeeValue['state']
                 );
 
                 $logs->logUpload($employeeValue['email']." сотрудник существует в файле, но отсутствует в БД, добавляем в БД", $employeeValue['email']);
@@ -247,7 +251,8 @@ foreach ($employeeList as $employeeValue) {
                     $employeeValue['boss'],
                     $employeeValue['boss_position'],
                     $employeeValue['main_holliday_counter'],
-                    $employeeValue['additional_holliday_counter']
+                    $employeeValue['additional_holliday_counter'],
+                    $employeeValue['state']
                 );
 
                 $logs->logUpload($employeeValue['mobile_number']." рабочий существует в файле, но отсутствует в БД. Добавляем в БД по мобильному.", $employeeValue['mobile_number']);
