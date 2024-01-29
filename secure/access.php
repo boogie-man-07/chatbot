@@ -1349,7 +1349,7 @@ class access {
         }
 
         // bind parameters to sql statement
-        $statement->bind_param("sssssssssssssiiiiiisssssi", $physicalId, $firstname, $lastname, $fullname, $form_fullname, $position, $form_position, $dept, $email, $office_number, $internal_number, $mobile_number, $company_name, $company_id, $is_employee, $isRotational, $is_sigma_available, $is_greenhouse_available, $is_diall_available, $direct_boss, $boss, $boss_position, $main_holliday_counter, $additional_holliday_counter, $state);
+        $statement->bind_param("sssssssssssssiiiiiissssss", $physicalId, $firstname, $lastname, $fullname, $form_fullname, $position, $form_position, $dept, $email, $office_number, $internal_number, $mobile_number, $company_name, $company_id, $is_employee, $isRotational, $is_sigma_available, $is_greenhouse_available, $is_diall_available, $direct_boss, $boss, $boss_position, $main_holliday_counter, $additional_holliday_counter, $state);
 
         // launch/execute and store feedback to returnValue
         $returnValue = $statement->execute();
@@ -1370,7 +1370,7 @@ class access {
         }
 
         // bind parameters to sql statement
-        $statement->bind_param("ssssssssssssssiiiiiisssssi", $userId, $physicalId, $lastname, $firstname, $fullname, $form_fullname, $position, $form_position, $dept, $email, $office_number, $internal_number, $mobile_number, $company_name, $company_id, $is_employee, $isRotational, $is_sigma_available, $is_greenhouse_available, $is_diall_available, $direct_boss, $boss, $boss_position, $main_holliday_counter, $additional_holliday_counter, $state);
+        $statement->bind_param("ssssssssssssssiiiiiissssss", $userId, $physicalId, $lastname, $firstname, $fullname, $form_fullname, $position, $form_position, $dept, $email, $office_number, $internal_number, $mobile_number, $company_name, $company_id, $is_employee, $isRotational, $is_sigma_available, $is_greenhouse_available, $is_diall_available, $direct_boss, $boss, $boss_position, $main_holliday_counter, $additional_holliday_counter, $state);
 
         // launch/execute and store feedback to returnValue
         $returnValue = $statement->execute();
